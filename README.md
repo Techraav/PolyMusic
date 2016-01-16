@@ -5,12 +5,12 @@ Liste des choses à faire :
 PHP : 
 
 - Système d'authentification
-	- Inscription (via Facebook, Twitter, Google, normal...)
-	- Connection
+	- Inscription (Classique ou via Facebook, Twitter, Google+ etc...)
+	- Connexion ...................
 - Professeurs
 - Grade
-- Système de news + d'articles (Une seule table)
-- Contacts (mails)
+- Système de news et d'articles (Une seule table)
+- Contact (mails)
 - Profil utilisateur
 - Groupes
 - Recherche
@@ -30,5 +30,5 @@ JavaScript :
 - Confirmation forms
 - Si autocomplétion pour la recherche : ajax
 
-
-+ Slide (optionnel) (html/css/js)
+Optinnels :
+- Slide (optionnel) (html/css/js)
