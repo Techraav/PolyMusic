@@ -30,4 +30,5 @@ JavaScript :
 - Confirmation forms
 - Si autocomplétion pour la recherche : ajax
 
+
 + Slide (optionnel) (html/css/js)
