@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Events extends Migration
+class Levels extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,12 @@ class Events extends Migration
      */
     public function up()
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('levels', function (Blueprint $table) {
             $table->increments('id');
-            $table->foreign('band')->references('id')->on('bandes');
-            $table->string('location');
-            $table->integer('day');
-            $table->time('start');
-            $table->time('end');
-            $table->text('infos');
             $table->timestamps();
+            $table->integer('level');
+            $table->string('name');
+
         });
     }
 
@@ -31,6 +28,6 @@ class Events extends Migration
      */
     public function down()
     {
-        Schema::drop('events');
+        Schema::drop('levels');
     }
 }
