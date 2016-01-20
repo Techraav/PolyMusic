@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class News extends Model
-{
-    protected $fillable	= [];
-    protected $hidden	= [];
-    protected $table = 'news';
+class News extends Model {
+
+	protected $table = 'news';
+	public $timestamps = true;
+
 }

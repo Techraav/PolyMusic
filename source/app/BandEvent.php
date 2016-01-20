@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Course extends Model {
+class BandEvent extends Model {
 
-	protected $table = 'courses';
+	protected $table = 'band_events';
 	public $timestamps = true;
 
 }
