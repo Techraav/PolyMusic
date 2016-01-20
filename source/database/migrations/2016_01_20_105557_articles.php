@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Bandes extends Migration
+class Articles extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class Bandes extends Migration
      */
     public function up()
     {
-        Schema::create('bandes', function (Blueprint $table) {
+        Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
         });
@@ -25,6 +25,6 @@ class Bandes extends Migration
      */
     public function down()
     {
-        Schema::drop('bandes');
+        Schema::drop('articles');
     }
 }

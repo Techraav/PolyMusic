@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Level extends Migration
+class Departments extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,11 @@ class Level extends Migration
      */
     public function up()
     {
-        Schema::create('level', function (Blueprint $table) {
+        Schema::create('departments', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
-            $table->integer('level');
             $table->string('name');
-
+            $table->string('shortname');
+            $table->timestamps();
         });
     }
 
@@ -28,6 +27,6 @@ class Level extends Migration
      */
     public function down()
     {
-        Schema::drop('level');
+        Schema::drop('departments');
     }
 }
