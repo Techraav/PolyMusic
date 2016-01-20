@@ -8,5 +8,5 @@ class Article extends Model
 {
     protected $fillable	= [];
     protected $hidden	= [];
-    protected $table = '';
+    protected $table = 'articles';
 }
