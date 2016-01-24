@@ -8,6 +8,8 @@ class CreateUsersTeachCoursesTable extends Migration {
 	public function up()
 	{
 		Schema::create('users_teach_courses', function(Blueprint $table) {
+            $table->engine = 'InnoDB';
+
 			$table->timestamps();
 			$table->integer('user_id')->unsigned();
 			$table->integer('course_id')->unsigned();

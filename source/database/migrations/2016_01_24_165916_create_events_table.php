@@ -8,10 +8,12 @@ class CreateEventsTable extends Migration {
 	public function up()
 	{
 		Schema::create('events', function(Blueprint $table) {
+            $table->engine = 'InnoDB';
+
 			$table->increments('id');
 			$table->timestamps();
 			$table->text('location');
-			$table->tinyInteger('day');
+			$table->tinyInteger('day')->unsigned();
 			$table->time('start');
 			$table->time('end');
 			$table->text('infos');

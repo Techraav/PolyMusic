@@ -8,9 +8,11 @@ class CreateAnnouncementsTable extends Migration {
 	public function up()
 	{
 		Schema::create('announcements', function(Blueprint $table) {
+            $table->engine = 'InnoDB';
+
 			$table->increments('id');
 			$table->timestamps();
-			$table->integer('user_id')->unsigned();
+			$table->integer('user_id')->unsigned()->index();
 			$table->string('title', 255);
 			$table->text('content');
 			$table->string('tags', 255);

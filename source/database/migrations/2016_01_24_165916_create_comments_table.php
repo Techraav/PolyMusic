@@ -8,6 +8,8 @@ class CreateCommentsTable extends Migration {
 	public function up()
 	{
 		Schema::create('comments', function(Blueprint $table) {
+            $table->engine = 'InnoDB';
+
 			$table->increments('id');
 			$table->timestamps();
 			$table->integer('answer_to')->unsigned()->default('0');

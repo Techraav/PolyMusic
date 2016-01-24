@@ -8,8 +8,10 @@ class CreateBandEventsTable extends Migration {
 	public function up()
 	{
 		Schema::create('band_events', function(Blueprint $table) {
-			$table->integer('band_id')->unsigned();
-			$table->integer('event_id')->unsigned();
+            $table->engine = 'InnoDB';
+
+			$table->integer('band_id')->unsigned()->index();
+			$table->integer('event_id')->unsigned()->index();
 		});
 	}
 

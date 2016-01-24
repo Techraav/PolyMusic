@@ -8,10 +8,12 @@ class CreateCoursesTable extends Migration {
 	public function up()
 	{
 		Schema::create('courses', function(Blueprint $table) {
+            $table->engine = 'InnoDB';
+
 			$table->increments('id');
 			$table->timestamps();
 			$table->string('name', 255)->unique();
-			$table->tinyInteger('day');
+			$table->tinyInteger('day')->unsigned();
 			$table->time('start');
 			$table->time('end');
 			$table->text('infos');
