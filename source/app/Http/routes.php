@@ -17,20 +17,4 @@ Route::get('/', function()
 });
 
 
-Route::resource('user', 'UserController');
-Route::resource('level', 'LevelController');
-Route::resource('department', 'DepartmentController');
-Route::resource('course', 'CourseController');
-Route::resource('event', 'EventController');
-Route::resource('band', 'BandController');
-Route::resource('news', 'NewsController');
-Route::resource('article', 'ArticleController');
-Route::resource('userteachcourses', 'UserTeachCoursesController');
-Route::resource('student', 'StudentController');
-Route::resource('bandmember', 'BandMemberController');
-Route::resource('bandevent', 'BandEventController');
-Route::resource('announcement', 'AnnouncementController');
-Route::resource('comment', 'CommentController');
-Route::resource('blacklist', 'BlackListController');
-Route::resource('email', 'EmailController');
-Route::resource('image', 'ImageController');
+

@@ -25,11 +25,6 @@ class User extends Model {
 		return $this->hasMany('App\News');
 	}
 
-	public function announcements()
-	{
-		return $this->hasMany('App\User');
-	}
-
 	public function comments()
 	{
 		return $this->hasMany('App\Comment');
@@ -59,5 +54,4 @@ class User extends Model {
 	{
 		return $this->hasMany('App\Announcement');
 	}
-
 }
