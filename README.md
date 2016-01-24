@@ -1,5 +1,7 @@
 # PolyMusic
 
+Schema de la bdd : http://www.laravelsd.com/share/OSXzkR
+
 Liste des choses à faire :
 
 PHP : 
