@@ -2,27 +2,62 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
-{
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+class User extends Model {
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+	protected $table = 'users';
+	public $timestamps = true;
+	protected $fillable = array('email', 'password', 'first_name', 'last_name', 'birth_date', 'phone', 'profil_picture', 'description', 'school_year', 'slug', 'level', 'timestamps');
 
-    protected $table = 'users';
+	public function level()
+	{
+		return $this->belongsTo('Level', 'level');
+	}
+
+	public function articles()
+	{
+		return $this->hasMany('Article');
+	}
+
+	public function news()
+	{
+		return $this->hasMany('App\News');
+	}
+
+	public function announcements()
+	{
+		return $this->hasMany('App\User');
+	}
+
+	public function comments()
+	{
+		return $this->hasMany('App\Comment');
+	}
+
+	public function department()
+	{
+		return $this->belongsTo('App\Department');
+	}
+
+	public function emails_received()
+	{
+		return $this->hasMany('User');
+	}
+
+	public function courses()
+	{
+		return $this->belongsToMany('App\Course');
+	}
+
+	public function bands()
+	{
+		return $this->belongsToMany('App\Band');
+	}
+
+	public function announcements()
+	{
+		return $this->hasMany('App\Announcement');
+	}
+
 }
