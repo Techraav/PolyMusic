@@ -11,7 +11,7 @@
     <link href="{{ URL::asset('/css/bootstrap.min.css')  }}" rel="stylesheet">
   </head>
   <body>
-    <nav class="navbar navbar-default">
+    <nav class="navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -46,8 +46,19 @@
             <li><a href="#">Nous contacter </a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+          @if(Auth::guest())
             <li><a href="{{url('auth/register')}}">Inscription </a></li>
             <li><a href="{{url('auth/login')}}">Connexion </a></li>
+          @else
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-expanded="false">  <span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a></li>
+                <li><a href="#">Mes événements</a></li>
+                <li><a href="{{ url('auth/logout') }}">Déconnexion</a></li>
+              </ul>
+            </li>
+          @endif
           </ul>
         </div>
       </div>
@@ -56,7 +67,13 @@
 <div class="row">
   <div class="col-md-9">
   <div class="container">
-    @include('flash::message')
+    @if (Session::has('flash_notification.message'))
+    <div class="alert alert-{{ Session::get('flash_notification.level') }}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+
+        {{ Session::get('flash_notification.message') }}
+    </div>
+@endif
     @yield('content')
   </div>
   </div>
@@ -93,113 +110,36 @@
             position:relative;
             padding-top:10px;
         }
+
         .row{
             margin:0 !important;
         }
-        .alert{
-          opacity:0.7;
-        }
+
         body{
           padding-bottom:0px !important;
         }
-        a.videoLink{
-          font-weight:bold;
-          text-decoration:none !important;
-          margin-left:15px;
-        }
-        a.videoLink:hover{
-          text-decoration:underline !important;
-        }
-        .likedislike{
-          text-decoration:none !important;
-          color:gray;
-          transition:all 0.1s ease-in-out;
-          -moz-transition:all 0.1s ease-in-out;
-          -webkit-transition:all 0.1s ease-in-out;
-          font-size:22px !important;
-        }
-        .like:hover, .liked, .validated, .validate:hover{
-          color:#2C7F2C !important;
-          font-weight:bold;
-        }
-        .dislike:hover, .disliked, .unvalidated, .unvalidate:hover{
-          color:#B93A3A !important;
-          font-weight:bold;
-        }
-        .likeForm button, .validation button, .glyphicon{
-          background:none;
-          border:none;
-          width:30px;
-        }
-        .musicTable{
-          overflow:auto;
-        }
-        .validation button{
-          width:33px;
-          color: #AFAEAE;
-          font-size:26px !important;
-        }
+
         .glyphicon{
           -webkit-transition: all 0.1s ease-in-out;
           -moz-transition: all 0.1s ease-in-out;
           transition: all 0.1s ease-in-out;
         }
-        .controls{
-          font-size:18px;
-          margin:-5px;
-          color:gray;
+
+        .glyphicon-user{
+          font-size:20px
         }
-        .controls:hover{
-          color:inherit;
+
+        .jumbotron>h1{
+          margin-top:-20px;
+          margin-bottom:30px;
         }
-        .mindNumber{
-          font-size:11px;
-          color:gray;
-          margin-left:-5px;
+
+        form>.buttons button{
+          width:48.5%;
         }
-        .playOn{
-          color:inherit !important;
-        }
-        .selectedLine{
-          background-color:#D4DFE8 !important;
-        }
-        tr{
-          transition: background-color 0.3s ease-in-out;
-          -webkit-transition: background-color 0.3s ease-in-out;
-          -moz-transition: background-color 0.3s ease-in-out;
-        }
-        table .orderBar a{
-          display:block;
-          text-decoration:none !important;
-          color: #2C3E50;
-        }
-        table .orderBar td:hover{
-          background-color:rgb(212, 223, 232);
-        }
-        table .orderBar td{
-          height:30px;
-          max-width:150px;
-          transition: all 0.2s ease-in-out;
-          -webkit-transition: all 0.2s ease-in-out;
-          -moz-transition: all 0.2s ease-in-out;
-        }
-        td{
-          vertical-align: middle !important;
-        }
-        .orderBar .glyphicon{
-          display:none;
-          font-size:12px;
-          transition: all 0.3s ease-in-out;
-          -webkit-transition: all 0.3s ease-in-out;
-          -moz-transition: all 0.3s ease-in-out;
-          opacity:0.9;
-        }
-        .orderBar td:hover .glyphicon{
-          display:inline;
-        }
-        .mind, .validation{
-          display:inline;
-        }
+
+
+
     </style>
     <script src="{{ URL::asset('/js/jquery.js')  }}"></script>
     @yield('js') 

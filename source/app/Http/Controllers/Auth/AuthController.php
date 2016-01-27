@@ -8,6 +8,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
+use Laracasts\Flash\Flash;
 use App\Department;
 
 class AuthController extends Controller
@@ -39,7 +43,6 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'logout']);
     }
 
     /**
@@ -55,7 +58,8 @@ class AuthController extends Controller
             'last_name'  => 'required|max:255',
             'email'      => 'required|email|max:255|unique:users',
             'password'   => 'required|confirmed|min:6',
-            'birth_date' => 'required',
+            'birth_date' => 'required|date',
+            'department' => 'required',
             'school_year'=> 'required',
         ]);
     }
@@ -74,7 +78,7 @@ class AuthController extends Controller
             'email'         => $data['email'],
             'birth_date'    => $data['birth_date'],
             'school_year'   => $data['school_year'],
-            'department'    => $data['department'],
+            'department_id' => $data['department'],
             'password'      => bcrypt($data['password']),
         ]);
     }
@@ -90,9 +94,9 @@ class AuthController extends Controller
         return view('auth.register', compact('departments'));
     }
 
-    public function register(Request $request)
+    public function register()
     {
-        $validation = $this->validator($request->all());
+        $validation = $this->validator(Input::all());
 
         if($validation->fails())
         {
@@ -100,7 +104,7 @@ class AuthController extends Controller
             return redirect('auth/register')->withErrors($validation->errors());
         }
 
-        $user = $this->create($request->all());
+        $user = $this->create(Input::all());
 
         Auth::login($user);
 
@@ -120,6 +124,24 @@ class AuthController extends Controller
 
         Flash:success('Bienvenue '.$user->first_name . ' !');
         return redirect('/');
+    }
 
+    public function login()
+    {
+        
+        if (Auth::attempt(['email' => Input::get('email'), 'password' => Input::get('password')]))
+        {
+            Flash::success('Vous êtes maintenant connecté');
+            return redirect('/');
+        }
+
+        Flash::error('Impossible de vous connecter.');
+        return Redirect::back();
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/');
     }
 }
