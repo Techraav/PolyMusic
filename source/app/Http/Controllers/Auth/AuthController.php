@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Support\Facades\Request;
+use App\Department;
 
 class AuthController extends Controller
 {
@@ -86,7 +87,6 @@ class AuthController extends Controller
     public function getRegister()
     {
         $departments = Department::all();
-
         return view('auth.register', compact('departments'));
     }
 
@@ -100,7 +100,7 @@ class AuthController extends Controller
             return redirect('auth/register')->withErrors($validation->errors());
         }
 
-        $user = $this->create($request->all())
+        $user = $this->create($request->all());
 
         Auth::login($user);
 
@@ -119,8 +119,7 @@ class AuthController extends Controller
             ]);
 
         Flash:success('Bienvenue '.$user->first_name . ' !');
-        return redirect('/')
-
+        return redirect('/');
 
     }
 }

@@ -16,9 +16,9 @@ Route::get('/', function()
 	return View::make('welcome');
 });
 
-Route::get('auth/login', ['as' => 'login', 'uses' => 'Auth/AuthController@getLogin'])->middleware('guest');
-Route::get('auth/register', ['as' => 'register', 'uses' => 'Auth/AuthController@getRegister'])->middleware('guest');
-Route::get('auth/logout', ['as' => 'logout', 'uses' => 'Auth/AuthController@logout'])->middleware('auth');
+Route::get('auth/login', ['as' => 'login', 'uses' => 'Auth\AuthController@getLogin'])->middleware('guest');
+Route::get('auth/register', ['as' => 'register', 'uses' => 'Auth\AuthController@getRegister'])->middleware('guest');
+Route::get('auth/logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@logout'])->middleware('auth');
 
-Route::post('auth/login', ['as' => 'login', 'uses' => 'Auth/AuthController@login'])->middleware('guest');
-Route::post('auth/register', ['as' => 'register', 'uses' => 'Auth/AuthController@register'])->middleware('guest');
+Route::post('auth/login', ['as' => 'login', 'uses' => 'Auth\AuthController@login'])->middleware('guest');
+Route::post('auth/register', ['as' => 'register', 'uses' => 'Auth\AuthController@register'])->middleware('guest');
