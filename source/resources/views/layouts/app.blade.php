@@ -1,82 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <title>PolyMusic | @section('title') Accueil @show </title>
+    <!-- Bootstrap CSS served from a CDN -->
+    {{-- <link href="https://bootswatch.com/flatly/bootstrap.min.css" rel="stylesheet"> --}}
+    <link href="{{ URL::asset('/css/bootstrap.min.css')  }}" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">PolyMusic</a>
+        </div>
 
-    <title>Laravel</title>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="#">Acceuil </a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Les cours <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Présentation</a></li>
+                <li><a href="#">Guitare</a></li>
+                <li><a href="#">Piano</a></li>
+                <li><a href="#">Basse</a></li>
+              </ul>
+            </li>
+            <li><a href="#">Nos professeurs </a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Nous rejoindre <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Professeur</a></li>
+                <li><a href="#">Élève</a></li>
+              </ul>
+            </li>
+            <li><a href="#">Nous contacter </a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{url('auth/register')}}">Inscription </a></li>
+            <li><a href="{{url('auth/login')}}">Connexion </a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <br />
+<div class="row">
+  <div class="col-md-9">
+  <div class="container">
+    @include('flash::message')
+    @yield('content')
+  </div>
+  </div>
+    {{-- SIDEBAR --}}
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Welcome message
+            </div>
+            <ul class="list-group">
+            
+            </ul>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Lastest news
+            </div>
+            <ul class="list-group">
+            
+            </ul>
+        </div>
+    </div>
+</div>
 
-    <!-- Fonts -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
-
-    <!-- Styles -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
-
-    <style>
-        body {
-            font-family: 'Lato';
+    <footer class="footer">
+        <div class="container">
+        </div>
+    </footer>
+    <style type="text/css">
+        .footer{
+            height: 75px;
+            background-color :rgb(44, 62, 79);
+            border-top: 10px solid rgb(74, 92, 109);
+            position:relative;
+            padding-top:10px;
         }
-
-        .fa-btn {
-            margin-right: 6px;
+        .row{
+            margin:0 !important;
+        }
+        .alert{
+          opacity:0.7;
+        }
+        body{
+          padding-bottom:0px !important;
+        }
+        a.videoLink{
+          font-weight:bold;
+          text-decoration:none !important;
+          margin-left:15px;
+        }
+        a.videoLink:hover{
+          text-decoration:underline !important;
+        }
+        .likedislike{
+          text-decoration:none !important;
+          color:gray;
+          transition:all 0.1s ease-in-out;
+          -moz-transition:all 0.1s ease-in-out;
+          -webkit-transition:all 0.1s ease-in-out;
+          font-size:22px !important;
+        }
+        .like:hover, .liked, .validated, .validate:hover{
+          color:#2C7F2C !important;
+          font-weight:bold;
+        }
+        .dislike:hover, .disliked, .unvalidated, .unvalidate:hover{
+          color:#B93A3A !important;
+          font-weight:bold;
+        }
+        .likeForm button, .validation button, .glyphicon{
+          background:none;
+          border:none;
+          width:30px;
+        }
+        .musicTable{
+          overflow:auto;
+        }
+        .validation button{
+          width:33px;
+          color: #AFAEAE;
+          font-size:26px !important;
+        }
+        .glyphicon{
+          -webkit-transition: all 0.1s ease-in-out;
+          -moz-transition: all 0.1s ease-in-out;
+          transition: all 0.1s ease-in-out;
+        }
+        .controls{
+          font-size:18px;
+          margin:-5px;
+          color:gray;
+        }
+        .controls:hover{
+          color:inherit;
+        }
+        .mindNumber{
+          font-size:11px;
+          color:gray;
+          margin-left:-5px;
+        }
+        .playOn{
+          color:inherit !important;
+        }
+        .selectedLine{
+          background-color:#D4DFE8 !important;
+        }
+        tr{
+          transition: background-color 0.3s ease-in-out;
+          -webkit-transition: background-color 0.3s ease-in-out;
+          -moz-transition: background-color 0.3s ease-in-out;
+        }
+        table .orderBar a{
+          display:block;
+          text-decoration:none !important;
+          color: #2C3E50;
+        }
+        table .orderBar td:hover{
+          background-color:rgb(212, 223, 232);
+        }
+        table .orderBar td{
+          height:30px;
+          max-width:150px;
+          transition: all 0.2s ease-in-out;
+          -webkit-transition: all 0.2s ease-in-out;
+          -moz-transition: all 0.2s ease-in-out;
+        }
+        td{
+          vertical-align: middle !important;
+        }
+        .orderBar .glyphicon{
+          display:none;
+          font-size:12px;
+          transition: all 0.3s ease-in-out;
+          -webkit-transition: all 0.3s ease-in-out;
+          -moz-transition: all 0.3s ease-in-out;
+          opacity:0.9;
+        }
+        .orderBar td:hover .glyphicon{
+          display:inline;
+        }
+        .mind, .validation{
+          display:inline;
         }
     </style>
-</head>
-<body id="app-layout">
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header">
-
-                <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                    <span class="sr-only">Toggle Navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-
-                <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    Laravel
-                </a>
-            </div>
-
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
-                </ul>
-
-                <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
-                    @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
-                        <li><a href="{{ url('/register') }}">Register</a></li>
-                    @else
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
-
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                            </ul>
-                        </li>
-                    @endif
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    @yield('content')
-
-    <!-- JavaScripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
-</body>
+    <script src="{{ URL::asset('/js/jquery.js')  }}"></script>
+    @yield('js') 
+    <script src="{{ URL::asset('/js/bootstrap.min.js')  }}"></script>
+    <script>
+      $('#flash-overlay-modal').modal();
+    </script>
+  </body>
 </html>
