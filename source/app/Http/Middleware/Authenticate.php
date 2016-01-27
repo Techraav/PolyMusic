@@ -18,6 +18,7 @@ class Authenticate
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->guest()) {
+            Flash::error('Vous n\'êtes pas connecté.');
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
