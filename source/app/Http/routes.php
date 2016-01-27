@@ -13,7 +13,7 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	return View::make('welcome');
 });
 
 Route::get('auth/login', ['as' => 'login', 'uses' => 'Auth/AuthController@getLogin'])->middleware('guest');
