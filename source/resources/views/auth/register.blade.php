@@ -7,6 +7,14 @@
         <form class="form-horizontal" role="form" method="POST" action="{{ url('auth/register') }}">
             {!! csrf_field() !!}
 
+                @if($errors->any())
+                    <div class="alert alert-dismissible alert-danger">
+                        @foreach ($errors->all() as $e)
+                            {{ $e }}
+                        @endforeach
+                    </div>
+                @endif
+
             <div class="form-group">
                 <label class="col-md-4 control-label">Prénom</label>
 
