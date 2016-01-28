@@ -16,9 +16,33 @@ Route::get('/', function()
 	return View::make('welcome');
 });
 
-Route::get('auth/login', ['as' => 'login', 'uses' => 'Auth\AuthController@getLogin'])->middleware('guest');
-Route::get('auth/register', ['as' => 'register', 'uses' => 'Auth\AuthController@getRegister'])->middleware('guest');
-Route::get('auth/logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@logout'])->middleware('auth');
+// ____________________________________________________________________________________________________
+//
+//                         					AUTH ROUTES
+// ____________________________________________________________________________________________________
 
-Route::post('auth/login', ['as' => 'login', 'uses' => 'Auth\AuthController@login'])->middleware('guest');
-Route::post('auth/register', ['as' => 'register', 'uses' => 'Auth\AuthController@register'])->middleware('guest');
+Route::get('auth/login', 'Auth\AuthController@getLogin')		->name('login')			->middleware('guest');
+Route::get('auth/register', 'Auth\AuthController@getRegister')  ->name('register')		->middleware('guest');
+Route::get('auth/logout', 'Auth\AuthController@logout')			->name('logout')		->middleware('auth');
+
+Route::post('auth/login', 'Auth\AuthController@login')			->name('login')			->middleware('guest');
+Route::post('auth/register', 'Auth\AuthController@register')	->name('register')		->middleware('guest');
+
+
+// ____________________________________________________________________________________________________
+//
+//                         					NEWS ROUTES
+// ____________________________________________________________________________________________________
+
+Route::get('news', 'NewsController@index')						->name('news.index');
+Route::get('news/{slug}', 'NewsController@show')				->name('news.show');
+Route::get('news/edit/{slug}', 'NewsController@edit')			->name('news.edit') 	->middleware('level');
+Route::get('news/create', 'NewsController@create')				->name('news.create')	->middleware('level');
+Route::get('news/delete/{slug}', 'NewsController@delete')		->name('news.delete')	->middleware('level');
+
+Route::post('news/create', 'NewsController@store')				->name('news.store')	->middleware('level');
+Route::post('news/edit/{slug}', 'NewsController@update')		->name('news.update')	->middleware('level');
+Route::post('news/delete/{slug}', 'NewsController@destroy')		->name('news.destroy')	->middleware('level');
+
+
+

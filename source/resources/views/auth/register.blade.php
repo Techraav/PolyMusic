@@ -70,7 +70,6 @@
                         @foreach ($departments as $d)
                             <option value="{{ $d['id'] }}"> {{ $d['name'] }} ({{$d['short_name']}})</option>
                         @endforeach
-                        <option value="0">Autre...</option>
                     </select>
                 </div>
             </div>

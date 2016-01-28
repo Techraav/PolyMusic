@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
-class RedirectIfAuthenticated
+class RedirectIfNotAdmin
 {
     /**
      * The Guard implementation.
@@ -30,14 +30,19 @@ class RedirectIfAuthenticated
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
+     * @param   $level_min : continue only if the user has a higher level than $level_min
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $level_min=1)
     {
-        if ($this->auth->check()) {
-            return redirect('/');
+        if ($this->auth->check()) 
+        {
+            if($this->auth->user()->level >= $level_min)
+            {
+                return $next($request);
+            }
         }
 
-        return $next($request);
+        return redirect('/');
     }
 }

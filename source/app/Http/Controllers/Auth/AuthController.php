@@ -116,7 +116,7 @@ class AuthController extends Controller
 
         $id = Auth::user()->id;
 
-        $slug = Auth::user()->first_name.'-'.Auth::user()->last_name.'-'.$id;
+        $slug = strtolower(Auth::user()->first_name).'-'.strtolower(Auth::user()->last_name).'-'.$id;
 
         $user->update([
             'slug' => $slug,
