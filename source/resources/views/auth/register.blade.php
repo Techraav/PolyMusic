@@ -55,10 +55,10 @@
             </div>
 
             <div class="form-group">
-                <label class="col-md-4 control-label" for="department">Département</label>
+                <label class="col-md-4 control-label" for="department_id">Département</label>
 
                 <div class="col-md-6">
-                    <select class="form-control"  name="department">
+                    <select class="form-control"  name="department_id">
                         @foreach ($departments as $d)
                             <option value="{{ $d['id'] }}"> {{ $d['name'] }} ({{$d['short_name']}})</option>
                         @endforeach

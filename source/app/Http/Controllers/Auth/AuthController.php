@@ -59,7 +59,7 @@ class AuthController extends Controller
             'email'      => 'required|email|max:255|unique:users',
             'password'   => 'required|confirmed|min:6',
             'birth_date' => 'required|date',
-            'department' => 'required',
+            'department_id' => 'required',
             'school_year'=> 'required',
         ]);
     }
@@ -78,7 +78,7 @@ class AuthController extends Controller
             'email'         => $data['email'],
             'birth_date'    => $data['birth_date'],
             'school_year'   => $data['school_year'],
-            'department_id' => $data['department'],
+            'department_id' => $data['department_id'],
             'password'      => bcrypt($data['password']),
         ]);
     }
@@ -122,7 +122,7 @@ class AuthController extends Controller
             'slug' => $slug,
             ]);
 
-        Flash:success('Bienvenue '.$user->first_name . ' !');
+        Flash::success('Bienvenue '.$user->first_name . ' !');
         return redirect('/');
     }
 
