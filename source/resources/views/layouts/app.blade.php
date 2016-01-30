@@ -35,7 +35,7 @@
                 <li><a href="#">Basse</a></li>
               </ul>
             </li>
-            <li><a href="{{url('news/create')}}">Nos professeurs </a></li>
+            <li><a href="#">Nos professeurs </a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Nous rejoindre <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
