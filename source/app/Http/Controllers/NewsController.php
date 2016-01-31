@@ -49,7 +49,7 @@ class NewsController extends Controller {
     if(empty($news) || $news->active == 0)
     {
       Flash::error('Cette news n\'existe pas ou a déjà été supprimée.');
-      return redirect('news/index');
+      return redirect('news');
     }
 
     return view('views.delete', compact('news'));
@@ -67,7 +67,7 @@ class NewsController extends Controller {
     if(empty($news) || $news->active == 0)
     {
       Flash::error('Cette news n\'existe pas.');
-      return redirect('news/index');
+      return redirect('news');
     }
 
     return view('news.index', compact('news'));
@@ -81,6 +81,7 @@ class NewsController extends Controller {
    */
   public function edit($slug)
   {
+    dd('oui');
     $news = News::where('slug', $slug)->first();
     if(empty($news) || $news->active == 0)
     {

@@ -12,8 +12,8 @@
 @section('content')
 <div class="container">
     <div class="jumbotron">
-        <h1 align="center">Création d'une nouvelle</h1>
-        <form class="form-horizontal" role="form" method="POST" action="{{ url('news/create') }}">
+        <h1 align="center">Création d'une news</h1>
+        <form class="form-horizontal" role="form" method="post" action="{{ url('news/create') }}">
             {!! csrf_field() !!}
 
             <div class="form-group">
@@ -25,7 +25,7 @@
             </div>
 
             <div class="form-group">
-                <label for="textArea" class="col-md-4 control-label">Contenu de la nouvelle</label>
+                <label for="textArea" class="col-md-4 control-label">Contenu de la news</label>
 
                 <div class="col-md-6">
                     <textarea class="form-control" rows="10" name="content" required></textarea>

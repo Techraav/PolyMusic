@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration {
 			$table->string('profil_picture', 255)->default('base_profil_picture.png');
 			$table->text('description');
 			$table->integer('school_year')->unsigned()->default('0');
-			$table->integer('department_id')->unsigned()->index()->default('0');
+			$table->integer('department_id')->unsigned()->index()->default('1');
 			$table->string('slug', 255);
 			$table->integer('level')->unsigned()->index()->default('0');
 			$table->tinyInteger('banned')->default('0');
