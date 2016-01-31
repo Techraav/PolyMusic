@@ -2,7 +2,7 @@
 
 use App\News;
 use Validator;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
@@ -81,7 +81,6 @@ class NewsController extends Controller {
    */
   public function edit($slug)
   {
-    dd('oui');
     $news = News::where('slug', $slug)->first();
     if(empty($news) || $news->active == 0)
     {
@@ -119,7 +118,7 @@ class NewsController extends Controller {
    */
   public function store(Request $request)
   {
-    $validation = $this->validator($request->all);
+    $validation = $this->validator($request->all());
     if($validation->fails())
     {
       Flash::error('Impossible de créer la news. Veuillez vérifier les champs renseignés.');
@@ -139,7 +138,7 @@ class NewsController extends Controller {
       ]);
 
     Flash::success('La news a bien été créée ! ');
-    return redirect('news/' . $slug);
+    return redirect('news/view/' . $slug);
   }
 
   /**
@@ -168,7 +167,7 @@ class NewsController extends Controller {
       ]);
 
     Flash::success('La news a bien été modifiée ! ');
-    return redirect('news/' . $slug);  
+    return redirect('news/view/' . $slug);  
   }
 
   /**
