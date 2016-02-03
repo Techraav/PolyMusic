@@ -92,7 +92,20 @@
                 Dernières news
             </div>
             <ul class="list-group">
-            
+              @if(isset($news))
+                @forelse($news as $n)
+                <li class="list-group-item">
+                  <p><a href="{{ url('news/view/'.$n['slug'])}}">{{$n['title']}}</a><br/>
+                  <div class="date_news">Créée par <a style="color:inherit" href="{{ url('user/'.App\User::where('id', $n['user_id'])->first()->slug)}}"><b>{{ App\User::where('id', $n['user_id'])->first()->first_name }}</b></a> le {{date_format($n['created_at'], 'd/m/Y')}}</div></p>
+                </li>
+                @empty
+                @endforelse
+              @else
+                  <li class="list-group-item"><p>Il n'y a pas de nouvelles news</p></li>                  
+                @if(Auth::check() && Auth::user()->level >= 1)
+                  <li class="list-group-item"><p><a href="{{ url('news/create') }}">Ajouter une news</a></p></li>
+                @endif
+              @endif
             </ul>
         </div>
     </div>
@@ -103,6 +116,12 @@
         </div>
     </footer>
     <style type="text/css">
+        .date_news{
+            color: grey;
+            text-align: right;
+            font-size: 12px;
+            font-style: italic;
+        }
         .footer{
             height: 75px;
             background-color :rgb(44, 62, 79);
