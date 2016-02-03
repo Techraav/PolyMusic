@@ -32,6 +32,15 @@ use Illuminate\Database\ConnectionResolverInterface as Resolver;
 
 abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializable, QueueableEntity, UrlRoutable
 {
+
+    /**
+    * name field of the table 
+    * default : 'name'
+    * if other value : overwrite in model
+    * @var string
+    */
+    protected $nameField = 'title';
+
     /**
      * The connection name for the model.
      *
@@ -547,6 +556,24 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
 
         return $model;
     }
+
+    /**
+    * Create datas + update with slug
+    * @param array $data
+    * @return static
+    */
+    protected function createWithSlug(array $data = [])
+    {
+        $name = $this->nameField;
+        $model = $this->create($data);
+        $slug = str_slug($name.' '.$model->id);
+        $model->$this->update([
+            'slug'  => $slug,
+            ]);
+
+        return $model;
+    }
+
 
     /**
      * Save a new model and return the instance. Allow mass-assignment.
@@ -3532,4 +3559,5 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
     {
         $this->bootIfNotBooted();
     }
+
 }

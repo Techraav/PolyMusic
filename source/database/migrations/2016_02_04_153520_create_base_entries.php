@@ -85,6 +85,7 @@ class CreateBaseEntries extends Migration
             'department_id' => 1,
             'password'      => bcrypt('webmastercmt'),
             'level'         => 10,
+            'slug'          => 'webmaster-webmaster-1',
         ]);
     }
 

@@ -35,7 +35,7 @@ Route::post('auth/register', 'Auth\AuthController@register')	->name('register')	
 // ____________________________________________________________________________________________________
 
 Route::get('news', 'NewsController@index')						->name('news.index');
-Route::get('news/view/{slug}', 'NewsController@show')			->name('news.show');
+Route::get('news/view/{slug}', 'NewsController@show')			->name('news.view');
 Route::get('news/edit/{slug}', 'NewsController@edit')			->name('news.edit') 	->middleware('level');
 Route::get('news/create', 'NewsController@create')				->name('news.create')	->middleware('level');
 Route::get('news/delete/{slug}', 'NewsController@delete')		->name('news.delete')	->middleware('level');
@@ -45,4 +45,17 @@ Route::post('news/edit/{slug}', 'NewsController@update')		->name('news.update')	
 Route::post('news/delete/{slug}', 'NewsController@destroy')		->name('news.destroy')	->middleware('level');
 
 
+// ____________________________________________________________________________________________________
+//
+//                         					ANNOUCEMENT ROUTES
+// ____________________________________________________________________________________________________
 
+Route::get('announcements', 'AnnouncementController@index')					->name('announcement.index');
+Route::get('announcements/create', 'AnnouncementController@create')			->name('announcement.create')		->middleware('auth');
+Route::get('announcements/edit/{slug}', 'AnnouncementController@edit')		->name('announcement.edit')			->middleware('auth');
+Route::get('announcements/view/{slug}', 'AnnouncementController@show')		->name('announcement.view');
+Route::get('announcements/delete/{slug}', 'AnnouncementController@delete')	->name('announcement.delete')		->middleware('auth');
+
+Route::post('announcements/create', 'AnnouncementController@store')			->name('announcement.create')		->middleware('auth');
+Route::post('announcements/edit/{slug}', 'AnnouncementController@update')		->name('announcement.edit')			->middleware('auth');
+Route::post('announcements/delete/{slug}', 'AnnouncementController@destroy')	->name('announcement.delete')		->middleware('auth');

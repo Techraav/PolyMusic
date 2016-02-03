@@ -106,7 +106,7 @@ class AuthController extends Controller
 
         $user = $this->create(Input::all());
 
-        Auth::login($user);
+        Auth::login($user, true);
 
         if(Auth::guest())
         {
@@ -129,7 +129,7 @@ class AuthController extends Controller
     public function login()
     {
         
-        if (Auth::attempt(['email' => Input::get('email'), 'password' => Input::get('password')]))
+        if (Auth::attempt(['email' => Input::get('email'), 'password' => Input::get('password')], true))
         {
             Flash::success('Vous êtes maintenant connecté');
             return redirect('/');

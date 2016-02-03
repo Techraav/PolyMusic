@@ -17,7 +17,7 @@ class CreateAnnouncementsTable extends Migration {
 			$table->text('content');
 			$table->string('tags', 255);
 			$table->string('slug', 255);
-			$table->tinyInteger('validated')->default('1');
+			$table->tinyInteger('validated')->default('0');
 		});
 	}
 

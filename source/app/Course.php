@@ -9,6 +9,7 @@ class Course extends Model {
 	protected $table = 'courses';
 	public $timestamps = true;
 	protected $fillable = array('timestamps', 'name', 'day', 'start', 'end', 'infos', 'slug', 'instrument');
+	protected $nameField = 'name';
 
 	public function members()
 	{

@@ -9,6 +9,7 @@ class Band extends Model {
 	protected $table = 'bands';
 	public $timestamps = true;
 	protected $fillable = array('timestamps', 'name', 'image', 'infos', 'user_id', 'validated', 'slug');
+	protected $nameField = 'name';
 
 	public function members()
 	{

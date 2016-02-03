@@ -9,6 +9,7 @@ class Level extends Model {
 	protected $table = 'levels';
 	public $timestamps = true;
 	protected $fillable = array('timestamps', 'level', 'name', 'infos');
+	protected $nameField = 'name';
 
 	public function users()
 	{

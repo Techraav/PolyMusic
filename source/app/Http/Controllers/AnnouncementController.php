@@ -1,6 +1,22 @@
 <?php namespace App\Http\Controllers;
 
+use App\Announcement;
+use App\Comment;
+use Validator;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
+use Laracasts\Flash\Flash;
+
+
 class AnnouncementController extends Controller {
+
+
+
+// ____________________________________________________________________________________________________
+//
+//                                             GET
+// ____________________________________________________________________________________________________
 
   /**
    * Display a listing of the resource.
@@ -9,7 +25,8 @@ class AnnouncementController extends Controller {
    */
   public function index()
   {
-    
+    $announcements = Announcement::where('validated', 1)->first();
+    return view('announcements.index', compact('announcement'));
   }
 
   /**
@@ -19,39 +36,65 @@ class AnnouncementController extends Controller {
    */
   public function create()
   {
-    
+    return view('announcementscreate');
   }
+
+  /**
+   * Display the specified resource.
+   *
+   * @param  int  $slug
+   * @return Response
+   */
+  public function show($slug)
+  {
+    $announcement = Announcement::where('slug', $slug)->where('validated', 1)->first();
+    $comments = Comment::where('announcement_id', $announcement->id)->get();
+    return view('announcements.show', compact('announcement', 'comments'));
+  }
+
+  /**
+   * Show the form for editing the specified resource.
+   *
+   * @param  int  $slug
+   * @return Response
+   */
+  public function edit($slug)
+  {
+    $announcement = Announcement::where('slug', $slug)->first();
+    return view('announcements.edit', compact('announcement'));
+  }
+
+
+// ____________________________________________________________________________________________________
+//
+//                                             POST
+// ____________________________________________________________________________________________________
+
 
   /**
    * Store a newly created resource in storage.
    *
    * @return Response
    */
-  public function store()
+  public function store(Request $request)
   {
-    
-  }
+    $validation = $this->validator($request->all());
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id)
-  {
-    
-  }
+    if($validator->fails())
+    {
+      Flash::error('Impossible de créer l\'annonce');
+      return Redirect::back()->withErrors($validation->errors());
+    }
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function edit($id)
-  {
-    
+    $announcement = createWithSlug([
+      'user_id'   => Auth::user()->id,
+      'title'     => $request->title,
+      'content'   => $request->content,
+      ]);
+
+    Flash::success('Votre annonce a bien été créée');
+    return redirect('announcement/view/'.$announcement->slug);
+
   }
 
   /**
@@ -60,9 +103,27 @@ class AnnouncementController extends Controller {
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update($slug)
   {
-    
+    $validation = $this->validator($request->all);
+    if($validation->fails())
+    {
+      Flash::error('Impossible de modifier l\'annonce. Veuillez vérifier les champs renseignés.');
+      return Redirect::back()->withErrors($validation->errors());
+    }
+    $annonce = Announcement::where('slug', $slug)->first();
+
+    $slug = str_slug($request->title . '-' . $news->id);
+
+    $annonce = Announcement::update([
+      'title'   => $request->title,
+      'content' => $request->content,
+      'user_id' => Auth::user()->id,
+      'slug' => $slug,
+      ]);
+
+    Flash::success('L\'annonce a bien été modifiée ! ');
+    return redirect('announcement/view/' . $slug);  
   }
 
   /**
@@ -71,10 +132,26 @@ class AnnouncementController extends Controller {
    * @param  int  $id
    * @return Response
    */
-  public function destroy($id)
+  public function destroy($slug)
   {
-    
+    Announcement::where('slug', $slug)->first()->delete();
+    Flash::success('L\'annonce a bien été supprimée.');
+    return redirect('announcement');
   }
+
+// ____________________________________________________________________________________________________
+//
+//                                             HELPERS
+// ____________________________________________________________________________________________________
+
+  protected function validator($data)
+  {
+    return Validator::make($data, [
+      'title' => 'required|min:6|max:255',
+      'content' => 'required|min:6',
+      ]);
+  }
+
   
 }
 
