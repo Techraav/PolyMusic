@@ -14,8 +14,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $news = News::where('active', 1)->orderBy('id', 'desc')->limit(10)->get();
-        view()->share(compact('news'));
+        //$news = News::where('active', 1)->orderBy('id', 'desc')->limit(10)->get();
+        //view()->share(compact('news'));
     }
 
     /**
