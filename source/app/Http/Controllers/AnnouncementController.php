@@ -36,7 +36,7 @@ class AnnouncementController extends Controller {
    */
   public function create()
   {
-    return view('announcementscreate');
+    return view('announcements.create');
   }
 
   /**
@@ -48,6 +48,12 @@ class AnnouncementController extends Controller {
   public function show($slug)
   {
     $announcement = Announcement::where('slug', $slug)->where('validated', 1)->first();
+    if(empty($announcement))
+    {
+      Flash::error('Cette annonce n\'existe pas !');
+      return view('errors.404');
+    }
+
     $comments = Comment::where('announcement_id', $announcement->id)->get();
     return view('announcements.show', compact('announcement', 'comments'));
   }
@@ -61,7 +67,25 @@ class AnnouncementController extends Controller {
   public function edit($slug)
   {
     $announcement = Announcement::where('slug', $slug)->first();
+    if(empty($announcement))
+    {
+      Flash::error('Cette annonce n\'existe pas !');
+      return view('errors.404');
+    }
+
     return view('announcements.edit', compact('announcement'));
+  }
+
+  public function delete($slug)
+  {
+    $announcement = Announcement::where('slug', $slug)->first();
+    if(empty($announcement))
+    {
+      Flash::error('Cette annonce n\'existe pas !');
+      return view('errors.404');
+    }
+
+    return view('announcements.delete', compact('announcement'));
   }
 
 

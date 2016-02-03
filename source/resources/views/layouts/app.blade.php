@@ -67,13 +67,7 @@
 <div class="row">
   <div class="col-md-9">
   <div class="container">
-    @if (Session::has('flash_notification.message'))
-    <div class="alert alert-{{ Session::get('flash_notification.level') }}">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-
-        {{ Session::get('flash_notification.message') }}
-    </div>
-@endif
+    @include('flash::message')
     @yield('content')
   </div>
   </div>
@@ -101,7 +95,7 @@
                 @empty
                 @endforelse
               @else
-                  <li class="list-group-item"><p>Il n'y a pas de nouvelles news</p></li>                  
+                  <li class="list-group-item"><p>Pas de news pour le moment.</p></li>                  
                 @if(Auth::check() && Auth::user()->level >= 1)
                   <li class="list-group-item"><p><a href="{{ url('news/create') }}">Ajouter une news</a></p></li>
                 @endif
@@ -117,7 +111,7 @@
     </footer>
     <style type="text/css">
         .date_news{
-            color: grey;
+            color: gray;
             text-align: right;
             font-size: 12px;
             font-style: italic;

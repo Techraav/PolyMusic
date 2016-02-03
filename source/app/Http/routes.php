@@ -56,6 +56,21 @@ Route::get('announcements/edit/{slug}', 'AnnouncementController@edit')		->name('
 Route::get('announcements/view/{slug}', 'AnnouncementController@show')		->name('announcement.view');
 Route::get('announcements/delete/{slug}', 'AnnouncementController@delete')	->name('announcement.delete')		->middleware('auth');
 
+
 Route::post('announcements/create', 'AnnouncementController@store')			->name('announcement.create')		->middleware('auth');
-Route::post('announcements/edit/{slug}', 'AnnouncementController@update')		->name('announcement.edit')			->middleware('auth');
-Route::post('announcements/delete/{slug}', 'AnnouncementController@destroy')	->name('announcement.delete')		->middleware('auth');
+Route::post('announcements/edit/{slug}', 'AnnouncementController@update')	->name('announcement.edit')			->middleware('auth');
+Route::post('announcements/delete/{slug}', 'AnnouncementController@destroy')->name('announcement.delete')		->middleware('auth');
+
+
+
+// ____________________________________________________________________________________________________
+//
+//                         				ADMIN BACKOFFICE ROUTES
+// ____________________________________________________________________________________________________
+
+Route::group(['prefix' => 'admin', 'middleware' => 'level:1'], function(){
+	Route::get('test', function()
+	{
+		return 'coucou';
+	});
+});
