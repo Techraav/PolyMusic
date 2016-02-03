@@ -4,8 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use Laracasts\Flash\Flash;
 
-class RedirectIfNotAdmin
+
+class RedirectIfLowerLevel
 {
     /**
      * The Guard implementation.
@@ -43,6 +45,7 @@ class RedirectIfNotAdmin
             }
         }
 
+        Flash::error('Vous n\'avez pas les droits suffisants pour ceci.');
         return redirect('/');
     }
 }

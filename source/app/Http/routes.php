@@ -35,7 +35,7 @@ Route::post('auth/register', 'Auth\AuthController@register')	->name('register')	
 // ____________________________________________________________________________________________________
 
 Route::get('news', 'NewsController@index')						->name('news.index');
-Route::get('news/{slug}', 'NewsController@show')				->name('news.show');
+Route::get('news/view/{slug}', 'NewsController@show')			->name('news.show');
 Route::get('news/edit/{slug}', 'NewsController@edit')			->name('news.edit') 	->middleware('level');
 Route::get('news/create', 'NewsController@create')				->name('news.create')	->middleware('level');
 Route::get('news/delete/{slug}', 'NewsController@delete')		->name('news.delete')	->middleware('level');

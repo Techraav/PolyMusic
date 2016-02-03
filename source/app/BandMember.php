@@ -10,4 +10,9 @@ class BandMember extends Model {
 	public $timestamps = false;
 	protected $fillable = array('user_id', 'band_id', 'instrument');
 
+	public function instrument()
+	{
+		return $this->hasOne('Instrument');
+	}
+
 }

@@ -18,6 +18,7 @@ class CreateCoursesTable extends Migration {
 			$table->time('end');
 			$table->text('infos');
 			$table->string('slug', 255);
+			$table->integer('instrument')->index()->unsigned();
 		});
 	}
 

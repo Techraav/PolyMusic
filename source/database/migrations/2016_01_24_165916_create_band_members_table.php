@@ -10,9 +10,9 @@ class CreateBandMembersTable extends Migration {
 		Schema::create('band_members', function(Blueprint $table) {
             $table->engine = 'InnoDB';
             
-			$table->integer('user_id')->unsigned()->index();
-			$table->integer('band_id')->unsigned()->index();
-			$table->string('instrument', 255);
+			$table->integer('user_id')->unsigned();
+			$table->integer('band_id')->unsigned();
+			$table->integer('instrument')->unsigned();
 		});
 	}
 

@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+<<<<<<< HEAD
     'App\\Announcement' => $baseDir . '/app/Announcement.php',
     'App\\Article' => $baseDir . '/app/Article.php',
     'App\\Band' => $baseDir . '/app/Band.php',
@@ -76,11 +77,17 @@ return array(
     'ClassPreloader\\Parser\\FileVisitor' => $vendorDir . '/classpreloader/classpreloader/src/Parser/FileVisitor.php',
     'ClassPreloader\\Parser\\NodeTraverser' => $vendorDir . '/classpreloader/classpreloader/src/Parser/NodeTraverser.php',
     'ClassPreloader\\Parser\\StrictTypesVisitor' => $vendorDir . '/classpreloader/classpreloader/src/Parser/StrictTypesVisitor.php',
+=======
+>>>>>>> abf0a546d1733b3a8e7d0798cf17a7d34be50205
     'CreateAnnouncementsTable' => $baseDir . '/database/migrations/2016_01_24_165916_create_announcements_table.php',
     'CreateArticlesTable' => $baseDir . '/database/migrations/2016_01_24_165916_create_articles_table.php',
     'CreateBandEventsTable' => $baseDir . '/database/migrations/2016_01_24_165916_create_band_events_table.php',
     'CreateBandMembersTable' => $baseDir . '/database/migrations/2016_01_24_165916_create_band_members_table.php',
     'CreateBandsTable' => $baseDir . '/database/migrations/2016_01_24_165916_create_bands_table.php',
+<<<<<<< HEAD
+=======
+    'CreateBaseEntries' => $baseDir . '/database/migrations/2016_01_31_153520_create_base_entries.php',
+>>>>>>> abf0a546d1733b3a8e7d0798cf17a7d34be50205
     'CreateBlacklistTable' => $baseDir . '/database/migrations/2016_01_24_165916_create_blacklist_table.php',
     'CreateCommentsTable' => $baseDir . '/database/migrations/2016_01_24_165916_create_comments_table.php',
     'CreateCoursesTable' => $baseDir . '/database/migrations/2016_01_24_165916_create_courses_table.php',
@@ -95,6 +102,7 @@ return array(
     'CreateUsersLearnCoursesTable' => $baseDir . '/database/migrations/2016_01_24_165916_create_users_learn_courses_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2016_01_24_165916_create_users_table.php',
     'CreateUsersTeachCoursesTable' => $baseDir . '/database/migrations/2016_01_24_165916_create_users_teach_courses_table.php',
+<<<<<<< HEAD
     'Cron\\AbstractField' => $vendorDir . '/mtdowling/cron-expression/src/Cron/AbstractField.php',
     'Cron\\CronExpression' => $vendorDir . '/mtdowling/cron-expression/src/Cron/CronExpression.php',
     'Cron\\DayOfMonthField' => $vendorDir . '/mtdowling/cron-expression/src/Cron/DayOfMonthField.php',
@@ -906,6 +914,12 @@ return array(
     'Guzzle\\Tests\\Service\\ServiceBuilderTest' => $vendorDir . '/guzzle/guzzle/tests/Guzzle/Tests/Service/Builder/ServiceBuilderTest.php',
     'Guzzle\\Tests\\Stream\\PhpStreamRequestFactoryTest' => $vendorDir . '/guzzle/guzzle/tests/Guzzle/Tests/Stream/PhpStreamRequestFactoryTest.php',
     'Guzzle\\Tests\\Stream\\StreamTest' => $vendorDir . '/guzzle/guzzle/tests/Guzzle/Tests/Stream/StreamTest.php',
+=======
+    'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
+    'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
+    'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',
+    'File_Iterator_Factory' => $vendorDir . '/phpunit/php-file-iterator/src/Factory.php',
+>>>>>>> abf0a546d1733b3a8e7d0798cf17a7d34be50205
     'Hamcrest\\Arrays\\IsArray' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArray.php',
     'Hamcrest\\Arrays\\IsArrayContaining' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContaining.php',
     'Hamcrest\\Arrays\\IsArrayContainingInAnyOrder' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContainingInAnyOrder.php',
@@ -975,6 +989,7 @@ return array(
     'Hamcrest\\Util' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Util.php',
     'Hamcrest\\Xml\\HasXPath' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Xml/HasXPath.php',
     'IlluminateQueueClosure' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
+<<<<<<< HEAD
     'Illuminate\\Auth\\Access\\Gate' => $vendorDir . '/laravel/framework/src/Illuminate/Auth/Access/Gate.php',
     'Illuminate\\Auth\\Access\\HandlesAuthorization' => $vendorDir . '/laravel/framework/src/Illuminate/Auth/Access/HandlesAuthorization.php',
     'Illuminate\\Auth\\Access\\Response' => $vendorDir . '/laravel/framework/src/Illuminate/Auth/Access/Response.php',
@@ -1723,6 +1738,8 @@ return array(
     'Monolog\\Processor\\UidProcessor' => $vendorDir . '/monolog/monolog/src/Monolog/Processor/UidProcessor.php',
     'Monolog\\Processor\\WebProcessor' => $vendorDir . '/monolog/monolog/src/Monolog/Processor/WebProcessor.php',
     'Monolog\\Registry' => $vendorDir . '/monolog/monolog/src/Monolog/Registry.php',
+=======
+>>>>>>> abf0a546d1733b3a8e7d0798cf17a7d34be50205
     'PHPUnit_Exception' => $vendorDir . '/phpunit/phpunit/src/Exception.php',
     'PHPUnit_Extensions_GroupTestSuite' => $vendorDir . '/phpunit/phpunit/src/Extensions/GroupTestSuite.php',
     'PHPUnit_Extensions_PhptTestCase' => $vendorDir . '/phpunit/phpunit/src/Extensions/PhptTestCase.php',
@@ -2118,6 +2135,7 @@ return array(
     'PHP_Token_XOR_EQUAL' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'PHP_Token_YIELD' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'PHP_Token_YIELD_FROM' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
+<<<<<<< HEAD
     'PhpParser\\Autoloader' => $vendorDir . '/nikic/php-parser/lib/PhpParser/Autoloader.php',
     'PhpParser\\Builder' => $vendorDir . '/nikic/php-parser/lib/PhpParser/Builder.php',
     'PhpParser\\BuilderAbstract' => $vendorDir . '/nikic/php-parser/lib/PhpParser/BuilderAbstract.php',
@@ -2743,6 +2761,8 @@ return array(
     'Psy\\VarDumper\\Dumper' => $vendorDir . '/psy/psysh/src/Psy/VarDumper/Dumper.php',
     'Psy\\VarDumper\\Presenter' => $vendorDir . '/psy/psysh/src/Psy/VarDumper/Presenter.php',
     'Psy\\VarDumper\\PresenterAware' => $vendorDir . '/psy/psysh/src/Psy/VarDumper/PresenterAware.php',
+=======
+>>>>>>> abf0a546d1733b3a8e7d0798cf17a7d34be50205
     'SebastianBergmann\\Comparator\\ArrayComparator' => $vendorDir . '/sebastian/comparator/src/ArrayComparator.php',
     'SebastianBergmann\\Comparator\\Comparator' => $vendorDir . '/sebastian/comparator/src/Comparator.php',
     'SebastianBergmann\\Comparator\\ComparisonFailure' => $vendorDir . '/sebastian/comparator/src/ComparisonFailure.php',
@@ -2780,6 +2800,7 @@ return array(
     'SebastianBergmann\\RecursionContext\\InvalidArgumentException' => $vendorDir . '/sebastian/recursion-context/src/InvalidArgumentException.php',
     'SebastianBergmann\\Version' => $vendorDir . '/sebastian/version/src/Version.php',
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Resources/stubs/SessionHandlerInterface.php',
+<<<<<<< HEAD
     'Stringy\\StaticStringy' => $vendorDir . '/danielstjules/stringy/src/StaticStringy.php',
     'Stringy\\Stringy' => $vendorDir . '/danielstjules/stringy/src/Stringy.php',
     'SuperClosure\\Analyzer\\AstAnalyzer' => $vendorDir . '/jeremeamia/SuperClosure/src/Analyzer/AstAnalyzer.php',
@@ -3345,4 +3366,8 @@ return array(
     'phpDocumentor\\Reflection\\DocBlock\\Tag\\VarTag' => $vendorDir . '/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/VarTag.php',
     'phpDocumentor\\Reflection\\DocBlock\\Tag\\VersionTag' => $vendorDir . '/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/VersionTag.php',
     'phpDocumentor\\Reflection\\DocBlock\\Type\\Collection' => $vendorDir . '/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Type/Collection.php',
+=======
+    'TestCase' => $baseDir . '/tests/TestCase.php',
+    'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
+>>>>>>> abf0a546d1733b3a8e7d0798cf17a7d34be50205
 );
