@@ -23,6 +23,18 @@ class CreateBaseEntries extends Migration
             'name'  => 'member'
             ]);
 
+        // Create level 1 : teacher
+        Level::create([
+            'level' => 1,
+            'name'  => 'professeur'
+            ]);
+
+        // Create level 2 : admin
+        Level::create([
+            'level' => 2,
+            'name'  => 'admin'
+            ]);
+
         // Create level 10 : webmaster
         Level::create([
             'level' => 10,
