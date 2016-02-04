@@ -14,13 +14,13 @@
     <div class="jumbotron">
         <h1 align="center">Créer une annonce</h1>
 
-        <form class="form-horizontal" role="form" method="post" action="{{ url('news/create') }}">
+        <form class="form-horizontal" role="form" method="post">
             {!! csrf_field() !!}
 
             <div class="form-group">
 
               <div class="col-md-10 col-md-offset-1">
-                <input type="text" class="form-control" name="title" required placeholder="Titre">
+                <input type="text" class="form-control" name="title" required placeholder="Titre" value="">
               </div>
             </div>
 

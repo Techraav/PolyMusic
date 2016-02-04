@@ -104,7 +104,7 @@ class AnnouncementController extends Controller {
   {
     $validation = $this->validator($request->all());
 
-    if($validator->fails())
+    if($validation->fails())
     {
       Flash::error('Impossible de créer l\'annonce');
       return Redirect::back()->withErrors($validation->errors());
