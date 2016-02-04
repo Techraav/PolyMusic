@@ -14,7 +14,7 @@
 			<h2>{{$n['title']}}</h2>
 			<p>{{$n['content']}} <br/>
 				<div style="color: gray; text-align: right; font-size: 12px; font-style: italic">Créée par <a style="color:inherit" href="{{ url('user/'.App\User::where('id', $n['user_id'])->first()->slug)}}"><b>{{ App\User::where('id', $n['user_id'])->first()->first_name }}</b></a> le {{date_format($n['created_at'], 'd/m/Y')}}<br/>
-				@if(Auth::user()->level >= 1)
+				@if(Auth::check() && Auth::user()->level >= 1)
 					<a href="{{ url('teacher/news/edit/'.$n['slug']) }}">Modifier la news</a>
 				@endif
 				</div>
