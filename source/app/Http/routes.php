@@ -63,7 +63,7 @@ Route::post('announcements/delete/{slug}', 'AnnouncementController@destroy')->na
 Route::get('courses', 'CourseController@index')			->name('course.index');
 Route::get('courses/{slug}', 'CourseController@show')	->name('course.show');
 
-Route::post('courses/{slug}' 'CourseController@toggleSignUp')	->name('course.togglesignup');
+Route::post('courses/{slug}', 'CourseController@toggleSignUp')	->name('course.togglesignup');
 
 
 //====================================================================================================================================
@@ -111,6 +111,17 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'level:1'], function(){
 	Route::post('courses/{slug}/members/add',	'CourseController@addMember')		->name('courses.addmembers');
 	Route::post('courses/{slug}/members/remove','CourseController@removeMember')	->name('courses.removemembers');
 
+// _____________________________________________________________________________________________________________
+
+	// INSTRUMENTS : GET
+	Route::get('instruments', 'InstrumentController@index')				->name('instruments.index');
+	Route::get('instruments/edit/{id}', 'InstrumentController@edit') 	->name('instruments.edit');
+	Route::get('instruments/create', 'InstrumentController@create')		->name('instruments.create');
+
+	// INSTRUMENTS : POST
+	Route::post('instruments/create', 'InstrumentController@store') 		->name('instruments.store');
+	Route::post('instruments/edit/{id}', 'InstrumentController@update')		->name('instruments.update');
+	Route::post('instruments/delete/{id}', 'InstrumentController@destroy')	->name('instruments.destroy');
 
 });
 
@@ -149,22 +160,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:2'], function(){
 	Route::post('courses/edit/{slug}', 		'CourseController@update')		->name('courses.edit');
 	Route::post('courses/delete/{slug}', 	'CourseController@destroy')		->name('courses.delete');
 
-// _____________________________________________________________________________________________________________
-
-	// INSTRUMENTS : GET
-	Route::get('instruments', 'InstrumentController@index')				->name('instruments.index');
-	Route::get('instruments/edit/{id}', 'InstrumentController@edit') 	->name('instruments.edit');
-	Route::get('instruments/create', 'InstrumentController@create')		->name('instruments.create');
-
-	// INSTRUMENTS : POST
-	Route::post('instruments/create', 'InstrumentController@store') 		->name('instruments.store');
-	Route::post('instruments/edit/{id}', 'InstrumentController@update')		->name('instruments.update');
-	Route::post('instruments/delete/{id}', 'InstrumentController@destroy')	->name('instruments.destroy');
 
 // _____________________________________________________________________________________________________________
 
 	// DEPARTEMENTS : GET
-	Route::get('departements', 'DepartementController@index')	-			->name('departements.index');
+	Route::get('departements', 'DepartementController@index')				->name('departements.index');
 	Route::get('departements/create', 'DepartementController@create')		->name('departements.create');
 	Route::get('departements/edit/{id}', 'DepartementController@edit')		->name('departements.edit');
 	Route::get('departements/delete/{id}', 'DepartementController@delete')	->name('departements.delete');
