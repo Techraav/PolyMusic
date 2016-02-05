@@ -81,27 +81,27 @@
             
             </ul>
         </div>
-        <div class="panel panel-default">
+        <div class="panel panel-default panel-news">
             <div class="panel-heading">
                 Dernières news
             </div>
             <ul class="list-group">
-              @if(isset($news))
-                @forelse($news as $n)
+                @forelse( App\News::where('active', 1)->orderBy('id', 'desc')->limit(10)->get() as $n)
                 <li class="list-group-item">
-                  <p><a href="{{ url('news/view/'.$n['slug'])}}">{{$n['title']}}</a><br/>
-                  <div style="color: gray; text-align: right; font-size: 12px; font-style: italic">Créée par 
-                    <a style="color:inherit" href="{{ url('user/'.App\User::where('id', $n['user_id'])->first()->slug)}}"><b>{{ App\User::where('id', $n['user_id'])->first()->first_name }}</b></a> le {{date_format($n['created_at'], 'd/m/Y')}}
-                  </div></p>
+                  <p><a href="{{ url('news/view/'.$n['slug'])}}">{{$n['title']}}</a><br/></p>
+                  <p align="right" class="news-infos">Créée par 
+                    <a href="{{ url('user/'.App\User::where('id', $n['user_id'])->first()->slug)}}">
+                      <b>{{ App\User::where('id', $n['user_id'])->first()->first_name }}</b>
+                    </a> 
+                    le {{ date_format($n['created_at'], 'd/m/Y') }}
+                  </p>
                 </li>
                 @empty
-                @endforelse
-              @else
                   <li class="list-group-item"><p>Pas de news pour le moment.</p></li>                  
-              @endif
-              @if(Auth::check() && Auth::user()->level >= 1)
-                <li class="list-group-item"><p><a href="{{ url('teacher/news/create') }}">Ajouter une news</a></p></li>
-              @endif
+                @endforelse
+                @if(Auth::check() && Auth::user()->level >= 1)
+                  <li class="list-group-item"><p><a href="{{ url('teacher/news/create') }}">Ajouter une news</a></p></li>
+                @endif
             </ul>
         </div>
     </div>
@@ -147,7 +147,15 @@
           width:48.5%;
         }
 
+        .news-infos{
+          color: gray; 
+          font-size: 12px; 
+          font-style: italic
+        }
 
+        .news-infos a{
+          color:inherit;
+        }
 
     </style>
     <script src="{{ URL::asset('/js/jquery.js')  }}"></script>
