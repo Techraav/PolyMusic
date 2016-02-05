@@ -52,7 +52,7 @@ class NewsController extends Controller {
       return redirect('news');
     }
 
-    return view('views.delete', compact('news'));
+    return view('news.delete', compact('news'));
   }
 
   /**

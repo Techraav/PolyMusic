@@ -110,7 +110,7 @@ class AnnouncementController extends Controller {
       return Redirect::back()->withErrors($validation->errors());
     }
 
-    $announcement = createWithSlug([
+    $announcement = Announcement::createWithSlug([
       'user_id'   => Auth::user()->id,
       'title'     => $request->title,
       'content'   => $request->content,
