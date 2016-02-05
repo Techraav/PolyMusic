@@ -100,7 +100,7 @@
                   <li class="list-group-item"><p>Pas de news pour le moment.</p></li>                  
                 @endforelse
                 @if(Auth::check() && Auth::user()->level >= 1)
-                  <li class="list-group-item"><p><a href="{{ url('teacher/news/create') }}">Ajouter une news</a></p></li>
+                  <li class="list-group-item"><p><a href="{{ url('admin/news/create') }}">Ajouter une news</a></p></li>
                 @endif
             </ul>
         </div>

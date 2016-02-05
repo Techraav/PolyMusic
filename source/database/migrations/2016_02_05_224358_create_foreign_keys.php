@@ -19,8 +19,9 @@ class CreateForeignKeys extends Migration {
 						->onUpdate('cascade');
 		});
 		Schema::table('courses', function(Blueprint $table) {
-			$table->foreign('instrument')->references('id')->on('instruments')
-						->onDelete('cascade');
+			$table->foreign('instrument_id')->references('id')->on('instruments')
+						->onDelete('cascade')
+						->onUpdate('cascade');
 		});
 		Schema::table('bands', function(Blueprint $table) {
 			$table->foreign('user_id')->references('id')->on('users')
@@ -68,7 +69,7 @@ class CreateForeignKeys extends Migration {
 						->onUpdate('cascade');
 		});
 		Schema::table('band_members', function(Blueprint $table) {
-			$table->foreign('instrument')->references('id')->on('instruments')
+			$table->foreign('instrument_id')->references('id')->on('instruments')
 						->onDelete('cascade')
 						->onUpdate('no action');
 		});
@@ -112,6 +113,16 @@ class CreateForeignKeys extends Migration {
 						->onDelete('cascade')
 						->onUpdate('cascade');
 		});
+		Schema::table('documents', function(Blueprint $table) {
+			$table->foreign('user_id')->references('id')->on('users')
+						->onDelete('cascade')
+						->onUpdate('cascade');
+		});
+		Schema::table('documents', function(Blueprint $table) {
+			$table->foreign('course_id')->references('id')->on('courses')
+						->onDelete('cascade')
+						->onUpdate('cascade');
+		});
 	}
 
 	public function down()
@@ -123,7 +134,7 @@ class CreateForeignKeys extends Migration {
 			$table->dropForeign('users_level_foreign');
 		});
 		Schema::table('courses', function(Blueprint $table) {
-			$table->dropForeign('courses_instrument_foreign');
+			$table->dropForeign('courses_instrument_id_foreign');
 		});
 		Schema::table('bands', function(Blueprint $table) {
 			$table->dropForeign('bands_user_id_foreign');
@@ -153,7 +164,7 @@ class CreateForeignKeys extends Migration {
 			$table->dropForeign('band_members_band_id_foreign');
 		});
 		Schema::table('band_members', function(Blueprint $table) {
-			$table->dropForeign('band_members_instrument_foreign');
+			$table->dropForeign('band_members_instrument_id_foreign');
 		});
 		Schema::table('band_events', function(Blueprint $table) {
 			$table->dropForeign('band_events_band_id_foreign');
@@ -163,9 +174,6 @@ class CreateForeignKeys extends Migration {
 		});
 		Schema::table('announcements', function(Blueprint $table) {
 			$table->dropForeign('announcements_user_id_foreign');
-		});
-		Schema::table('comments', function(Blueprint $table) {
-			$table->dropForeign('comments_answer_to_foreign');
 		});
 		Schema::table('comments', function(Blueprint $table) {
 			$table->dropForeign('comments_announcement_id_foreign');
@@ -181,6 +189,12 @@ class CreateForeignKeys extends Migration {
 		});
 		Schema::table('images', function(Blueprint $table) {
 			$table->dropForeign('images_article_id_foreign');
+		});
+		Schema::table('documents', function(Blueprint $table) {
+			$table->dropForeign('documents_user_id_foreign');
+		});
+		Schema::table('documents', function(Blueprint $table) {
+			$table->dropForeign('documents_course_id_foreign');
 		});
 	}
 }

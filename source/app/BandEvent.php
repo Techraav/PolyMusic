@@ -8,6 +8,6 @@ class BandEvent extends Model {
 
 	protected $table = 'band_events';
 	protected $fillable = array('band_id', 'event_id');
-	public $timestamps = true;
+	public $timestamps = false;
 
 }

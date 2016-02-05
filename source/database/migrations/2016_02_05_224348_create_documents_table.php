@@ -3,25 +3,23 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateNewsTable extends Migration {
+class CreateDocumentsTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('news', function(Blueprint $table) {
-            $table->engine = 'InnoDB';
-
+		Schema::create('documents', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
 			$table->string('title', 255);
-			$table->text('content');
+			$table->string('name', 255);
 			$table->integer('user_id')->unsigned();
-			$table->tinyInteger('active')->default('1');
-			$table->string('slug', 255);
+			$table->text('description');
+			$table->integer('course_id')->unique()->unsigned();
 		});
 	}
 
 	public function down()
 	{
-		Schema::drop('news');
+		Schema::drop('documents');
 	}
 }

@@ -71,10 +71,10 @@ Route::post('courses/{slug}', 'CourseController@toggleSignUp')	->name('course.to
 
 // ____________________________________________________________________________________________________
 //
-//                         				TEACHER BACKOFFICE ROUTES
+//                         				ADMIN BACKOFFICE ROUTES
 // ____________________________________________________________________________________________________
 
-Route::group(['prefix' => 'teacher', 'middleware' => 'level:1'], function(){
+Route::group(['prefix' => 'admin', 'middleware' => 'level:1'], function(){
 
 	// NEWS : GET
 	Route::get('news/edit/{slug}', 		'NewsController@edit')		->name('news.edit');
@@ -123,6 +123,54 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'level:1'], function(){
 	Route::post('instruments/edit/{id}', 'InstrumentController@update')		->name('instruments.update');
 	Route::post('instruments/delete/{id}', 'InstrumentController@destroy')	->name('instruments.destroy');
 
+
+// ____________________________________________________________________________________________________
+//
+//                         				ADMIN BACKOFFICE ROUTES
+// ____________________________________________________________________________________________________
+
+	// LEVELS : GET
+	Route::get('levels', 					'LevelController@index')	->name('levels.index')		->middleware('level:2');
+	Route::get('levels/create', 			'LevelController@create')	->name('levels.create')		->middleware('level:2');
+	Route::get('levels/edit/{level}', 		'LevelController@edit')		->name('levels.edit')		->middleware('level:2');
+	Route::get('levels/delete/{level}', 	'LevelController@delete')	->name('levels.delete')		->middleware('level:2');
+	Route::get('levels/{level}/list', 		'LevelController@list')		->name('levels.list')		->middleware('level:2');
+
+
+	// LEVELS : POST
+	Route::post('levels/create', 			'LevelController@store')	->name('levels.store')		->middleware('level:2');
+	Route::post('levels/edit/{level}', 		'LevelController@update')	->name('levels.update')		->middleware('level:2');
+	Route::post('levels/delete/{level}', 	'LevelController@destroy')	->name('levels.destoy')		->middleware('level:2');
+
+// _____________________________________________________________________________________________________________
+
+	// COURSES : GET
+	Route::get('courses', 						'CourseController@index')	->name('courses.index')		->middleware('level:2');
+	Route::get('courses/create', 				'CourseController@create')	->name('courses.create')	->middleware('level:2');
+	Route::get('courses/edit/{slug}', 			'CourseController@edit')	->name('courses.edit')		->middleware('level:2');
+	Route::get('courses/delete/{slug}', 		'CourseController@delete')	->name('courses.delete')	->middleware('level:2');
+
+	// COURSES : POST
+	Route::post('courses/create', 			'CourseController@store')		->name('courses.create')	->middleware('level:2');
+	Route::post('courses/edit/{slug}', 		'CourseController@update')		->name('courses.edit')		->middleware('level:2');
+	Route::post('courses/delete/{slug}', 	'CourseController@destroy')		->name('courses.delete')	->middleware('level:2');
+
+
+// _____________________________________________________________________________________________________________
+
+	// DEPARTEMENTS : GET
+	Route::get('departements', 'DepartementController@index')				->name('departements.index')	->middleware('level:2');
+	Route::get('departements/create', 'DepartementController@create')		->name('departements.create')	->middleware('level:2');
+	Route::get('departements/edit/{id}', 'DepartementController@edit')		->name('departements.edit')		->middleware('level:2');
+	Route::get('departements/delete/{id}', 'DepartementController@delete')	->name('departements.delete')	->middleware('level:2');
+
+	// DEPARTEMENTS : POST
+	Route::post('departements/create', 'DepartementController@store')			->name('departements.store')	->middleware('level:2');
+	Route::post('departements/edit/{id}', 'DepartementController@update')		->name('departements.update')	->middleware('level:2');
+	Route::post('departements/delete/{id}', 'DepartementController@destroy')	->name('departements.destroy')	->middleware('level:2');
+
+
+	// BLACKLIST : GET
 });
 
 
@@ -131,50 +179,3 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'level:1'], function(){
 //                         				ADMIN BACKOFFICE ROUTES
 // ____________________________________________________________________________________________________
 
-
-Route::group(['prefix' => 'admin', 'middleware' => 'level:2'], function(){
-
-	// LEVELS : GET
-	Route::get('levels', 					'LevelController@index')	->name('levels.index');
-	Route::get('levels/create', 			'LevelController@create')	->name('levels.create');
-	Route::get('levels/edit/{level}', 		'LevelController@edit')		->name('levels.edit');
-	Route::get('levels/delete/{level}', 	'LevelController@delete')	->name('levels.delete');
-	Route::get('levels/{level}/list', 		'LevelController@list')		->name('levels.list');
-
-
-	// LEVELS : POST
-	Route::post('levels/create', 			'LevelController@store')	->name('levels.store');
-	Route::post('levels/edit/{level}', 		'LevelController@update')	->name('levels.update');
-	Route::post('levels/delete/{level}', 	'LevelController@destroy')	->name('levels.destoy');
-
-// _____________________________________________________________________________________________________________
-
-	// COURSES : GET
-	Route::get('courses', 						'CourseController@index')	->name('courses.index');
-	Route::get('courses/create', 				'CourseController@create')	->name('courses.create');
-	Route::get('courses/edit/{slug}', 			'CourseController@edit')	->name('courses.edit');
-	Route::get('courses/delete/{slug}', 		'CourseController@delete')	->name('courses.delete');
-
-	// COURSES : POST
-	Route::post('courses/create', 			'CourseController@store')		->name('courses.create');
-	Route::post('courses/edit/{slug}', 		'CourseController@update')		->name('courses.edit');
-	Route::post('courses/delete/{slug}', 	'CourseController@destroy')		->name('courses.delete');
-
-
-// _____________________________________________________________________________________________________________
-
-	// DEPARTEMENTS : GET
-	Route::get('departements', 'DepartementController@index')				->name('departements.index');
-	Route::get('departements/create', 'DepartementController@create')		->name('departements.create');
-	Route::get('departements/edit/{id}', 'DepartementController@edit')		->name('departements.edit');
-	Route::get('departements/delete/{id}', 'DepartementController@delete')	->name('departements.delete');
-
-	// DEPARTEMENTS : POST
-	Route::post('departements/create', 'DepartementController@store')			->name('departements.store');
-	Route::post('departements/edit/{id}', 'DepartementController@update')		->name('departements.update');
-	Route::post('departements/delete/{id}', 'DepartementController@destroy')	->name('departements.destroy');
-
-
-	// BLACKLIST : GET
-
-});

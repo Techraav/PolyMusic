@@ -8,7 +8,7 @@ class BandMember extends Model {
 
 	protected $table = 'band_members';
 	public $timestamps = false;
-	protected $fillable = array('user_id', 'band_id', 'instrument');
+	protected $fillable = array('user_id', 'band_id', 'instrument_id');
 
 	public function instrument()
 	{
