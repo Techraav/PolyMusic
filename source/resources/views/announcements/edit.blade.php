@@ -17,7 +17,7 @@
     <div class="jumbotron">
         <h1 align="center">Modifier une annonce</h1>
         
-        <form class="form-horizontal" role="form" method="post" action="{{ url('news/create') }}">
+        <form class="form-horizontal" role="form" method="post" action="{{ url('announcements/edit') }}">
             {!! csrf_field() !!}
 
             <div class="form-group">

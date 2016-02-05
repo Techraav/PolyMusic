@@ -15,7 +15,7 @@
 
 <div class="container">
 	<div class="jumbotron">
-		<h1 align="center">Modification de la news</h1>
+		<h1 align="center">Suppression de la news</h1>
 		<div style="border: 3px solid rgb(195,195,195); padding-right: 15px; padding-left: 15px;">
 			<h2>{{$news['title']}}</h2>
 			<p>{{$news['content']}} <br/>

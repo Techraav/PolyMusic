@@ -17,18 +17,16 @@
             {!! csrf_field() !!}
 
             <div class="form-group">
-              <label for="inputEmail" class="col-md-4 control-label">Titre</label>
 
-              <div class="col-md-6">
-                <input type="text" class="form-control" name="title" required>
+              <div class="col-md-6 col-md-offset-3">
+                <input type="text" class="form-control" name="title" placeholder="Titre" required>
               </div>
             </div>
 
             <div class="form-group">
-                <label for="textArea" class="col-md-4 control-label">Contenu de la news</label>
 
-                <div class="col-md-6">
-                    <textarea class="form-control" rows="10" name="content" required></textarea>
+                <div class="col-md-6 col-md-offset-3">
+                    <textarea class="form-control" rows="10" name="content" placeholder="Contenu de votre news..." required></textarea>
                     <div class="checkbox">
                       <label>
                         <input type="checkbox" checked required>Active
@@ -38,7 +36,7 @@
             </div>
             
             <div class="form-group buttons">
-                <div class="col-md-4 col-md-offset-4">
+                <div class="col-md-4 col-md-offset-5">
                     <button type="submit" class="btn btn-primary">Publier</button>
                 </div>
             </div>
