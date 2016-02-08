@@ -4,7 +4,7 @@
 	tu créés un bouton (soit un bouton entouré d'un lien, soit un lien qui ressemble a un bouton) "Supprimer" qui mene vers news/delete/slug avec slug = le slug de la news en question
 --}}
 
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="alert alert-dismissible alert-warning">

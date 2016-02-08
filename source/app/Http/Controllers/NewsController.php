@@ -70,7 +70,7 @@ class NewsController extends Controller {
       return redirect('news');
     }
 
-    return view('news.index', compact('news'));
+    return view('news.show', compact('news'));
   }
 
   /**

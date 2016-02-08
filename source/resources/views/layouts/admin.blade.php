@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>PolyMusic | Admin </title>
+    <title>PolyMusic | Back Office </title>
     <!-- Bootstrap CSS served from a CDN -->
     {{-- <link href="https://bootswatch.com/flatly/bootstrap.min.css" rel="stylesheet"> --}}
     <link href="{{ URL::asset('/css/bootstrap.min.css')  }}" rel="stylesheet">
@@ -21,7 +21,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{ url('admin') }} ">Back Office</a>
+          <a class="navbar-brand" href="admin"><span class="glyphicon glyphicon-home"></span> &nbsp;Back Office </a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -37,20 +37,40 @@
                 <li><a href="{{ url('admin/news/create') }} ">News</a></li>
               </ul>
             </li>
+            {{-- SUBSUBMENU EXAMPLE
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Gérer <span class="caret"></span></a>
+	        	<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+					<li class="dropdown-submenu">
+	                	<a href="#">Annonces</a>
+	                	<ul class="dropdown-menu">
+							<li><a href="#">Liste</a></li>
+		                  	<li><a href="#">Second level</a></li>
+		                  	<li><a href="#">Second level</a></li>
+		                </ul>
+		            </li>
+	            </ul>
+	        </li> 
+
+	        --}}
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Gérer <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{ url('admin/announcements') }} ">Annonces</a></li>
                 <li><a href="{{ url('admin/articles') }}">Articles</a></li>
-                <li><a href="{{ url('admin/courses') }}">Cours</a></li>
-                <li><a href="{{ url('admin/departments') }}">Départements</a></li>
                 <li><a href="{{ url('admin/documents') }}">Document de cours</a></li>
                 <li><a href="{{ url('admin/events') }}">Événements</a></li>
                 <li><a href="{{ url('admin/bands') }}">Groupes</a></li>
                 <li><a href="{{ url('admin/instruments') }}">Instruments</a></li>
-                <li><a href="{{ url('admin/levels') }}">Levels</a></li>
-                <li><a href="{{ url('admin/members') }}">Les membres</a></li>
+                <li><a href="{{ url('admin/members') }}">Membres</a></li>
                 <li><a href="{{ url('admin/news') }}">News</a></li>
+                @if(Auth::user()->level > 1)
+              	<li class="divider"></li>
+                <li><a href="{{ url('admin/courses') }}">Cours</a></li>
+                <li><a href="{{ url('admin/departments') }}">Départements</a></li>
+                <li><a href="{{ url('admin/levels') }}">Levels</a></li>
+                @endif
               </ul>
             </li>
           </ul>
@@ -63,7 +83,7 @@
               <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-expanded="false">  <span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="#">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a></li>
-                <li><a href="{{ url('') }}" class="admin-link">Retour sur le site</a></li>
+                <li><a href="{{ url('') }}" class="admin-link">Quitter le back office</a></li>
                 <li><a href="{{ url('auth/logout') }}">Déconnexion</a></li>
               </ul>
             </li>

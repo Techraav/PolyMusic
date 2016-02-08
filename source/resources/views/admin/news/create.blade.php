@@ -7,13 +7,13 @@
 
 --}}
 
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container">
     <div class="jumbotron">
         <h1 align="center">Création d'une news</h1>
-        <form class="form-horizontal" role="form" method="post" action="{{ url('news/create') }}">
+        <form class="form-horizontal" role="form" method="post" action="{{ url('admin/news/create') }}">
             {!! csrf_field() !!}
 
             <div class="form-group">

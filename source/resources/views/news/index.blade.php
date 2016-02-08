@@ -24,7 +24,7 @@
 		<br/>	
 	@empty
 	@endforelse
-	@else
+@else
     <li class="list-group-item"><p>Pas de news pour le moment.</p></li>  
 @endif
 
