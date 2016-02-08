@@ -1,0 +1,64 @@
+.footer{
+    height: 75px;
+    background-color :rgb(44, 62, 79);
+    border-top: 10px solid rgb(74, 92, 109);
+    position:relative;
+    padding-top:10px;
+}
+
+.row{
+    margin:0 !important;
+}
+
+body{
+  	padding-bottom:0px !important;
+}
+
+.glyphicon{
+	-webkit-transition: all 0.1s ease-in-out;
+	-moz-transition: all 0.1s ease-in-out;
+	transition: all 0.1s ease-in-out;
+}
+
+.glyphicon-user{
+  	font-size:20px
+}
+
+.jumbotron>h1{
+	margin-top:-20px;
+	margin-bottom:30px;
+}
+
+form>.buttons button{
+  	width:48.5%;
+}
+
+.news-infos{
+	color: gray; 
+	font-size: 12px; 
+	font-style: italic
+}
+
+.news-infos a{
+  	color:inherit;
+}
+
+.admin-link{
+  	color:#D83A3A !important;
+}
+
+.navbar-admin{
+  	background-color: #131C25;
+}
+
+.footer-admin {
+	background-color: #0F171F;
+	border-top-color: #1E2933;
+}
+
+.panel-modifications{
+  font-size:14px;
+  color: gray;
+}
+
+

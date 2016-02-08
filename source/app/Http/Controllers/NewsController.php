@@ -35,7 +35,7 @@ class NewsController extends Controller {
    */
   public function create()
   {
-    return view('news.create');
+    return view('admin.news.create');
   }
 
    /**
@@ -52,7 +52,7 @@ class NewsController extends Controller {
       return redirect('news');
     }
 
-    return view('news.delete', compact('news'));
+    return view('admin.news.delete', compact('news'));
   }
 
   /**
@@ -87,7 +87,7 @@ class NewsController extends Controller {
       Flash::error('Cette news n\'existe pas.');
       return redirect('news/index');
     }
-    return view('news.edit', compact('news'));
+    return view('admin.news.edit', compact('news'));
   }
 
 
