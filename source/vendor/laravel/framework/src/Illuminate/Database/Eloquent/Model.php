@@ -564,10 +564,11 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
     */
     protected function createWithSlug(array $data = [])
     {
-        $name = $this->nameField;
         $model = $this->create($data);
+        $nameField = $this->nameField;
+        $name = $model->$nameField;
         $slug = str_slug($name.' '.$model->id);
-        $model->$this->update([
+        $model->update([
             'slug'  => $slug,
             ]);
 

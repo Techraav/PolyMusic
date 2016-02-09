@@ -134,13 +134,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:1'], function(){
 	Route::get('levels/create', 			'LevelController@create')	->name('levels.create')		->middleware('level:2');
 	Route::get('levels/edit/{level}', 		'LevelController@edit')		->name('levels.edit')		->middleware('level:2');
 	Route::get('levels/delete/{level}', 	'LevelController@delete')	->name('levels.delete')		->middleware('level:2');
-	Route::get('levels/{level}/list', 		'LevelController@list')		->name('levels.list')		->middleware('level:2');
+	Route::get('levels/{name}/members', 	'LevelController@members')	->name('levels.members')	->middleware('level:2');
 
 
 	// LEVELS : POST
 	Route::post('levels/create', 			'LevelController@store')	->name('levels.store')		->middleware('level:2');
 	Route::post('levels/edit/{level}', 		'LevelController@update')	->name('levels.update')		->middleware('level:2');
 	Route::post('levels/delete/{level}', 	'LevelController@destroy')	->name('levels.destoy')		->middleware('level:2');
+	Route::post('levels/{name}/members/remove', 'LevelController@removeMember')->name('levels.removemember')->middleware('level:2');
 
 // _____________________________________________________________________________________________________________
 

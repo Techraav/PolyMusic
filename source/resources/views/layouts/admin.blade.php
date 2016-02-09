@@ -21,12 +21,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="admin"><span class="glyphicon glyphicon-home"></span> &nbsp;Back Office </a>
+          <a class="navbar-brand" href="{{ url('admin') }}"><span class="glyphicon glyphicon-home"></span> &nbsp;Back Office </a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a href="{{ url('admin') }}">Accueil </a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Créer/Ajouter <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
@@ -122,7 +121,7 @@
                 <li class="list-group-item">
                 	<ul class="list-group">
                 		<li class="list-group-item">
-                			<b>Par</b> : <a href="{{ url('users/'.App\User::where('id', $m->id)->first()->slug) }}">{{ App\User::where('id', $m->id)->first()->first_name }}</a>, le {{ date_format($m->created_at, 'd/m/Y') }} à {{ date_format($m->created_at, 'H:i:s') }} 
+                			<b>Par</b> : <a href="{{ url('users/'.App\User::where('id', $m->user_id)->first()->slug) }}">{{ App\User::where('id', $m->user_id)->first()->first_name }}</a>, le {{ date_format($m->created_at, 'd/m/Y') }} à {{ date_format($m->created_at, 'H:i:s') }} 
                 		</li>
                 		<li class="list-group-item"><b>Table</b> : {{ $m->table }}</li>
                 		<li class="list-group-item"><b>Infos</b> : {{ $m->message }}</li>

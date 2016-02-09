@@ -112,4 +112,44 @@ form>.buttons button{
   color: gray;
 }
 
+button.glyphicon{
+    background:none;
+    border:none;
+    opacity:0.7;
+    transition:all 0.1s ease-in-out;
+    -webkit-transition:all 0.1s ease-in-out;
+    -moz-transition:all 0.1s ease-in-out;
+}
 
+button.glyphicon:hover{
+    opacity:1;
+}
+
+ul.list-hover li{
+    transition:all 0.1s ease-in-out;
+    -webkit-transition:all 0.1s ease-in-out;
+    -moz-transition:all 0.1s ease-in-out;    
+}
+
+ul.list-hover li:hover{
+    background-color: rgb(245,245,245);
+}
+
+ul.list-members button{
+    display:none;
+}
+
+ul.list-members li:hover button{
+    display:inline;
+}
+
+ul.list-members form{
+    position:absolute;
+    font-size:16px;
+    right:5px;
+    top:10px;
+}
+
+ul.list-members li{
+    position:relative;
+}

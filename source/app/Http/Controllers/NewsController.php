@@ -107,7 +107,7 @@ class NewsController extends Controller {
   {
     return Validator::make($data, [
       'title'   => 'required|min:6|max:255',
-      'content' => 'required|min:15|unique:news',
+      'content' => 'required|min:15',
       ]);
   }
 

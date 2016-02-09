@@ -5,8 +5,8 @@ use App\Comment;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Auth;
 use Laracasts\Flash\Flash;
+use Illuminate\Support\Facades\Auth;
 
 
 class AnnouncementController extends Controller {
@@ -117,7 +117,7 @@ class AnnouncementController extends Controller {
       ]);
 
     Flash::success('Votre annonce a bien été créée');
-    return redirect('announcement/view/'.$announcement->slug);
+    return redirect('announcements/view/'.$announcement->slug);
 
   }
 
@@ -147,7 +147,7 @@ class AnnouncementController extends Controller {
       ]);
 
     Flash::success('L\'annonce a bien été modifiée ! ');
-    return redirect('announcement/view/' . $slug);  
+    return redirect('announcements/view/' . $slug);  
   }
 
   /**
@@ -160,7 +160,7 @@ class AnnouncementController extends Controller {
   {
     Announcement::where('slug', $slug)->first()->delete();
     Flash::success('L\'annonce a bien été supprimée.');
-    return redirect('announcement');
+    return redirect('announcements');
   }
 
 // ____________________________________________________________________________________________________
