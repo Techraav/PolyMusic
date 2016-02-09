@@ -11,13 +11,19 @@
 @if(isset($news))
 	@forelse($news as $n)
 		<div style="border: 3px solid rgb(195,195,195); padding-right: 15px; padding-left: 15px;">
-			<h2>{{$n['title']}}</h2>
-			<p>{{$n['content']}} <br/>
-				<div style="color: gray; text-align: right; font-size: 12px; font-style: italic">Créée par <a style="color:inherit" href="{{ url('user/'.App\User::where('id', $n['user_id'])->first()->slug)}}"><b>{{ App\User::where('id', $n['user_id'])->first()->first_name }}</b></a> le {{date_format($n['created_at'], 'd/m/Y')}}<br/>
+			<h2>{{$n['title']}}
 				@if(Auth::check() && Auth::user()->level >= 1)
-					<a href="{{ url('teacher/news/edit/'.$n['slug']) }}">Modifier la news</a>
-					<div align="right"><a href="{{ url('teacher/news/delete/'.$n['slug']) }}" style="color: inherit"><span class="glyphicon glyphicon-remove"></span></a></div>
+					<span style="color: inherit; font-size: 40%"><a href="{{ url('admin/news/delete/'.$n['slug']) }}" style="color: inherit"><span class="glyphicon glyphicon-remove"></span></a></span>
 				@endif
+			</h2>
+			<p>{{$n['content']}} <br/>
+				<div style="color: gray; text-align: right; font-size: 12px; font-style: italic">Créée par 
+					<a style="color:inherit" href="{{ url('user/'.App\User::where('id', $n['user_id'])->first()->slug)}}">
+						<b>{{ App\User::where('id', $n['user_id'])->first()->first_name }}</b>
+					</a> le {{date_format($n['created_at'], 'd/m/Y')}}<br/>
+					@if(Auth::check() && Auth::user()->level >= 1)
+						<a href="{{ url('teacher/news/edit/'.$n['slug']) }}">Modifier la news</a>
+					@endif
 				</div>
 			</p>
 		</div>
