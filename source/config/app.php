@@ -138,6 +138,8 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
+
 
         /*
          * Application Service Providers...
@@ -195,6 +197,7 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'Flash'     => Laracasts\Flash\Flash::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Debugbar'  => Barryvdh\Debugbar\Facade::class,
 
     ],
 
