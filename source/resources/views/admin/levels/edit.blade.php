@@ -10,9 +10,29 @@
 		<p>Le niveau le plus fort définit un Webmaster du site. Il possède tous les droits et peut gérer les données comme bon lui semble.</p>
 	</div>
 
+	<h2 align="center">Modifier le level</h2>
+	<form method="post" action="{{ url('admin/levels/edit/'.$levelToEdit->level) }}">
+		<table class="table">
+		<tbody>
+			<th>
+			{{ csrf_field() }}
+				<td>
+				<select disabled class="form-control" name="level">
+							<option value="{{ $levelToEdit->level }}">{{ $levelToEdit->level }}</option>
+					</select>
+				</td>
+				<td><input required class="form-control" type="text" name="name" id="name" placeholder="Nom" value="{{ $levelToEdit->name }}"/></td>
+				<td><input class="form-control" type="text" name="infos" id="infos" placeholder="Informations"  value="{{ $levelToEdit->infos }}"/></td>
+				<td><button type="reset" class="btn btn-default">Annuler</button> <button type="submit" class="btn btn-primary">Valider</button></td>
+			</th>
+		</tbody>
+		</table>
+	</form>
+
+
 	<h2 align="center">Liste des niveaux :</h2>
 	<br />
-		<table class="table-levels table table-striped table-hover">
+		<table class="table table-levels table-striped table-hover">
 			<thead>
 				<tr>
 					<th width="100">Level</th>
@@ -34,7 +54,7 @@
 					<td align="center">
 						@if($l->name != 'webmaster')
 						<form method="post" action="{{ url('admin/levels/delete/'.$l->level) }}">
-						{{ csrf_field() }}
+							{{ csrf_field() }}
 							<input hidden name="level" value="{{ $l->level }}" />
 							<button align="right" title="Supprimer le level {{ $l->name }} ?" type="submit" class="glyphicon glyphicon-trash"></button>
 							<a href="{{ url('admin/levels/edit/'.$l->level) }}" title="Modifier le level {{ $l->name }} ?"class="glyphicon glyphicon-pencil"></a>

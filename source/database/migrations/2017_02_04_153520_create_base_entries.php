@@ -51,6 +51,13 @@ class CreateBaseEntries extends Migration
             'name'  => 'webmaster',
             ]);
 
+        // Create departement : "aucun"
+        Department::create([
+            'name'      => 'aucun',
+            'short_name'=> 'aucun',
+            ]);
+
+
         // Create departement : "autre"
         Department::create([
             'name'      => 'autre',
