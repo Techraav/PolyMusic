@@ -7575,14 +7575,78 @@ a.list-group-item-danger.active:hover,a.list-group-item-danger.active:focus{
 	font-style:italic;
 }
 
-blockquote p{
-	text-indent:20px;
+blockquote.comment p{
+	text-indent:30px;
 	font-size:17px !important;
 	color: rgb(100,100,100);
+	text-align: justify;
 }
 
-blockquote h4{
-	font-size:22px;
-	text-indent:40px;
-	color: rgb(100,100,150);
+blockquote.comment h4{
+	font-size:18px;
+	color: rgb(63, 84, 105);
+}
+
+.comment-pp{
+    width: 150px;
+    display:block;
+    margin:auto;
+
+}
+
+blockquote.comment{
+	padding-left:0px;
+	padding-right:0px;
+	border: none;
+	/*border-bottom:1px solid #ecf0f1;*/
+	-moz-box-shadow: -1px 2px 8px 0px #656565;
+	-webkit-box-shadow: -1px 2px 8px 0px #656565;
+	-o-box-shadow: -1px 2px 8px 0px #656565;
+	box-shadow: -1px 2px 8px 0px #656565;
+	transition:all 0.1s ease-in-out;
+	-webkit-transition:all 0.1s ease-in-out;
+	-moz-transition:all 0.1s ease-in-out;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=243, Strength=8);
+	position:relative;
+ }
+
+ .comment-member{
+ 	float:left;
+ 	width:20%;
+ 	height:230px;
+ }
+
+ .comment-content{
+ 	float:left;
+ 	border-left:1px solid rgb(220,220,220) !important;
+ 	width:75%;
+ 	margin-left:5px;
+ 	padding-left:20px;
+ 	min-height:230px;
+ }
+
+.comment small{
+	display:block;
+	position:absolute;
+	bottom:10px;
+	right:15px;
+
+}
+
+.comment:hover{
+	background-color:rgb(248,248,255);
+}
+
+.comment h4 a{
+	color:inherit;
+}
+
+.comment .rang{
+	width:200px;
+	display:block;
+	margin:auto;
+	color:gray;
+	font-size:16px;
+	font-style:italic;
+
 }
