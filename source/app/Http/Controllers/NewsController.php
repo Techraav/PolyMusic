@@ -149,7 +149,7 @@ class NewsController extends Controller {
    */
   public function update(Request $request, $slug)
   {
-    $validation = $this->validator($request->all);
+    $validation = $this->validator($request->all());
     if($validation->fails())
     {
       Flash::error('Impossible de modifier la news. Veuillez vérifier les champs renseignés.');
@@ -159,7 +159,7 @@ class NewsController extends Controller {
 
     $slug = str_slug($request->title . '-' . $news->id);
 
-    $news = News::update([
+    $news->update([
       'title'   => $request->title,
       'content' => $request->content,
       'user_id' => Auth::user()->id,
