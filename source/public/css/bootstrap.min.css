@@ -7559,3 +7559,30 @@ a.list-group-item-danger.active:hover,a.list-group-item-danger.active:focus{
 	color:#2c3e50
 }
 
+/* ===================================================================================== */
+
+.announcement-content p{
+	text-indent:40px;
+	line-height: 28px;
+	font-size:20px ;
+	font-weight:normal;
+	text-align: justify;
+}
+
+.announcement-infos{
+	color:gray;
+	font-size: 16px !important;
+	font-style:italic;
+}
+
+blockquote p{
+	text-indent:20px;
+	font-size:17px !important;
+	color: rgb(100,100,100);
+}
+
+blockquote h4{
+	font-size:22px;
+	text-indent:40px;
+	color: rgb(100,100,150);
+}

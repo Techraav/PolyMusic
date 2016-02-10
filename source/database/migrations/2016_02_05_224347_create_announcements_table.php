@@ -12,6 +12,7 @@ class CreateAnnouncementsTable extends Migration {
 			$table->timestamps();
 			$table->integer('user_id')->unsigned();
 			$table->string('title', 255);
+			$table->string('subject', 255);
 			$table->text('content');
 			$table->string('tags', 255);
 			$table->string('slug', 255);

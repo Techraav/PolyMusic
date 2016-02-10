@@ -114,6 +114,7 @@ class AnnouncementController extends Controller {
       'user_id'   => Auth::user()->id,
       'title'     => $request->title,
       'content'   => $request->content,
+      'subject'   => $Request->subject,
       ]);
 
     Flash::success('Votre annonce a bien été créée');
@@ -129,7 +130,7 @@ class AnnouncementController extends Controller {
    */
   public function update($slug)
   {
-    $validation = $this->validator($request->all);
+    $validation = $this->validator($request->all());
     if($validation->fails())
     {
       Flash::error('Impossible de modifier l\'annonce. Veuillez vérifier les champs renseignés.');
@@ -139,9 +140,10 @@ class AnnouncementController extends Controller {
 
     $slug = str_slug($request->title . '-' . $news->id);
 
-    $annonce = Announcement::update([
+    $annonce->update([
       'title'   => $request->title,
       'content' => $request->content,
+      'subject'   => $Request->subject,
       'user_id' => Auth::user()->id,
       'slug' => $slug,
       ]);
@@ -171,8 +173,9 @@ class AnnouncementController extends Controller {
   protected function validator($data)
   {
     return Validator::make($data, [
-      'title' => 'required|min:6|max:255',
+      'title'   => 'required|min:6|max:255',
       'content' => 'required|min:6',
+      'subject' => 'required|min:6|max:255',
       ]);
   }
 

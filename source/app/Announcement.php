@@ -8,7 +8,7 @@ class Announcement extends Model {
 
 	protected $table = 'announcements';
 	public $timestamps = true;
-	protected $fillable = array('timestamps', 'user_id', 'title', 'content', 'tags', 'slug', 'validated');
+	protected $fillable = array('timestamps', 'user_id', 'title', 'content', 'tags', 'slug', 'validated', 'subject');
 
 	public function comments()
 	{

@@ -194,6 +194,7 @@ class CreateBaseEntries extends Migration
             'title'     => 'test d\'une annonce',
             'slug'      => 'test-annonce-1',
             'validated' => 1,
+            'subject'   => 'Annonce pour tester',
             ]);
 
         // Create announcement 'test d'une seconde annonce'
@@ -203,6 +204,8 @@ class CreateBaseEntries extends Migration
             'title'     => 'test d\'une seconde annonce',
             'slug'      => 'test-seconde-annonce-1',
             'validated' => 1,
+            'subject'   => 'Deuxieme annonce pour tester',
+
             ]);
 
         // Create announcement unvalidated
@@ -212,6 +215,7 @@ class CreateBaseEntries extends Migration
             'title'     => 'azr',
             'slug'      => 'test-annonce-invalidee-1',
             'validated' => 0,
+            'subject'   => 'Annonce invalidée pour tester',
             ]);
 
         // Create comment on announcement #1
