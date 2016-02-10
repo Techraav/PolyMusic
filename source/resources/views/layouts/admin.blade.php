@@ -58,6 +58,7 @@
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{ url('admin/announcements') }} ">Annonces</a></li>
                 <li><a href="{{ url('admin/articles') }}">Articles</a></li>
+                <li><a href="{{ url('admin/courses') }}">Cours</a></li>
                 <li><a href="{{ url('admin/documents') }}">Document de cours</a></li>
                 <li><a href="{{ url('admin/events') }}">Événements</a></li>
                 <li><a href="{{ url('admin/bands') }}">Groupes</a></li>
@@ -65,8 +66,7 @@
                 <li><a href="{{ url('admin/members') }}">Membres</a></li>
                 <li><a href="{{ url('admin/news') }}">News</a></li>
                 @if(Auth::user()->level > 1)
-              	<li class="divider"></li>
-                <li><a href="{{ url('admin/courses') }}">Cours</a></li>
+                <li class="divider"></li>
                 <li><a href="{{ url('admin/departments') }}">Départements</a></li>
                 <li><a href="{{ url('admin/levels') }}">Levels</a></li>
                 @endif

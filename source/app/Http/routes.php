@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /*
 |--------------------------------------------------------------------------
@@ -146,17 +146,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:1'], function(){
 // _____________________________________________________________________________________________________________
 
 	// COURSES : GET
-	Route::get('courses', 						'CourseController@index')	->name('courses.index')		->middleware('level:2');
-	Route::get('courses/create', 				'CourseController@create')	->name('courses.create')	->middleware('level:2');
-	Route::get('courses/edit/{slug}', 			'CourseController@edit')	->name('courses.edit')		->middleware('level:2');
-	Route::get('courses/delete/{slug}', 		'CourseController@delete')	->name('courses.delete')	->middleware('level:2');
-	Route::get('courses/{slug}/members',		'CourseController@members')	->name('courses.members');
+	Route::get('courses', 					'CourseController@index')			->name('courses.index');
+	Route::get('courses/create', 			'CourseController@create')			->name('courses.create');
+	Route::get('courses/edit/{slug}', 		'CourseController@edit')			->name('courses.edit');
+	Route::get('courses/delete/{slug}', 	'CourseController@delete')			->name('courses.delete');
+	Route::get('courses/{slug}/members',	'CourseController@members')			->name('courses.members');
 
 	// COURSES : POST
-	Route::post('courses/create', 			'CourseController@store')		->name('courses.create')	->middleware('level:2');
-	Route::post('courses/edit/{slug}', 		'CourseController@update')		->name('courses.edit')		->middleware('level:2');
-	Route::post('courses/delete/{slug}', 	'CourseController@destroy')		->name('courses.delete')	->middleware('level:2');
-	Route::post('courses/{slug}/members/remove',	'CourseController@toggleMember')	->name('courses.togglemembers');
+	Route::post('courses/create', 			'CourseController@store')			->name('courses.create');
+	Route::post('courses/edit/{slug}', 		'CourseController@update')			->name('courses.edit');
+	Route::post('courses/delete/{slug}', 	'CourseController@destroy')			->name('courses.delete');
+	Route::post('courses/{slug}/members/remove','CourseController@removeMember')->name('courses.removemember');
 
 
 // _____________________________________________________________________________________________________________
