@@ -170,3 +170,18 @@ ul.list-members li{
 .table-levels tr:hover .glyphicon-pencil:hover{
     opacity:1;
 }
+
+.frame-news{
+    border: 3px solid rgb(195,195,195);
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.frame-news h2 a{
+    color: inherit;
+}
+
+.icon{
+    color: inherit; 
+    font-size: 40%;
+}

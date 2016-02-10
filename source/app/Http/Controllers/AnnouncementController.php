@@ -25,8 +25,8 @@ class AnnouncementController extends Controller {
    */
   public function index()
   {
-    $announcements = Announcement::where('validated', 1)->first();
-    return view('announcements.index', compact('announcement'));
+    $announcements = Announcement::where('validated', 1)->get();
+    return view('announcements.index', compact('announcements'));
   }
 
   /**
