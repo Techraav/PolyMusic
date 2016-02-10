@@ -16,11 +16,11 @@
 <div class="container">
 	<div class="jumbotron">
 		<h1 align="center">Modification de la news</h1>
-        <form class="form-horizontal" role="form" method="post" action="{{ url('admin/news/edit') }}">
+        <form class="form-horizontal" role="form" method="post" action="{{ url('admin/news/edit/'.$news['slug']) }}">
             {!! csrf_field() !!}
 
     		<div class="form-group">
-                <label for="inputEmail" class="col-md-4 control-label">Titre</label>
+                <label for="title" class="col-md-4 control-label">Titre</label>
 
                 <div class="col-md-6">
                     <input type="text" class="form-control" name="title" value="{{ $news['title'] }}" required>

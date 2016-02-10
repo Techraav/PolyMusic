@@ -7,26 +7,30 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="alert alert-dismissible alert-warning">
-  <button type="button" class="close" data-dismiss="alert">&close;</button>
-  <h4>Attention!</h4>
-  <p>La suppression de la news est définitive</p>
-</div>
-
 <div class="container">
-	<div class="jumbotron">
-		<h1 align="center">Suppression de la news</h1>
-		<div style="border: 3px solid rgb(195,195,195); padding-right: 15px; padding-left: 15px;">
+	<div class="alert alert-dismissible alert-warning">
+	  <button type="button" class="close" data-dismiss="alert">&times;</button>
+	  <h4>Attention !</h4>
+	  <p>La suppression de la news est définitive</p>
+	</div>
+	<h1 align="center">Suppression de la news</h1>
+	<form class="form-horizontal" role="form" method="post">
+            {!! csrf_field() !!}
+		<div class="frame-news">
 			<h2>{{$news['title']}}</h2>
 			<p>{{$news['content']}} <br/>
-				<div style="color: gray; text-align: right; font-size: 12px; font-style: italic">Créée par 
-					<a style="color:inherit" href="{{ url('user/'.App\User::where('id', $n['user_id'])->first()->slug)}}">
-						<b>{{ App\User::where('id', $n['user_id'])->first()->first_name }}</b>
-					</a> le {{date_format($n['created_at'], 'd/m/Y')}}
+				<div align="right" class="news-infos">Créée par 
+					<a href="{{ url('user/'.App\User::where('id', $news['user_id'])->first()->slug)}}">
+						<b>{{ App\User::where('id', $news['user_id'])->first()->first_name }}</b>
+					</a> le {{date_format($news['created_at'], 'd/m/Y')}}
 				</div>
 			</p>
-		</div>
-		<p><a href="{{ url('admin/news/delete/'.$news['slug']) }}" class="btn btn-primary btn-lg">Supprimer</a></p>
-	</div>	
+		</div><br/>
+		<div class="form-group buttons">
+                <div class="col-md-3 col-md-offset-10">
+                    <button type="submit" class="btn btn-primary">Supprimer</button>
+                </div>
+            </div>
+	</form>
 </div>
 @endsection

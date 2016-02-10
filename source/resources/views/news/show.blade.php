@@ -1,22 +1,24 @@
 @extends('layouts.app')
 
+@section('title')
+	LES NEEEEEEEEEEEWS
+@stop
+
 @section('content')
-<h1 style="text-align: center">News</h1>
+<h1 align="center">News</h1>
 @if(isset($news))
-	<div style="border: 3px solid rgb(195,195,195); padding-right: 15px; padding-left: 15px;">
-		<h2>{{$news['title']}}
+	<div class="frame-news">
+		<h2><a href="{{ url('news/view/'.$news['slug'])}}">{{$news['title']}}</a>
 			@if(Auth::check() && Auth::user()->level >= 1)
-				<span style="color: inherit; font-size: 40%"><a href="{{ url('admin/news/delete/'.$news['slug']) }}" style="color: inherit"><span class="glyphicon glyphicon-remove"></span></a></span>
+				<a class="icon" href="{{ url('admin/news/edit/'.$news['slug']) }}"><span class="glyphicon glyphicon-pencil"></span></a>	
+				<a class="icon" href="{{ url('admin/news/delete/'.$news['slug']) }}"><span class="glyphicon glyphicon-trash"></span></a>
 			@endif
 		</h2>
 		<p>{{$news['content']}} <br/>
-			<div style="color: gray; text-align: right; font-size: 12px; font-style: italic">Créée par 
-				<a style="color:inherit" href="{{ url('user/'.App\User::where('id', $news['user_id'])->first()->slug)}}">
+			<div align="right" class="news-infos">Créée par 
+				<a href="{{ url('user/'.App\User::where('id', $news['user_id'])->first()->slug)}}">
 					<b>{{ App\User::where('id', $news['user_id'])->first()->first_name }}</b>
-				</a> le {{date_format($news['created_at'], 'd/m/Y')}}<br/>
-				@if(Auth::check() && Auth::user()->level >= 1)
-					<a href="{{ url('teacher/news/edit/'.$news['slug']) }}">Modifier la news</a>
-				@endif
+				</a> le {{date_format($news['created_at'], 'd/m/Y')}}
 			</div>
 		</p>
 	</div>
