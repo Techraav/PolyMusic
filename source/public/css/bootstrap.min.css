@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
-
+/*@import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+*/
 html{
 	font-family:sans-serif;
 	-ms-text-size-adjust:100%;
@@ -7564,7 +7564,7 @@ a.list-group-item-danger.active:hover,a.list-group-item-danger.active:focus{
 .announcement-content p{
 	text-indent:40px;
 	line-height: 28px;
-	font-size:20px ;
+	font-size:19px ;
 	font-weight:normal;
 	text-align: justify;
 }
@@ -7649,4 +7649,18 @@ blockquote.comment{
 	font-size:16px;
 	font-style:italic;
 
+}
+
+.post-content{
+	padding-left:60px;
+	padding-right:60px;
+    border: 2px solid #809DB9;
+    border-radius: 5px;
+    padding-top: 10px;
+}
+
+.btn-submit{
+	width:200px;
+	margin:auto;
+	display:block;
 }

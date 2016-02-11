@@ -17,7 +17,7 @@
 					<a class="icon" href="{{ url('admin/news/delete/'.$n['slug']) }}"><span class="glyphicon glyphicon-trash"></span></a>
 				@endif
 			</h2>
-			<p>{{$n['content']}} <br/>
+			<p>{!! $n['content'] !!} <br/>
 				<div class="news-infos" align="right">Créée par 
 					<a href="{{ url('user/'.App\User::where('id', $n['user_id'])->first()->slug)}}">
 						<b>{{ App\User::where('id', $n['user_id'])->first()->first_name }}</b>

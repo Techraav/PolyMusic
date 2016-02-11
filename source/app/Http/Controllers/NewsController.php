@@ -125,9 +125,11 @@ class NewsController extends Controller {
       return Redirect::back()->withErrors($validation->errors());
     }
 
+    $content = postTextFormat($request->content, ['table', 'tbody', 'thead', 'td', 'tr', 'th', 'ul', 'li', 'h2', 'h3', 'h4', 'h5', 'h6', 'img']);
+
     $news = News::create([
       'title'   => $request->title,
-      'content' => $request->content,
+      'content' => $content,
       'user_id' => Auth::user()->id,
       ]);
 
@@ -159,9 +161,11 @@ class NewsController extends Controller {
 
     $slug = str_slug($request->title . '-' . $news->id);
 
+    $content = postTextFormat($request->content, ['table', 'tbody', 'thead', 'td', 'tr', 'th', 'ul', 'li', 'h2', 'h3', 'h4', 'h5', 'h6', 'img']);
+
     $news->update([
       'title'   => $request->title,
-      'content' => $request->content,
+      'content' => $content,
       'user_id' => Auth::user()->id,
       'slug' => $slug,
       ]);
@@ -186,3 +190,4 @@ class NewsController extends Controller {
 }
 
 ?>
+

@@ -174,7 +174,7 @@ class CreateBaseEntries extends Migration
         // Create News 'test news'
         News::create([
             'title'     => 'test news',
-            'content'   => 'Contenu de la première news de test',
+            'content'   => '<p>Contenu de la première news de test</p>',
             'user_id'   => 1,
             'slug'      => 'test-news-1'
             ]);
@@ -182,7 +182,7 @@ class CreateBaseEntries extends Migration
         // Create News 'test second news'
         News::create([
             'title'     => 'test seconde news',
-            'content'   => 'Contenu de la deuxieme news de test',
+            'content'   => '<p>Contenu de la deuxieme news de test</p>',
             'user_id'   => 2,
             'slug'      => 'test-seconde-news-1'
             ]);
@@ -190,17 +190,32 @@ class CreateBaseEntries extends Migration
         // Create announcement 'test d'une annonce'
         Announcement::create([
             'user_id'   => 1,
-            'content'   => 'contenu de la première annonce',
             'title'     => 'test d\'une annonce',
             'slug'      => 'test-annonce-1',
             'validated' => 1,
             'subject'   => 'Annonce pour tester',
+            'content'   => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in malesuada leo.
+                            Suspendisse ut dapibus urna. Nunc mattis velit vel varius luctus. Fusce ornare arcu nec odio
+                            egestas, et lacinia sapien laoreet. Maecenas odio dui, fringilla non sapien euismod, volutpat 
+                            porta sapien. Suspendisse mauris quam, maximus quis tempus non, feugiat in tellus. Sed non quam aliquet, 
+                            sollicitudin risus nec, mollis turpis. Donec interdum tincidunt efficitur. Nam efficitur enim a leo 
+                            pellentesque, venenatis sollicitudin lacus suscipit. Ut eu nunc eget lacus vehicula gravida. Fusce 
+                            vitae ante bibendum, maximus nisl quis, lacinia metus. In pharetra placerat lacus, sed fringilla ex 
+                            imperdiet vel. Nulla mollis risus tellus, a ultricies tellus tempor cursus. Quisque viverra nunc ipsum, 
+                            a ullamcorper dui porttitor eu. Suspendisse nec nunc ut mi dignissim ultrices.</p>
+                            <p>In libero sem, dictum in venenatis sit amet, dictum id quam. Aliquam id ligula luctus, 
+                            lobortis felis eget, sollicitudin nulla. Suspendisse tempus aliquet volutpat. Integer lacinia 
+                            sem ac libero faucibus cursus. Morbi mauris massa, interdum vel placerat sit amet, rutrum eget 
+                            turpis. Mauris convallis semper sem, eu pharetra tortor sagittis non. Praesent auctor justo nulla,
+                            in rhoncus ipsum porta ut. Mauris bibendum fringilla accumsan. Proin bibendum eros eros. Aliquam 
+                            vulputate, nisi vitae tristique lacinia, leo risus volutpat augue, vel ultricies lorem urna vitae erat. 
+                            Vestibulum varius, libero eget sollicitudin luctus, lacus massa molestie purus, quis blandit felis sem at dui.</p>',
             ]);
 
         // Create announcement 'test d'une seconde annonce'
         Announcement::create([
             'user_id'   => 2,
-            'content'   => 'contenu de la deuxieme annonce',
+            'content'   => '<p>contenu de la deuxieme annonce</p>',
             'title'     => 'test d\'une seconde annonce',
             'slug'      => 'test-seconde-annonce-1',
             'validated' => 1,
@@ -211,7 +226,7 @@ class CreateBaseEntries extends Migration
         // Create announcement unvalidated
         Announcement::create([
             'user_id'   => 3,
-            'content'   => 'azre',
+            'content'   => '<p>azre</p>',
             'title'     => 'azr',
             'slug'      => 'test-annonce-invalidee-1',
             'validated' => 0,
@@ -222,32 +237,46 @@ class CreateBaseEntries extends Migration
         Comment::create([
             'announcement_id'   => 1,
             'user_id'           => 1,
-            'content'           => 'commentaire annonce 1'
+            'content'           => '<p>Nam efficitur enim a leo pellentesque, venenatis sollicitudin lacus suscipit. Ut eu 
+                                    nunc eget lacus vehicula gravida. Fusce vitae ante bibendum, maximus nisl quis, lacinia metus. 
+                                    In pharetra placerat lacus, sed fringilla ex imperdiet vel. Nulla mollis risus tellus, a ultricies
+                                    tellus tempor cursus. Quisque viverra nunc ipsum, a ullamcorper dui porttitor eu. Suspendisse nec
+                                    nunc ut mi dignissim ultrices.</p>
+                                    <p>In libero sem, dictum in venenatis sit amet, dictum id quam. Aliquam id ligula luctus,
+                                     lobortis felis eget, sollicitudin nulla. Suspendisse tempus aliquet volutpat. Integer
+                                      lacinia sem ac libero faucibus cursus.</p>'
             ]);
 
         // Create comment on announcement #1
         Comment::create([
             'announcement_id'   => 1,
             'user_id'           => 2,
-            'content'           => 'commentaire 2 annonce 1'
+            'content'           => '<p>In libero sem, dictum in venenatis sit amet, dictum id quam. Aliquam id ligula luctus,
+                                    lobortis felis eget, sollicitudin nulla. Suspendisse tempus aliquet volutpat. Integer
+                                    lacinia sem ac libero faucibus cursus.</p>
+                                    <p>Nam efficitur enim a leo pellentesque, venenatis sollicitudin lacus suscipit. Ut eu 
+                                    nunc eget lacus vehicula gravida. Fusce vitae ante bibendum, maximus nisl quis, lacinia metus. 
+                                    In pharetra placerat lacus, sed fringilla ex imperdiet vel. Nulla mollis risus tellus, a ultricies
+                                    tellus tempor cursus. Quisque viverra nunc ipsum, a ullamcorper dui porttitor eu. Suspendisse nec
+                                    nunc ut mi dignissim ultrices.</p>'
             ]);
 
         // Create comment on announcement #2
         Comment::create([
             'announcement_id'   => 2,
             'user_id'           => 1,
-            'content'           => 'commentaire annonce 2'
+            'content'           => '<p>commentaire annonce 2</p>'
             ]);
 
         // Create Article 'premier article'
         Article::create([
             'title'     => 'premier article',
             'subtitle'  => 'test d\'un premier article',
-            'content'   => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam purus tortor, efficitur ut iaculis ut, 
+            'content'   => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam purus tortor, efficitur ut iaculis ut, 
                             tincidunt vel elit. Morbi malesuada ipsum eu fermentum consequat. Duis aliquam, massa et bibendum 
                             facilisis, nulla nibh ultricies ante, a rutrum augue tellus quis erat. Curabitur aliquam ipsum gravida, 
                             interdum mauris non, blandit justo. Donec non mollis orci, a accumsan ligula. Nullam quis sapien elementum 
-                            neque egestas lacinia',
+                            neque egestas lacinia</p>',
             'user_id'   => 1,
             'slug'      => 'premier-article'
             
@@ -257,11 +286,11 @@ class CreateBaseEntries extends Migration
         Article::create([
             'title'     => 'deuxieme article',
             'subtitle'  => 'test d\'un deuxieme article',
-            'content'   => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam purus tortor, efficitur ut iaculis ut, 
+            'content'   => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam purus tortor, efficitur ut iaculis ut, 
                             tincidunt vel elit. Morbi malesuada ipsum eu fermentum consequat. Duis aliquam, massa et bibendum 
                             facilisis, nulla nibh ultricies ante, a rutrum augue tellus quis erat. Curabitur aliquam ipsum gravida, 
                             interdum mauris non, blandit justo. Donec non mollis orci, a accumsan ligula. Nullam quis sapien elementum 
-                            neque egestas lacinia',
+                            neque egestas lacinia</p>',
             'user_id'   => 2,
             'slug'      => 'deuxieme-article'
             ]);

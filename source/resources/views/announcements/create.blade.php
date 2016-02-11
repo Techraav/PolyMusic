@@ -26,6 +26,13 @@
 
             <div class="form-group">
 
+              <div class="col-md-10 col-md-offset-1">
+                <input type="text" class="form-control" name="subject" required placeholder="Sujet" value="">
+              </div>
+            </div>
+
+            <div class="form-group">
+
                 <div class="col-md-10 col-md-offset-1">
                     <textarea class="form-control" rows="10" name="content" required placeholder="Contenu de votre annonce..."></textarea>
                     <div class="checkbox">

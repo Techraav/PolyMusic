@@ -1,10 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="jumbotron">
-	<div class="container">
+<div class="post-content">
 		<h1 align="center">{{ ucfirst($announcement->title) }}</h1>
-		<br />
 		<span class="announcement-content">
 		<h2 align="center"><i>Sujet : {{ ucfirst($announcement->subject) }}</i></h3>
 		<br />
@@ -12,9 +10,7 @@
 		</span>
 		<br />
 		<p align="right" class="announcement-infos">Rédigé par <a href="{{ url('users/'.App\User::where('id', $announcement->user_id)->first()->slug) }}">{{ App\User::where('id', $announcement->user_id)->first()->first_name.' '.App\User::where('id', $announcement->user_id)->first()->last_name }}</a>, le {{ date_format($announcement['created_at'], 'd/m/Y') }}</p>
-	</div>	
 </div>
-
 <div class="announcement-comments">
 <br />
 <h1 align="center">Commentaires</h1>
@@ -41,6 +37,26 @@
 		@endforeach
 	@else
 	<p>Aucun commentaire pour le moment.</p>
+	@endif
+	@if(Auth::check())
+
+	<hr />
+	<div class="col-md-10 col-md-offset-1">
+
+		<h2 align="center">Ajouter un commentaire</h2>
+		<br />
+		<form action="{{ url('announcements/comment/create') }}" method="post">
+		{{ csrf_field() }}
+			<input hidden value="{{ $announcement->id }}" name="announcement_id" />
+
+			<div class="form-group">
+				<textarea rows="8" class="form-control" placeholder="Votre commentaire..." name="content"></textarea>
+			</div>
+
+			<div class="form-group">
+				<input type="submit" role="button" value="Valider" class="btn btn-primary btn-submit"/>
+			</div>
+		</form>	</div>
 	@endif
 </div>
 

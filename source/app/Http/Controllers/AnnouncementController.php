@@ -110,11 +110,13 @@ class AnnouncementController extends Controller {
       return Redirect::back()->withErrors($validation->errors());
     }
 
+    $content = postTextFormat($request->content);
+
     $announcement = Announcement::createWithSlug([
       'user_id'   => Auth::user()->id,
       'title'     => $request->title,
-      'content'   => $request->content,
-      'subject'   => $Request->subject,
+      'content'   => $content,
+      'subject'   => $request->subject,
       ]);
 
     Flash::success('Votre annonce a bien été créée');
@@ -140,9 +142,11 @@ class AnnouncementController extends Controller {
 
     $slug = str_slug($request->title . '-' . $news->id);
 
+    $content = postTextFormat($request->content);
+
     $annonce->update([
       'title'   => $request->title,
-      'content' => $request->content,
+      'content' => $content,
       'subject'   => $Request->subject,
       'user_id' => Auth::user()->id,
       'slug' => $slug,
