@@ -44,4 +44,22 @@
 	</ul>
 </div>
 
+<style type="text/css">
+.icon{
+	font-size: 40%;
+	color: inherit;
+	opacity: 0.3;
+	-webkit-transition: all 0.1s ease-in-out;
+	-moz-transition: all 0.1s ease-in-out;
+	-ms-transition: all 0.1s ease-in-out;
+	-o-transition: all 0.1s ease-in-out;
+	transition: all 0.1s ease-in-out;
+}
+
+.icon:hover{
+	opacity: 1;
+	font-size: 70%;
+}
+</style>
+
 @endsection
