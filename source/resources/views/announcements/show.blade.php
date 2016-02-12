@@ -32,6 +32,13 @@
 			  		</span>
 			  		<br />
 			  		<small class="date">Le {{ date_format($c->created_at, 'd/m/Y') }}, à {{date_format($c->created_at, 'H:i:s') }}</small>
+			  		@if(Auth::user()->id == $c->user_id || Auth::user()->level > 1)
+			  		<div class="comment-manage">
+			  			<a href="{{ url('comment/edit/'.$c->id) }}" class="btn-edit glyphicon glyphicon-pencil"></a>
+			  			<a href="{{ url('comment/delete/'.$c->id) }}" class="btn-delete glyphicon glyphicon-remove"></a>
+			  		</div>
+			  		@endif
+
 		  		</div>
 		</div>
 		</blockquote>

@@ -7664,3 +7664,34 @@ blockquote.comment{
 	margin:auto;
 	display:block;
 }
+
+.comment-manage a{
+	text-decoration: none;
+	color:gray;
+	opacity:0;
+	transition: all 0.1s ease-in-out;
+	-webkit-transition: all 0.1s ease-in-out;
+	-moz-transition: all 0.1s ease-in-out;
+	position:absolute;
+	right:9px;
+	top:7px;
+	font-size:20px;
+}
+
+.comment-manage a.glyphicon-pencil{
+	right:33px;
+}
+
+.comment:hover .comment-manage a{
+	opacity:0.7;
+}
+
+.comment-manage a.glyphicon-remove:hover{
+	opacity:1 !important;
+	color:rgb(200,50,50);
+}
+
+.comment-manage a.glyphicon-pencil:hover{
+	opacity:1 !important;
+	color:#2C3E50;
+}
