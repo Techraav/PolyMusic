@@ -1,10 +1,52 @@
 <?php
-	
-	function printUserLink($id)
-	{
 
+	/**
+	*	Print the link leading to $user_id's profile
+	*
+	* @param $user_id 
+	* @param $forstThenLast (boolean) : true  -> print first_name last_name 
+	*								 || false -> print last_name first_name
+	* @return $link <a href="#slug"> #names </a>
+	*/
+	function printUserLink($user_id, $firstThenLast = true, array $classes=[])
+	{
+		$user = App\User::where('id', $user_id)->first();
+
+		$slug 	= $user->slug;
+		$first 	= $user['first_name'];
+		$second = $user['last_name'];
+
+		if(!$firstThenLast)
+		{
+			$buff 	= $first;
+			$first 	= $second;
+			$second = $buff;
+		}
+
+		$class = '';
+		if(!empty($classes))
+		{
+			$class .= 'class="';
+			foreach ($classes as $c) {
+				$class .= $c.' ';
+			}
+			$class .= '"';
+		}
+
+		$link = '<a '.$class.' href="'.url('users/'.$slug).'">'.ucfirst($first).' '.ucfirst($second).'</a>';
+
+		return $link;
 	}
 
+
+	/**
+	*	Formats (news/articles/comments/announcements) post's content with allowed HTML tags
+	*
+	* @param $string : post content
+	* @param $forbidden : add forbidden tags (modify $tags)
+	*
+	* @return formated $string (ready-to-save post's content)
+	*/
 	function postTextFormat($string, $forbidden=[])
 	{
 		$base = $string;

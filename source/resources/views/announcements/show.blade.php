@@ -9,8 +9,9 @@
 			{!! $announcement->content !!}
 		</span>
 		<br />
-		<p align="right" class="announcement-infos">Rédigé par <a href="{{ url('users/'.App\User::where('id', $announcement->user_id)->first()->slug) }}">{{ App\User::where('id', $announcement->user_id)->first()->first_name.' '.App\User::where('id', $announcement->user_id)->first()->last_name }}</a>, le {{ date_format($announcement['created_at'], 'd/m/Y') }}</p>
+		<p align="right" class="announcement-infos">Rédigé par {!! printUserLink($announcement->user_id) !!}, le {{ date_format($announcement['created_at'], 'd/m/Y') }}</p>
 </div>
+
 <div class="announcement-comments">
 <br />
 <h1 align="center">Commentaires</h1>
@@ -20,7 +21,7 @@
 		<blockquote class="comment">
 		<div class="row">
 				<div class="comment-member">
-					<h4 align="center"><b><a href="{{ url('users/'.App\User::where('id', $c->user_id)->first()->slug) }}">{{ App\User::where('id', $c->user_id)->first()->first_name }} {{ App\User::where('id', $c->user_id)->first()->last_name }}</a></b></h4>
+					<h4 align="center"><b>{!! printUserLink($c->user_id) !!}</b></h4>
 					<p align="center"><img class="comment-pp" src=" {{ URL::asset('/img/profil_pictures/'.App\User::where('id', $c->user_id)->first()->profil_picture) }} " /></p>
 					<span align="center" class="rang">{{ ucfirst(App\Level::where('level', App\User::where('id', $c->user_id)->first()->level)->first()->name) }}</span>
 				</div> 
