@@ -11,6 +11,11 @@
 |
 */
 
+Route::get('test', function()
+{
+	return view('test');
+});
+
 Route::get('/', function()
 {
 	return View::make('welcome');
@@ -61,7 +66,7 @@ Route::post('announcements/delete/{slug}', 'AnnouncementController@destroy')->na
 // ____________________________________________________________________________________________________
 
 Route::post('announcements/comment/create', 'CommentController@store')	->name('comments.create')	->middleware('auth');
-
+Route::get('comment/edit/{id}', 'CommentController@edit')	->name('comments.edit')	->middleware('auth');
 
 
 // ____________________________________________________________________________________________________

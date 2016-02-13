@@ -127,16 +127,10 @@ class NewsController extends Controller {
 
     $content = postTextFormat($request->content, ['table', 'tbody', 'thead', 'td', 'tr', 'th', 'ul', 'li', 'h2', 'h3', 'h4', 'h5', 'h6', 'img']);
 
-    $news = News::create([
+    $news = News::createWithSlug([
       'title'   => $request->title,
       'content' => $content,
       'user_id' => Auth::user()->id,
-      ]);
-
-    $slug = str_slug($request->title . '-' . $news->id);
-
-    $news->update([
-      'slug' => $slug,
       ]);
 
     Flash::success('La news a bien été créée ! ');

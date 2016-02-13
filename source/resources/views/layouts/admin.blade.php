@@ -144,6 +144,8 @@
     <script src="{{ URL::asset('/js/jquery.js')  }}"></script>
     @yield('js') 
     <script src="{{ URL::asset('/js/bootstrap.min.js')  }}"></script>
+    <script src="{{ URL::asset('/js/bootbox.min.js')  }}"></script>
+
     <script>
       $('#flash-overlay-modal').modal();
     </script>
