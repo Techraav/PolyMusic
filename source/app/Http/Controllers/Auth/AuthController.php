@@ -115,8 +115,24 @@ class AuthController extends Controller
         }
 
         $id = Auth::user()->id;
+        $stringToSlug = strtolower(Auth::user()->first_name).'-'.strtolower(Auth::user()->last_name).'-'.$id;
+        $replacement = ['é' => 'e',
+                        'è' => 'e',
+                        'ê' => 'e', 
+                        'ë' => 'e', 
+                        'ù' => 'u', 
+                        'à' => 'a', 
+                        'ç' => 'c', 
+                        'â' => 'a', 
+                        'û' => 'u', 
+                        'î' => 'i', 
+                        'ô' => 'o', ];
+        foreach ($replacement as $k => $v) {
+            $stringToSlug = str_replace($k, $v, $stringToSlug);
+        }
+        
+        $slug = str_slug($stringToSlug);
 
-        $slug = strtolower(Auth::user()->first_name).'-'.strtolower(Auth::user()->last_name).'-'.$id;
 
         $user->update([
             'slug' => $slug,

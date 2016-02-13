@@ -565,9 +565,29 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
     protected function createWithSlug(array $data = [])
     {
         $model = $this->create($data);
+
         $nameField = $this->nameField;
+        
         $name = $model->$nameField;
-        $slug = str_slug($name.' '.$model->id);
+        
+        $stringToSlug = $name.' '.$model->id;
+        $replacement = ['é' => 'e',
+                        'è' => 'e',
+                        'ê' => 'e', 
+                        'ë' => 'e', 
+                        'ù' => 'u', 
+                        'à' => 'a', 
+                        'ç' => 'c', 
+                        'â' => 'a', 
+                        'û' => 'u', 
+                        'î' => 'i', 
+                        'ô' => 'o', ];
+        foreach ($replacement as $k => $v) {
+            $stringToSlug = str_replace($k, $v, $stringToSlug);
+        }
+        
+        $slug = str_slug($stringToSlug);
+        
         $model->update([
             'slug'  => $slug,
             ]);
