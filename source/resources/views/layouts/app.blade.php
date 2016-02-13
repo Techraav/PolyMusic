@@ -85,17 +85,13 @@
         </div>
         <div class="panel panel-default panel-news">
             <div class="panel-heading">
-                Dernières news
+                <a href="{{ url('news')}}">Dernières news</a>
             </div>
             <ul class="list-group">
                 @forelse( App\News::where('active', 1)->orderBy('id', 'desc')->limit(10)->get() as $n)
                 <li class="list-group-item">
-                  <p><a href="{{ url('news/view/'.$n['slug'])}}">{{$n['title']}}</a><br/></p>
-                  <p align="right" class="news-infos">Créée par 
-                    <a href="{{ url('user/'.App\User::where('id', $n['user_id'])->first()->slug)}}">
-                      <b>{{ App\User::where('id', $n['user_id'])->first()->first_name }}</b>
-                    </a> 
-                    le {{ date_format($n['created_at'], 'd/m/Y') }}
+                  <p><a href="{{ url('news/view/'.$n['slug'])}}">{{$n['title']}}</a>
+                    <span class="news-infos">[<b>{!! printUserLink($n->user_id) !!}</b>,{{ date_format($n['created_at'], 'd/m/Y') }}]</span> 
                   </p>
                 </li>
                 @empty

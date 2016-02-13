@@ -6,6 +6,10 @@
 
 @extends('layouts.admin')
 
+@section('title')
+    Supprimer une news
+@stop
+
 @section('content')
 <div class="container">
 	<div class="alert alert-dismissible alert-warning">

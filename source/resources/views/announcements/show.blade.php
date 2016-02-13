@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+	{{ ucfirst($announcement->title) }}
+@stop
+
 @section('content')
 <div class="post-content">
 		<h1 align="center">{{ ucfirst($announcement->title) }}</h1>

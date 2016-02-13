@@ -6,6 +6,10 @@
 
 @extends('layouts.app')
 
+@section('title')
+	News
+@stop
+
 @section('content')
 <h1 style="text-align: center">News</h1>
 @if(isset($news))
@@ -19,9 +23,7 @@
 			</h2>
 			<p>{!! $n['content'] !!} <br/>
 				<div class="news-infos" align="right">Créée par 
-					<a href="{{ url('user/'.App\User::where('id', $n['user_id'])->first()->slug)}}">
-						<b>{{ App\User::where('id', $n['user_id'])->first()->first_name }}</b>
-					</a> le {{date_format($n['created_at'], 'd/m/Y')}}
+					<b>{!! printUserLink($n->user_id) !!}</b> le {{date_format($n['created_at'], 'd/m/Y')}}
 				</div>
 			</p>
 		</div>
@@ -43,23 +45,5 @@
 	  <li><a href="#">&raquo;</a></li>
 	</ul>
 </div>
-
-<style type="text/css">
-.icon{
-	font-size: 40%;
-	color: inherit;
-	opacity: 0.3;
-	-webkit-transition: all 0.1s ease-in-out;
-	-moz-transition: all 0.1s ease-in-out;
-	-ms-transition: all 0.1s ease-in-out;
-	-o-transition: all 0.1s ease-in-out;
-	transition: all 0.1s ease-in-out;
-}
-
-.icon:hover{
-	opacity: 1;
-	font-size: 70%;
-}
-</style>
 
 @endsection

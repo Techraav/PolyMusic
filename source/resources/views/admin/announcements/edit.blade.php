@@ -12,6 +12,10 @@
 
 @extends('layouts.admin')
 
+@section('title')
+    Modifier une annonce
+@stop
+
 @section('content')
 <div class="container">
     <div class="jumbotron">

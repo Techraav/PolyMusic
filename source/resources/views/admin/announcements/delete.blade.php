@@ -6,6 +6,10 @@
 
 @extends('layouts.admin')
 
+@section('title')
+    Supprimer une annonce
+@stop
+
 @section('content')
 <div class="alert alert-dismissible alert-warning">
   <button type="button" class="close" data-dismiss="alert">&close;</button>

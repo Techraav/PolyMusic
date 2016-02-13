@@ -12,6 +12,10 @@
 
 @extends('layouts.admin')
 
+@section('title')
+    Modifier une news
+@stop
+
 @section('content')
 <div class="container">
 	<div class="jumbotron">

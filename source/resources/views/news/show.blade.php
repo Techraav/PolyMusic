@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-	LES NEEEEEEEEEEEWS
+	{{ucfirst($news['title'])}}
 @stop
 
 @section('content')
@@ -16,9 +16,7 @@
 		</h2>
 		<p>{!!$news['content']!!} <br/>
 			<div align="right" class="news-infos">Créée par 
-				<a href="{{ url('user/'.App\User::where('id', $news['user_id'])->first()->slug)}}">
-					<b>{{ App\User::where('id', $news['user_id'])->first()->first_name }}</b>
-				</a> le {{date_format($news['created_at'], 'd/m/Y')}}
+				<b>{!! printUserLink($news->user_id) !!}</b> le {{date_format($news['created_at'], 'd/m/Y')}}
 			</div>
 		</p>
 	</div>
