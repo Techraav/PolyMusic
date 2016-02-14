@@ -8,7 +8,7 @@
 	*
 	* @return $data : array containing informations
 	*/
-	function userData($field, $value, $wanted)
+	function userData($wanted, $value, $field='id')
 	{
 		$user = App\User::where($field, $value)->first();
 		$data = $user[$wanted];

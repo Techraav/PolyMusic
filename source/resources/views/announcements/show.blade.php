@@ -26,8 +26,8 @@
 		<div class="row">
 				<div class="comment-member">
 					<h4 align="center"><b>{!! printUserLink($c->user_id) !!}</b></h4>
-					<p align="center"><img class="comment-pp" src=" {{ URL::asset('/img/profil_pictures/'.App\User::where('id', $c->user_id)->first()->profil_picture) }} " /></p>
-					<span align="center" class="rang">{{ ucfirst(App\Level::where('level', userData('id', $c->user_id, 'level'))->first()->name) }}</span>
+					<p align="center"><img class="comment-pp" src=" {{ URL::asset('/img/profil_pictures/'.userData('profil_picture', $c->user_id)) }} " /></p>
+					<span align="center" class="rang">{{ ucfirst(App\Level::where('level', userData('level', $c->user_id))->first()->name) }}</span>
 				</div> 
 		  		<div class="comment-content">
 		  		<br />
