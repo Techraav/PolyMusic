@@ -63,7 +63,7 @@
                 <li><a href="{{ url('admin/events') }}">Événements</a></li>
                 <li><a href="{{ url('admin/bands') }}">Groupes</a></li>
                 <li><a href="{{ url('admin/instruments') }}">Instruments</a></li>
-                <li><a href="{{ url('admin/members') }}">Membres</a></li>
+                <li><a href="{{ url('admin/users') }}">Membres</a></li>
                 <li><a href="{{ url('admin/news') }}">News</a></li>
                 @if(Auth::user()->level > 1)
                 <li class="divider"></li>

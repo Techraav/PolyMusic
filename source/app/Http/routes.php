@@ -94,6 +94,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:1'], function(){
 		return view('admin.index');
 	});
 
+	Route::get('users', 'UserController@index')	->name('users.index');
+
+
 	// _____________________________________________________________________________________________________________
 
 	// ANNOUNCEMENTS : GET
