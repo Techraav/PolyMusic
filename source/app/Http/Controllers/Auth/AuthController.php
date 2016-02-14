@@ -113,7 +113,7 @@ class AuthController extends Controller
             Flash::error('Connexion impossible.');
             return redirect('auth/login');
         }
-
+ 
         $id = Auth::user()->id;
         $stringToSlug = strtolower(Auth::user()->first_name).'-'.strtolower(Auth::user()->last_name).'-'.$id;
         $replacement = ['é' => 'e',

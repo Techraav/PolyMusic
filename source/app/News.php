@@ -9,6 +9,7 @@ class News extends Model {
 	protected $table = 'news';
 	public $timestamps = true;
 	protected $fillable = array('timestamps', 'title', 'content', 'user_id', 'active', 'slug');
+	protected $nameField = 'title';
 
 	public function author()
 	{

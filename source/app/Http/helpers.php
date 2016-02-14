@@ -1,6 +1,23 @@
 <?php
 
 	/**
+	*	Get user's information
+	* @param $field (string)
+	* @param $value : value of $field field
+	* @param $wanted (array) : expected information 
+	*
+	* @return $data : array containing informations
+	*/
+	function userData($field, $value, $wanted)
+	{
+		$user = App\User::where($field, $value)->first();
+		$data = $user[$wanted];
+
+		return $data;
+	}
+
+
+	/**
 	*	Print the link leading to $user_id's profile
 	*
 	* @param $user_id 

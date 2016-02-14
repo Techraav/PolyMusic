@@ -27,7 +27,7 @@
 				<div class="comment-member">
 					<h4 align="center"><b>{!! printUserLink($c->user_id) !!}</b></h4>
 					<p align="center"><img class="comment-pp" src=" {{ URL::asset('/img/profil_pictures/'.App\User::where('id', $c->user_id)->first()->profil_picture) }} " /></p>
-					<span align="center" class="rang">{{ ucfirst(App\Level::where('level', App\User::where('id', $c->user_id)->first()->level)->first()->name) }}</span>
+					<span align="center" class="rang">{{ ucfirst(App\Level::where('level', userData('id', $c->user_id, 'level'))->first()->name) }}</span>
 				</div> 
 		  		<div class="comment-content">
 		  		<br />
@@ -38,7 +38,9 @@
 			  		<small class="date">Le {{ date_format($c->created_at, 'd/m/Y') }}, à {{date_format($c->created_at, 'H:i:s') }}</small>
 			  		@if(Auth::user()->id == $c->user_id || Auth::user()->level > 1)
 			  		<div class="comment-manage">
+			  			@if(Auth::user()->id == $c->user_id)
 			  			<a href="{{ url('comment/edit/'.$c->id) }}" class="btn-edit glyphicon glyphicon-pencil"></a>
+			  			@endif
 			  			<a href="{{ url('comment/delete/'.$c->id) }}" class="btn-delete glyphicon glyphicon-remove"></a>
 			  		</div>
 			  		@endif
