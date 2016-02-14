@@ -196,3 +196,16 @@ ul.list-members li{
     opacity: 1;
     font-size: 70%;
 }
+
+.profil-pict p img{
+    width: 250px;
+    display:block;
+    margin:auto;
+    float: left;
+}
+
+.infos-profile{
+    float: left;
+    margin-left: 20%;
+    font-size: 20px;
+}
