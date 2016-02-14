@@ -1,5 +1,12 @@
 <?php namespace App\Http\Controllers;
 
+use App\User;
+use Validator;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Laracasts\Flash\Flash;
+use Illuminate\Support\Facades\Auth;
+
 class UserController extends Controller {
 
   /**
@@ -38,9 +45,16 @@ class UserController extends Controller {
    * @param  int  $id
    * @return Response
    */
-  public function show($id)
+  public function show($slug)
   {
-    
+      $user = User::where('slug', $slug)->first();
+      if(empty($user))
+      {
+        Flash::error('Cet utilisateur n\'existe pas.');
+        return redirect('');
+      }
+
+      return view('users.show',compact('user'));
   }
 
   /**

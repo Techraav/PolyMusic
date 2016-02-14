@@ -81,7 +81,7 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-expanded="false">  <span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a></li>
+                <li>{!! printUserLink(Auth::user()->id) !!}</li>
                 <li><a href="{{ url('') }}" class="admin-link">Quitter le back office</a></li>
                 <li><a href="{{ url('auth/logout') }}">Déconnexion</a></li>
               </ul>
