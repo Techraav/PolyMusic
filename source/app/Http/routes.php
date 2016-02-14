@@ -165,6 +165,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:1'], function(){
 	Route::post('courses/{slug}/members/remove','CourseController@removeMember')->name('courses.removemember');
 
 
+// _____________________________________________________________________________________________________________
+
+	// USERS : GET
+	Route::get('users',	'UserController@index')	->name('users.index');	
+
+
 // ____________________________________________________________________________________________________
 //
 //                         				ADMIN BACKOFFICE ROUTES
