@@ -1,13 +1,11 @@
 <?php namespace App\Http\Controllers;
 
+use App\User;
+use Validator;
 use Illuminate\Http\Request;
-
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
-// use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Laracasts\Flash\Flash;
-use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller {
 
@@ -19,7 +17,7 @@ class UserController extends Controller {
 	public function index(Request $request)
 	{
 		
-		$users = User::orderBy('last_name')->get();
+		$users = User::orderBy('last_name')->paginate(20);
 	 	return view('admin.users.index', compact('users'));
 	}
 
@@ -49,9 +47,16 @@ class UserController extends Controller {
 	* @param  int  $id
 	* @return Response
 	*/
-	public function show($id)
+	public function show($slug)
 	{
+	  $user = User::where('slug', $slug)->first();
+	  if(empty($user))
+	  {
+	    Flash::error('Cet utilisateur n\'existe pas.');
+	    return redirect('');
+	  }
 
+	  return view('users.show',compact('user'));
 	}
 
 	/**
