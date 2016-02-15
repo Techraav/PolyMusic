@@ -159,8 +159,6 @@ class CreateBaseEntries extends Migration
             
             ]);
 
-
-
         // Create guitar course
         Course::create([
             'name'       => 'Cours de guitare',
