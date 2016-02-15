@@ -54,8 +54,10 @@
 				</tr>
 			@endforelse
 
+
 			</tbody>
 		</table>
+		<div align="right">{!! $levels->render()!!}</div>
 
 		<h2 align="center">Ajouter un Level :</h2>
 

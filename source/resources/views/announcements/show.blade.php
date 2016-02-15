@@ -52,6 +52,10 @@
 	@else
 	<p>Aucun commentaire pour le moment.</p>
 	@endif
+
+	<div align="right"> {!! $comments->render() !!} </div>
+
+
 	@if(Auth::check())
 
 	<hr />

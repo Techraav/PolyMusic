@@ -46,16 +46,8 @@
 	    <li class="list-group-item"><p>Pas d'annonce pour le moment.</p></li>  
 	@endif
 
-	<div style="text-align: right">
-		<ul class="pagination pagination-sm">
-		  <li class="disabled"><a href="#">&laquo;</a></li>
-		  <li class="active"><a href="#">1</a></li>
-		  <li><a href="#">2</a></li>
-		  <li><a href="#">3</a></li>
-		  <li><a href="#">4</a></li>
-		  <li><a href="#">5</a></li>
-		  <li><a href="#">&raquo;</a></li>
-		</ul>
+	<div align="right">
+		{!! $announcements->render() !!}
 	</div>
 </div>
 

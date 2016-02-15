@@ -25,7 +25,7 @@ class DepartmentController extends Controller {
 	*/
 	public function index()
 	{
-		$departments = Department::orderBy('name')->get();
+		$departments = Department::orderBy('name')->paginate(20);
 		return view('admin.departments.index', compact('departments'));
 	}
 
@@ -37,7 +37,7 @@ class DepartmentController extends Controller {
 			Flash::error('Ce département n\'existe pas.');
 			return view('admin.errors.404');
 		}
-		$users = User::where('department_id', $id)->orderBy('last_name')->get();
+		$users = User::where('department_id', $id)->orderBy('last_name')->paginate(30);
 
 		return view('admin.departments.members', compact('department', 'users'));
 	}
@@ -55,7 +55,7 @@ class DepartmentController extends Controller {
 			Flash::error('Il est interdit de modifier ce département.');
 			return Redirect::back();
 		}
-		$departments = Department::orderBy('name')->get();
+		$departments = Department::orderBy('name')->paginate(20);
 		$depToEdit = Department::where('id', $id)->first();
 
 		return view('admin.departments.edit', compact('departments', 'depToEdit'));

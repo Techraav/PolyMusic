@@ -34,6 +34,6 @@
 		</tbody>
 	</table>
 
-	{!! $users->render() !!}
+	<div align="right">{!! $users->render() !!}</div>
 
 @stop

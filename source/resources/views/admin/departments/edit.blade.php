@@ -70,6 +70,8 @@
 			</tbody>
 		</table>
 
+		<div align="right"> {!! $departments->render() !!} </div>
+
 		<h2 align="center">Ajouter un Département :</h2>
 
 		<form method="post" action="{{ url('admin/departments/create') }}">

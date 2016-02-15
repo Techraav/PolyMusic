@@ -23,7 +23,7 @@ class LevelController extends Controller {
 	*/
 	public function index()
 	{
-		$levels = Level::orderBy('level', 'asc')->get();
+		$levels = Level::orderBy('level', 'asc')->paginate(20);
 		$values = [];
 		foreach ($levels as $k) {
 			$values[] = $k->level;
@@ -53,7 +53,7 @@ class LevelController extends Controller {
 			Flash::error('Ce niveau n\'existe pas.');
 			return view('admin.errors.404');
 		}
-		$users = User::where('level', $level)->orderBy('last_name')->get();
+		$users = User::where('level', $level)->orderBy('last_name')->paginate(30);
 		return view('admin.levels.members', compact('level', 'name', 'users'));
 	}
 
@@ -65,7 +65,7 @@ class LevelController extends Controller {
 	*/
 	public function edit($level)
 	{
-		$levels = Level::orderBy('level', 'asc')->get();
+		$levels = Level::orderBy('level', 'asc')->paginate(2);
 		$levelToEdit = Level::where('level', $level)->first();
 		$values = [];
 		foreach ($levels as $k) {

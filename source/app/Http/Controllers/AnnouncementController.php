@@ -25,7 +25,7 @@ class AnnouncementController extends Controller {
    */
   public function index()
   {
-    $announcements = Announcement::where('validated', 1)->get();
+    $announcements = Announcement::where('validated', 1)->paginate(20);
     return view('announcements.index', compact('announcements'));
   }
 
@@ -54,7 +54,7 @@ class AnnouncementController extends Controller {
       return view('errors.404');
     }
 
-    $comments = Comment::where('announcement_id', $announcement->id)->get();
+    $comments = Comment::where('announcement_id', $announcement->id)->paginate(10);
     return view('announcements.show', compact('announcement', 'comments'));
   }
 
