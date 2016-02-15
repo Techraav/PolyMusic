@@ -20,4 +20,9 @@ class Article extends Model {
 		return $this->hasMany('App\Image');
 	}
 
+	public function course()
+	{
+		return $this->belongsTo('App\Course');
+	}
+
 }

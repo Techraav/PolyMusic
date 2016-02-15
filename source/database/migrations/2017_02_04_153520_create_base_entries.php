@@ -76,35 +76,6 @@ class CreateBaseEntries extends Migration
             'short_name'=> 'DMS',
             ]);
 
-        //Creation basic instruments :
-        $instruments = ['autre', 'guitare', 'piano', 'basse', 'chant', 'flûte', 
-        'violon', 'contrebasse', 'clarinette', 'saxophone', 'batterie', 'violoncelle', 
-        'guitare électrique', 'flûte traversière', 'trompette', 'cor', 'trombone', 'tuba'];
-        $this->create_instrument($instruments);
-
-
-        // Create guitar course
-        Course::create([
-            'name'       => 'Cours de guitare',
-            'day'        => 1,
-            'start'      => '18:30:00',
-            'end'        => '20:00:00',
-            'infos'      => 'Cours de guitare du lundi soir.',
-            'slug'       => 'cours-de-guitare-lundi-1',
-            'instrument_id' => 2
-            ]);
-
-        // Create piano course
-        Course::create([
-            'name'       => 'Cours de piano',
-            'day'        => 3,
-            'start'      => '18:30:00',
-            'end'        => '20:00:00',
-            'infos'      => 'Cours de piano du mardi soir.',
-            'slug'       => 'cours-de-piano-mardi-2',
-            'instrument_id' => 3
-            ]);
-
         // Create user : Webmaster (lvl 10)
         User::create([
             'first_name'    => 'Webmaster',
@@ -151,6 +122,69 @@ class CreateBaseEntries extends Migration
             'password'      => bcrypt('membercmt'),
             'level'         => 0,
             'slug'          => 'member-member-1'
+            ]);
+
+
+        //Creation basic instruments :
+        $instruments = ['autre', 'guitare', 'piano', 'basse', 'chant', 'flûte', 
+        'violon', 'contrebasse', 'clarinette', 'saxophone', 'batterie', 'violoncelle', 
+        'guitare électrique', 'flûte traversière', 'trompette', 'cor', 'trombone', 'tuba'];
+        $this->create_instrument($instruments);
+
+        // Create Article 'Cours de guitare'
+        Article::create([
+            'title'     => 'Cours de guitare',
+            'subtitle'  => 'Article concernant le cours de guitare',
+            'content'   => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam purus tortor, efficitur ut iaculis ut, 
+                            tincidunt vel elit. Morbi malesuada ipsum eu fermentum consequat. Duis aliquam, massa et bibendum 
+                            facilisis, nulla nibh ultricies ante, a rutrum augue tellus quis erat. Curabitur aliquam ipsum gravida, 
+                            interdum mauris non, blandit justo. Donec non mollis orci, a accumsan ligula. Nullam quis sapien elementum 
+                            neque egestas lacinia</p>',
+            'user_id'   => 2,
+            'slug'      => 'cours-de-guitare-1'
+            
+            ]);
+
+        // Create Article 'Cours de piano'
+        Article::create([
+            'title'     => 'Cours de piano',
+            'subtitle'  => 'Article concernant le cours de piano',
+            'content'   => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam purus tortor, efficitur ut iaculis ut, 
+                            tincidunt vel elit. Morbi malesuada ipsum eu fermentum consequat. Duis aliquam, massa et bibendum 
+                            facilisis, nulla nibh ultricies ante, a rutrum augue tellus quis erat. Curabitur aliquam ipsum gravida, 
+                            interdum mauris non, blandit justo. Donec non mollis orci, a accumsan ligula. Nullam quis sapien elementum 
+                            neque egestas lacinia</p>',
+            'user_id'   => 3,
+            'slug'      => 'cours-de-piano-2'
+            
+            ]);
+
+
+
+        // Create guitar course
+        Course::create([
+            'name'       => 'Cours de guitare',
+            'day'        => 1,
+            'start'      => '18:30:00',
+            'end'        => '20:00:00',
+            'infos'      => 'Cours de guitare du lundi soir.',
+            'slug'       => 'cours-de-guitare-lundi-1',
+            'instrument_id' => 2,
+            'article_id'    => 1,
+            'user_id'       => 2
+            ]);
+
+        // Create piano course
+        Course::create([
+            'name'       => 'Cours de piano',
+            'day'        => 3,
+            'start'      => '18:30:00',
+            'end'        => '20:00:00',
+            'infos'      => 'Cours de piano du mardi soir.',
+            'slug'       => 'cours-de-piano-mardi-2',
+            'instrument_id' => 3,
+            'article_id'    => 2,
+            'user_id'       => 3
             ]);
 
         // Create Band 'The Band'
@@ -278,7 +312,7 @@ class CreateBaseEntries extends Migration
                             interdum mauris non, blandit justo. Donec non mollis orci, a accumsan ligula. Nullam quis sapien elementum 
                             neque egestas lacinia</p>',
             'user_id'   => 1,
-            'slug'      => 'premier-article'
+            'slug'      => 'premier-article-3'
             
             ]);
 
@@ -292,7 +326,7 @@ class CreateBaseEntries extends Migration
                             interdum mauris non, blandit justo. Donec non mollis orci, a accumsan ligula. Nullam quis sapien elementum 
                             neque egestas lacinia</p>',
             'user_id'   => 2,
-            'slug'      => 'deuxieme-article'
+            'slug'      => 'deuxieme-article-4'
             ]);
 
         // Create Event 'concert de The Band'
