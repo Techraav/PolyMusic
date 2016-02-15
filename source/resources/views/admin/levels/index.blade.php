@@ -64,7 +64,7 @@
 		<form method="post" action="{{ url('admin/levels/create') }}">
 			<table class="table">
 			<tbody>
-				<th>
+				<tr>
 				{{ csrf_field() }}
 					<td>
 					<select class="form-control" name="level">
@@ -76,7 +76,7 @@
 					<td><input required class="form-control" type="text" name="name" id="name" placeholder="Nom" /></td>
 					<td><input class="form-control" type="text" name="infos" id="infos" placeholder="Informations" /></td>
 					<td><button type="reset" class="btn btn-default">Annuler</button> <button type="submit" class="btn btn-primary">Valider</button></td>
-				</th>
+				</tr>
 			</tbody>
 			</table>
 		</form>

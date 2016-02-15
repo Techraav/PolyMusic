@@ -108,7 +108,7 @@ class DepartmentController extends Controller {
 			'message'	=> 'added department '.$request->name.' ('.$request->short_name.')']);
 
 		Flash::success('Le département a bien été créé !');
-		return Redirect::back(); 
+		return redirect('admin/departments'); 
 	}
 
 	/**
@@ -136,7 +136,7 @@ class DepartmentController extends Controller {
 			]);
 
 		Flash::success('Départment modifié avec succès !');
-		return redirect('admin/departments');
+		return redirect('admin/departments'); 
 
 	}
 
@@ -175,7 +175,7 @@ class DepartmentController extends Controller {
 		else
 			Flash::error('Impossible de supprimer ce département.');
 
-		return Redirect::back();
+		return redirect('admin/departments'); 
 
 	}
 

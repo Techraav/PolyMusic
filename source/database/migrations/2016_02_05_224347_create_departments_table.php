@@ -8,6 +8,8 @@ class CreateDepartmentsTable extends Migration {
 	public function up()
 	{
 		Schema::create('departments', function(Blueprint $table) {
+            $table->engine = 'InnoDB';
+			
 			$table->increments('id');
 			$table->timestamps();
 			$table->string('name', 255)->unique();

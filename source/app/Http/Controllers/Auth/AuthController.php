@@ -147,8 +147,16 @@ class AuthController extends Controller
         
         if (Auth::attempt(['email' => Input::get('email'), 'password' => Input::get('password')], true))
         {
-            Flash::success('Vous êtes maintenant connecté');
-            return redirect('/');
+            if(Auth::user()->banned == 0)
+            {    
+               Flash::success('Vous êtes maintenant connecté');
+               return redirect('/');
+            } else
+            {
+                Auth::logout();
+                Flash::error('Impossible de vous conncter : votre compte a été bannis. Pour plus d\'informations ou pour des réclamations, contactez un administrateur.');
+                return redirect('/');
+            }  
         }
 
         Flash::error('Impossible de vous connecter.');

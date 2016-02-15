@@ -7695,3 +7695,11 @@ blockquote.comment{
 	opacity:1 !important;
 	color:#2C3E50;
 }
+
+table tr.danger{
+	background-color: #EC6658;
+}
+
+.banned td, .banned a{
+	color:#DC4F4F ;
+}

@@ -7,6 +7,7 @@
 	<p>Voici une liste des membres inscrits sur le site du Club Musique de Polytech Tours.</p>
 	<p>Vous pouvez cliquer sur un membre pour accéder à son profil et donc gérer ses données.</p>
 	<p>Seuls les administrateurs et autres membres ayant un level supérieur peuvent gérer le level des autres membres.</p>
+	<p>Ceux qui apparaissent en rouge sont les membres bannis du site.</p>
 	<hr />
 	<p>Nombre total de membres incrits : {{ App\User::count() }}</p>
 </div>
@@ -22,8 +23,8 @@
 		</thead>
 		<tbody>
 			@foreach ($users as $u)
-				<tr>
-					<td>{!! printUserLink($u->id) !!}</td>
+				<tr {{ $u->banned == 1 ? 'class=banned' : '' }}>
+					<td >{!! printUserLink($u->id) !!}</td>
 					<td>{{ $u->email }}</td>
 					<td><a href="{{ url('admin/departments/'.$u->department_id.'/members') }}">{{ App\Department::where('id', $u->department_id)->first()->name }} ({{ App\Department::where('id', $u->department_id)->first()->short_name }})</a></td>
 					<td>&nbsp; &nbsp; &nbsp; {{ date_format($u->created_at, 'j M Y') }}</td>

@@ -114,7 +114,7 @@ class LevelController extends Controller {
 			'message'	=> 'added level '.$request->name.' (level: '.$request->level.')']);
 
 		Flash::success('Le level a bien été créé !');
-		return Redirect::back(); 
+		return redirect('admin/levels'); 
 	}
 
 	public function removeMember(Request $request, $name)
@@ -183,7 +183,7 @@ class LevelController extends Controller {
 		else
 			Flash::error('Impossible de supprimer ce level.');
 
-		return Redirect::back();
+		return redirect('admin/levels'); 
 	}
 
 // ________________________________________________________________

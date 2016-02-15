@@ -6,6 +6,8 @@
 		<h1>Gestion des départements</h1>
 		<p>Les départements correspondent aux département dans lesquels les étudiants de l'école sont inscrits.</p>
 		<p>Leur rôle est uniquement à titre informatif et n'a aucune influence sur quoi que ce soit sur le site.</p>
+		<hr />
+		<p>Nombre de départements : {{ App\Department::count() }} </p>
 	</div>
 
 	<h2 align="center">Liste des départements :</h2>
@@ -62,12 +64,12 @@
 		<form method="post" action="{{ url('admin/departments/create') }}">
 			<table class="table">
 			<tbody>
-				<th>
+				<tr>
 				{{ csrf_field() }}
 					<td><input required class="form-control" type="text" name="name" id="name" placeholder="Nom complet" /></td>
 					<td><input required class="form-control" type="text" name="short_name" id="short_name" placeholder="Acronyme" /></td>
 					<td><button type="reset" class="btn btn-default">Annuler</button> <button type="submit" class="btn btn-primary">Valider</button></td>
-				</th>
+				</tr>
 			</tbody>
 			</table>
 		</form>

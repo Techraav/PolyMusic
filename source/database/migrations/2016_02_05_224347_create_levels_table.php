@@ -8,6 +8,9 @@ class CreateLevelsTable extends Migration {
 	public function up()
 	{
 		Schema::create('levels', function(Blueprint $table) {
+            $table->engine = 'InnoDB';
+			
+			$table->increments('id');
 			$table->timestamps();
 			$table->integer('level')->unique()->unsigned();
 			$table->string('name', 255)->unique();
