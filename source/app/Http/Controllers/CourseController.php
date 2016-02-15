@@ -23,17 +23,28 @@ class CourseController extends Controller {
 	*/
 	public function index()
 	{
-		$courses = Course::orderBy('day')->get();
+		$courses = Course::orderBy('day')->paginate(20);
 		return view('admin.courses.index', compact('courses'));
 	}
 
 	/**
 	* Display the specified resource.
 	*
-	* @param  int  $id
+	* @param  str $slug
 	* @return Response
 	*/
-	public function show($id)
+	public function show($slug)
+	{
+
+	}
+
+	/**
+	* Display the specified resource.
+	*
+	* @param  str $slug
+	* @return Response
+	*/
+	public function members($slug)
 	{
 
 	}
@@ -51,10 +62,10 @@ class CourseController extends Controller {
 	/**
 	* Show the form for editing the specified resource.
 	*
-	* @param  int  $id
+	* @param  str $slug
 	* @return Response
 	*/
-	public function edit($id)
+	public function edit($slug)
 	{
 
 	}
@@ -77,10 +88,10 @@ class CourseController extends Controller {
 	/**
 	* Update the specified resource in storage.
 	*
-	* @param  int  $id
+	* @param  str $slug
 	* @return Response
 	*/
-	public function update($id)
+	public function update($slug)
 	{
 
 	}
@@ -88,10 +99,10 @@ class CourseController extends Controller {
 	/**
 	* Remove the specified resource from storage.
 	*
-	* @param  int  $id
+	* @param  str $slug
 	* @return Response
 	*/
-	public function destroy($id)
+	public function destroy($slug)
 	{
 
 	}
@@ -104,9 +115,14 @@ class CourseController extends Controller {
 	protected function validator($data)
 	{
 		return Validator::make($data, [
-			'level'		=> 'required|unique:levels',
-			'name'		=> 'required|unique:levels'
+			'name' 			=> 'required|min:6|max:255',
+			'day' 			=> 'required',
+			'start' 		=> 'required',
+			'end' 			=> 'required',
+			'instrument_id' => 'required',
 			]);
+
+		// creer un article vide avec le meme titre que le cours, puis redirect vers l'article pour l'éditer
 	}
   
 }

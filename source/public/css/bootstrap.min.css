@@ -7703,3 +7703,38 @@ table tr.danger{
 .banned td, .banned a{
 	color:#DC4F4F ;
 }
+
+.form-inline > .form-group select, .form-inline > .form-group input{
+	min-width:150px;
+}
+
+.form-inline > .form-group > label{
+	margin-left:20px;
+	margin-right: 20px;
+}
+
+#create-course .form-inline {
+	margin-left:70px;
+}
+
+form .row button{
+	width:35%;
+	text-align:center;
+}
+
+#form.jumbotron{
+	padding-top:15px
+}
+
+td>a.glyphicon-file{
+	text-decoration: none !important;
+	color:#819EBD;
+	opacity:0.7;
+	transition: all 0.1s ease-in-out;
+	-webkit-transition: all 0.1s ease-in-out;
+	-moz-transition: all 0.1s ease-in-out;
+}
+
+td>a.glyphicon-file:hover{
+	opacity:1;
+}

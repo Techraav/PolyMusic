@@ -18,6 +18,22 @@
 
 
 	/**
+	* return day in French
+	* 
+	* @param $n (int) : day 0-7
+	*
+	* @return $day string
+	*/
+	function day($n)
+	{
+		$days = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
+		$day = $days[$n];
+		
+		return $day;
+	}
+
+
+	/**
 	*	Print the link leading to $user_id's profile
 	*
 	* @param $user_id 

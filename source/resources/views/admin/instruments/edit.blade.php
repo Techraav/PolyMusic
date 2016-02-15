@@ -10,7 +10,7 @@
 	</div>
 	<br />
 
-	<h2 align="center">Modifier le département</h2>
+	<h2 align="center">Modifier l'instruments</h2>
 	<div class="col-md-10 col-md-offset-2">
 		<form method="post" action="{{ url('admin/instruments/edit/'.$instruToEdit->id) }}">
 			<table class="table">
@@ -27,7 +27,7 @@
 	</div>
 
 
-	<h2 align="center">Liste des départements :</h2>
+	<h2 align="center">Liste des instruments :</h2>
 	<br />
 		<table class="table-levels table table-striped table-hover">
 			<thead>
@@ -50,11 +50,11 @@
 						{{ csrf_field() }}
 							<input hidden name="id" value="{{ $i->id }}" />
 							@if( (App\Course::where('instrument_id', $i->id)->count() == 0 && App\BandMember::where('instrument_id', $i->id)->count() == 0) || Auth::user()->level>= 2 )
-							<button align="right" title="Supprimer le départment {{ $i->name }} ?" type="submit" class="glyphicon glyphicon-trash"></button>
+							<button align="right" title="Supprimer l'instrument {{ $i->name }} ?" type="submit" class="glyphicon glyphicon-trash"></button>
 							@else
 							&nbsp;&nbsp; - &nbsp;
 							@endif
-							<a href="{{ url('admin/instruments/edit/'.$i->id) }}" title="Modifier le département {{ $i->name }} ?"class="glyphicon glyphicon-pencil"></a>
+							<a href="{{ url('admin/instruments/edit/'.$i->id) }}" title="Modifier l'instrument {{ $i->name }} ?"class="glyphicon glyphicon-pencil"></a>
 						</form>
 					@else - @endif
 					</td>
