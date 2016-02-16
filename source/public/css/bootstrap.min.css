@@ -7738,3 +7738,37 @@ td>a.glyphicon-file{
 td>a.glyphicon-file:hover{
 	opacity:1;
 }
+
+.cke_top, .cke_bottom{
+    background: #ECF0F1 !important;
+    background-image: none !important; 
+}
+
+.controls{
+	font-size:22px;
+	margin:-5px;
+	color:gray;
+}
+
+.controls button{
+	transition: all 0.2s ease-in-out;
+	opacity:0.7;
+	color:gray;
+}
+
+.controls button:hover{
+  	color:inherit;
+  	opacity:1;
+}
+
+.controls form{
+	display:inline;
+}
+
+.controls button.glyphicon-ok:hover{
+    color: #248E41;
+}
+
+.controls button.glyphicon-remove:hover{
+    color: #B74242;
+}

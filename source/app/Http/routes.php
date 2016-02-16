@@ -152,17 +152,21 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:1'], function(){
 // _____________________________________________________________________________________________________________
 
 	// COURSES : GET
-	Route::get('courses', 					'CourseController@index')			->name('courses.index');
-	Route::get('courses/create', 			'CourseController@create')			->name('courses.create');
-	Route::get('courses/edit/{slug}', 		'CourseController@edit')			->name('courses.edit');
-	Route::get('courses/delete/{slug}', 	'CourseController@delete')			->name('courses.delete');
-	Route::get('courses/{slug}/members',	'CourseController@members')			->name('courses.members');
+	Route::get('courses', 					'CourseController@adminIndex')	->name('courses.adminindex');
+	Route::get('courses/create', 			'CourseController@create')		->name('courses.create');
+	Route::get('courses/edit/{slug}', 		'CourseController@edit')		->name('courses.edit');
+	Route::get('courses/delete/{slug}', 	'CourseController@delete')		->name('courses.delete');
+	Route::get('courses/{slug}/members',	'CourseController@members')		->name('courses.members');
 
 	// COURSES : POST
-	Route::post('courses/create', 			'CourseController@store')			->name('courses.create');
-	Route::post('courses/edit/{slug}', 		'CourseController@update')			->name('courses.edit');
-	Route::post('courses/delete/{slug}', 	'CourseController@destroy')			->name('courses.delete');
-	Route::post('courses/{slug}/members/remove','CourseController@removeMember')->name('courses.removemember');
+	Route::post('courses/create', 			'CourseController@store')		->name('courses.create');
+	Route::post('courses/edit/{slug}', 		'CourseController@update')		->name('courses.edit');
+	Route::post('courses/delete/{slug}', 	'CourseController@destroy')		->name('courses.delete');
+	
+	Route::post('courses/{id}/student/remove','StudentController@remove')	->name('courses.removestudent');
+	Route::post('courses/{id}/teacher/remove','TeacherController@remove')	->name('courses.removeteacher');
+	Route::post('courses/{id}/student/accept','StudentController@accept')	->name('courses.acceptstudent');
+	Route::post('courses/{id}/teacher/accept','TeacherController@accept')	->name('courses.acceptteacher');
 
 
 // _____________________________________________________________________________________________________________

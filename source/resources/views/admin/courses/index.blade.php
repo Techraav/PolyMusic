@@ -26,6 +26,7 @@
 					<td align="center"><b>Responsable</b></td>
 					<td align="center"><b>Élèves</b></td>
 					<td align="center"><b>Profs</b></td>
+					<td align="center"><b>Demande(s)</b></td>
 					<td align="center"><b>Gérer</b></td>
 				</tr>
 			</thead>
@@ -34,7 +35,7 @@
 				<tr>
 					<td>{{ ucfirst(App\Instrument::where('id', $c->instrument_id)->first()->name) }}</td>
 					<td>
-						<a href="{{ url('admin/course/'.$c->slug.'/members') }}">{{ $c->name }}</a> &nbsp;
+						<a href="{{ url('admin/courses/'.$c->slug.'/members') }}">{{ $c->name }}</a> &nbsp;
 						<a title="Voir l'article associé" class="glyphicon glyphicon-file" href="{{ url('articles/view/'.App\Article::where('id', $c->article_id)->first()->slug) }}"></a></td>
 					<td>{{ ucfirst(day($c->day)) }}</td>
 					<td align="center" >{{ date_format(date_create_from_format('H:i:s', $c->start), 'H:i') }} - {{ date_format(date_create_from_format('H:i:s', $c->end), 'H:i') }}</td>
@@ -42,6 +43,8 @@
 					<td align="center">{!! printUserLink($c->user_id) !!}</td>
 					<td align="center">{{ App\UserLearnCourses::where('course_id', $c->id)->count() }}</td>
 					<td align="center">{{ App\UserTeachCourses::where('course_id', $c->id)->count() }}</td>
+					<td align="center">{{ App\UserTeachCourses::where('course_id', $c->id)->where('validated', 0)->count()
+											+ App\UserLearnCourses::where('course_id', $c->id)->where('validated', 0)->count() }}</td>
 					<td align="center">
 						<form method="post" action="{{ url('admin/courses/delete/'.$c->id) }}">
 						{{ csrf_field() }}
@@ -98,18 +101,23 @@
 							@if(Auth::user()->level == 1)
 								<option value="{{ Auth::user()->id }}">{{ ucfirst(Auth::user()->first_name).' '.ucfirst(Auth::user()->last_name) }}</option>
 							@else
+								<optgroup label="Vous :">
+									<option valu="{{ Auth::user()->id }}">{{ ucfirst(Auth::user()->first_name).' '.ucfirst(Auth::user()->last_name) }}</option>
+								</optgroup>
+								<optgroup label="Tous :">
 								@foreach (App\User::where('level', '>', '0')->orderBy('last_name')->get() as $user)
 									<option value="{{ $user->id }}">{{ ucfirst($user->last_name).' '.ucfirst($user->first_name) }}</option>
 								@endforeach
+								</optgroup>
 							@endif
 						</select>
 					</div>
 				</div>
 				
 				<div class="form-group">
-					<label for="instrument" class="control-label col-lg-2">Instrument :</label>
-					<div name="instrument" class="col-lg-10">
-						<select class="form-control">
+					<label for="instrument_id" class="control-label col-lg-2">Instrument :</label>
+					<div class="col-lg-10">
+						<select name="instrument_id" class="form-control">
 								@foreach (App\Instrument::orderBy('name')->get() as $instrument)
 									<option value="{{ $instrument->id }}">{{ ucfirst($instrument->name) }}</option>
 								@endforeach
@@ -145,7 +153,7 @@
 				<div class="form-group">
 					<label for="infos" class="control-label col-lg-2">Informations complémentaires</label>
 					<div class="col-lg-10">
-						<textarea rows="3" class="form-control"></textarea>
+						<textarea rows="3" name="infos" class="form-control"></textarea>
 					</div>
 				</div>
 				
@@ -157,4 +165,12 @@
 			</form>
 	    </div>
 	    </div>
+@stop
+
+
+@section('js')
+    <script src="{{ URL::asset('/js/ckeditor.js')  }}"></script>
+	<script type="text/javascript">
+		CKEDITOR.replace( 'infos' );
+	</script>
 @stop

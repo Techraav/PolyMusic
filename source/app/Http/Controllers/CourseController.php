@@ -3,6 +3,10 @@
 use App\Course;
 use App\User;
 use App\Modification;
+use App\Article;
+use App\UserLearnCourses;
+use App\UserTeachCourses;
+use App\Announcement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Validator;
@@ -22,6 +26,17 @@ class CourseController extends Controller {
 	* @return Response
 	*/
 	public function index()
+	{
+		$courses = Course::orderBy('day')->paginate(20);
+		return view('courses.index', compact('courses'));
+	}
+
+	/**
+	* Display a listing of the resource.
+	*
+	* @return Response
+	*/
+	public function adminIndex()
 	{
 		$courses = Course::orderBy('day')->paginate(20);
 		return view('admin.courses.index', compact('courses'));
@@ -46,7 +61,16 @@ class CourseController extends Controller {
 	*/
 	public function members($slug)
 	{
+		$course = Course::where('slug', $slug)->first();
+		$id 	= $course->id;
 
+		$students = UserLearnCourses::where('course_id', $id)->where('validated', 1)->paginate(30);
+		$teachers = UserTeachCourses::where('course_id', $id)->where('validated', 1)->get();
+
+		$waitingStudents = UserLearnCourses::where('validated', 0)->where('course_id', $id)->orderBy('created_at')->get();
+		$waitingTeachers = UserTeachCourses::where('validated', 0)->where('course_id', $id)->orderBy('created_at')->get();
+
+		return view('admin.courses.members', compact('course', 'students', 'teachers', 'waitingTeachers', 'waitingStudents'));
 	}
 
 	/**
@@ -62,12 +86,13 @@ class CourseController extends Controller {
 	/**
 	* Show the form for editing the specified resource.
 	*
-	* @param  str $slug
+	* @param  int $id
 	* @return Response
 	*/
-	public function edit($slug)
+	public function edit($id)
 	{
-
+		$course = Course::where('id', $id)->first();
+		return view('admin.courses.edit', compact('course'));
 	}
 	
 // ________________________________________________________________
@@ -80,8 +105,50 @@ class CourseController extends Controller {
 	*
 	* @return Response
 	*/
-	public function store()
+	public function store(Request $request)
 	{
+		$validator = $this->validator($request->all());
+
+		if($validator->fails())
+		{
+			Flash::error('Impossible de créer le cours. Veuillez vérifier les champs renseignés.');
+			return Redirect::back()->withErrors($validator->errors());
+		}
+
+		$article = Article::createWithSlug([
+			'title'		=> $request->name,
+			'user_id'	=> Auth::user()->id,
+			]);
+
+		if(!isset($article))
+		{
+			Flash::errors("Erreur lors de la création de l'article concernant ce cours.");
+			return Redirect::back();
+		}
+
+		$slug = $article->slug;
+
+		$infos = postTextFormat($request->infos, allowedTags(['a', 'hr', 'br', 'b', 'i', 'u', 'ul', 'li']));
+
+		$course = Course::createWithSlug([
+			'name'		=> $request->name,
+			'day'		=> $request->day,
+			'start'		=> $request->start,
+			'end'		=> $request->end,
+			'infos'		=> $infos,
+			'instrument_id' => $request->instrument_id,
+			'article_id'	=> $article->id,
+			'user_id'		=> $request->user_id,
+			]);
+
+		Modification::create([
+			'table'		=> 'courses, articles',
+			'user_id'	=> Auth::user()->id,
+			'message'	=> 'Created course and article "'.$request->name.'".',
+			]);
+
+		return redirect('admin/articles/edit/'.$slug);
+
 
 	}
 
@@ -91,9 +158,40 @@ class CourseController extends Controller {
 	* @param  str $slug
 	* @return Response
 	*/
-	public function update($slug)
+	public function update(Request $request, $slug)
 	{
+		$validator = $this->validator($request->all());
 
+		if($validator->fails())
+		{
+			Flash::error('Impossible de créer le cours. Veuillez vérifier les champs renseignés.');
+			return Redirect::back()->withErrors($validator->errors());
+		}
+
+		$course = Course::where('slug', $slug)->first();
+
+		$oldName = $course->name;
+
+		$slug = str_slug($request->name).'-'.$course->id;
+
+		$course->update([
+			'name'		=> $request->name,
+			'slug'		=> $slug,
+			'day'		=> $request->day,
+			'start'		=> $request->start,
+			'end'		=> $request->end,
+			'infos'		=> $request->infos,
+			'instrument_id' => $request->instrument_id,
+			'user_id'		=> $request->user_id,
+			]);
+
+		Modification::create([
+			'table'		=> 'courses',
+			'user_id'	=> Auth::user()->id,
+			'message'	=> 'Updated course from "'.$oldName.'" to "'.$request->name.'"',
+			]);
+
+		return redirect('courses/'.$slug);
 	}
 
 	/**
@@ -115,7 +213,7 @@ class CourseController extends Controller {
 	protected function validator($data)
 	{
 		return Validator::make($data, [
-			'name' 			=> 'required|min:6|max:255',
+			'name' 			=> 'required|min:6|max:255|unique:courses,name',
 			'day' 			=> 'required',
 			'start' 		=> 'required',
 			'end' 			=> 'required',

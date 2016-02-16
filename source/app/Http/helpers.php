@@ -28,7 +28,7 @@
 	{
 		$days = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
 		$day = $days[$n];
-		
+
 		return $day;
 	}
 
@@ -71,6 +71,20 @@
 		return $link;
 	}
 
+	/**
+	* 	C'est compliqué a expliquer...
+	*/
+	function allowedTags(array $allowed = [])
+	{
+		$tags = ['a', 'hr', 'br', 'b', 'i', 'u', 'img', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'table', 'thead', 'tr', 'th', 'tbody', 'td', 'ul', 'li'];
+		$forbidden = [];
+		foreach ($tags as $t) {
+			if(!in_array($t, $allowed))
+				$forbidden[] = $t;
+		}
+
+		return $forbidden;
+	}
 
 	/**
 	*	Formats (news/articles/comments/announcements) post's content with allowed HTML tags
