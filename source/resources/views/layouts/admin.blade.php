@@ -58,7 +58,7 @@
               <ul class="dropdown-menu" role="menu">
                 <li><a style="color:red" href="{{ url('admin/announcements') }} ">Annonces</a></li>
                 <li><a style="color:red" href="{{ url('admin/articles') }}">Articles</a></li>
-                <li><a style="color:red" href="{{ url('admin/courses') }}">Cours</a></li>
+                <li><a href="{{ url('admin/courses') }}">Cours</a></li>
                 <li><a style="color:red" href="{{ url('admin/documents') }}">Document de cours</a></li>
                 <li><a style="color:red" href="{{ url('admin/events') }}">Événements</a></li>
                 <li><a style="color:red" href="{{ url('admin/bands') }}">Groupes</a></li>
@@ -108,13 +108,43 @@
             <div class="panel-body">
                 Bienvenue sur la zone d'administration du site.
             </div>
-            <ul class="list-group">
-            
-            </ul>
         </div>
+
+        <div class="panel-default panel panel-course-modif">
+        	<div class="panel-heading">
+        		Gestion de membres des cours
+                <p class="panel-link"><a align="right" href="{{ url('admin/modifications/courses') }}">Tout voir</a></p>
+        	</div>
+        		<ul class="list-group">
+        			@forelse( App\CourseModification::orderBy('id', 'desc')->limit(15)->get() as $m)
+        			<li class="list-group-item modif-{{ $m->value }}">
+        			@if(App\Course::where('id', $m->course_id)->first()->user_id == Auth::user()->id)
+        				<b>
+        			@endif
+        				@if($m->value == 0)
+        					{!! printUserLink($m->author_id) !!} <i>asked</i> to join course &laquo; <a href="{{ url('admin/courses/'.App\Course::where('id', $m->course_id)->first()->slug.'/members') }}">{{ App\Course::where('id', $m->course_id)->first()->name }}</a> &raquo;
+        				@elseif($m->value == 1)
+        					{!! printUserLink($m->author_id) !!} <i>canceled</i> his demand to join course &laquo; <a href="{{ url('admin/courses/'.App\Course::where('id', $m->course_id)->first()->slug.'/members') }}">{{ App\Course::where('id', $m->course_id)->first()->name }}</a> &raquo;.
+        				@elseif($m->value == 2)
+        					{!! printUserLink($m->author_id) !!} <i>removed</i> {!! printUserLink($m->user_id) !!} from &laquo; <a href="{{ url('admin/courses/'.App\Course::where('id', $m->course_id)->first()->slug.'/members') }}">{{ App\Course::where('id', $m->course_id)->first()->name }}</a> &raquo;
+        				@elseif($m->value == 3)
+        					{!! printUserLink($m->author_id) !!} <i>added</i> {!! printUserLink($m->user_id) !!} to &laquo; <a href="{{ url('admin/courses/'.App\Course::where('id', $m->course_id)->first()->slug.'/members') }}">{{ App\Course::where('id', $m->course_id)->first()->name }}</a> &raquo;
+        				@endif
+        			@if(App\Course::where('id', $m->course_id)->first()->user_id == Auth::user()->id)
+        				</b>
+        			@endif        			
+        			</li>
+        			@empty
+        				<li class="list-group-item" align="center"> - </li>
+        			@endforelse
+        		</ul>
+        </div>
+
+
         <div class="panel panel-default panel-modifications">
             <div class="panel-heading">
                 Dernières modifications
+                <p class="panel-link"><a align="right" href="{{ url('admin/modifications') }}">Tout voir</a> </p>
             </div>
             <ul class="list-group">
                 @forelse( App\Modification::orderBy('id', 'desc')->limit(5)->get() as $m)

@@ -3,22 +3,21 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateDepartmentsTable extends Migration {
+class CreateLevelsTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('departments', function(Blueprint $table) {
-            $table->engine = 'InnoDB';
-			
+		Schema::create('levels', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
+			$table->integer('level')->unique()->unsigned();
 			$table->string('name', 255)->unique();
-			$table->string('short_name', 30)->unique();
+			$table->text('infos');
 		});
 	}
 
 	public function down()
 	{
-		Schema::drop('departments');
+		Schema::drop('levels');
 	}
 }

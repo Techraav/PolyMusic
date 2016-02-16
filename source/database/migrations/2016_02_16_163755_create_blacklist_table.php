@@ -8,8 +8,6 @@ class CreateBlacklistTable extends Migration {
 	public function up()
 	{
 		Schema::create('blacklist', function(Blueprint $table) {
-            $table->engine = 'InnoDB';
-			
 			$table->increments('id');
 			$table->timestamps();
 			$table->string('ip', 30);

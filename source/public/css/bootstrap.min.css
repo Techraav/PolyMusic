@@ -7683,7 +7683,7 @@ blockquote.comment{
 }
 
 .comment:hover .comment-manage a{
-	opacity:0.7;
+	opacity:0.6;
 }
 
 .comment-manage a.glyphicon-remove:hover{
@@ -7717,8 +7717,8 @@ table tr.danger{
 	margin-left:70px;
 }
 
-form .row button{
-	width:35%;
+form .buttons button{
+	width:35% !important;
 	text-align:center;
 }
 
@@ -7729,7 +7729,7 @@ form .row button{
 td>a.glyphicon-file{
 	text-decoration: none !important;
 	color:#819EBD;
-	opacity:0.7;
+	opacity:0.6;
 	transition: all 0.1s ease-in-out;
 	-webkit-transition: all 0.1s ease-in-out;
 	-moz-transition: all 0.1s ease-in-out;
@@ -7752,7 +7752,7 @@ td>a.glyphicon-file:hover{
 
 .controls button{
 	transition: all 0.2s ease-in-out;
-	opacity:0.7;
+	opacity:0.6;
 	color:gray;
 }
 
@@ -7771,4 +7771,51 @@ td>a.glyphicon-file:hover{
 
 .controls button.glyphicon-remove:hover{
     color: #B74242;
+}
+
+.table-middle-align td{
+	vertical-align: middle !important;
+}
+
+.panel-course-modif ul li{
+	line-height:18px;
+	padding-top:6px;
+	padding-bottom:6px;
+	font-size:13px;
+}
+
+.panel-course-modif ul li a{
+	text-decoration: none;
+	color:inherit;
+}
+
+.panel-course-modif ul li a:hover{
+	text-decoration: underline;
+}
+
+li.modif-0::before, li.modif-3::before{
+	content: '+ ';
+	font-weight:bold;
+	margin-right:5px
+}
+
+li.modif-1::before, li.modif-2::before{
+	content: '- ';
+	font-weight:bold;
+	margin-right:5px
+}
+
+li.modif-0, li.modif-3{
+	color:#279827;
+}
+
+li.modif-2, li.modif-1{
+	color:#D64444;
+}
+
+p.panel-link{
+	font-style: italic;
+	font-size:14px;
+	margin:0 !important;
+	float: right !important;
 }

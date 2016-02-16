@@ -2,8 +2,11 @@
 
 use App\UserLearnCourses;
 use App\UserTeachCourses;
+use App\CourseModification;
+use App\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 use Laracasts\Flash\Flash;
 
 class StudentController extends Controller {
@@ -42,6 +45,12 @@ class StudentController extends Controller {
 
 	public function accept(Request $request, $id)
 	{
+		$manager = Course::where('id', $id)->first()->user_id;
+		if(Auth::user()->id != $manager && Auth::user()->level < 2)
+		{
+			Flash::error("Vous n'avez pas l'autorisation pour ça !");
+			return Redirect::back();
+		}
 		$user_id = $request->user_id;
 		$student = UserLearnCourses::where('user_id', $user_id)->where('course_id', $id)->first();
 
@@ -53,11 +62,25 @@ class StudentController extends Controller {
 
 		$student->update(['validated'	=> 1]);
 
+		CourseModification::create([
+			'author_id'	=> Auth::user()->id,
+			'user_id'	=> $student->user_id,
+			'course_id'	=> $id,
+			'value'		=> 3,
+			]);
+
 		return Redirect::back();
 	}
 
 	public function remove(Request $request, $id)
 	{
+		$manager = Course::where('id', $id)->first()->user_id;
+		if(Auth::user()->id != $manager && Auth::user()->level < 2)
+		{
+			Flash::error("Vous n'avez pas l'autorisation pour ça !");
+			return Redirect::back();
+		}
+
 		$user_id = $request->user_id;
 		$student = UserLearnCourses::where('user_id', $user_id)->where('course_id', $id)->first();
 
@@ -67,7 +90,15 @@ class StudentController extends Controller {
 			return Redirect::back();
 		}
 
+		CourseModification::create([
+			'author_id'	=> Auth::user()->id,
+			'user_id'	=> $student->user_id,
+			'course_id'	=> $id,
+			'value'		=> 2,
+			]);
+
 		$student->delete();
+
 
 		return Redirect::back();
 	}

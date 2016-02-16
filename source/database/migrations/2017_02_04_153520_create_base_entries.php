@@ -12,6 +12,7 @@ use App\BandEvent;
 use App\BandMember;
 use App\Announcement;
 use App\Article;
+use App\CourseModification;
 use App\News;
 use App\Event;
 use App\Comment;
@@ -388,6 +389,35 @@ class CreateBaseEntries extends Migration
         UserTeachCourses::create([ 'user_id'    => '2', 'course_id'     => 1, 'validated' => 1]);
         UserTeachCourses::create([ 'user_id'    => '2', 'course_id'     => 2, 'validated' => 1]);
         UserTeachCourses::create([ 'user_id'    => '4', 'course_id'     => 1, 'validated' => 0]);
+
+        // Course Modification tests
+        CourseModification::create([
+            'author_id'  => 1,
+            'user_id'    => 1,
+            'course_id'  => 1,
+            'value'      => 0
+            ]);
+
+        CourseModification::create([
+            'author_id'  => 2,
+            'user_id'    => 2,
+            'course_id'  => 1,
+            'value'      => 1
+            ]);
+
+        CourseModification::create([
+            'author_id'  => 1,
+            'user_id'    => 3,
+            'course_id'  => 2,
+            'value'      => 2
+            ]);
+
+        CourseModification::create([
+            'author_id'  => 3,
+            'user_id'    => 2,
+            'course_id'  => 2,
+            'value'      => 3
+            ]);
 
     }
 

@@ -8,8 +8,6 @@ class CreateInstrumentsTable extends Migration {
 	public function up()
 	{
 		Schema::create('instruments', function(Blueprint $table) {
-            $table->engine = 'InnoDB';
-			
 			$table->increments('id');
 			$table->string('name', 255)->unique();
 		});

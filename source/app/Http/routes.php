@@ -105,6 +105,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:1'], function(){
 	Route::get('users', 'UserController@index')	->name('users.index');
 
 
+	Route::get('modifications', 'ModificationController@index')			   ->name('modifs.index');
+	Route::get('modifications/courses', 'ModificationController@courses')  ->name('modifs.courses');
+
 	// _____________________________________________________________________________________________________________
 
 	// ANNOUNCEMENTS : GET
@@ -154,13 +157,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:1'], function(){
 	// COURSES : GET
 	Route::get('courses', 					'CourseController@adminIndex')	->name('courses.adminindex');
 	Route::get('courses/create', 			'CourseController@create')		->name('courses.create');
-	Route::get('courses/edit/{slug}', 		'CourseController@edit')		->name('courses.edit');
+	Route::get('courses/edit/{id}', 		'CourseController@edit')		->name('courses.edit');
 	Route::get('courses/delete/{slug}', 	'CourseController@delete')		->name('courses.delete');
 	Route::get('courses/{slug}/members',	'CourseController@members')		->name('courses.members');
 
 	// COURSES : POST
 	Route::post('courses/create', 			'CourseController@store')		->name('courses.create');
-	Route::post('courses/edit/{slug}', 		'CourseController@update')		->name('courses.edit');
+	Route::post('courses/edit/{id}', 		'CourseController@update')		->name('courses.edit');
 	Route::post('courses/delete/{slug}', 	'CourseController@destroy')		->name('courses.delete');
 	
 	Route::post('courses/{id}/student/remove','StudentController@remove')	->name('courses.removestudent');

@@ -8,8 +8,6 @@ class CreateModificationsTable extends Migration {
 	public function up()
 	{
 		Schema::create('modifications', function(Blueprint $table) {
-            $table->engine = 'InnoDB';
-			
 			$table->increments('id');
 			$table->timestamps();
 			$table->integer('user_id')->unsigned();

@@ -33,6 +33,7 @@
 				<td align="center"><i>{{ $w->message }}</i></td>
 				<td align="center">
 					<div class="controls">
+					@if($course->user_id == Auth::user()->id || Auth::user()->level > 1)
 						<form method="post" action="{{ url('admin/courses/'.$course->id.'/student/accept') }} ">
 						{{ csrf_field() }}
 							<input hidden name="user_id" value="{{ $w->user_id }}" />
@@ -43,7 +44,13 @@
 							<input hidden name="user_id" value="{{ $w->user_id }}" />
 							<button align="right" title="Refuser la demande ?" type="submit" class="glyphicon glyphicon-remove"></button>
 						</form>
+					@else
+						-
+					@endif
 					</div>
+
+
+
 				</td>
 			</tr>
 		@empty
@@ -64,6 +71,7 @@
 				<td align="center"><i>{{ $w->message }}</i></td>
 				<td align="center">
 					<div class="controls">
+					@if($course->user_id == Auth::user()->id || Auth::user()->level > 1)
 						<form method="post" action="{{ url('admin/courses/'.$course->id.'/teacher/accept') }} ">
 						{{ csrf_field() }}
 							<input hidden name="user_id" value="{{ $w->user_id }}" />
@@ -75,6 +83,9 @@
 							<input hidden name="user_id" value="{{ $w->user_id }}" />
 							<button align="right" title="Refuser la demande ?" type="submit" class="glyphicon glyphicon-remove"></button>
 						</form>
+					@else
+					-
+					@endif
 					</div>
 				</td>			
 			</tr>
@@ -100,12 +111,14 @@
 			@forelse($teachers as $t)
 			<li class="list-group-item">
 				{!! printUserLink($t->user_id) !!}
+				@if($course->user_id == Auth::user()->id || Auth::user()->level > 1)
 				<form method="post" action="{{ url('admin/courses/'.$course->id.'/teacher/remove') }}">
 				{{ csrf_field() }}
 					<input hidden name="course" value="{{ $course->id }}" />
 					<input hidden name="user_id" value="{{ $t->user_id }}" />
 					<button align="right" title="Retirer ce professeur du cours {{ '"'.$course->name.'"' }} ?" type="submit" class="glyphicon glyphicon-trash"></button>
 				</form>
+				@endif
 			</li>
 				@empty
 				<li align="center" class="list-group-item"> - </li>
@@ -121,12 +134,14 @@
 			@forelse($students as $t)
 			<li class="list-group-item">
 				{!! printUserLink($t->user_id) !!}
+				@if($course->user_id == Auth::user()->id || Auth::user()->level > 1)
 				<form method="post" action="{{ url('admin/courses/'.$course->id.'/student/remove') }}">
 				{{ csrf_field() }}
 					<input hidden name="course" value="{{ $course->id }}" />
 					<input hidden name="user_id" value="{{ $t->user_id }}" />
 					<button align="right" title="Retirer cet élève du cours {{ '"'.$course->name.'"' }} ?" type="submit" class="glyphicon glyphicon-trash"></button>
 				</form>
+				@endif
 			</li>
 				@empty
 				<li align="center" class="list-group-item"> - </li>

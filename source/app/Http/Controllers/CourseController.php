@@ -92,6 +92,11 @@ class CourseController extends Controller {
 	public function edit($id)
 	{
 		$course = Course::where('id', $id)->first();
+		if(Auth::user()->id != $course->user_id && Auth::user()->level < 2)
+		{
+			Flash::error("Vous n'avez pas le droit de modifier ce cours !");
+			return redirect('admin/courses');
+		}
 		return view('admin.courses.edit', compact('course'));
 	}
 	
@@ -170,6 +175,12 @@ class CourseController extends Controller {
 
 		$course = Course::where('slug', $slug)->first();
 
+		if(Auth::user()->id != $course->user_id && Auth::user()->level < 2)
+		{
+			Flash::error("Vous n'avez pas le droit de modifier ce cours !");
+			return redirect('admin/courses');
+		}
+
 		$oldName = $course->name;
 
 		$slug = str_slug($request->name).'-'.$course->id;
@@ -219,8 +230,6 @@ class CourseController extends Controller {
 			'end' 			=> 'required',
 			'instrument_id' => 'required',
 			]);
-
-		// creer un article vide avec le meme titre que le cours, puis redirect vers l'article pour l'éditer
 	}
   
 }

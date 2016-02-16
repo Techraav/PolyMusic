@@ -68,4 +68,14 @@ class User extends Model implements AuthenticatableContract,
 	{
 		return $this->belongsToMany('Modification');
 	}
+
+	public function course_manager()
+	{
+		return $this->belongsTo('Course');
+	}
+
+	public function course_modification()
+	{
+		return $this->belongsTo('CourseModification');
+	}
 }

@@ -16,7 +16,7 @@
 
 	<h2 align="center">Liste des cours :</h2>
 	<br />
-		<table class="table-levels table table-striped table-hover">
+		<table class="table-levels table table-striped table-hover table-middle-align">
 			<thead>
 				<tr>
 					<td><b>Instrument</b></td>
@@ -43,8 +43,16 @@
 					<td align="center">{!! printUserLink($c->user_id) !!}</td>
 					<td align="center">{{ App\UserLearnCourses::where('course_id', $c->id)->count() }}</td>
 					<td align="center">{{ App\UserTeachCourses::where('course_id', $c->id)->count() }}</td>
-					<td align="center">{{ App\UserTeachCourses::where('course_id', $c->id)->where('validated', 0)->count()
-											+ App\UserLearnCourses::where('course_id', $c->id)->where('validated', 0)->count() }}</td>
+					<td align="center">
+					 @if(App\UserTeachCourses::where('course_id', $c->id)->where('validated', 0)->count()
+							+ App\UserLearnCourses::where('course_id', $c->id)->where('validated', 0)->count() > 0)
+							<p class="text-danger"> <b>{{ App\UserTeachCourses::where('course_id', $c->id)->where('validated', 0)->count()
+							+ App\UserLearnCourses::where('course_id', $c->id)->where('validated', 0)->count() }}</b></p>
+					 @else
+						<p>{{ App\UserTeachCourses::where('course_id', $c->id)->where('validated', 0)->count()
+							+ App\UserLearnCourses::where('course_id', $c->id)->where('validated', 0)->count() }}</p>
+					 @endif
+					</td>
 					<td align="center">
 						<form method="post" action="{{ url('admin/courses/delete/'.$c->id) }}">
 						{{ csrf_field() }}
@@ -159,7 +167,7 @@
 				
 				<br />
 
-				<div align="center"class="row">
+				<div align="center"class="row buttons">
 					<button type="reset" class="btn btn-default">Annuler</button> <button  type="submit" class="btn btn-primary">Valider</button>
 				</div>
 			</form>

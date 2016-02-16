@@ -8,8 +8,6 @@ class CreateNewsTable extends Migration {
 	public function up()
 	{
 		Schema::create('news', function(Blueprint $table) {
-            $table->engine = 'InnoDB';
-			
 			$table->increments('id');
 			$table->timestamps();
 			$table->string('title', 255);
