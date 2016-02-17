@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Modification;
+use App\Course;
 use App\CourseModification;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -28,8 +29,19 @@ class ModificationController extends Controller
      */
     public function courses()
     {
-        $modifs = CourseModification::orderBy('id', 'desc')->paginate(30);
-        return view('admin.modifications.courses', compact('modifs'));
+        $modifs = CourseModification::orderBy('id', 'desc')->paginate(20);
+        $concerned = "Tous";
+        return view('admin.modifications.courses', compact('modifs', 'concerned'));
+    }
+
+    public function oneCourse($id)
+    {
+        $modifs = CourseModification::where('course_id', $id)->orderBy('id', 'desc')->paginate(20);
+        $course = Course::where('id', $id)->first();
+        $url = url('admin/modifications/courses/'.$course->slug);
+        $name = $course->name;
+        $concerned = '<a href="'.$url.'">'.$name.'</a>';
+        return view('admin.modifications.courses', compact('modifs', 'concerned'));
     }
 
     /**

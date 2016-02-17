@@ -107,6 +107,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:1'], function(){
 
 	Route::get('modifications', 'ModificationController@index')			   ->name('modifs.index');
 	Route::get('modifications/courses', 'ModificationController@courses')  ->name('modifs.courses');
+	Route::get('modifications/courses/{id}', 'ModificationController@oneCourse')  ->name('modifs.onecourses');
 
 	// _____________________________________________________________________________________________________________
 

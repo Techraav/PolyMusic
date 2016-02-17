@@ -15,8 +15,8 @@
 	<table class="table table-hover table-striped">
 		<thead>
 			<tr>
-				<td width="200"><b>Utilisateur</b></td>
-				<td width="200"><b>Table(s)</b></td>
+				<td width="300"><b>Utilisateur</b></td>
+				<td width="250"><b>Table(s)</b></td>
 				<td><b>Message</b></td>
 			</tr>
 		</thead>
@@ -37,6 +37,6 @@
 		</tbody>
 	</table>
 
-	{!! $modifs->render() !!}
+	<div align="right">{!! $modifs->render() !!}</div>
 
 @stop
