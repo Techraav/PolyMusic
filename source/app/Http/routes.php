@@ -132,7 +132,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:1'], function(){
 	Route::get('articles',					'ArticleController@adminIndex')	->name('articles.adminindex');
 	Route::get('articles/create', 			'ArticleController@create')		->name('articles.create');
 	Route::get('articles/edit/{slug}', 		'ArticleController@edit')		->name('articles.edit');
-	Route::get('articles/delete{slug}', 	'ArticleController@delete') 	->name('articles.delete');
+	Route::get('articles/delete/{slug}', 	'ArticleController@delete') 	->name('articles.delete');
 
 	// ARTICLES : POST
 	Route::post('articles/create', 			'ArticleController@store')	->name('articles.store');
