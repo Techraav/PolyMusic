@@ -77,7 +77,7 @@
     <div class="col-lg-3">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Welcome message
+                <p align="center"><i><b>Bievenue !</b></i></p>
             </div>
             <ul class="list-group">
             
@@ -85,14 +85,26 @@
         </div>
         <div class="panel panel-default panel-news">
             <div class="panel-heading">
-                <a href="{{ url('news')}}">Dernières news</a>
+                <p align="center"><a href="{{ url('news')}}"><i><b>Dernières news</b></i></a></p>
             </div>
-            <ul class="list-group">
+            <table class="table">
+            	<tbody>
+                	@forelse( App\News::where('active', 1)->orderBy('id', 'desc')->limit(10)->get() as $n)
+                	<tr height="20">
+                		<td align="center" width="60">{{ showDate($n['created_at'], 'Y-m-d H:i:s', 'j M Y', false) }}</td>
+                		<td height="50"><a href="{{ url('news/view/'.$n['slug'])}}">{{ strlen($n->title) > 120 ? substr($n->title, 0, 120).'...' :  $n->title }}</a>
+                		</td>
+                	</tr>
+	                @empty
+	                <td align="center">-</td>
+	                @endforelse
+            	</tbody>
+            </table>
+            <!-- <ul class="list-group">
                 @forelse( App\News::where('active', 1)->orderBy('id', 'desc')->limit(10)->get() as $n)
                 <li class="list-group-item">
-                  <p><a href="{{ url('news/view/'.$n['slug'])}}">{{$n['title']}}</a>
-                    <span class="news-infos">[<b>{!! printUserLink($n->user_id) !!}</b>,{{ date_format($n['created_at'], 'd/m/Y') }}]</span> 
-                  </p>
+                    <div class="news-infos"><p>{{ showDate($n['created_at'], 'Y-m-d H:i:s', 'j M Y', false) }}</p></div> 
+                  	<a href="{{ url('news/view/'.$n['slug'])}}">{{$n['title']}}</a>
                 </li>
                 @empty
                   <li class="list-group-item"><p>Pas de news pour le moment.</p></li>                  
@@ -100,7 +112,7 @@
                 @if(Auth::check() && Auth::user()->level >= 1)
                   <li class="list-group-item"><p><a href="{{ url('admin/news/create') }}">Ajouter une news</a></p></li>
                 @endif
-            </ul>
+            </ul> -->
         </div>
     </div>
 </div>

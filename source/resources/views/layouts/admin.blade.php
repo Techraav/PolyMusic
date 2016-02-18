@@ -103,7 +103,7 @@
     <div class="col-lg-3">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Administration
+                <p align="center"><i><b>Administration</b></i></p>
             </div>
             <div class="panel-body">
                 Bienvenue sur la zone d'administration du site.
@@ -112,7 +112,7 @@
 
         <div class="panel-default panel panel-course-modif">
         	<div class="panel-heading">
-        		Gestion de membres des cours
+        		    <p align="center"><i><b>Gestion de membres des cours</b></i></p>
                 <p class="panel-link"><a align="right" href="{{ url('admin/modifications/courses') }}">Tout voir</a></p>
         	</div>
         		<ul class="list-group">
@@ -143,7 +143,7 @@
 
         <div class="panel panel-default panel-modifications">
             <div class="panel-heading">
-                Dernières modifications
+                <p align="center"><i><b>Dernières modifications</b></i></p>
                 <p class="panel-link"><a align="right" href="{{ url('admin/modifications') }}">Tout voir</a> </p>
             </div>
             <ul class="list-group">

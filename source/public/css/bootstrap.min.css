@@ -7817,11 +7817,18 @@ li.modif-2, li.modif-1{
 	color:#D64444;
 }
 
-p.panel-link{
+p.panel-link a{
 	font-style: italic;
-	font-size:14px;
+	font-size:12px;
 	margin:0 !important;
-	float: right !important;
+	position: absolute;
+	top:1px;
+	right:5px;
+
+}
+
+.panel-heading{
+	position: relative;
 }
 
 .table-modifs a{
@@ -7843,3 +7850,36 @@ tr.tr-modif-1 td, tr.tr-modif-2 td{
 tr.bold{
 	font-weight: bold;
 }
+
+.panel-news td:first-child{
+    font-style: italic;
+    font-size: 13px;
+    border-right: 1px solid #DEE1E4;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.panel-news td:last-child{
+	margin-left:5px;
+	text-indent: 15px
+}
+
+.panel-news tr td{
+    border-bottom: 1px solid #DEE1E4 !important;
+}
+
+.panel-news tr:last-child td{
+	border-bottom:none;
+}
+
+.panel .panel-heading p{
+    margin-bottom: 0;
+    margin-top: 4px;
+    font-size: 18px;
+}
+
+.panel-news .panel-heading p a, .panel-news .panel-heading p a:hover{
+
+	color:#2C3E50;
+}
+

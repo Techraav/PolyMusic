@@ -182,7 +182,7 @@ ul.list-members li{
 }
 
 .icon{
-    font-size: 40%;
+    font-size: 50%;
     color: inherit;
     opacity: 0.3;
     -webkit-transition: all 0.1s ease-in-out;
@@ -194,7 +194,6 @@ ul.list-members li{
 
 .icon:hover{
     opacity: 1;
-    font-size: 70%;
 }
 
 .profil-pict p img{

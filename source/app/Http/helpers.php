@@ -145,4 +145,69 @@
 		return $string;
 	}
 
+	/**
+	* Show $date with the expected $format
+	*
+	* @param $date
+	* @param $format
+	* @return string containing a date in expected $format
+	*/
+	function showDate($date, $fromFormat, $format, $suff=true)
+	{
+		$date = date_format(date_create_from_format($fromFormat, $date), $format);
+		if(strpos($format, 'D') > -1)
+		{
+			$date = str_replace('Mon', 'Lun', $date);
+			$date = str_replace('Tue', 'Mar', $date);
+			$date = str_replace('Wed', 'Mer', $date);
+			$date = str_replace('Thu', 'Jeu', $date);
+			$date = str_replace('Fri', 'Ven', $date);
+			$date = str_replace('Sat', 'Sam', $date);
+			$date = str_replace('Sun', 'Dim', $date);
+		}
+		if(strpos($format, 'M') > -1)
+		{
+			$date = str_replace('Feb', 'Fév', $date);
+			$date = str_replace('Apr', 'Avr', $date);
+			$date = str_replace('May', 'Fév', $date);
+			$date = str_replace('Jun', 'Fév', $date);
+			$date = str_replace('Jul', 'Fév', $date);
+			$date = str_replace('Aug', 'Fév', $date);
+		}
+		if(strpos($format, 'F') > -1)
+		{
+			$date = str_replace('January', 'Janvier', $date);
+			$date = str_replace('February', 'Février', $date);
+			$date = str_replace('March', 'Mars', $date);
+			$date = str_replace('April', 'Avril', $date);
+			$date = str_replace('May', 'Mai', $date);
+			$date = str_replace('June', 'Juin', $date);
+			$date = str_replace('July', 'Juillet', $date);
+			$date = str_replace('August', 'Août', $date);
+			$date = str_replace('September', 'Septembre', $date);
+			$date = str_replace('October', 'Octobre', $date);
+			$date = str_replace('November', 'Novembre', $date);
+			$date = str_replace('December', 'Décembre', $date);
+		}
+		if($suff && strpos($format, 'j') > -1)
+		{
+			$date = str_replace('1st', '1er', $date);
+			$date = str_replace('2nd', '2ème', $date);
+			$date = str_replace('3rd', '3ème', $date);
+			$date = str_replace('th ', 'ème ', $date);
+		}
+		if(strpos($format, 'l') > -1)
+		{
+			$date = str_replace('Monday', 'Lundi', $date);
+			$date = str_replace('Tuesday', 'Mardi', $date);
+			$date = str_replace('Wednesday', 'Mercredi', $date);
+			$date = str_replace('Thursday', 'Jeudi', $date);
+			$date = str_replace('Friday', 'Vendredi', $date);
+			$date = str_replace('Saturday', 'Samedi', $date);
+			$date = str_replace('Sunday', 'Dimanche', $date);
+		}		
+
+		return $date;
+	}
+
 ?>

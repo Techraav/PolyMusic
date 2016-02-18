@@ -133,6 +133,8 @@ class NewsController extends Controller {
       'user_id' => Auth::user()->id,
       ]);
 
+    $slug = $news->slug;
+
     Flash::success('La news a bien été créée ! ');
     return redirect('news/view/' . $slug);
   }
