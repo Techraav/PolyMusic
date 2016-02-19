@@ -52,12 +52,12 @@
           @else
             <li class="dropdown">
               <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-expanded="false">  <span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li>{!! printUserLink(Auth::user()->id) !!}</li>
+              <ul class="dropdown-menu user-menu" role="menu">
+                <li> <a href="{{ url('users/'.Auth::user()->slug) }}"><span class="glyphicon glyphicon-user"></span> {{ Auth::user()->first_name.' '.Auth::user()->last_name }}</a></li>
     			@if(Auth::user()->level > 0)
-               	<li><a href=" {{ url('admin') }} " class="admin-link">Administration</a></li>
+               	<li><a href=" {{ url('admin') }} " class="admin-link"> <span class="glyphicon glyphicon-cog"></span> Administration</a></li>
                	@endif
-                <li><a href="{{ url('auth/logout') }}">Déconnexion</a></li>
+                <li><a href="{{ url('auth/logout') }}"> <span class="glyphicon glyphicon-log-out"></span> Déconnexion</a></li>
               </ul>
             </li>
           @endif
@@ -68,7 +68,7 @@
     <br /> 
 <div class="row">
   <div class="col-lg-9">
-  <div class="container">
+   <div class="container">
     @include('flash::message')
     @yield('content')
   </div>
@@ -77,7 +77,7 @@
     <div class="col-lg-3">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <p align="center"><i><b>Bievenue !</b></i></p>
+                <p align="center"><i><b>Bienvenue !</b></i></p>
             </div>
             <ul class="list-group">
             
@@ -86,21 +86,47 @@
         <div class="panel panel-default panel-news">
             <div class="panel-heading">
                 <p align="center"><a href="{{ url('news')}}"><i><b>Dernières news</b></i></a></p>
+                  @if(Auth::check() && Auth::user()->level >= 1)
+                 <a class="glyphicon glyphicon-plus" title="Ajouter une news" href="{{ url('admin/news/create') }}"></a>
+                  @endif
             </div>
-            <table class="table">
+                <ul class="list-group">
+                  @forelse( App\News::where('active', 1)->orderBy('id', 'desc')->limit(10)->get() as $n)
+                  <li class="list-group-item news-item">
+                      <div class="news-infos"><p><span>{{ showDate($n['created_at'], 'Y-m-d H:i:s', 'j M Y', false) }}</span></p></div> 
+                      <!-- <span class="trait"></span> -->
+                      <div class="content"><p><a href="{{ url('news/view/'.$n['slug'])}}">{{ strlen($n->title) > 40 ? substr($n->title, 0, 40).'...' :  $n->title }}</a></p></div>
+                      <span class="glyphicon glyphicon-menu-right"></span>
+                  </li>
+                  @empty
+                    <li class="list-group-item"><p>Pas de news pour le moment.</p></li>                  
+                  @endforelse
+<!--                   @if(Auth::check() && Auth::user()->level >= 1)
+                    <li class="list-group-item"></li>
+                  @endif -->
+                </ul>
+
+
+            {{-- 2e VERSION --}}
+            {{-- <table class="table">
             	<tbody>
                 	@forelse( App\News::where('active', 1)->orderBy('id', 'desc')->limit(10)->get() as $n)
-                	<tr height="20">
-                		<td align="center" width="60">{{ showDate($n['created_at'], 'Y-m-d H:i:s', 'j M Y', false) }}</td>
-                		<td height="50"><a href="{{ url('news/view/'.$n['slug'])}}">{{ strlen($n->title) > 120 ? substr($n->title, 0, 120).'...' :  $n->title }}</a>
+                	<tr height="25">
+                		<td align="center" width="70"><span>{{ showDate($n['created_at'], 'Y-m-d H:i:s', 'j M Y', false) }}</span></td>
+                		<td height="50" class="content"><a href="{{ url('news/view/'.$n['slug'])}}">{{ strlen($n->title) > 40 ? substr($n->title, 0, 40).'...' :  $n->title }}</a>
                 		</td>
+                    <td><span class="glyphicon glyphicon-menu-right"></span></td>
                 	</tr>
 	                @empty
 	                <td align="center">-</td>
 	                @endforelse
             	</tbody>
-            </table>
-            <!-- <ul class="list-group">
+            </table> --}}
+            {{-- --}}
+
+
+            {{-- 1ere version --}}
+             {{-- <ul class="list-group">
                 @forelse( App\News::where('active', 1)->orderBy('id', 'desc')->limit(10)->get() as $n)
                 <li class="list-group-item">
                     <div class="news-infos"><p>{{ showDate($n['created_at'], 'Y-m-d H:i:s', 'j M Y', false) }}</p></div> 
@@ -112,7 +138,8 @@
                 @if(Auth::check() && Auth::user()->level >= 1)
                   <li class="list-group-item"><p><a href="{{ url('admin/news/create') }}">Ajouter une news</a></p></li>
                 @endif
-            </ul> -->
+            </ul> --}}
+            {{--  --}}
         </div>
     </div>
 </div>
