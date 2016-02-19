@@ -13,8 +13,8 @@ class CreateEmailsTable extends Migration {
 			$table->string('sender_email', 255);
 			$table->string('subject', 255);
 			$table->text('content');
-			$table->integer('receiver_id')->unsigned();
-			$table->integer('sender_id')->unsigned()->default('0');
+			$table->integer('receiver_id')->unsigned()->index();
+			$table->integer('sender_id')->unsigned()->index()->default('0');
 		});
 	}
 

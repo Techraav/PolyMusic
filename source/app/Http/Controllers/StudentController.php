@@ -1,7 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\UserLearnCourses;
-use App\UserTeachCourses;
+use App\CourseUser;
 use App\CourseModification;
 use App\Course;
 use Illuminate\Http\Request;
@@ -52,7 +51,7 @@ class StudentController extends Controller {
 			return Redirect::back();
 		}
 		$user_id = $request->user_id;
-		$student = UserLearnCourses::where('user_id', $user_id)->where('course_id', $id)->first();
+		$student = CourseUser::where('user_id', $user_id)->where('course_id', $id)->where('level', 0)->first();
 
 		if(!isset($student))
 		{
@@ -82,7 +81,7 @@ class StudentController extends Controller {
 		}
 
 		$user_id = $request->user_id;
-		$student = UserLearnCourses::where('user_id', $user_id)->where('course_id', $id)->first();
+		$student = CourseUser::where('user_id', $user_id)->where('course_id', $id)->where('level', 0)->first();
 
 		if(!isset($student))
 		{

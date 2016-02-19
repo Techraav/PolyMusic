@@ -10,9 +10,9 @@ class CreateCommentsTable extends Migration {
 		Schema::create('comments', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
-			$table->integer('answer_to')->unsigned()->default('0');
-			$table->integer('announcement_id')->unsigned();
-			$table->integer('user_id')->unsigned();
+			$table->integer('answer_to')->unsigned()->default('0')->index();
+			$table->integer('announcement_id')->unsigned()->index();
+			$table->integer('user_id')->unsigned()->index();
 			$table->text('content');
 		});
 	}

@@ -8,7 +8,7 @@ class Article extends Model {
 
 	protected $table = 'articles';
 	public $timestamps = true;
-	protected $fillable = array('timestamps', 'title', 'subtitle', 'content', 'user_id', 'slug');
+	protected $fillable = array('timestamps', 'title', 'subtitle', 'content', 'user_id', 'slug', 'category_id');
 
 	public function author()
 	{
@@ -23,6 +23,11 @@ class Article extends Model {
 	public function course()
 	{
 		return $this->belongsTo('App\Course');
+	}
+
+	public function category()
+	{
+		return $this->belongsTo('App\Category');
 	}
 
 }

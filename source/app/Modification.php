@@ -12,7 +12,7 @@ class Modification extends Model {
 
 	public function user()
 	{
-		return $this->hasOne('User');
+		return $this->hasOne('App\User');
 	}
 
 }

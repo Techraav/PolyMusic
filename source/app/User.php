@@ -26,7 +26,7 @@ class User extends Model implements AuthenticatableContract,
 
 	public function articles()
 	{
-		return $this->hasMany('Article');
+		return $this->hasMany('App\Article');
 	}
 
 	public function news()
@@ -44,12 +44,22 @@ class User extends Model implements AuthenticatableContract,
 		return $this->belongsTo('App\Department');
 	}
 
-	public function emails_received()
+	public function emails_sent()
 	{
-		return $this->hasMany('User');
+		return $this->hasMany('App\Email');
 	}
 
-	public function courses()
+	public function emails_received()
+	{
+		return $this->hasMany('App\Email');
+	}
+
+	public function courses_student()
+	{
+		return $this->belongsToMany('App\Course');
+	}
+
+	public function courses_teacher()
 	{
 		return $this->belongsToMany('App\Course');
 	}
@@ -66,12 +76,12 @@ class User extends Model implements AuthenticatableContract,
 
 	public function modifications()
 	{
-		return $this->belongsToMany('Modification');
+		return $this->belongsToMany('App\Modification');
 	}
 
 	public function course_manager()
 	{
-		return $this->belongsTo('Course');
+		return $this->belongsTo('App\Course');
 	}
 
 	public function course_modification()

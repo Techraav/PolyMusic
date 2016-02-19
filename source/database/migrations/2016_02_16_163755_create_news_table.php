@@ -12,9 +12,10 @@ class CreateNewsTable extends Migration {
 			$table->timestamps();
 			$table->string('title', 255);
 			$table->text('content');
-			$table->integer('user_id')->unsigned();
+			$table->integer('user_id')->unsigned()->index();
 			$table->tinyInteger('active')->default('1');
-			$table->string('slug', 255);
+			$table->string('slug', 255)->index();
+			$table->date('published_at');
 		});
 	}
 

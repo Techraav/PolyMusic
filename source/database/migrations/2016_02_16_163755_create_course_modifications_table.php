@@ -10,9 +10,9 @@ class CreateCourseModificationsTable extends Migration {
 		Schema::create('course_modifications', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
-			$table->integer('author_id')->unsigned();
-			$table->integer('user_id')->unsigned();
-			$table->integer('course_id')->unsigned();
+			$table->integer('author_id')->unsigned()->index();
+			$table->integer('user_id')->unsigned()->index();
+			$table->integer('course_id')->unsigned()->index();
 			$table->string('message', 255);
 			$table->tinyInteger('value')->unsigned();
 		});

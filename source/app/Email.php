@@ -12,7 +12,11 @@ class Email extends Model {
 
 	public function receiver()
 	{
-		return $this->belongsToMany('App\User', 'receiver_id');
+		return $this->belongsTo('App\User', 'receiver_id');
+	}
+
+	public function sender(){
+		return $this->belongsTo('App\User', 'sender_id');
 	}
 
 }

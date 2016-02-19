@@ -17,11 +17,11 @@ class CreateUsersTable extends Migration {
 			$table->string('phone', 12);
 			$table->string('profil_picture', 255)->default('base_profil_picture.png');
 			$table->text('description');
-			$table->integer('school_year');
+			$table->integer('school_year')->index();
 			$table->integer('department_id')->unsigned()->index();
-			$table->string('slug', 255)->unique();
+			$table->string('slug', 255)->index();
 			$table->integer('level')->unsigned()->index()->default('0');
-			$table->tinyInteger('banned')->default('0');
+			$table->tinyInteger('banned')->default('0')->index();
 			$table->rememberToken('rememberToken');
 			$table->timestamps();
 		});

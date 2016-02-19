@@ -15,10 +15,10 @@ class CreateCoursesTable extends Migration {
 			$table->time('start');
 			$table->time('end');
 			$table->text('infos');
-			$table->string('slug', 255);
-			$table->integer('instrument_id')->unsigned();
-			$table->integer('article_id')->unsigned();
-			$table->integer('user_id')->unsigned();
+			$table->string('slug', 255)->index();
+			$table->integer('instrument_id')->unsigned()->index();
+			$table->integer('article_id')->unsigned()->index();
+			$table->integer('user_id')->unsigned()->index();
 		});
 	}
 

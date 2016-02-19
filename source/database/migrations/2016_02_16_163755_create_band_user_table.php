@@ -3,21 +3,20 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateModificationsTable extends Migration {
+class CreateBandUserTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('modifications', function(Blueprint $table) {
+		Schema::create('band_user', function(Blueprint $table) {
 			$table->increments('id');
-			$table->timestamps();
 			$table->integer('user_id')->unsigned()->index();
-			$table->string('table', 255);
-			$table->string('message', 255);
+			$table->integer('band_id')->unsigned()->index();
+			$table->integer('instrument_id')->unsigned()->index();
 		});
 	}
 
 	public function down()
 	{
-		Schema::drop('modifications');
+		Schema::drop('band_user');
 	}
 }

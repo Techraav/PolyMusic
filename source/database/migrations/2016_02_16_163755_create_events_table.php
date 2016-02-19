@@ -11,12 +11,12 @@ class CreateEventsTable extends Migration {
 			$table->increments('id');
 			$table->timestamps();
 			$table->text('location');
-			$table->tinyInteger('day');
+			$table->tinyInteger('day')->index();
 			$table->time('start');
 			$table->time('end');
 			$table->text('infos');
 			$table->string('name', 255);
-			$table->string('slug', 255);
+			$table->string('slug', 255)->index();
 		});
 	}
 

@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-class BandMemberController extends Controller {
+class BandUserController extends Controller {
 
   /**
    * Display a listing of the resource.

@@ -11,7 +11,7 @@ class CreateImagesTable extends Migration {
 			$table->increments('id');
 			$table->string('title', 255);
 			$table->text('description');
-			$table->integer('article_id')->unsigned();
+			$table->integer('article_id')->unsigned()->index();
 		});
 	}
 

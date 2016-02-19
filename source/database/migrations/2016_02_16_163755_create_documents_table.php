@@ -12,9 +12,9 @@ class CreateDocumentsTable extends Migration {
 			$table->timestamps();
 			$table->string('title', 255);
 			$table->string('name', 255);
-			$table->integer('user_id')->unsigned();
+			$table->integer('user_id')->unsigned()->index();
 			$table->text('description');
-			$table->integer('course_id')->unique()->unsigned();
+			$table->integer('course_id')->index()->unsigned();
 		});
 	}
 

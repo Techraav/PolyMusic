@@ -4,8 +4,7 @@ use App\Course;
 use App\User;
 use App\Modification;
 use App\Article;
-use App\UserLearnCourses;
-use App\UserTeachCourses;
+use App\CourseUser;
 use App\Announcement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -64,11 +63,11 @@ class CourseController extends Controller {
 		$course = Course::where('slug', $slug)->first();
 		$id 	= $course->id;
 
-		$students = UserLearnCourses::where('course_id', $id)->where('validated', 1)->paginate(30);
-		$teachers = UserTeachCourses::where('course_id', $id)->where('validated', 1)->get();
+		$students = CourseUser::where('course_id', $id)->where('validated', 1)->where('level', 0)->paginate(30);
+		$teachers = CourseUser::where('course_id', $id)->where('validated', 1)->where('level', 1)->get();
 
-		$waitingStudents = UserLearnCourses::where('validated', 0)->where('course_id', $id)->orderBy('created_at')->get();
-		$waitingTeachers = UserTeachCourses::where('validated', 0)->where('course_id', $id)->orderBy('created_at')->get();
+		$waitingStudents = CourseUser::where('validated', 0)->where('course_id', $id)->where('level', 0)->orderBy('created_at')->get();
+		$waitingTeachers = CourseUser::where('validated', 0)->where('course_id', $id)->where('level', 1)->orderBy('created_at')->get();
 
 		return view('admin.courses.members', compact('course', 'students', 'teachers', 'waitingTeachers', 'waitingStudents'));
 	}

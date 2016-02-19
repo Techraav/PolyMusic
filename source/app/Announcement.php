@@ -8,7 +8,7 @@ class Announcement extends Model {
 
 	protected $table = 'announcements';
 	public $timestamps = true;
-	protected $fillable = array('timestamps', 'user_id', 'title', 'content', 'tags', 'slug', 'validated', 'subject');
+	protected $fillable = array('timestamps', 'user_id', 'title', 'content', 'tags', 'slug', 'validated', 'subject', 'category_id');
 
 	public function comments()
 	{
@@ -17,7 +17,12 @@ class Announcement extends Model {
 
 	public function author()
 	{
-		return $this->belongsTo('App\User', 'author');
+		return $this->belongsTo('App\User');
+	}
+
+	public function category()
+	{
+		return $this->belongsTo('App\Category');
 	}
 
 }

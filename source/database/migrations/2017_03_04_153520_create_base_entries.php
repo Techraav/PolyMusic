@@ -9,15 +9,15 @@ use App\Instrument;
 use App\Course;
 use App\Band;
 use App\BandEvent;
-use App\BandMember;
+use App\BandUser;
 use App\Announcement;
 use App\Article;
 use App\CourseModification;
 use App\News;
 use App\Event;
 use App\Comment;
-use App\UserLearnCourses;
-use App\UserTeachCourses;
+use App\CourseUser;
+use App\Category;
 
 class CreateBaseEntries extends Migration
 {
@@ -48,7 +48,7 @@ class CreateBaseEntries extends Migration
 
         // Create level 3 : admin
         Level::create([
-            'level' => 2,
+            'level' => 3,
             'name'  => 'admin'
             ]);
 
@@ -131,6 +131,13 @@ class CreateBaseEntries extends Migration
             'slug'          => 'member-member-1'
             ]);
 
+        Category::create(['name' => 'Aucune']);
+        Category::create(['name' => 'Autre']);
+        Category::create(['name' => 'Présentation']);
+        Category::create(['name' => 'Création de groupe']);
+        Category::create(['name' => 'Recherche de groupe']);
+        Category::create(['name' => 'Échange/Vente']);
+
 
         //Creation basic instruments :
         $instruments = ['autre', 'guitare', 'piano', 'basse', 'chant', 'flûte', 
@@ -148,8 +155,8 @@ class CreateBaseEntries extends Migration
                             interdum mauris non, blandit justo. Donec non mollis orci, a accumsan ligula. Nullam quis sapien elementum 
                             neque egestas lacinia</p>',
             'user_id'   => 2,
-            'slug'      => 'cours-de-guitare-1'
-            
+            'slug'      => 'cours-de-guitare-1',
+            'category_id' => 3            
             ]);
 
         // Create Article 'Cours de piano'
@@ -162,7 +169,8 @@ class CreateBaseEntries extends Migration
                             interdum mauris non, blandit justo. Donec non mollis orci, a accumsan ligula. Nullam quis sapien elementum 
                             neque egestas lacinia</p>',
             'user_id'   => 3,
-            'slug'      => 'cours-de-piano-2'
+            'slug'      => 'cours-de-piano-2',
+            'category_id' => 3
             
             ]);
 
@@ -233,6 +241,7 @@ class CreateBaseEntries extends Migration
             'slug'      => 'test-annonce-1',
             'validated' => 1,
             'subject'   => 'Annonce pour tester',
+            'category_id'   => 1,
             'content'   => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in malesuada leo.
                             Suspendisse ut dapibus urna. Nunc mattis velit vel varius luctus. Fusce ornare arcu nec odio
                             egestas, et lacinia sapien laoreet. Maecenas odio dui, fringilla non sapien euismod, volutpat 
@@ -259,8 +268,9 @@ class CreateBaseEntries extends Migration
             'slug'      => 'test-seconde-annonce-1',
             'validated' => 1,
             'subject'   => 'Deuxieme annonce pour tester',
-
+            'category_id'   => 1
             ]);
+
 
         // Create announcement unvalidated
         Announcement::create([
@@ -270,6 +280,7 @@ class CreateBaseEntries extends Migration
             'slug'      => 'test-annonce-invalidee-1',
             'validated' => 0,
             'subject'   => 'Annonce invalidée pour tester',
+            'category_id'   => 1
             ]);
 
         // Create comment on announcement #1
@@ -317,8 +328,8 @@ class CreateBaseEntries extends Migration
                             interdum mauris non, blandit justo. Donec non mollis orci, a accumsan ligula. Nullam quis sapien elementum 
                             neque egestas lacinia</p>',
             'user_id'   => 1,
-            'slug'      => 'premier-article-3'
-            
+            'slug'      => 'premier-article-3',
+            'category_id'   => 2
             ]);
 
         // Create Article 'deuxieme article'
@@ -331,7 +342,8 @@ class CreateBaseEntries extends Migration
                             interdum mauris non, blandit justo. Donec non mollis orci, a accumsan ligula. Nullam quis sapien elementum 
                             neque egestas lacinia</p>',
             'user_id'   => 2,
-            'slug'      => 'deuxieme-article-4'
+            'slug'      => 'deuxieme-article-4',
+            'category_id' => 1
             ]);
 
         // Create Event 'concert de The Band'
@@ -375,26 +387,26 @@ class CreateBaseEntries extends Migration
             ]);
 
 
-        // Associate Members to Bands
-        BandMember::create([ 'user_id'   => 1,  'band_id'   => 1, 'instrument_id'   => 1]);
-        BandMember::create([ 'user_id'   => 2,  'band_id'   => 1, 'instrument_id'   => 2]);
-        BandMember::create([ 'user_id'   => 3,  'band_id'   => 1, 'instrument_id'   => 3]);
+        // // Associate Members to Bands
+        // BandUser::create([ 'user_id'   => 1,  'band_id'   => 1, 'instrument_id'   => 1]);
+        // BandUser::create([ 'user_id'   => 2,  'band_id'   => 1, 'instrument_id'   => 2]);
+        // BandUser::create([ 'user_id'   => 3,  'band_id'   => 1, 'instrument_id'   => 3]);
 
-        BandMember::create([ 'user_id'   => 2,  'band_id'   => 2, 'instrument_id'   => 5]);
-        BandMember::create([ 'user_id'   => 3,  'band_id'   => 2, 'instrument_id'   => 10]);
+        // BandUser::create([ 'user_id'   => 2,  'band_id'   => 2, 'instrument_id'   => 5]);
+        // BandUser::create([ 'user_id'   => 3,  'band_id'   => 2, 'instrument_id'   => 10]);
 
 
-        // Associate Users to Courses as Students
-        UserLearnCourses::create([ 'user_id'    => '1', 'course_id'     => 1, 'validated' => 1]);
-        UserLearnCourses::create([ 'user_id'    => '3', 'course_id'     => 1, 'validated' => 1]);
-        UserLearnCourses::create([ 'user_id'    => '1', 'course_id'     => 2, 'validated' => 1]);
-        UserLearnCourses::create([ 'user_id'    => '4', 'course_id'     => 2, 'validated' => 0]);
+        // // Associate Users to Courses as Students
+        // CourseUser::create([ 'user_id'    => '1', 'course_id'     => 1, 'validated' => 1, 'level' => 0]);
+        // CourseUser::create([ 'user_id'    => '3', 'course_id'     => 1, 'validated' => 1, 'level' => 0]);
+        // CourseUser::create([ 'user_id'    => '1', 'course_id'     => 2, 'validated' => 1, 'level' => 0]);
+        // CourseUser::create([ 'user_id'    => '4', 'course_id'     => 2, 'validated' => 0, 'level' => 0]);
 
-        // Associate Users to Courses as Teachers
-        UserTeachCourses::create([ 'user_id'    => '3', 'course_id'     => 1, 'validated' => 1]);
-        UserTeachCourses::create([ 'user_id'    => '2', 'course_id'     => 1, 'validated' => 1]);
-        UserTeachCourses::create([ 'user_id'    => '2', 'course_id'     => 2, 'validated' => 1]);
-        UserTeachCourses::create([ 'user_id'    => '4', 'course_id'     => 1, 'validated' => 0]);
+        // // Associate Users to Courses as Teachers
+        // CourseUser::create([ 'user_id'    => '3', 'course_id'     => 1, 'validated' => 1, 'level' => 1]);
+        // CourseUser::create([ 'user_id'    => '2', 'course_id'     => 1, 'validated' => 1, 'level' => 1]);
+        // CourseUser::create([ 'user_id'    => '2', 'course_id'     => 2, 'validated' => 1, 'level' => 1]);
+        // CourseUser::create([ 'user_id'    => '4', 'course_id'     => 1, 'validated' => 0, 'level' => 1]);
 
         // Course Modification tests
         CourseModification::create([

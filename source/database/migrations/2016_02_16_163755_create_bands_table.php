@@ -13,9 +13,9 @@ class CreateBandsTable extends Migration {
 			$table->string('name', 255)->unique();
 			$table->string('image', 255)->default('band_default');
 			$table->text('infos');
-			$table->integer('user_id')->unsigned()->default('0');
+			$table->integer('user_id')->unsigned()->index()->default('0');
 			$table->tinyInteger('validated')->default('0');
-			$table->string('slug', 255);
+			$table->string('slug', 255)->index();
 		});
 	}
 

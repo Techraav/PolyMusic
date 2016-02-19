@@ -12,17 +12,17 @@ class CourseModification extends Model {
 
 	public function course()
 	{
-		return $this->hasOne('Course', 'course_id');
+		return $this->hasOne('App\Course');
 	}
 
 	public function author()
 	{
-		return $this->hasOne('User', 'author_id');
+		return $this->hasOne('App\User');
 	}
 
 	public function user()
 	{
-		return $this->hasOne('User', 'user_id');
+		return $this->hasOne('App\User');
 	}
 
 }

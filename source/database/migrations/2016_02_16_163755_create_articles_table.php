@@ -13,8 +13,9 @@ class CreateArticlesTable extends Migration {
 			$table->string('title', 255);
 			$table->string('subtitle', 255);
 			$table->text('content');
-			$table->integer('user_id')->unsigned();
-			$table->string('slug', 255);
+			$table->integer('user_id')->unsigned()->index();
+			$table->string('slug', 255)->index();
+			$table->integer('category_id')->index()->unsigned()->default(1);
 		});
 	}
 
