@@ -32,7 +32,7 @@
 					<td>{{ $l->infos ? $l->infos : '-' }}</td>
 					<td align="center">{{ App\User::where('level', $l->level)->count() }}</td>
 					<td align="center">
-						@if($l->name != 'webmaster' && $l->level != 0)
+						@if($l->name != 'webmaster' && $l->level != 0 && $l->level != 1 && $l->level != 2)
 						<form method="post" action="{{ url('admin/levels/delete/'.$l->level) }}">
 						{{ csrf_field() }}
 							<input hidden name="level" value="{{ $l->level }}" />

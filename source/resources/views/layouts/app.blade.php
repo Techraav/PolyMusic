@@ -21,7 +21,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-home"></span> &nbsp;PolyMusic </a>
+          <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-music"></span> &nbsp;PolyMusic </a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -85,7 +85,7 @@
         </div>
         <div class="panel panel-default panel-news">
             <div class="panel-heading">
-                <p align="center"><a href="{{ url('news')}}"><i><b>Dernières news</b></i></a></p>
+                <p align="center"><a title="Tout voir" href="{{ url('news')}}"><i><b>Dernières news</b></i></a></p>
                   @if(Auth::check() && Auth::user()->level >= 1)
                  <a class="glyphicon glyphicon-plus" title="Ajouter une news" href="{{ url('admin/news/create') }}"></a>
                   @endif

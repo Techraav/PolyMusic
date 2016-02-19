@@ -6,7 +6,7 @@
 		<h1>Gestion des instruments</h1>
 		<p>Les instruments sont nécessaires à la création de cours et de membres de groupes, pour les classer par instrument.</p>
 		<p>Il ne s'agit que d'une simple liste de noms d'instruments référencés sur votre site.</p>
-		<p>Il est nécessaire d'être au minimum <b>{{ ucfirst(App\Level::where('level', 2)->first()->name) }}</b> supprimer un instrument qui est &laquo; utilisé &raquo; par au moins un cours ou un membre d'un groupe</p>
+		<p>Il est nécessaire d'être au minimum <b>{{ ucfirst(App\Level::where('level', 3)->first()->name) }}</b> supprimer un instrument qui est &laquo; utilisé &raquo; par au moins un cours ou un membre d'un groupe</p>
 	</div>
 
 	<h2 align="center">Liste des instruments :</h2>
@@ -31,7 +31,7 @@
 						<form method="post" action="{{ url('admin/instruments/delete/'.$i->id) }}">
 						{{ csrf_field() }}
 							<input hidden name="id" value="{{ $i->id }}" />
-							@if( (App\Course::where('instrument_id', $i->id)->count() == 0 && App\BandMember::where('instrument_id', $i->id)->count() == 0) || Auth::user()->level>= 2 )
+							@if( (App\Course::where('instrument_id', $i->id)->count() == 0 && App\BandMember::where('instrument_id', $i->id)->count() == 0) || Auth::user()->level>= 3 )
 							<button align="right" title="Supprimer l'instrument {{ $i->name }} ?" type="submit" class="glyphicon glyphicon-trash"></button>
 							@else
 							&nbsp;&nbsp; - &nbsp;

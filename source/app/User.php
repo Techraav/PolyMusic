@@ -21,7 +21,7 @@ class User extends Model implements AuthenticatableContract,
 
 	public function level()
 	{
-		return $this->belongsTo('Level', 'level');
+		return $this->belongsTo('App\Level', 'level');
 	}
 
 	public function articles()

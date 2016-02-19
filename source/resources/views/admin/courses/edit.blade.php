@@ -19,8 +19,8 @@
 				<div class="form-group">
 					<label for="user_id" class="control-label col-lg-2">Responsable :</label>
 					<div class="col-lg-10">
-						<select name="user_id" @if(Auth::user()->level == 1) disabled @endif class="form-control">
-							@if(Auth::user()->level == 1)
+						<select name="user_id" @if(Auth::user()->level <= 2) disabled @endif class="form-control">
+							@if(Auth::user()->level <= 1)
 								<option value="{{ Auth::user()->id }}">{{ ucfirst(Auth::user()->first_name).' '.ucfirst(Auth::user()->last_name) }}</option>
 							@else
 								<optgroup label="Actuel :">
@@ -30,7 +30,7 @@
 									<option value="{{ Auth::user()->id }}">{{ ucfirst(Auth::user()->first_name).' '.ucfirst(Auth::user()->last_name) }}</option>
 								</optgroup>
 								<optgroup label="Tous :">
-								@foreach (App\User::where('level', '>', '0')->orderBy('last_name')->get() as $user)
+								@foreach (App\User::where('level', '>', '1')->orderBy('last_name')->get() as $user)
 									<option value="{{ $user->id }}">{{ ucfirst($user->last_name).' '.ucfirst($user->first_name) }}</option>
 								@endforeach
 								</optgroup>

@@ -34,13 +34,19 @@ class CreateBaseEntries extends Migration
             'name'  => 'membre'
             ]);
 
-        // Create level 1 : teacher
+        // Create level 1 : band_creator
         Level::create([
             'level' => 1,
+            'name'  => 'band_creator'
+            ]);
+
+        // Create level 2 : teacher
+        Level::create([
+            'level' => 2,
             'name'  => 'professeur'
             ]);
 
-        // Create level 2 : admin
+        // Create level 3 : admin
         Level::create([
             'level' => 2,
             'name'  => 'admin'
@@ -201,7 +207,7 @@ class CreateBaseEntries extends Migration
             'infos'     => 'deuxieme groupe de test',
             'user_id'   => 2,
             'validated' => 1,
-            'slug'      => 'second-band-1'
+            'slug'      => 'second-band-2'
             ]);
 
         // Create News 'test news'

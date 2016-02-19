@@ -55,7 +55,7 @@ class TeacherController extends Controller {
 	public function accept(Request $request, $id)
 	{
 		$manager = Course::where('id', $id)->first()->user_id;
-		if(Auth::user()->id != $manager && Auth::user()->level < 2)
+		if(Auth::user()->id != $manager && Auth::user()->level < 3)
 		{
 			Flash::error("Vous n'avez pas l'autorisation pour ça !");
 			return Redirect::back();
@@ -85,7 +85,7 @@ class TeacherController extends Controller {
 	public function remove(Request $request, $id)
 	{
 		$manager = Course::where('id', $id)->first()->user_id;
-		if(Auth::user()->id != $manager && Auth::user()->level < 2)
+		if(Auth::user()->id != $manager && Auth::user()->level < 3)
 		{
 			Flash::error("Vous n'avez pas l'autorisation pour ça !");
 			return Redirect::back();

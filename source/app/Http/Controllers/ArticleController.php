@@ -73,7 +73,7 @@ class ArticleController extends Controller {
   public function edit($id)
   {
     $article = Article::where('id', $id)->first();
-    if(Auth::user()->id != $article->user_id && Auth::user()->level < 2)
+    if(Auth::user()->id != $article->user_id && Auth::user()->level < 3)
     {
       Flash::error("Vous n'avez pas le droit de modifier cet article !");
       return redirect('admin/articles');
@@ -149,7 +149,7 @@ class ArticleController extends Controller {
 
     $article = Article::where('slug', $slug)->first();
 
-    if(Auth::user()->id != $article->user_id && Auth::user()->level < 2)
+    if(Auth::user()->id != $article->user_id && Auth::user()->level < 3)
     {
       Flash::error("Vous n'avez pas le droit de modifier cet article !");
       return redirect('admin/articles');

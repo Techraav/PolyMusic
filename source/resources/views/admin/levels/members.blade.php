@@ -13,7 +13,7 @@
 			@forelse($users as $u)
 			<li class="list-group-item">
 				<a href=" {{ url('admin/users/'.$u->slug) }}">{{ ucfirst($u->last_name) }} {{ ucfirst($u->first_name) }}</a>
-				@if($level > 0)
+				@if($level > 1)
 				<form method="post" action="{{ url('admin/levels/'.$name.'/members/remove') }}">
 				{{ csrf_field() }}
 					<input hidden name="level" value="{{ $level }}" />

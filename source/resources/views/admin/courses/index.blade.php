@@ -7,8 +7,8 @@
 		<p>Les cours proposés par le Club Musique sont référencés ici.</p>
 		<p>Vous pouvez cliquer sur le nom du cours pour voir la liste des élèves et des professeurs.</p>
 		<p>Un article est associé à chaque cours, vous pouvez cliquer sur le symbole à côté nom du cours pour le visionner.</p>
-		<p>Un {{ ucfirst(App\Level::where('level', 1)->first()->name) }} professeur peut gérer les cours qu'il a lui-même créé uniquement, et peut créer un cours dont il sera le responsable.</p>
-		<p>Les {{ ucfirst(App\Level::where('level', 2)->first()->name).'s' }} et plus, en revanche, peuvent gérer tous les cours, et peuvent créer un cours en définissant un responsable (parmis les {{ App\Level::where('level', 1)->first()->name.'s' }} et plus).</p>
+		<p>Un {{ ucfirst(App\Level::where('level', 2)->first()->name) }} professeur peut gérer les cours qu'il a lui-même créé uniquement, et peut créer un cours dont il sera le responsable.</p>
+		<p>Les {{ ucfirst(App\Level::where('level', 3)->first()->name).'s' }} et plus, en revanche, peuvent gérer tous les cours, et peuvent créer un cours en définissant un responsable (parmis les {{ App\Level::where('level', 2)->first()->name.'s' }} et plus).</p>
 		<hr />
 		<p>Nombre de total de cours créés : {{ App\Course::count() }}.</p>
 
@@ -57,7 +57,7 @@
 						<form method="post" action="{{ url('admin/courses/delete/'.$c->id) }}">
 						{{ csrf_field() }}
 							<input hidden name="id" value="{{ $c->id }}" />
-							@if( Auth::user()->level>= 2 || $c->user_id == Auth::user()->id )
+							@if( Auth::user()->level >= 3 || $c->user_id == Auth::user()->id )
 								<button align="right" title="Supprimer le cours {{ $c->name }} ? (définitif)" type="submit" class="glyphicon glyphicon-trash"></button>
 								<a href="{{ url('admin/courses/edit/'.$c->id) }}" title="Modifier le cours {{ $c->name }} ?"class="glyphicon glyphicon-pencil"></a>
 							@else
@@ -105,15 +105,15 @@
 				<div class="form-group">
 					<label for="user_id" class="control-label col-lg-2">Responsable :</label>
 					<div class="col-lg-10">
-						<select name="user_id" @if(Auth::user()->level == 1) disabled @endif class="form-control">
-							@if(Auth::user()->level == 1)
+						<select name="user_id" @if(Auth::user()->level == 2) disabled @endif class="form-control">
+							@if(Auth::user()->level == 2)
 								<option value="{{ Auth::user()->id }}">{{ ucfirst(Auth::user()->first_name).' '.ucfirst(Auth::user()->last_name) }}</option>
 							@else
 								<optgroup label="Vous :">
 									<option value="{{ Auth::user()->id }}">{{ ucfirst(Auth::user()->first_name).' '.ucfirst(Auth::user()->last_name) }}</option>
 								</optgroup>
 								<optgroup label="Tous :">
-								@foreach (App\User::where('level', '>', '0')->orderBy('last_name')->get() as $user)
+								@foreach (App\User::where('level', '>', '1')->orderBy('last_name')->get() as $user)
 									<option value="{{ $user->id }}">{{ ucfirst($user->last_name).' '.ucfirst($user->first_name) }}</option>
 								@endforeach
 								</optgroup>

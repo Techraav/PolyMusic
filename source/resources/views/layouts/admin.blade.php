@@ -21,7 +21,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{ url('admin') }}"><span class="glyphicon glyphicon-home"></span> &nbsp;Back Office </a>
+          <a class="navbar-brand" href="{{ url('admin') }}"><span class="glyphicon glyphicon-wrench"></span> &nbsp;Back Office </a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -80,10 +80,12 @@
           @else
             <li class="dropdown">
               <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-expanded="false">  <span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li>{!! printUserLink(Auth::user()->id) !!}</li>
-                <li><a href="{{ url('') }}" class="admin-link">Quitter le back office</a></li>
-                <li><a href="{{ url('auth/logout') }}">Déconnexion</a></li>
+              <ul class="dropdown-menu user-menu" role="menu">
+                <li> <a href="{{ url('users/'.Auth::user()->slug) }}"><span class="glyphicon glyphicon-user"></span> {{ Auth::user()->first_name.' '.Auth::user()->last_name }}</a></li>
+          @if(Auth::user()->level > 0)
+                <li><a href=" {{ url('/') }} " class="admin-link"> <span class="glyphicon glyphicon-home"></span> Quitter le back office</a></li>
+                @endif
+                <li><a href="{{ url('auth/logout') }}"> <span class="glyphicon glyphicon-log-out"></span> Déconnexion</a></li>
               </ul>
             </li>
           @endif
@@ -112,8 +114,7 @@
 
         <div class="panel-default panel panel-course-modif">
         	<div class="panel-heading">
-        		    <p align="center"><i><b>Gestion de membres des cours</b></i></p>
-                <p class="panel-link"><a align="right" href="{{ url('admin/modifications/courses') }}">Tout voir</a></p>
+        		    <p align="center"><a align="right" href="{{ url('admin/modifications/courses') }}"><i><b>Gestion de membres des cours</b></i></a></p>
         	</div>
         		<ul class="list-group">
         			@forelse( App\CourseModification::orderBy('id', 'desc')->limit(15)->get() as $m)
@@ -143,8 +144,7 @@
 
         <div class="panel panel-default panel-modifications">
             <div class="panel-heading">
-                <p align="center"><i><b>Dernières modifications</b></i></p>
-                <p class="panel-link"><a align="right" href="{{ url('admin/modifications') }}">Tout voir</a> </p>
+                <p align="center"><a align="right" href="{{ url('admin/modifications') }}"><i><b>Dernières modifications</b></i></a></p>
             </div>
             <ul class="list-group">
                 @forelse( App\Modification::orderBy('id', 'desc')->limit(5)->get() as $m)
