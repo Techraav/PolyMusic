@@ -387,26 +387,26 @@ class CreateBaseEntries extends Migration
             ]);
 
 
-        // // Associate Members to Bands
-        // BandUser::create([ 'user_id'   => 1,  'band_id'   => 1, 'instrument_id'   => 1]);
-        // BandUser::create([ 'user_id'   => 2,  'band_id'   => 1, 'instrument_id'   => 2]);
-        // BandUser::create([ 'user_id'   => 3,  'band_id'   => 1, 'instrument_id'   => 3]);
+        // Associate Members to Bands
+        BandUser::create([ 'user_id'   => 1,  'band_id'   => 1, 'instrument_id'   => 1]);
+        BandUser::create([ 'user_id'   => 2,  'band_id'   => 1, 'instrument_id'   => 2]);
+        BandUser::create([ 'user_id'   => 3,  'band_id'   => 1, 'instrument_id'   => 3]);
 
-        // BandUser::create([ 'user_id'   => 2,  'band_id'   => 2, 'instrument_id'   => 5]);
-        // BandUser::create([ 'user_id'   => 3,  'band_id'   => 2, 'instrument_id'   => 10]);
+        BandUser::create([ 'user_id'   => 2,  'band_id'   => 2, 'instrument_id'   => 5]);
+        BandUser::create([ 'user_id'   => 3,  'band_id'   => 2, 'instrument_id'   => 10]);
 
 
-        // // Associate Users to Courses as Students
-        // CourseUser::create([ 'user_id'    => '1', 'course_id'     => 1, 'validated' => 1, 'level' => 0]);
-        // CourseUser::create([ 'user_id'    => '3', 'course_id'     => 1, 'validated' => 1, 'level' => 0]);
-        // CourseUser::create([ 'user_id'    => '1', 'course_id'     => 2, 'validated' => 1, 'level' => 0]);
-        // CourseUser::create([ 'user_id'    => '4', 'course_id'     => 2, 'validated' => 0, 'level' => 0]);
+        // Associate Users to Courses as Students
+        CourseUser::create([ 'user_id'    => '1', 'course_id'     => 1, 'validated' => 1, 'level' => 0]);
+        CourseUser::create([ 'user_id'    => '3', 'course_id'     => 1, 'validated' => 1, 'level' => 0]);
+        CourseUser::create([ 'user_id'    => '1', 'course_id'     => 2, 'validated' => 1, 'level' => 0]);
+        CourseUser::create([ 'user_id'    => '4', 'course_id'     => 2, 'validated' => 0, 'level' => 0]);
 
-        // // Associate Users to Courses as Teachers
-        // CourseUser::create([ 'user_id'    => '3', 'course_id'     => 1, 'validated' => 1, 'level' => 1]);
-        // CourseUser::create([ 'user_id'    => '2', 'course_id'     => 1, 'validated' => 1, 'level' => 1]);
-        // CourseUser::create([ 'user_id'    => '2', 'course_id'     => 2, 'validated' => 1, 'level' => 1]);
-        // CourseUser::create([ 'user_id'    => '4', 'course_id'     => 1, 'validated' => 0, 'level' => 1]);
+        // Associate Users to Courses as Teachers
+        CourseUser::create([ 'user_id'    => '3', 'course_id'     => 1, 'validated' => 1, 'level' => 1]);
+        CourseUser::create([ 'user_id'    => '2', 'course_id'     => 1, 'validated' => 1, 'level' => 1]);
+        CourseUser::create([ 'user_id'    => '2', 'course_id'     => 2, 'validated' => 1, 'level' => 1]);
+        CourseUser::create([ 'user_id'    => '4', 'course_id'     => 1, 'validated' => 0, 'level' => 1]);
 
         // Course Modification tests
         CourseModification::create([

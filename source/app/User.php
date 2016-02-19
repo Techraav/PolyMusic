@@ -54,12 +54,7 @@ class User extends Model implements AuthenticatableContract,
 		return $this->hasMany('App\Email');
 	}
 
-	public function courses_student()
-	{
-		return $this->belongsToMany('App\Course');
-	}
-
-	public function courses_teacher()
+	public function courses()
 	{
 		return $this->belongsToMany('App\Course');
 	}
