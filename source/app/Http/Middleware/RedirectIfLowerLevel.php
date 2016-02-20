@@ -39,7 +39,7 @@ class RedirectIfLowerLevel
     {
         if ($this->auth->check()) 
         {
-            if($this->auth->user()->level >= $level_min)
+            if($this->auth->user()->level->level >= $level_min)
             {
                 return $next($request);
             }

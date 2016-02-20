@@ -37,7 +37,7 @@ class CreateBaseEntries extends Migration
         // Create level 1 : band_creator
         Level::create([
             'level' => 1,
-            'name'  => 'band_creator'
+            'name'  => 'Responsable d\'un Groupe'
             ]);
 
         // Create level 2 : teacher
@@ -91,11 +91,11 @@ class CreateBaseEntries extends Migration
             'school_year'   => 0,
             'department_id' => 1,
             'password'      => bcrypt('webmastercmt'),
-            'level'         => 10,
+            'level_id'      => 5,
             'slug'          => 'webmaster-webmaster-1'
             ]);
 
-        // Create user : Admin (lvl 2)
+        // Create user : Admin (lvl 3)
         User::create([
             'first_name'    => 'Admin',
             'last_name'     => 'Admin',
@@ -103,11 +103,11 @@ class CreateBaseEntries extends Migration
             'school_year'   => 0,
             'department_id' => 1,
             'password'      => bcrypt('admincmt'),
-            'level'         => 2,
-            'slug'          => 'admin-admin-1'
+            'level_id'      => 4,
+            'slug'          => 'admin-admin-2'
             ]);
 
-        // Create user : Teacher (lvl 1)
+        // Create user : Teacher (lvl 2)
         User::create([
             'first_name'    => 'Teacher',
             'last_name'     => 'Teacher',
@@ -115,8 +115,20 @@ class CreateBaseEntries extends Migration
             'school_year'   => 0,
             'department_id' => 1,
             'password'      => bcrypt('teachercmt'),
-            'level'         => 1,
-            'slug'          => 'teacher-teacher-1'
+            'level_id'      => 3,
+            'slug'          => 'teacher-teacher-3'
+            ]);
+
+        // Create user : band_creator (lvl 1)
+        User::create([
+            'first_name'    => 'Band',
+            'last_name'     => 'Creator',
+            'email'         => 'band@creator',
+            'school_year'   => 0,
+            'department_id' => 1,
+            'password'      => bcrypt('membercmt'),
+            'level_id'       => 2,
+            'slug'          => 'band-creator-5,',
             ]);
 
         // Create user : Member (lvl 0)
@@ -127,8 +139,8 @@ class CreateBaseEntries extends Migration
             'school_year'   => 0,
             'department_id' => 1,
             'password'      => bcrypt('membercmt'),
-            'level'         => 0,
-            'slug'          => 'member-member-1'
+            'level_id'         => 1,
+            'slug'          => 'member-member-4'
             ]);
 
         Category::create(['name' => 'Aucune']);

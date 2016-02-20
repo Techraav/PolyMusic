@@ -19,8 +19,8 @@
 				<div class="form-group">
 					<label for="user_id" class="control-label col-lg-2">Responsable :</label>
 					<div class="col-lg-10">
-						<select name="user_id" @if(Auth::user()->level <= 2) disabled @endif class="form-control">
-							@if(Auth::user()->level <= 1)
+						<select name="user_id" @if(Auth::user()->level->level <= 2) disabled @endif class="form-control">
+							@if(Auth::user()->level->level <= 1)
 								<option value="{{ Auth::user()->id }}">{{ ucfirst(Auth::user()->first_name).' '.ucfirst(Auth::user()->last_name) }}</option>
 							@else
 								<optgroup label="Actuel :">

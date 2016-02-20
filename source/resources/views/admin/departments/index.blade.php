@@ -30,7 +30,7 @@
 					<td>
 						<a href="{{ url('admin/departments/'.$d->id.'/members') }}">{{ $d->name }}</a>
 					</td>
-					<td align="center">{{ App\User::where('department_id', $d->id)->count() }}</td>
+					<td align="center">{{ $d->users->count() }}</td>
 					<td align="center">
 					@if($d->id != 1)
 						<form method="post" action="{{ url('admin/departments/delete/'.$d->id) }}">

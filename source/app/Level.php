@@ -10,7 +10,6 @@ class Level extends Model {
 	public $timestamps = true;
 	protected $fillable = array('timestamps', 'level', 'name', 'infos');
 	protected $nameField = 'name';
-	protected $primaryKey = 'level';
 
 	public function users()
 	{

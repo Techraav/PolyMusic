@@ -13,7 +13,7 @@ class BandUser extends Model {
 
 	public function instrument()
 	{
-		return $this->hasOne('App\Instrument');
+		return $this->belongsTo('App\Instrument');
 	}
 
 	public function setDefaultInstrument()

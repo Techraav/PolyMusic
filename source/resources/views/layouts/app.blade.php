@@ -54,7 +54,7 @@
               <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-expanded="false">  <span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
               <ul class="dropdown-menu user-menu" role="menu">
                 <li> <a href="{{ url('users/'.Auth::user()->slug) }}"><span class="glyphicon glyphicon-user"></span> {{ Auth::user()->first_name.' '.Auth::user()->last_name }}</a></li>
-    			@if(Auth::user()->level > 0)
+    			@if(Auth::user()->level->level > 0)
                	<li><a href=" {{ url('admin') }} " class="admin-link"> <span class="glyphicon glyphicon-cog"></span> Administration</a></li>
                	@endif
                 <li><a href="{{ url('auth/logout') }}"> <span class="glyphicon glyphicon-log-out"></span> Déconnexion</a></li>
@@ -86,7 +86,7 @@
         <div class="panel panel-default panel-news">
             <div class="panel-heading">
                 <p align="center"><a title="Tout voir" href="{{ url('news')}}"><i><b>Dernières news</b></i></a></p>
-                  @if(Auth::check() && Auth::user()->level >= 1)
+                  @if(Auth::check() && Auth::user()->level->level >= 1)
                  <a class="glyphicon glyphicon-plus" title="Ajouter une news" href="{{ url('admin/news/create') }}"></a>
                   @endif
             </div>
@@ -101,7 +101,7 @@
                   @empty
                     <li class="list-group-item"><p>Pas de news pour le moment.</p></li>                  
                   @endforelse
-<!--                   @if(Auth::check() && Auth::user()->level >= 1)
+<!--                   @if(Auth::check() && Auth::user()->level->level >= 1)
                     <li class="list-group-item"></li>
                   @endif -->
                 </ul>
@@ -135,7 +135,7 @@
                 @empty
                   <li class="list-group-item"><p>Pas de news pour le moment.</p></li>                  
                 @endforelse
-                @if(Auth::check() && Auth::user()->level >= 1)
+                @if(Auth::check() && Auth::user()->level->level >= 1)
                   <li class="list-group-item"><p><a href="{{ url('admin/news/create') }}">Ajouter une news</a></p></li>
                 @endif
             </ul> --}}

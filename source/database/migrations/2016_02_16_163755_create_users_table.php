@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration {
 			$table->integer('school_year')->index();
 			$table->integer('department_id')->unsigned()->index();
 			$table->string('slug', 255)->index();
-			$table->integer('level')->unsigned()->index()->default('0');
+			$table->integer('level_id')->unsigned()->index()->default('1');
 			$table->tinyInteger('banned')->default('0')->index();
 			$table->rememberToken('rememberToken');
 			$table->timestamps();

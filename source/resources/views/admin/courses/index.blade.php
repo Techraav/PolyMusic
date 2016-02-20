@@ -33,7 +33,8 @@
 			<tbody>
 			@forelse($courses as $c)
 				<tr>
-					<td>{{ ucfirst(App\Instrument::where('id', $c->instrument_id)->first()->name) }}</td>
+					<!-- <td>{{ ucfirst(App\Instrument::where('id', $c->instrument_id)->first()->name) }}</td> -->
+					<td>{{$c->instrument->name}}</td>
 					<td>
 						<a href="{{ url('admin/courses/'.$c->slug.'/members') }}">{{ $c->name }}</a> &nbsp;
 						<a title="Voir l'article associé" class="glyphicon glyphicon-file" href="{{ url('articles/view/'.App\Article::where('id', $c->article_id)->first()->slug) }}"></a></td>
@@ -54,7 +55,7 @@
 						<form method="post" action="{{ url('admin/courses/delete/'.$c->id) }}">
 						{{ csrf_field() }}
 							<input hidden name="id" value="{{ $c->id }}" />
-							@if( Auth::user()->level >= 3 || $c->user_id == Auth::user()->id )
+							@if( Auth::user()->level->level >= 3 || $c->user_id == Auth::user()->id )
 								<button align="right" title="Supprimer le cours {{ $c->name }} ? (définitif)" type="submit" class="glyphicon glyphicon-trash"></button>
 								<a href="{{ url('admin/courses/edit/'.$c->id) }}" title="Modifier le cours {{ $c->name }} ?"class="glyphicon glyphicon-pencil"></a>
 							@else
@@ -102,8 +103,8 @@
 				<div class="form-group">
 					<label for="user_id" class="control-label col-lg-2">Responsable :</label>
 					<div class="col-lg-10">
-						<select name="user_id" @if(Auth::user()->level == 2) disabled @endif class="form-control">
-							@if(Auth::user()->level == 2)
+						<select name="user_id" @if(Auth::user()->level->level == 2) disabled @endif class="form-control">
+							@if(Auth::user()->level->level == 2)
 								<option value="{{ Auth::user()->id }}">{{ ucfirst(Auth::user()->first_name).' '.ucfirst(Auth::user()->last_name) }}</option>
 							@else
 								<optgroup label="Vous :">

@@ -24,14 +24,14 @@
 			@forelse($instruments as $i)
 				<tr>
 					<td align="center">{{ ucfirst($i->name) }}</td>
-					<td align="center">{{ App\Course::where('instrument_id', $i->id)->count() == 0 ? '-' : App\Course::where('instrument_id', $i->id)->count() }}</td>
-					<td align="center">{{ App\BandUser::where('instrument_id', $i->id)->count() == 0 ? '-' : App\BandUser::where('instrument_id', $i->id)->count() }}</td>
+					<td align="center">{{ $i->courses->count() == 0 ? '-' : $i->courses->count() }}</td>
+					<td align="center">{{ $i->players->count() == 0 ? '-' : $i->players->count() }}</td>
 					<td align="center">
 					@if($i->id != 1)
 						<form method="post" action="{{ url('admin/instruments/delete/'.$i->id) }}">
 						{{ csrf_field() }}
 							<input hidden name="id" value="{{ $i->id }}" />
-							@if( (App\Course::where('instrument_id', $i->id)->count() == 0 && App\BandUser::where('instrument_id', $i->id)->count() == 0) || Auth::user()->level>= 3 )
+							@if( ($i->courses->count() == 0 && $i->players->count() == 0) || Auth::user()->level>= 3 )
 							<button align="right" title="Supprimer l'instrument {{ $i->name }} ?" type="submit" class="glyphicon glyphicon-trash"></button>
 							@else
 							&nbsp;&nbsp; - &nbsp;

@@ -26,9 +26,9 @@
 				<tr {{ $u->banned == 1 ? 'class=banned' : '' }}>
 					<td >{!! printUserLink($u->id) !!}</td>
 					<td>{{ $u->email }}</td>
-					<td><a href="{{ url('admin/departments/'.$u->department_id.'/members') }}">{{ App\Department::where('id', $u->department_id)->first()->name }} ({{ App\Department::where('id', $u->department_id)->first()->short_name }})</a></td>
+					<td><a href="{{ url('admin/departments/'.$u->department_id.'/members') }}">{{ $u->department->name }} ({{ $u->department->short_name }})</a></td>
 					<td>&nbsp; &nbsp; &nbsp; {{ date_format($u->created_at, 'j M Y') }}</td>
-					<td align="center">	<a href="{{ url('admin/levels/'.App\Level::where('level', $u->level)->first()->name.'/members') }}">{{ $u->level }}</a></td>
+					<td align="center">	<a href="{{ url('admin/levels/'.$u->level->name.'/members') }}">{{ $u->level }}</a></td>
 				</tr>
 			@endforeach
 			

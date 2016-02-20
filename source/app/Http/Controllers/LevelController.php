@@ -65,7 +65,7 @@ class LevelController extends Controller {
 	*/
 	public function edit($level)
 	{
-		$levels = Level::orderBy('level', 'asc')->paginate(2);
+		$levels = Level::orderBy('level', 'asc')->paginate(20);
 		$levelToEdit = Level::where('level', $level)->first();
 		$values = [];
 		foreach ($levels as $k) {

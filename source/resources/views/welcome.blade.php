@@ -6,7 +6,7 @@
         <h1>Bienvenue !</h1>
         <p>Bienvenue sur le site officiel du Club Musique de Polytech Tours !</p>
         <p>Vous pourrez y trouver toutes les informations nécessaires à propos du club.</p>
-        @if(Auth::check() && Auth::user()->level > 0)
+        @if(Auth::check() && Auth::user()->level->level > 0)
             <p>Vous souhaitez administrer le site ? Rendez-vous sur le <a href="admin">Back Office</a>.</p>
         @endif
         <hr />

@@ -16,9 +16,9 @@ class Band extends Model {
 		return $this->belongsToMany('App\User');
 	}
 
-	// public function events()
-	// {
-	// 	return $this->belongsToMany('App\Event');
-	// }
+	public function events()
+	{
+		return $this->belongsToMany('App\Event');
+	}
 
 }
