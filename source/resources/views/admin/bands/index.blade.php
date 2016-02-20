@@ -36,7 +36,7 @@
 				<td align="center">{{ App\BandMember::where('band_id', $b->id)->count() }}</td>
 				<td align="center"><span class="icon-validated glyphicon glyphicon-{{ $b->validated == 0 ? 'ok' : 'remove' }}"></span></td>
 				<td align="center">
-					@if($b->user_id == Auth::user()->id || Auth::user()->level > 1)
+					@if($b->user_id == Auth::user()->id || Auth::user()->level->level > 1)
 						<form method="post" action="{{ url('admin/bands/delete/'.$b->id) }}">
 						{{ csrf_field() }}
 							<input hidden name="id" value="{{ $b->id }}" />

@@ -33,7 +33,7 @@
 				<td align="center"><i>{{ $w->message }}</i></td>
 				<td align="center">
 					<div class="controls">
-					@if($course->user_id == Auth::user()->id || Auth::user()->level > 2)
+					@if($course->user_id == Auth::user()->id || Auth::user()->level->level > 2)
 						<form method="post" action="{{ url('admin/courses/'.$course->id.'/student/accept') }} ">
 						{{ csrf_field() }}
 							<input hidden name="user_id" value="{{ $w->user_id }}" />
@@ -71,7 +71,7 @@
 				<td align="center"><i>{{ $w->message }}</i></td>
 				<td align="center">
 					<div class="controls">
-					@if($course->user_id == Auth::user()->id || Auth::user()->level > 2)
+					@if($course->user_id == Auth::user()->id || Auth::user()->level->level > 2)
 						<form method="post" action="{{ url('admin/courses/'.$course->id.'/teacher/accept') }} ">
 						{{ csrf_field() }}
 							<input hidden name="user_id" value="{{ $w->user_id }}" />
@@ -111,7 +111,7 @@
 			@forelse($teachers as $t)
 			<li class="list-group-item">
 				{!! printUserLink($t->user_id) !!}
-				@if($course->user_id == Auth::user()->id || Auth::user()->level > 2)
+				@if($course->user_id == Auth::user()->id || Auth::user()->level->level > 2)
 				<form method="post" action="{{ url('admin/courses/'.$course->id.'/teacher/remove') }}">
 				{{ csrf_field() }}
 					<input hidden name="course" value="{{ $course->id }}" />
@@ -134,7 +134,7 @@
 			@forelse($students as $t)
 			<li class="list-group-item">
 				{!! printUserLink($t->user_id) !!}
-				@if($course->user_id == Auth::user()->id || Auth::user()->level > 2)
+				@if($course->user_id == Auth::user()->id || Auth::user()->level->level > 2)
 				<form method="post" action="{{ url('admin/courses/'.$course->id.'/student/remove') }}">
 				{{ csrf_field() }}
 					<input hidden name="course" value="{{ $course->id }}" />

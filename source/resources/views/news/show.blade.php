@@ -9,7 +9,7 @@
 @if(isset($news))
 	<div class="frame-news">
 		<h2><a href="{{ url('news/view/'.$news['slug'])}}">{{$news['title']}}</a>
-			@if(Auth::check() && Auth::user()->level >= 1)
+			@if(Auth::check() && Auth::user()->level->level >= 1)
 				<a class="icon" href="{{ url('admin/news/edit/'.$news['slug']) }}"><span class="glyphicon glyphicon-pencil"></span></a>	
 				<a class="icon" href="{{ url('admin/news/delete/'.$news['slug']) }}"><span class="glyphicon glyphicon-trash"></span></a>
 			@endif
