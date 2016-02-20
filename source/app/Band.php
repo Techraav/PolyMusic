@@ -13,12 +13,12 @@ class Band extends Model {
 
 	public function members()
 	{
-		return $this->hasMany('App\User');
+		return $this->belongsToMany('App\User');
 	}
 
-	public function events()
-	{
-		return $this->belongsToMany('App\Event');
-	}
+	// public function events()
+	// {
+	// 	return $this->belongsToMany('App\Event');
+	// }
 
 }

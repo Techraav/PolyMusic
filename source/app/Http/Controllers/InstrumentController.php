@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Instrument;
 use App\User;
-use App\BandMember;
+use App\BandUser;
 use App\Course;
 use App\Modification;
 use Illuminate\Support\Facades\Auth;
@@ -137,24 +137,24 @@ class InstrumentController extends Controller
             Flash::error('Cet instrument n\'a pas l\'air d\'exister. Si vous pensez qu\' s\'agit d\'un bug, merci de contacter le webmaster');
             return Redirect::back();
         }
-
         $name = $instrument->name;
 
         // Suppression des membres de groupes + cours de cet instrument
-        $bms = BandMember::where('instrument_id', $id)->get();
+        $bms = BandUser::where('instrument_id', $id)->get();
         $cs = Course::where('instrument_id', $id)->get();
         if(!empty($bms))
         {
             foreach ($bms as $bm) {
-                $bm->update(['instrument_id' => 1]);
+                $bm->setDefaultInstrument();
             }      
         }
         if(!empty($cs))
         {
             foreach ($cs as $c) {
-                $c->update(['instrument_id' => 1]);
+                $c->setDefaultInstrument();
             }
         }  
+
 
         $instrument->delete();
 
@@ -172,7 +172,6 @@ class InstrumentController extends Controller
             Flash::error('Impossible de supprimer cet instrument.');
 
         return redirect('admin/instruments');
-
     }
 
 // ________________________________________________________________

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Instrument;
 
 class BandUser extends Model {
 
@@ -13,6 +14,11 @@ class BandUser extends Model {
 	public function instrument()
 	{
 		return $this->hasOne('App\Instrument');
+	}
+
+	public function setDefaultInstrument()
+	{
+		return $this->update(['instrument_id' => Instrument::$defaultValue]);
 	}
 
 }

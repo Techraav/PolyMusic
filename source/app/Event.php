@@ -13,7 +13,7 @@ class Event extends Model {
 
 	public function bands()
 	{
-		return $this->hasMany('App\Band');
+		return $this->belongsToMany('App\Band');
 	}
 
 }

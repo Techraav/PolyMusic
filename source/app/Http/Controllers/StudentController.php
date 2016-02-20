@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers;
 
 use App\CourseUser;
+use App\User;
+use App\Modification;
 use App\CourseModification;
 use App\Course;
 use Illuminate\Http\Request;
@@ -42,28 +44,55 @@ class StudentController extends Controller {
 
 	}
 
+	public function downgrade(Request $request, $course_id)
+	{
+		$course = Course::find($course_id);
+		$user = User::find($request->user_id);
+		$user_id = $request->user_id;
+
+		$user->courses()->updateExistingPivot($course_id, ['level' => 0]);
+		$test = CourseUser::where('user_id', $user_id)->where('level', 1)->count();
+		if($test == 0 && $user->level == 2)
+		{
+			if(count($user->bands) > 0)
+			{
+				$user->level = 1;
+			}
+			else
+			{
+				$user->level = 0;
+			}
+
+			$user->save();
+		}
+
+		CourseModification::create([
+			'author_id'	=> Auth::user()->id,
+			'user_id'	=> $user_id,
+			'course_id'	=> $id,
+			'value'		=> 5,
+			]);
+
+		Flash::success("$user->first_name $user->last_name est maintenant un élève du cours ucfirst($course->name)");
+		return redirect('admin/courses/'.$course->slug.'/members');
+	}
+
 	public function accept(Request $request, $id)
 	{
-		$manager = Course::where('id', $id)->first()->user_id;
+		$course = Course::find($id);
+		$manager = $course->user_id;
 		if(Auth::user()->id != $manager && Auth::user()->level < 3)
 		{
 			Flash::error("Vous n'avez pas l'autorisation pour ça !");
 			return Redirect::back();
 		}
+
 		$user_id = $request->user_id;
-		$student = CourseUser::where('user_id', $user_id)->where('course_id', $id)->where('level', 0)->first();
-
-		if(!isset($student))
-		{
-			Flash::error('Erreur lors de la validation.');
-			return Redirect::back();
-		}
-
-		$student->update(['validated'	=> 1]);
+		$course->users()->updateExistingPivot($user_id, ['validated' => 1]);
 
 		CourseModification::create([
 			'author_id'	=> Auth::user()->id,
-			'user_id'	=> $student->user_id,
+			'user_id'	=> $user_id,
 			'course_id'	=> $id,
 			'value'		=> 3,
 			]);
@@ -73,7 +102,9 @@ class StudentController extends Controller {
 
 	public function remove(Request $request, $id)
 	{
-		$manager = Course::where('id', $id)->first()->user_id;
+		$course  = Course::find($id);
+		$manager = $course->user_id;
+
 		if(Auth::user()->id != $manager && Auth::user()->level < 3)
 		{
 			Flash::error("Vous n'avez pas l'autorisation pour ça !");
@@ -81,23 +112,14 @@ class StudentController extends Controller {
 		}
 
 		$user_id = $request->user_id;
-		$student = CourseUser::where('user_id', $user_id)->where('course_id', $id)->where('level', 0)->first();
-
-		if(!isset($student))
-		{
-			Flash::error('Erreur lors de la suppression.');
-			return Redirect::back();
-		}
+		$course->users()->detach($user_id);
 
 		CourseModification::create([
 			'author_id'	=> Auth::user()->id,
-			'user_id'	=> $student->user_id,
+			'user_id'	=> $user_id,
 			'course_id'	=> $id,
 			'value'		=> 2,
 			]);
-
-		$student->delete();
-
 
 		return Redirect::back();
 	}
@@ -107,7 +129,7 @@ class StudentController extends Controller {
 	*
 	* @return Response
 	*/
-	public function store()
+	public function store(Request $request, $course_id)
 	{
 
 	}
@@ -123,13 +145,47 @@ class StudentController extends Controller {
 
 	}
 
+	public function signUp($course_id)
+	{
+		$course = Course::find($course_id);
+		$user_id = Auth::user()->id;
+		$course->users()->sync($user_id);
+
+		CourseModification::create([
+			'author_id' => Auth::user()->id,
+			'user_id'	=> $user_id,
+			'course_id'	=> $course_id,
+			'value'		=> 0
+			]);
+
+		Flash::success('Votre demande d\'inscription au cours '.ucfirst($course->name).' a bien été enregistrée. Elle devrait être traitée rapidement.');
+		return Redirect::back();
+	}
+
+	public function postCancel($course_id)
+	{
+		$course = Course::find($course_id);
+		$user_id = Auth::user()->id;
+		$course->users()->detach($user_id);
+
+		CourseModification::create([
+			'author_id' => Auth::user()->id,
+			'user_id'	=> $user_id,
+			'course_id'	=> $course_id,
+			'value'		=> 1
+			]);
+
+		Flash::success("L'annulation de votre inscription au cours ucfirst($course->name) à bien été prise en compte.");
+		return redirect('courses');
+	}
+
 	/**
 	* Remove the specified resource from storage.
 	*
 	* @param  int  $id
 	* @return Response
 	*/
-	public function destroy($id)
+	public function destroy($course_id)
 	{
 
 	}

@@ -10,14 +10,9 @@ class Course extends Model {
 	public $timestamps = true;
 	protected $fillable = array('timestamps', 'name', 'day', 'start', 'end', 'infos', 'slug', 'instrument_id', 'article_id', 'user_id');
 
-	public function students()
+	public function users()
 	{
-		return $this->hasMany('App\User');
-	}
-
-	public function teachers()
-	{
-		return $this->hasMany('App\User');
+		return $this->belongsToMany('App\User');
 	}
 
 	public function instrument()
@@ -25,14 +20,14 @@ class Course extends Model {
 		return $this->hasOne('App\Instrument');
 	}
 
-	public function documents()
-	{
-		return $this->hasMany('App\Document');
-	}
-
 	public function article()
 	{
 		return $this->hasOne('App\Article');
+	}
+
+	public function documents()
+	{
+		return $this->hasMany('App\Document');
 	}
 
 	public function manager()
@@ -43,6 +38,11 @@ class Course extends Model {
 	public function course_modification()
 	{
 		return $this->belongsTo('App\CourseModification');
+	}
+
+	public function setDefaultInstrument()
+	{
+		return $this->update(['instrument_id' => Instrument::$defaultValue]);
 	}
 
 }

@@ -41,16 +41,13 @@
 					<td align="center" >{{ date_format(date_create_from_format('H:i:s', $c->start), 'H:i') }} - {{ date_format(date_create_from_format('H:i:s', $c->end), 'H:i') }}</td>
 					</td>
 					<td align="center">{!! printUserLink($c->user_id) !!}</td>
-					<td align="center">{{ App\UserLearnCourses::where('course_id', $c->id)->count() }}</td>
-					<td align="center">{{ App\UserTeachCourses::where('course_id', $c->id)->count() }}</td>
+					<td align="center">{{ App\CourseUser::where('course_id', $c->id)->where('level', 0)->count() }}</td>
+					<td align="center">{{ App\CourseUser::where('course_id', $c->id)->where('level', 1)->count() }}</td>
 					<td align="center">
-					 @if(App\UserTeachCourses::where('course_id', $c->id)->where('validated', 0)->count()
-							+ App\UserLearnCourses::where('course_id', $c->id)->where('validated', 0)->count() > 0)
-							<p class="text-danger"> <b>{{ App\UserTeachCourses::where('course_id', $c->id)->where('validated', 0)->count()
-							+ App\UserLearnCourses::where('course_id', $c->id)->where('validated', 0)->count() }}</b></p>
+					 @if(App\CourseUser::where('course_id', $c->id)->where('validated', 0)->count() > 0)
+							<p class="text-danger"> <b>{{ App\CourseUser::where('course_id', $c->id)->where('validated', 0)->count() }}</b></p>
 					 @else
-						<p>{{ App\UserTeachCourses::where('course_id', $c->id)->where('validated', 0)->count()
-							+ App\UserLearnCourses::where('course_id', $c->id)->where('validated', 0)->count() }}</p>
+						<p>{{ App\CourseUser::where('course_id', $c->id)->where('validated', 0)->count() }}</p>
 					 @endif
 					</td>
 					<td align="center">

@@ -58,6 +58,7 @@
               <ul class="dropdown-menu" role="menu">
                 <li><a style="color:red" href="{{ url('admin/announcements') }} ">Annonces</a></li>
                 <li><a style="color:red" href="{{ url('admin/articles') }}">Articles</a></li>
+                <li><a style="color:red" href="{{ url('admin/categories') }}">Catégories</a></li>
                 <li><a href="{{ url('admin/courses') }}">Cours</a></li>
                 <li><a style="color:red" href="{{ url('admin/documents') }}">Document de cours</a></li>
                 <li><a style="color:red" href="{{ url('admin/events') }}">Événements</a></li>
@@ -117,7 +118,7 @@
         		    <p align="center"><a align="right" href="{{ url('admin/modifications/courses') }}"><i><b>Gestion de membres des cours</b></i></a></p>
         	</div>
         		<ul class="list-group">
-        			@forelse( App\CourseModification::orderBy('id', 'desc')->limit(15)->get() as $m)
+        			@forelse( App\CourseModification::orderBy('id', 'desc')->limit(5)->get() as $m)
         			<li class="list-group-item modif-{{ $m->value }}">
         			@if(App\Course::where('id', $m->course_id)->first()->user_id == Auth::user()->id)
         				<b>
@@ -130,6 +131,10 @@
         					{!! printUserLink($m->author_id) !!} <i>removed</i> {!! printUserLink($m->user_id) !!} from &laquo; <a href="{{ url('admin/courses/'.App\Course::where('id', $m->course_id)->first()->slug.'/members') }}">{{ App\Course::where('id', $m->course_id)->first()->name }}</a> &raquo;
         				@elseif($m->value == 3)
         					{!! printUserLink($m->author_id) !!} <i>added</i> {!! printUserLink($m->user_id) !!} to &laquo; <a href="{{ url('admin/courses/'.App\Course::where('id', $m->course_id)->first()->slug.'/members') }}">{{ App\Course::where('id', $m->course_id)->first()->name }}</a> &raquo;
+                @elseif($m->value == 4)
+                  {!! printUserLink($m->author_id) !!} <i>named</i> {!! printUserLink($m->user_id) !!} as teacher of &laquo; <a href="{{ url('admin/courses/'.App\Course::where('id', $m->course_id)->first()->slug.'/members') }}">{{ App\Course::where('id', $m->course_id)->first()->name }}</a> &raquo;    
+                @elseif($m->value == 5)
+                  {!! printUserLink($m->author_id) !!} <i>downgraded</i> {!! printUserLink($m->user_id) !!} to student of &laquo; <a href="{{ url('admin/courses/'.App\Course::where('id', $m->course_id)->first()->slug.'/members') }}">{{ App\Course::where('id', $m->course_id)->first()->name }}</a> &raquo;
         				@endif
         			@if(App\Course::where('id', $m->course_id)->first()->user_id == Auth::user()->id)
         				</b>
@@ -151,7 +156,7 @@
                 <li class="list-group-item">
                 	<ul class="list-group">
                 		<li class="list-group-item">
-                			<b>Par</b> : <a href="{{ url('users/'.App\User::where('id', $m->user_id)->first()->slug) }}">{{ App\User::where('id', $m->user_id)->first()->first_name }}</a>, le {{ date_format($m->created_at, 'd/m/Y') }} à {{ date_format($m->created_at, 'H:i:s') }} 
+                			<b>Par</b> : {!! printUserLink($m->user_id) !!}, le {{ date_format($m->created_at, 'd/m/Y') }} à {{ date_format($m->created_at, 'H:i:s') }} 
                 		</li>
                 		<li class="list-group-item"><b>Table</b> : {{ $m->table }}</li>
                 		<li class="list-group-item"><b>Infos</b> : {{ $m->message }}</li>

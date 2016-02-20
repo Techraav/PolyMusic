@@ -7795,7 +7795,7 @@ td>a.glyphicon-file:hover{
 	text-decoration: underline;
 }
 
-li.modif-0::before, li.modif-3::before{
+li.modif-0::before, li.modif-3::before, li.modif-4::before {
 	content: "\002b";
 	font-weight:bold;
 	margin-right:5px;
@@ -7803,18 +7803,18 @@ li.modif-0::before, li.modif-3::before{
 	text-
 }
 
-li.modif-1::before, li.modif-2::before{
+li.modif-1::before, li.modif-2::before, li.modif-5::before{
 	content: '\2212';
 	font-weight:bold;
 	margin-right:5px;
 	font-size:14px;
 }
 
-li.modif-0, li.modif-3{
+li.modif-0, li.modif-3, li.modif-4{
 	color:#279827;
 }
 
-li.modif-2, li.modif-1{
+li.modif-2, li.modif-1, li.modif-5{
 	color:#D64444;
 }
 
