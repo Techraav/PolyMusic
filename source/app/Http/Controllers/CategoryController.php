@@ -6,6 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Category;
+use App\Modification;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Validator;
+use Illuminate\Support\Facades\Redirect;
+use Laracasts\Flash\Flash;
 
 class CategoryController extends Controller
 {
@@ -16,7 +23,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::orderBy('name')->paginate(30);
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -37,7 +45,21 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = $this->validator($request->all());
+        if($validator->fails())
+        {
+            Flash::error('Impossible d\'ajouter cette catégorie.');
+            Return Redirect::back()->withErrors($validator->errors());
+        }
+
+        $cat = Category::create([
+            'name'      => $request->name,
+            ]);
+
+        makeModification('categories', 'category '.ucfirst($request->name).' created');
+
+        Flash::success('L\'instrument a bien été créé !');
+        return Redirect::back();
     }
 
     /**
@@ -59,7 +81,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories = Category::orderBy('name')->paginate(30);
+        $categoryToEdit = Category::find($id);
+
+        return view('admin.categories.edit', compact('categories', 'categoryToEdit'));
     }
 
     /**

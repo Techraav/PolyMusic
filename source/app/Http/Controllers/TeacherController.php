@@ -52,7 +52,7 @@ class TeacherController extends Controller {
 
 		if($user->level->level < 2)
 		{
-			$user->level->level = 2;
+			$user->level_id = 3;
 			$user->save();
 		}
 
@@ -83,7 +83,7 @@ class TeacherController extends Controller {
 		$user = User::find($user_id);
 		if($user->level->level < 2)
 		{
-			$user->level->level = 2;
+			$user->level_id = 3;
 			$user->save();
 		}
 

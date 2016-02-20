@@ -4,6 +4,7 @@ use App\CourseUser;
 use App\User;
 use App\Modification;
 use App\CourseModification;
+use App\Band;
 use App\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -54,13 +55,13 @@ class StudentController extends Controller {
 		$test = CourseUser::where('user_id', $user_id)->where('level', 1)->count();
 		if($test == 0 && $user->level->level == 2)
 		{
-			if(count($user->bands) > 0)
+			if(!empty(Band::where('user_id', $user_id)->first()))
 			{
-				$user->level->level = 1;
+				$user->level_id = 2;
 			}
 			else
 			{
-				$user->level->level = 0;
+				$user->level_id = 1;
 			}
 
 			$user->save();

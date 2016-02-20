@@ -16,6 +16,24 @@
 		return $data;
 	}
 
+	/**
+	*	Store a modification
+	*
+	* @param $table : string
+	* @param $msg : string
+	* @param $author : user_id, default = Auth::user()->id
+	*
+	* @return response
+	*/
+	function makeModification($table, $msg, $author=false)
+	{
+		return App\Modification::create([
+			'table'	=> $table,
+			'user_id'	=> $author == false ? Auth::user()->id : $author,
+			'message'	=> $msg
+			]);
+	}
+
 
 	/**
 	* return day in French
