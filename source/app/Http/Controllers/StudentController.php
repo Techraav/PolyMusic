@@ -52,15 +52,15 @@ class StudentController extends Controller {
 
 		$user->courses()->updateExistingPivot($course_id, ['level' => 0]);
 		$test = CourseUser::where('user_id', $user_id)->where('level', 1)->count();
-		if($test == 0 && $user->level == 2)
+		if($test == 0 && $user->level->level == 2)
 		{
 			if(count($user->bands) > 0)
 			{
-				$user->level = 1;
+				$user->level->level = 1;
 			}
 			else
 			{
-				$user->level = 0;
+				$user->level->level = 0;
 			}
 
 			$user->save();
@@ -81,7 +81,7 @@ class StudentController extends Controller {
 	{
 		$course = Course::find($id);
 		$manager = $course->user_id;
-		if(Auth::user()->id != $manager && Auth::user()->level < 3)
+		if(Auth::user()->id != $manager && Auth::user()->level->level < 3)
 		{
 			Flash::error("Vous n'avez pas l'autorisation pour ça !");
 			return Redirect::back();
@@ -105,7 +105,7 @@ class StudentController extends Controller {
 		$course  = Course::find($id);
 		$manager = $course->user_id;
 
-		if(Auth::user()->id != $manager && Auth::user()->level < 3)
+		if(Auth::user()->id != $manager && Auth::user()->level->level < 3)
 		{
 			Flash::error("Vous n'avez pas l'autorisation pour ça !");
 			return Redirect::back();

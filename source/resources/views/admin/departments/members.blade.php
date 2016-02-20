@@ -12,7 +12,7 @@
 
 			@forelse($users as $u)
 			<li class="list-group-item">
-				<a href=" {{ url('admin/users/'.$u->slug) }}">{{ ucfirst($u->last_name) }} {{ ucfirst($u->first_name) }}</a>
+				<a href=" {{ url('users/'.$u->slug) }}">{{ ucfirst($u->last_name) }} {{ ucfirst($u->first_name) }}</a>
 				@if($department->id != 1)
 				<form method="post" action="{{ url('admin/departments/'.$department->id.'/members/remove') }}">
 				{{ csrf_field() }}

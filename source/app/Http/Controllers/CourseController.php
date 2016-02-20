@@ -91,7 +91,7 @@ class CourseController extends Controller {
 	public function edit($id)
 	{
 		$course = Course::where('id', $id)->first();
-		if(Auth::user()->id != $course->user_id && Auth::user()->level < 3)
+		if(Auth::user()->id != $course->user_id && Auth::user()->level->level < 3)
 		{
 			Flash::error("Vous n'avez pas le droit de modifier ce cours !");
 			return redirect('admin/courses');
@@ -171,7 +171,7 @@ class CourseController extends Controller {
 
 		$course = Course::where('slug', $slug)->first();
 
-		if(Auth::user()->id != $course->user_id && Auth::user()->level < 3)
+		if(Auth::user()->id != $course->user_id && Auth::user()->level->level < 3)
 		{
 			Flash::error("Vous n'avez pas le droit de modifier ce cours !");
 			return redirect('admin/courses');

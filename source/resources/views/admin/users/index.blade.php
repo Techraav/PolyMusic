@@ -17,7 +17,7 @@
 				<th width="300">Nom Prénom</th>
 				<th width="400">Adresse e-mail</th>
 				<th width="150">Département</th>
-				<th width="150">Membre depuis le :</th>
+				<th width="210">Membre depuis le :</th>
 				<th width="50" align="center">Level</th>
 			</tr>
 		</thead>
@@ -28,7 +28,7 @@
 					<td>{{ $u->email }}</td>
 					<td><a href="{{ url('admin/departments/'.$u->department_id.'/members') }}">{{ $u->department->name }} ({{ $u->department->short_name }})</a></td>
 					<td>&nbsp; &nbsp; &nbsp; {{ date_format($u->created_at, 'j M Y') }}</td>
-					<td align="center">	<a href="{{ url('admin/levels/'.$u->level->name.'/members') }}">{{ $u->level }}</a></td>
+					<td align="center">	<a href="{{ url('admin/levels/'.$u->level->name.'/members') }}">{{ $u->level->name }}</a></td>
 				</tr>
 			@endforeach
 			

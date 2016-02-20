@@ -50,9 +50,9 @@ class TeacherController extends Controller {
 
 		$user->courses()->updateExistingPivot($course_id, ['level' => 1]);
 
-		if($user->level < 2)
+		if($user->level->level < 2)
 		{
-			$user->level = 2;
+			$user->level->level = 2;
 			$user->save();
 		}
 
@@ -71,7 +71,7 @@ class TeacherController extends Controller {
 	{
 		$course = Course::find($id);
 		$manager = $course->user_id;
-		if(Auth::user()->id != $manager && Auth::user()->level < 3)
+		if(Auth::user()->id != $manager && Auth::user()->level->level < 3)
 		{
 			Flash::error("Vous n'avez pas l'autorisation pour ça !");
 			return Redirect::back();
@@ -81,9 +81,9 @@ class TeacherController extends Controller {
 		$course->users()->updateExistingPivot($user_id, ['validated' => 1]);
 
 		$user = User::find($user_id);
-		if($user->level < 2)
+		if($user->level->level < 2)
 		{
-			$user->level = 2;
+			$user->level->level = 2;
 			$user->save();
 		}
 
@@ -102,7 +102,7 @@ class TeacherController extends Controller {
 		$course  = Course::find($id);
 		$manager = $course->user_id;
 
-		if(Auth::user()->id != $manager && Auth::user()->level < 3)
+		if(Auth::user()->id != $manager && Auth::user()->level->level < 3)
 		{
 			Flash::error("Vous n'avez pas l'autorisation pour ça !");
 			return Redirect::back();
