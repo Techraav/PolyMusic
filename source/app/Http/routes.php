@@ -103,6 +103,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:2'], function(){
 	});
 
 	Route::get('categories', 'CategoryController@index')	->name('category.index');
+	Route::get('categories/edit/{id}', 'CategoryController@edit')	->name('category.edit');
+
+	Route::post('categories/edit', 'CategoryController@update')	->name('category.update');
+	Route::post('categories/delete', 'CategoryController@destroy')	->name('category.destroy');
 
 	Route::get('users', 'UserController@index')	->name('users.index');
 

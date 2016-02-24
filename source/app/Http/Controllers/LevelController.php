@@ -24,19 +24,8 @@ class LevelController extends Controller {
 	public function index()
 	{
 		$levels = Level::orderBy('level', 'asc')->paginate(20);
-		$values = [];
-		foreach ($levels as $k) {
-			$values[] = $k->level;
-		}
-		$levelNotUsed = [];
-		$levelMax = Level::where('name', 'webmaster')->first()->level;
-		for ($i=0; $i <= $levelMax; $i++) { 
-			if(!in_array($i, $values)){
-				$levelNotUsed[] = $i;
-			}
-		}
 
-		return view('admin.levels.index', compact('levels', 'levelNotUsed'));
+		return view('admin.levels.index', compact('levels'));
 	}
 
 	/**
@@ -67,19 +56,8 @@ class LevelController extends Controller {
 	{
 		$levels = Level::orderBy('level', 'asc')->paginate(20);
 		$levelToEdit = Level::where('level', $level)->first();
-		$values = [];
-		foreach ($levels as $k) {
-			$values[] = $k->level;
-		}
-		$levelNotUsed = [];
-		$levelMax = Level::where('name', 'webmaster')->first()->level;
-		for ($i=0; $i <= $levelMax; $i++) { 
-			if(!in_array($i, $values)){
-				$levelNotUsed[] = $i;
-			}
-		}
-
-		return view('admin.levels.edit', compact('levels', 'levelToEdit', 'levelNotUsed'));
+	
+		return view('admin.levels.edit', compact('levels', 'levelToEdit'));
 	}
 
 
@@ -95,7 +73,7 @@ class LevelController extends Controller {
 	*/
 	public function store(Request $request)
 	{
-		$validator = $this->validator($request->all());
+		/*$validator = $this->validator($request->all());
 		if($validator->fails())
 		{
 			Flash::error('Impossible d\'ajouter ce level.');
@@ -128,7 +106,7 @@ class LevelController extends Controller {
 			'message'	=> 'removed '.$user->first_name.' '.$user->last_name.' from level '.ucfirst($name).'s']);
 
 		Flash::success($user->first_name.' '.$user->last_name.' a bien été retiré des '.ucfirst($name).'s');
-		return Redirect::back();
+		return Redirect::back();*/
 	}
 
 	/**
@@ -141,12 +119,15 @@ class LevelController extends Controller {
 	{
 		$name = Level::where('level', $level)->first()->name;
 		$level = Level::where('level', $request->level)->first();
+
+		$msg = 'Level '.$level->level.': ';
+		$msg .= $level->name != $request->name ? 'Renamed  "'.$name.'" -> "'.$request->name.'". ' : '';
+		$msg .= $level->infos != $request->infos ? 'Modified information' : '';
+
+
 		$level->update(['name'	=> $request->name,	'infos'	=> $request->infos]);
 
-		Modification::create([
-			'table'		=> 'levels',
-			'user_id'	=> Auth::user()->id,
-			'message'	=> 'updated level '.$name.' (level: '.$request->level.')']);
+		makeModification('levels', $msg);
 
 		Flash::success('Level modifié avec succès !');
 		return redirect('admin/levels');
@@ -160,7 +141,7 @@ class LevelController extends Controller {
 	*/
 	public function destroy($level)
 	{
-		$name = Level::where('level', $level)->first()->name;
+		/*$name = Level::where('level', $level)->first()->name;
 		$users = User::where('level', $level)->get();
 		if(!empty($users))
 		{
@@ -183,7 +164,7 @@ class LevelController extends Controller {
 		else
 			Flash::error('Impossible de supprimer ce level.');
 
-		return redirect('admin/levels'); 
+		return redirect('admin/levels'); */
 	}
 
 // ________________________________________________________________

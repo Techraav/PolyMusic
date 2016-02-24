@@ -12,88 +12,9 @@
     <link href="{{ URL::asset('/css/style.css')  }}" rel="stylesheet">
   </head>
   <body>
-    <nav class="navbar-default navbar-admin">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{{ url('admin') }}"><span class="glyphicon glyphicon-wrench"></span> &nbsp;Back Office </a>
-        </div>
 
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Créer/Ajouter <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="{{ url('admin/articles/create') }} ">Article</a></li>
-                <li><a href="{{ url('admin/courses/create') }} ">Cours</a></li>
-                <li><a href="{{ url('admin/documents/create') }} ">Document de cours</a></li>
-                <li><a href="{{ url('admin/events/create') }} ">Événement</a></li>
-                <li><a href="{{ url('admin/news/create') }} ">News</a></li>
-              </ul>
-            </li>
-            {{-- SUBSUBMENU EXAMPLE
+  @include('layouts.admin.nav')
 
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Gérer <span class="caret"></span></a>
-	        	<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-					<li class="dropdown-submenu">
-	                	<a href="#">Annonces</a>
-	                	<ul class="dropdown-menu">
-							<li><a href="#">Liste</a></li>
-		                  	<li><a href="#">Second level</a></li>
-		                  	<li><a href="#">Second level</a></li>
-		                </ul>
-		            </li>
-	            </ul>
-	        </li> 
-
-	        --}}
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Gérer <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a style="color:red" href="{{ url('admin/announcements') }} ">Annonces</a></li>
-                <li><a style="color:red" href="{{ url('admin/articles') }}">Articles</a></li>
-                <li><a style="color:red" href="{{ url('admin/categories') }}">Catégories</a></li>
-                <li><a href="{{ url('admin/courses') }}">Cours</a></li>
-                <li><a style="color:red" href="{{ url('admin/documents') }}">Document de cours</a></li>
-                <li><a style="color:red" href="{{ url('admin/events') }}">Événements</a></li>
-                <li><a style="color:red" href="{{ url('admin/bands') }}">Groupes</a></li>
-                <li><a href="{{ url('admin/instruments') }}">Instruments</a></li>
-                <li><a href="{{ url('admin/users') }}">Membres</a></li>
-                <li><a style="color:red" href="{{ url('admin/news') }}">News</a></li>
-                @if(Auth::user()->level->level > 1)
-                <li class="divider"></li>
-                <li><a href="{{ url('admin/departments') }}">Départements</a></li>
-                <li><a href="{{ url('admin/levels') }}">Levels</a></li>
-                @endif
-              </ul>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-          @if(Auth::guest())
-            <li><a href="{{url('auth/register')}}">Inscription </a></li>
-            <li><a href="{{url('auth/login')}}">Connexion </a></li>
-          @else
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-expanded="false">  <span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
-              <ul class="dropdown-menu user-menu" role="menu">
-                <li> <a href="{{ url('users/'.Auth::user()->slug) }}"><span class="glyphicon glyphicon-user"></span> {{ Auth::user()->first_name.' '.Auth::user()->last_name }}</a></li>
-          @if(Auth::user()->level->level > 0)
-                <li><a href=" {{ url('/') }} " class="admin-link"> <span class="glyphicon glyphicon-home"></span> Quitter le back office</a></li>
-                @endif
-                <li><a href="{{ url('auth/logout') }}"> <span class="glyphicon glyphicon-log-out"></span> Déconnexion</a></li>
-              </ul>
-            </li>
-          @endif
-          </ul>
-        </div>
-      </div>
-    </nav>
     <br /> 
 <div class="row">
   <div class="col-lg-9">
@@ -113,66 +34,15 @@
             </div>
         </div>
 
-        <div class="panel-default panel panel-course-modif">
-        	<div class="panel-heading">
-        		    <p align="center"><a align="right" href="{{ url('admin/modifications/courses') }}"><i><b>Gestion de membres des cours</b></i></a></p>
-        	</div>
-        		<ul class="list-group">
-        			@forelse( App\CourseModification::orderBy('id', 'desc')->limit(5)->get() as $m)
-        			<li class="list-group-item modif-{{ $m->value }}">
-        			@if(App\Course::where('id', $m->course_id)->first()->user_id == Auth::user()->id)
-        				<b>
-        			@endif
-        				@if($m->value == 0)
-        					{!! printUserLink($m->author_id) !!} <i>asked</i> to join course &laquo; <a href="{{ url('admin/courses/'.App\Course::where('id', $m->course_id)->first()->slug.'/members') }}">{{ App\Course::where('id', $m->course_id)->first()->name }}</a> &raquo;
-        				@elseif($m->value == 1)
-        					{!! printUserLink($m->author_id) !!} <i>canceled</i> his demand to join course &laquo; <a href="{{ url('admin/courses/'.App\Course::where('id', $m->course_id)->first()->slug.'/members') }}">{{ App\Course::where('id', $m->course_id)->first()->name }}</a> &raquo;.
-        				@elseif($m->value == 2)
-        					{!! printUserLink($m->author_id) !!} <i>removed</i> {!! printUserLink($m->user_id) !!} from &laquo; <a href="{{ url('admin/courses/'.App\Course::where('id', $m->course_id)->first()->slug.'/members') }}">{{ App\Course::where('id', $m->course_id)->first()->name }}</a> &raquo;
-        				@elseif($m->value == 3)
-        					{!! printUserLink($m->author_id) !!} <i>added</i> {!! printUserLink($m->user_id) !!} to &laquo; <a href="{{ url('admin/courses/'.App\Course::where('id', $m->course_id)->first()->slug.'/members') }}">{{ App\Course::where('id', $m->course_id)->first()->name }}</a> &raquo;
-                @elseif($m->value == 4)
-                  {!! printUserLink($m->author_id) !!} <i>named</i> {!! printUserLink($m->user_id) !!} as teacher of &laquo; <a href="{{ url('admin/courses/'.App\Course::where('id', $m->course_id)->first()->slug.'/members') }}">{{ App\Course::where('id', $m->course_id)->first()->name }}</a> &raquo;    
-                @elseif($m->value == 5)
-                  {!! printUserLink($m->author_id) !!} <i>downgraded</i> {!! printUserLink($m->user_id) !!} to student of &laquo; <a href="{{ url('admin/courses/'.App\Course::where('id', $m->course_id)->first()->slug.'/members') }}">{{ App\Course::where('id', $m->course_id)->first()->name }}</a> &raquo;
-        				@endif
-        			@if(App\Course::where('id', $m->course_id)->first()->user_id == Auth::user()->id)
-        				</b>
-        			@endif        			
-        			</li>
-        			@empty
-        				<li class="list-group-item" align="center"> - </li>
-        			@endforelse
-        		</ul>
-        </div>
+        @include('layouts.admin.course_modifications')
 
+        @include('layouts.admin.modifications')
 
-        <div class="panel panel-default panel-modifications">
-            <div class="panel-heading">
-                <p align="center"><a align="right" href="{{ url('admin/modifications') }}"><i><b>Dernières modifications</b></i></a></p>
-            </div>
-            <ul class="list-group">
-                @forelse( App\Modification::orderBy('id', 'desc')->limit(5)->get() as $m)
-                <li class="list-group-item">
-                	<ul class="list-group">
-                		<li class="list-group-item">
-                			<b>Par</b> : {!! printUserLink($m->user_id) !!}, le {{ date_format($m->created_at, 'd/m/Y') }} à {{ date_format($m->created_at, 'H:i:s') }} 
-                		</li>
-                		<li class="list-group-item"><b>Table</b> : {{ $m->table }}</li>
-                		<li class="list-group-item"><b>Infos</b> : {{ $m->message }}</li>
-                	</ul>
-                </li>
-                @empty
-                  <li class="list-group-item"><p>Aucune modification pour le moment.</p></li>                  
-                @endforelse
-            </ul>
-        </div>
     </div>
 </div>
 
     <footer class="footer footer-admin">
-        <div class="container">
-        </div>
+      @include('layouts.common.footer')
     </footer>
 
 

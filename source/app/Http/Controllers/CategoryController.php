@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -82,9 +81,9 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $categories = Category::orderBy('name')->paginate(30);
-        $categoryToEdit = Category::find($id);
+        $catToEdit = Category::find($id);
 
-        return view('admin.categories.edit', compact('categories', 'categoryToEdit'));
+        return view('admin.categories.edit', compact('categories', 'catToEdit'));
     }
 
     /**
@@ -94,9 +93,23 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $category = Category::find($request->category_id);
+
+        if($category->name != $request->name)
+        {
+            $oldName = $category->name;
+
+            $category->name = $request->name;
+            $category->save();
+
+            makeModification('categories', 'Category '.$category->id.': renamed category "'.$oldName.'" -> "'.$request->name.'".');
+
+            Flash::success('Modification effectuée avec succès !');
+        }
+
+        return redirect('admin/categories');
     }
 
     /**
@@ -105,8 +118,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        Category::find($request->category_id)->delete();
+        Flash::success('La catégorie a bien été supprimée !');
+        return redirect('admin/categories');
     }
 }

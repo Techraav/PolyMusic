@@ -7968,7 +7968,7 @@ tr.bold{
 }
 
 .panel-news li.news-item:hover .glyphicon{
-	right:2px;
+	right:7px;
 	opacity:1;
 	color:#2C3E50;
 	font-weight:bold;
@@ -8024,6 +8024,10 @@ tr.bold{
 	opacity:1;
 }
 
+nav a .glyphicon{
+	/*transition: none;*/
+}
+
 
 /* Lelulz */
 /*.trait{
@@ -8056,3 +8060,4 @@ li div, li span{
 }*/
 
 /* End of lelulz */
+
