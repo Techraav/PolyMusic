@@ -25,4 +25,19 @@ class Announcement extends Model {
 		return $this->belongsTo('App\Category');
 	}
 
+	public function scopeValidated($query)
+	{
+		return $query->where('validated', 1);
+	}
+
+	public function scopeUnvalidated($query)
+	{
+		return $query->where('validated', 0);
+	}
+
+	public function scoreOfCategory($query, $category)
+	{
+		return $query->where();
+	}
+
 }

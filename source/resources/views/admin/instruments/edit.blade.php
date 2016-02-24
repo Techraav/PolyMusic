@@ -53,7 +53,7 @@
 						<form method="post" action="{{ url('admin/instruments/delete/'.$i->id) }}">
 						{{ csrf_field() }}
 							<input hidden name="id" value="{{ $i->id }}" />
-							@if( ($i->courses->count() == 0 && $i->players->count() == 0) || Auth::user()->level>= 3 )
+							@if( ($i->courses->count() == 0 && $i->players->count() == 0) || Auth::user()->level->level >= 3 )
 							<button align="right" title="Supprimer l'instrument {{ $i->name }} ?" type="submit" class="glyphicon glyphicon-trash"></button>
 							@else
 							&nbsp;&nbsp; - &nbsp;

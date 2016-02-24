@@ -11,8 +11,8 @@
 		<p>Les cours proposés par le Club Musique sont référencés ici.</p>
 		<p>Vous pouvez cliquer sur le nom du cours pour voir la liste des élèves et des professeurs.</p>
 		<p>Un article est associé à chaque cours, vous pouvez cliquer sur le symbole à côté nom du cours pour le visionner.</p>
-		<p>Un {{ ucfirst(App\Level::where('level', 2)->first()->name) }} professeur peut gérer les cours qu'il a lui-même créé uniquement, et peut créer un cours dont il sera le responsable.</p>
-		<p>Les {{ ucfirst(App\Level::where('level', 3)->first()->name).'s' }} et plus, en revanche, peuvent gérer tous les cours, et peuvent créer un cours en définissant un responsable (parmis les {{ App\Level::where('level', 2)->first()->name.'s' }} et plus).</p>
+		<p>Un <b>professeur</b> peut gérer les cours qu'il a lui-même créé uniquement, et peut créer un cours dont il sera le responsable.</p>
+		<p>Les <b>admins</b> et plus, en revanche, peuvent gérer tous les cours, et peuvent créer un cours en définissant un responsable (parmis les professeurs et plus).</p>
 		<hr />
 		<p>Nombre de total de cours créés : {{ App\Course::count() }}.</p>
 
@@ -38,7 +38,7 @@
 			@forelse($courses as $c)
 				<tr>
 					<!-- <td>{{ ucfirst(App\Instrument::where('id', $c->instrument_id)->first()->name) }}</td> -->
-					<td>{{$c->instrument->name}}</td>
+					<td>{{ucfirst($c->instrument->name)}}</td>
 					<td>
 						<a href="{{ url('admin/courses/'.$c->slug.'/members') }}">{{ $c->name }}</a> &nbsp;
 						<a title="Voir l'article associé" class="glyphicon glyphicon-file" href="{{ url('articles/view/'.App\Article::where('id', $c->article_id)->first()->slug) }}"></a></td>
@@ -115,7 +115,7 @@
 									<option value="{{ Auth::user()->id }}">{{ ucfirst(Auth::user()->first_name).' '.ucfirst(Auth::user()->last_name) }}</option>
 								</optgroup>
 								<optgroup label="Tous :">
-								@foreach (App\User::where('level', '>', '1')->orderBy('last_name')->get() as $user)
+								@foreach (App\User::where('level_id', '>', 1)->orderBy('last_name')->get() as $user)
 									<option value="{{ $user->id }}">{{ ucfirst($user->last_name).' '.ucfirst($user->first_name) }}</option>
 								@endforeach
 								</optgroup>
