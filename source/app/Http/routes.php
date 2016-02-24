@@ -13,7 +13,19 @@
 
 Route::get('test', function()
 {
-	return view('test');
+    $d = ['é' => 'e',
+	        'è' => 'e',
+	        'ê' => 'e', 
+	        'ë' => 'e', 
+	        'ù' => 'u', 
+	        'à' => 'a', 
+	        'ç' => 'c', 
+	        'â' => 'a', 
+	        'û' => 'u', 
+	        'î' => 'i', 
+	        'ô' => 'o', ];
+	
+	return view('test.test', compact('d'));
 });
 
 Route::get('/', function()

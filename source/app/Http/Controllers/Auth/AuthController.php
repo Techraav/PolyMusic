@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Validator;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
@@ -114,25 +114,22 @@ class AuthController extends Controller
             return redirect('auth/login');
         }
  
-        $id = Auth::user()->id;
-        $stringToSlug = strtolower(Auth::user()->first_name).'-'.strtolower(Auth::user()->last_name).'-'.$id;
-        $replacement = ['é' => 'e',
-                        'è' => 'e',
-                        'ê' => 'e', 
-                        'ë' => 'e', 
-                        'ù' => 'u', 
-                        'à' => 'a', 
-                        'ç' => 'c', 
-                        'â' => 'a', 
-                        'û' => 'u', 
-                        'î' => 'i', 
-                        'ô' => 'o', ];
-        foreach ($replacement as $k => $v) {
-            $stringToSlug = str_replace($k, $v, $stringToSlug);
-        }
-        
-        $slug = str_slug($stringToSlug);
-
+        $slug = str_slug(Auth::user()->first_name.'-'.Auth::user()->last_name).'-'.Auth::user()->id;
+        // $slug = str_slug($stringToSlug);
+        // $replacement = ['é' => 'e',
+        //                 'è' => 'e',
+        //                 'ê' => 'e', 
+        //                 'ë' => 'e', 
+        //                 'ù' => 'u', 
+        //                 'à' => 'a', 
+        //                 'ç' => 'c', 
+        //                 'â' => 'a', 
+        //                 'û' => 'u', 
+        //                 'î' => 'i', 
+        //                 'ô' => 'o', ];
+        // foreach ($replacement as $k => $v) {
+        //     $stringToSlug = str_replace($k, $v, $stringToSlug);
+        // }
 
         $user->update([
             'slug' => $slug,
