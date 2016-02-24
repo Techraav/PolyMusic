@@ -83,4 +83,20 @@ class User extends Model implements AuthenticatableContract,
 	{
 		return $this->belongsTo('CourseModification');
 	}
+
+	public function bannish()
+	{
+		$this->banned = 1;
+		return $this->save();
+	}
+
+	public function scopeBanned($query)
+	{
+		return $query->where('banned', 1);
+	}
+
+	public function scopeNotBanned($query)
+	{
+		return $query->where('banned', 0);
+	}
 }

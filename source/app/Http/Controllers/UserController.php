@@ -49,14 +49,14 @@ class UserController extends Controller {
 	*/
 	public function show($slug)
 	{
-	  $user = User::where('slug', $slug)->first();
-	  if(empty($user))
-	  {
-	    Flash::error('Cet utilisateur n\'existe pas.');
-	    return view('error.404');
-	  }
+		$user = User::where('slug', $slug)->first();
+		if(empty($user))
+		{
+			Flash::error('Cet utilisateur n\'existe pas.');
+			return view('error.404');
+		}
 
-	  return view('users.show',compact('user'));
+		return view('users.show', compact('user'));
 	}
 
 	/**
@@ -65,9 +65,23 @@ class UserController extends Controller {
 	* @param  int  $id
 	* @return Response
 	*/
-	public function edit($id)
+	public function edit($slug)
 	{
+		if(Auth::user()->slug != $slug && Auth::user()->level->level < 3)
+		{
+			Flash::error('Vous ne pouvez pas modifier ce profil.');
+			return Redirect::back();
+		}
 
+		$user = User::where('slug', $slug)->first();
+
+		if(empty($user))
+		{
+			Flash::error('Cet utilisateur n\'existe pas.');
+			return view('error.404');
+		}
+
+	  return view('users.show', compact('user'));	
 	}
 
 	/**
@@ -76,9 +90,29 @@ class UserController extends Controller {
 	* @param  int  $id
 	* @return Response
 	*/
-	public function update($id)
+	public function update(Request $request)
 	{
+		$user = User::find($request->id);
 
+		$validation = $this->validator($request->all());
+
+		if($validation->fails())
+		{
+			Flash::error('Impossible de mettre à jour les informations. Veuillez vérifier les données renseignées.');
+			return Redirect::back();
+		}
+
+		$user->update([
+			'phone' 		=> $request->phone,
+			'profil'		=> $request->profil_picture,
+			'description'	=> $request->description,
+			'school_year'	=> $request->school_year,
+			'department_id'	=> $request->department_id,
+			]);
+
+		makeModification('users', ucfirst(Auth::user()->first_name).' '.ucfirst(Auth::user()->last_name).' updated his information');
+
+		return redirect('users/'.$user->slug);
 	}
 
 	/**
@@ -89,7 +123,17 @@ class UserController extends Controller {
 	*/
 	public function destroy($id)
 	{
+		$user = User::find($id)->first();
+		$user->banish();
+		return redirect('admin.users');
+	}
 
+	public function validator($data)
+	{
+		return Validator::make($data, [
+			'phone'	=> ["regex:/(\(\+33\)|0|\+33|0033)[1-9]([0-9]{8}|([0-9\- ]){12})/"],
+			'description'	=> 'max:1000',
+			]);
 	}
   
 }
