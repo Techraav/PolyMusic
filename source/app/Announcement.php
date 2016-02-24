@@ -35,9 +35,9 @@ class Announcement extends Model {
 		return $query->where('validated', 0);
 	}
 
-	public function scoreOfCategory($query, $category)
+	public function scopeOfCategory($query, $category_id)
 	{
-		return $query->where();
+		return $query->where('category_id', $category_id);
 	}
 
 }

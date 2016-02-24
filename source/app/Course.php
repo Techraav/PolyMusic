@@ -45,4 +45,14 @@ class Course extends Model {
 		return $this->update(['instrument_id' => Instrument::$defaultValue]);
 	}
 
+	public function scopeOfInstrument($query, $instrument_id)
+	{
+		return $query->where('instrument_id', $instrument_id);
+	}
+
+	public function scopeOfDay($query, $day)	
+	{
+		return $query->where('day', $day);
+	}
+
 }

@@ -32,6 +32,14 @@
             </div>
 
             <div class="form-group">
+                <div class="col-md-8 col-md-offset-2">
+                    <label for="date">Date de publication : </label>                      
+                    <input required type="date" class="form-control" value="{{ showDate($news->published_at, 'Y-m-d', 'Y-m-d') }}" >
+                </div>
+            </div>
+
+
+            <div class="form-group">
                 <label for="textArea" class="col-md-4 control-label">Contenu de la news</label>
 
                 <div class="col-md-6">
@@ -53,3 +61,10 @@
 	</div>
 </div>
 @endsection
+
+@section('js')
+    <script src="{{ URL::asset('/js/ckeditor.js')  }}"></script>
+    <script type="text/javascript">
+        CKEDITOR.replace( 'content' );
+    </script>
+@stop

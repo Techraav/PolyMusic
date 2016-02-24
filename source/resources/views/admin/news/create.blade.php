@@ -22,15 +22,26 @@
 
             <div class="form-group">
 
-              <div class="col-md-6 col-md-offset-3">
+              <div class="col-md-8 col-md-offset-2">
                 <input type="text" class="form-control" name="title" placeholder="Titre" required>
               </div>
             </div>
 
             <div class="form-group">
+                <div class="col-md-8 col-md-offset-2">
+                    <label for="date">Date de publication : </label>                      
+                    <input required type="date" class="form-control" value="{{ date( 'Y-m-d') }}" >
+                </div>
+            </div>
 
-                <div class="col-md-6 col-md-offset-3">
+
+            <div class="form-group">
+
+                <div class="col-md-8 col-md-offset-2">
                     <textarea class="form-control" rows="10" name="content" placeholder="Contenu de votre news..." required></textarea>
+                </div>
+
+                <div class="col-md-8 col-md-offset-2">
                     <div class="checkbox">
                       <label>
                         <input type="checkbox" checked required>Active
@@ -48,3 +59,10 @@
     </div>
 </div>
 @endsection
+
+@section('js')
+    <script src="{{ URL::asset('/js/ckeditor.js')  }}"></script>
+    <script type="text/javascript">
+        CKEDITOR.replace( 'content' );
+    </script>
+@stop

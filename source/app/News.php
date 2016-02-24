@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class News extends Model {
 
@@ -14,6 +15,21 @@ class News extends Model {
 	public function author()
 	{
 		return $this->belongsTo('App\User');
+	}
+
+	public function scopeValidated($query)
+	{
+		return $query->where('active', 1);
+	}
+
+	public function scopeUnvalidated($query)
+	{
+		return $query->where('active', 0);
+	}
+
+	public function scopePublished($query)
+	{
+		return $query->where('active', 1)->where('published_at', '<=', DB::raw('NOW()'));
 	}
 
 }

@@ -16,4 +16,14 @@ class Event extends Model {
 		return $this->belongsToMany('App\Band');
 	}
 
+	public function scopeOfDay($query, $day)	
+	{
+		return $query->where('day', $day);
+	}
+
+	public function scopeOfLocation($query, $location)	
+	{
+		return $query->where('location', $location);
+	}
+
 }

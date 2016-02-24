@@ -12,20 +12,8 @@
 */
 
 Route::get('test', function()
-{
-    $d = ['é' => 'e',
-	        'è' => 'e',
-	        'ê' => 'e', 
-	        'ë' => 'e', 
-	        'ù' => 'u', 
-	        'à' => 'a', 
-	        'ç' => 'c', 
-	        'â' => 'a', 
-	        'û' => 'u', 
-	        'î' => 'i', 
-	        'ô' => 'o', ];
-	
-	return view('test.test', compact('d'));
+{	
+	return view('test');
 });
 
 Route::get('/', function()
@@ -113,6 +101,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:2'], function(){
 	Route::get('/', function(){
 		return view('admin.index');
 	});
+
+	Route::get('categories', 'CategoryController@index')	->name('category.index');
 
 	Route::get('users', 'UserController@index')	->name('users.index');
 

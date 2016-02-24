@@ -30,4 +30,9 @@ class Article extends Model {
 		return $this->belongsTo('App\Category');
 	}
 
+	public function scopeOfCategory($query, $category_id)
+	{
+		return $query->where('category_id', $category_id);
+	}
+
 }

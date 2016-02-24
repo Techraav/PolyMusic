@@ -16,7 +16,7 @@
 	@forelse($news as $n)
 		<div class="frame-news">
 			<h2><a href="{{ url('news/view/'.$n['slug'])}}">{{$n['title']}}</a>
-				@if(Auth::check() && Auth::user()->level >= 1)
+				@if(Auth::check() && Auth::user()->level->level >= 1)
 					<a class="icon" href="{{ url('admin/news/edit/'.$n['slug']) }}"><span class="glyphicon glyphicon-pencil"></span></a>				
 					<a class="icon" href="{{ url('admin/news/delete/'.$n['slug']) }}"><span class="glyphicon glyphicon-trash"></span></a>
 				@endif

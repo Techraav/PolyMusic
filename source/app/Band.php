@@ -21,4 +21,14 @@ class Band extends Model {
 		return $this->belongsToMany('App\Event');
 	}
 
+	public function scopeValidated($query)
+	{
+		return $query->where('validated', 1);
+	}
+
+	public function scopeUnvalidated($query)
+	{
+		return $query->where('validated', 0);
+	}
+
 }

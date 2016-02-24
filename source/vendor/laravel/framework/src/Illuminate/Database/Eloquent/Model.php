@@ -570,21 +570,21 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
         
         $name = $model->$nameField;
         
-        $stringToSlug = $name.' '.$model->id;
-        $replacement = ['é' => 'e',
-                        'è' => 'e',
-                        'ê' => 'e', 
-                        'ë' => 'e', 
-                        'ù' => 'u', 
-                        'à' => 'a', 
-                        'ç' => 'c', 
-                        'â' => 'a', 
-                        'û' => 'u', 
-                        'î' => 'i', 
-                        'ô' => 'o', ];
-        foreach ($replacement as $k => $v) {
-            $stringToSlug = str_replace($k, $v, $stringToSlug);
-        }
+        $stringToSlug = $name.'-'.$model->id;
+        // $replacement = ['é' => 'e',
+        //                 'è' => 'e',
+        //                 'ê' => 'e', 
+        //                 'ë' => 'e', 
+        //                 'ù' => 'u', 
+        //                 'à' => 'a', 
+        //                 'ç' => 'c', 
+        //                 'â' => 'a', 
+        //                 'û' => 'u', 
+        //                 'î' => 'i', 
+        //                 'ô' => 'o', ];
+        // foreach ($replacement as $k => $v) {
+        //     $stringToSlug = str_replace($k, $v, $stringToSlug);
+        // }
         
         $slug = str_slug($stringToSlug);
         

@@ -24,7 +24,7 @@ class NewsController extends Controller {
    */
   public function index()
   {
-    $news = News::where('active', 1)->orderBy('id', 'desc')->paginate(10);
+    $news = News::published()->orderBy('id', 'desc')->paginate(10);
     return view('news.index', compact('news'));
   }
 
@@ -63,7 +63,7 @@ class NewsController extends Controller {
    */
   public function show($slug)
   {
-    $news = News::where('slug', $slug)->first();
+    $news = News::published()->where('slug', $slug)->first();
     if(empty($news) || $news->active == 0)
     {
       Flash::error('Cette news n\'existe pas.');
@@ -131,6 +131,7 @@ class NewsController extends Controller {
       'title'   => $request->title,
       'content' => $content,
       'user_id' => Auth::user()->id,
+      'published_at'  => $request->date,
       ]);
 
     $slug = $news->slug;
@@ -164,6 +165,7 @@ class NewsController extends Controller {
       'content' => $content,
       'user_id' => Auth::user()->id,
       'slug' => $slug,
+      'published_at'  => $request->date,
       ]);
 
     Flash::success('La news a bien été modifiée ! ');
