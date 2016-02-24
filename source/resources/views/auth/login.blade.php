@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    Connexion
+@stop
+
 @section('content')
     <div class="container">
 
@@ -26,7 +30,7 @@
                                 <button href="{{ url('auth/register') }}" class="btn btn-default btn-block">Register</button>
                             </div>
                         </div>
-                        <a href="" class="btn btn-link pull-left ">Forgot Password?</a>
+                        <a href="" class="btn btn-link pull-left ">Mot de passe oublié ?</a>
                     </fieldset>
                 </form>
             </div>

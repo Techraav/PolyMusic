@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('title')
+	Modifier un instrument
+@stop
+
 @section('content')
 
 	<div class="jumbotron">

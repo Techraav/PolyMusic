@@ -17,7 +17,7 @@
 				<tbody>
 					<br/>
 					<tr>	
-						<td width="300">Nom :</td>
+						<td width="250">Nom :</td>
 						<td>{{ $user -> last_name }}</td>
 					</tr>
 					<tr>
@@ -26,7 +26,7 @@
 					</tr>
 					<tr>
 						<td>Date de naissance :</td>
-						<td>{{ $user -> birth_date }}</td>
+						<td>{{ showDate($user -> birth_date, 'Y-m-j', 'j/m/Y') }}</td>
 					</tr>
 					<tr>
 						<td>Adresse e-mail :</td>

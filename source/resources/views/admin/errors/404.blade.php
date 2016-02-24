@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('title')
+    Erreur 404
+@stop
+
 @section('content')
 
 <div class="container">

@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('title')
+	Membres du cours
+@stop
+
 @section('content')
 	
 	<h1 align="center">{{ ucfirst($course->name) }}</h1>

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    S'enregistrer
+@stop
+
 @section('content')
 <div class="container">
     <div class="jumbotron">
@@ -92,7 +96,7 @@
 
             <div class="form-group buttons">
                 <div class="col-md-6 col-md-offset-4">
-                    <button type="submit" class="btn btn-primary">Register</button> &nbsp;&nbsp;
+                    <button type="submit" class="btn btn-primary">S'enregister</button> &nbsp;&nbsp;
                     <a href="{{ url('auth/login') }}"><button type="button" class="btn btn-default">Déjà inscrit ?</button></a>
                 </div>
             </div>

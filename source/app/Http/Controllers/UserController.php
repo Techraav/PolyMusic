@@ -53,7 +53,7 @@ class UserController extends Controller {
 	  if(empty($user))
 	  {
 	    Flash::error('Cet utilisateur n\'existe pas.');
-	    return redirect('');
+	    return view('error.404');
 	  }
 
 	  return view('users.show',compact('user'));

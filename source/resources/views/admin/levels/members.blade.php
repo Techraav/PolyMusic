@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('title')
+	Membres du niveau
+@stop
+
 @section('content')
 	
 	<h1 align="center">{{ ucfirst($name).'s' }}</h1>

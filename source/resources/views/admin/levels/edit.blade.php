@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('title')
+	modifier un niveau
+@stop
+
 @section('content')
 
 	<div class="jumbotron">

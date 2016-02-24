@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('title')
+	Modifier un département
+@stop
+
 @section('content')
 
 	<div class="jumbotron">

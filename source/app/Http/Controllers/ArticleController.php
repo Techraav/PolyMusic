@@ -58,7 +58,7 @@ class ArticleController extends Controller {
     if(empty($articles))
     {
       Flash::error('Cet article n\'existe pas.');
-      return redirect('articles');
+      return view('error.404');
     }
 
     return view('articles.show', compact('articles'));
@@ -76,7 +76,7 @@ class ArticleController extends Controller {
     if(Auth::user()->id != $article->user_id && Auth::user()->level->level < 3)
     {
       Flash::error("Vous n'avez pas le droit de modifier cet article !");
-      return redirect('admin/articles');
+      return view('error.404');
     }
     return view('admin.articles.edit', compact('article'));
   }
@@ -92,7 +92,7 @@ class ArticleController extends Controller {
     if(empty($article))
     {
       Flash::error('Cet article n\'existe pas ou a déjà été supprimé.');
-      return redirect('articles');
+      return view('error.404');
     }
 
     return view('admin.articles.delete', compact('article'));
@@ -137,7 +137,7 @@ class ArticleController extends Controller {
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update($slug)
   {
     $validation = $this->validator($request->all());
 
@@ -165,6 +165,12 @@ class ArticleController extends Controller {
       'title'     => $request->title,
       'subtitle'  => $request->subtitle,
       'content'   => $request->content,
+      ]);
+
+    Modification::create([
+      'table'   => 'articles',
+      'user_id' => Auth::user()->id,
+      'message' => 'Created article "'.$request->name.'".',
       ]);
     
   }
