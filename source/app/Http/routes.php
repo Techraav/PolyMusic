@@ -89,6 +89,15 @@ Route::post('courses/{slug}', 'CourseController@toggleSignUp')	->name('course.to
 Route::get('users/{slug}', 'UserController@show')	->name('user.show');
 
 
+
+
+// ____________________________________________________________________________________________________
+//
+//                         					USERS ROUTES
+// ____________________________________________________________________________________________________
+
+Route::get('bands/{slug}', 'BandController@show')	->name('bands.show');
+
 //====================================================================================================================================
 
 
@@ -137,6 +146,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:2'], function(){
 // _____________________________________________________________________________________________________________
 
 	Route::get('bands', 'BandController@adminIndex')	->name('bands.adminindex');
+	Route::get('bands/edit/{id}', 'BandController@edit')	->name('bands.edit');
+	Route::get('bands/manage/{id}', 'BandController@manage')	->name('bands.manage');
+
+	Route::post('bands/edit/{id}', 'BandController@update')	->name('bands.update');
 
 // _____________________________________________________________________________________________________________
 

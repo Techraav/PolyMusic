@@ -12,7 +12,7 @@
 		<p>Vous pouvez cliquer sur le nom d'un groupe pour accéder à l'article le concernant.</p>
 		<p>Vous pouvez cliquer sur le nom du créateur pour accéder à son profil.</p>
 		<p>Vous pouvez choisir de n'afficher que les groupes validés ou en attente de validation.</p>
-		<p>Il faut être au moins {{ ucfirst(App\Level::where('level', 3)->first()->name) }} pour modifier ou supprimer un groupe.</p>
+		<p>Il faut être au moins <b>Admin</b> pour modifier ou supprimer un groupe.</p>
 		<hr />
 		<p>Nombre total de groupes : {{ App\Band::count() }}.</p>
 	</div>
@@ -37,15 +37,15 @@
 				<td align="center">{{ date_format($b->created_at, 'd/m/Y') }}</td>
 				<td align="center"><a href="{{ url('bands/'.$b->slug) }}">{{ ucfirst($b->name) }}</a></td>
 				<td>{!! printUserLink($b->user_id) !!}</td>
-				<td align="center">{{ App\BandMember::where('band_id', $b->id)->count() }}</td>
+				<td align="center">{{ $b->members()->count() }}</td>
 				<td align="center"><span class="icon-validated glyphicon glyphicon-{{ $b->validated == 0 ? 'ok' : 'remove' }}"></span></td>
 				<td align="center">
-					@if($b->user_id == Auth::user()->id || Auth::user()->level->level > 1)
+					@if(Auth::user()->level->level > 2)
 						<form method="post" action="{{ url('admin/bands/delete/'.$b->id) }}">
 						{{ csrf_field() }}
 							<input hidden name="id" value="{{ $b->id }}" />
 							<button align="right" title="Supprimer le groupe {{ $b->name }} ?" type="submit" class="glyphicon glyphicon-trash"></button>
-							<a href="{{ url('admin/departments/edit/'.$b->id) }}" title="Modifier le groupe {{ $b->name }} ?"class="glyphicon glyphicon-pencil"></a>
+							<a href="{{ url('admin/bands/edit/'.$b->id) }}" title="Modifier le groupe {{ $b->name }} ?"class="glyphicon glyphicon-pencil"></a>
 						</form>
 					@else
 						-

@@ -17,6 +17,7 @@ class CreateEventsTable extends Migration {
 			$table->text('infos');
 			$table->string('name', 255);
 			$table->string('slug', 255)->index();
+			$table->integer('article_id')->index()->unsigned();
 		});
 	}
 

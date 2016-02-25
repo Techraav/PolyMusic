@@ -122,6 +122,7 @@ class CourseController extends Controller {
 		$article = Article::createWithSlug([
 			'title'		=> $request->name,
 			'user_id'	=> Auth::user()->id,
+			'category_id'	=> 2
 			]);
 
 		if(!isset($article))

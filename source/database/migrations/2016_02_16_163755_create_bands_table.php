@@ -11,11 +11,12 @@ class CreateBandsTable extends Migration {
 			$table->increments('id');
 			$table->timestamps();
 			$table->string('name', 255)->unique();
-			$table->string('image', 255)->default('band_default');
+			$table->string('image', 255)->default('band_default.png');
 			$table->text('infos');
 			$table->integer('user_id')->unsigned()->index()->default('0');
 			$table->tinyInteger('validated')->default('0');
 			$table->string('slug', 255)->index();
+			$table->integer('article_id')->index()->unsigned();
 		});
 	}
 

@@ -8,7 +8,7 @@ class Band extends Model {
 
 	protected $table = 'bands';
 	public $timestamps = true;
-	protected $fillable = array('timestamps', 'name', 'image', 'infos', 'user_id', 'validated', 'slug');
+	protected $fillable = array('timestamps', 'name', 'image', 'infos', 'user_id', 'validated', 'slug', 'article_id');
 	protected $nameField = 'name';
 
 	public function members()
@@ -29,6 +29,11 @@ class Band extends Model {
 	public function scopeUnvalidated($query)
 	{
 		return $query->where('validated', 0);
+	}
+
+	public function manager()
+	{
+		return $this->user_id;
 	}
 
 }

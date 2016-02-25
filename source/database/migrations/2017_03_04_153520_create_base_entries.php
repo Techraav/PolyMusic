@@ -218,7 +218,8 @@ class CreateBaseEntries extends Migration
             'infos'     => 'premier groupe de test',
             'user_id'   => 1,
             'validated' => 1,
-            'slug'      => 'the-band-1'
+            'slug'      => 'the-band-1',
+            'article_id'    => 2
             ]);
 
         // Create band 'Second Band'
@@ -227,7 +228,8 @@ class CreateBaseEntries extends Migration
             'infos'     => 'deuxieme groupe de test',
             'user_id'   => 2,
             'validated' => 1,
-            'slug'      => 'second-band-2'
+            'slug'      => 'second-band-2',
+            'article_id'    => 1
             ]);
 
         // Create News 'test news'
@@ -366,7 +368,8 @@ class CreateBaseEntries extends Migration
             'end'       => '00:00:00',
             'infos'     => 'infos du premier event',
             'name'      => 'Concert de The Band',
-            'slug'      => 'concert-the-band'
+            'slug'      => 'concert-the-band',
+            'article_id'   => 1
             ]);
 
         // Create Event 'concert de ouf'
@@ -377,7 +380,8 @@ class CreateBaseEntries extends Migration
             'end'       => '23:00:00',
             'infos'     => 'infos du deuxieme event',
             'name'      => 'Concert de ouf',
-            'slug'      => 'concert-de-ouf'
+            'slug'      => 'concert-de-ouf',
+            'article_id'   => 2
             ]);
 
         // Associate Band 1 to Event 1
