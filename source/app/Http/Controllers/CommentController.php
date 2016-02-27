@@ -44,7 +44,7 @@ class CommentController extends Controller {
 			return Redirect::back()->withErrors($validator->errors());
 		}
 
-		$content = postTextFormat($request->content, ['table', 'tbody', 'thead', 'td', 'tr', 'th', 'ul', 'li', 'h2', 'h3', 'h4', 'h5', 'h6', 'img']);
+		$content = $request->content;
 		
 		Comment::create([
 			'announcement_id'	=> $request->announcement_id,
