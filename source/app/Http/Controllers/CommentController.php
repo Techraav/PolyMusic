@@ -37,14 +37,17 @@ class CommentController extends Controller {
 	*/
 	public function store(Request $request)
 	{
-		$validator = $this->validator($request->all());
+		$validator =Validator::make($request->all(), [
+			'comment_content'	=> 'required|min:6',
+			]);
+
 		if($validator->fails())
 		{
 			Flash::error('Impossible d\'ajouter le commentaire.');
 			return Redirect::back()->withErrors($validator->errors());
 		}
 
-		$content = $request->content;
+		$content = $request->comment_content;
 		
 		Comment::create([
 			'announcement_id'	=> $request->announcement_id,
@@ -84,9 +87,22 @@ class CommentController extends Controller {
 	* @param  int  $id
 	* @return Response
 	*/
-	public function update($id)
+	public function update(Request $request, $id)
 	{
+		$comment = Comment::find($id);
+		if($comment->user_id != Auth::user()->id && Auth::user()->level->level < 4)
+		{
+			Flash::error("Vous ne disposez pas des droits suffisants pour effectuer ceci !");
+			return Redirect::back();
+		}
 
+		$content = $request->content;
+
+		$comment->update(['content'	=> $content]);
+
+		Flash::success('Votre commentaire a bien été modifié !');
+
+		return Redirect::back();
 	}
 
 	/**
@@ -95,9 +111,20 @@ class CommentController extends Controller {
 	* @param  int  $id
 	* @return Response
 	*/
-	public function destroy($id)
+	public function destroy(Request $request, $id)
 	{
+		$comment = Comment::find($id);
+		if($comment->user_id != Auth::user()->id && Auth::user()->level->level < 4)
+		{
+			Flash::error("Vous ne disposez pas des droits suffisants pour effectuer ceci !");
+			return Redirect::back();
+		}
 
+		$comment->delete();
+
+		Flash::success('Commentaire supprimé avec succès !');
+
+		return Redirect::back();
 	}
 
 // ____________________________________________________________________________________________________

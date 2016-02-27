@@ -7,7 +7,18 @@
 @section('content')
 <div class="jumbotron">
 	<div class="post-content">
-			<h1 align="center">{{ ucfirst($announcement->title) }}</h1>
+			<h1 align="center">{{ ucfirst($announcement->title) }} </h1>
+			@if($announcement->user_id == Auth::user()->id || Auth::user()->level->level > 3)
+				<div class="manage">
+					<a href="{{ url('announcements/edit/'.$announcement->id) }}" class="btn-edit glyphicon glyphicon-pencil"></a>
+
+					<button onclick="dialogDeleteAnnouncement(this)"
+							id="{{ $announcement->id }}"
+							title="{{ $announcement->title }}"
+							class="btn-edit glyphicon glyphicon-trash">
+					</button>
+				</div>
+			@endif
 			<span class="announcement-content">
 			<h2 align="center"><i>Sujet : {{ ucfirst($announcement->subject) }}</i></h3>
 			<br />
@@ -40,9 +51,21 @@
 			  		@if(Auth::user()->id == $c->user_id || Auth::user()->level->level > 1)
 			  		<div class="comment-manage">
 			  			@if(Auth::user()->id == $c->user_id)
-			  			<a href="{{ url('comment/edit/'.$c->id) }}" class="btn-edit glyphicon glyphicon-pencil"></a>
+
+				  			<button onclick="dialogEditComment(this)"
+				  					id="{{ $c->id }}"
+				  					content="{{ $c->content }}"
+						  			link="{{ url('comment/edit/'.$c->id) }}" 
+						  			class="btn-edit glyphicon glyphicon-pencil">
+				  			</button>
+
 			  			@endif
-			  			<button onclick="dialog(this)" comment-id="$c->id" link="{{ url('admin/comment/delete/'.$c->id) }}" class="btn-delete glyphicon glyphicon-remove"></button>
+
+				  			<button onclick="dialogDeleteComment(this)" 
+						  			comment-id="$c->id" 
+						  			link="{{ url('comment/delete/'.$c->id) }}" 
+						  			class="btn-delete glyphicon glyphicon-remove">
+				  			</button>
 			  		</div>
 			  		@endif
 
@@ -69,7 +92,7 @@
 			<input hidden value="{{ $announcement->id }}" name="announcement_id" />
 
 			<div class="form-group">
-				<textarea rows="8" class="form-control" placeholder="Votre commentaire..." name="content"></textarea>
+				<textarea rows="8" class="form-control" placeholder="Votre commentaire..." name="comment_content"></textarea>
 			</div>
 
 			<div class="form-group">
@@ -78,32 +101,16 @@
 		</form>	</div>
 	@endif
 </div>
-  <!-- Modal -->
-  	<div class="modal fade" id="myModal" role="dialog">
-    	<div class="modal-dialog">
-    
-      	<!-- Modal content-->
-	      	<div class="modal-content">
-	       	 	<div class="modal-header">
-	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
-	          		<h4 class="modal-title">Voulez-vous vraiment supprimer cet commentaire ?</h4>
-	        	</div>
 
-		        <form id="modal-form" class="modal-form" method="post" action="">
-		        {!! csrf_field() !!}
-			        <div class="modal-body">
-	        		<p class="text-danger"><b>Attention ! Cette action est irréversible !</b></p>
-			         	<input hidden value="" name="comment_id" id="comment_id" />
-			        </div>
-			        <div class="modal-footer">
-			          	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-			          	<button type="submit" class="btn btn-primary">Supprimer</button>
-			        </div>
-				</form>
 
-	   		</div>
-    	</div>
-  	</div>
+  <!-- Modals -->
+
+  @include('announcements.modal-delete-announcement')
+
+  @include('announcements.modal-delete-comment')
+  @include('announcements.modal-edit-comment')
+
+
 
 @stop
 
@@ -112,18 +119,41 @@
 
     <script src="{{ URL::asset('/js/ckeditor.js')  }}"></script>
     <script type="text/javascript">
+        CKEDITOR.replace( 'comment_content' );
         CKEDITOR.replace( 'content' );
     </script>
 
 <script type="text/javascript">
-		function dialog(el)
+		function dialogDeleteComment(el)
 		{
-			var id = el.getAttribute('news-id');
+			var id = el.getAttribute('comment-id');
 			var link = el.getAttribute('link');
 
-			$('#modal-form').attr('action', link);
-			$('#comment-id').attr('value', id);
-			$('#myModal').modal('toggle');
+			$('#formDeleteComment').attr('action', link);
+			$('#formDeleteComment #comment_id').attr('value', id);
+			$('#modalDeleteComment').modal('toggle');
+		}
+
+		function dialogEditComment(el)
+		{
+			var id = el.getAttribute('id');
+			var content = el.getAttribute('content');
+			var link = el.getAttribute('link');
+
+			$('#formEditComment').attr('action', link);
+			$('#formEditComment #comment_id').attr('value', id);
+			CKEDITOR.instances.content.setData(content);
+			$('#modalEditComment').modal('toggle');
+		}
+
+		function dialogDeleteAnnouncement(el)
+		{
+			var id = el.getAttribute('id');
+			var link = el.getAttribute('link');
+
+			$('#formDeleteAnnouncement').attr('action', link);
+			$("#formDeleteAnnouncement #announcement_id").attr('value', id);
+			$('#modalDeleteAnnouncement').modal('toggle');
 		}
 </script>
 

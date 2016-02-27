@@ -7684,6 +7684,7 @@ blockquote.comment{
     border: 2px solid #809DB9;
     border-radius: 5px;
     padding-top: 10px;
+    position:relative;
 }
 
 .btn-submit{
@@ -8407,4 +8408,26 @@ button.glyphicon{
 button.glyphicon:hover{
 	color:inherit;
 	opacity: 1;
+}
+
+#modalEditComment .modal-dialog{
+	width:800px !important;
+}
+
+div.manage{
+	position:absolute;
+	top:10px;
+	right:5px;
+}
+
+div.manage a, div.manage button{
+	font-size:18px;
+	color:gray;
+	opacity:0.6;
+}
+
+div.manage a:hover, div.manage button:hover{
+	color:#2C3E50;
+	opacity:1;
+	text-decoration: none;
 }

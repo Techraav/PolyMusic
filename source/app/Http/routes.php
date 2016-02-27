@@ -67,7 +67,8 @@ Route::post('announcements/delete/{slug}', 'AnnouncementController@destroy')->na
 // ____________________________________________________________________________________________________
 
 Route::post('announcements/comment/create', 'CommentController@store')	->name('comments.create')	->middleware('auth');
-Route::get('comment/edit/{id}', 'CommentController@edit')	->name('comments.edit')	->middleware('auth');
+Route::post('comment/edit/{id}', 'CommentController@update')	->name('comments.update')	->middleware('auth');
+Route::post('comment/delete/{id}', 'CommentController@destroy')	->name('comments.destroy')	->middleware('auth');
 
 
 // ____________________________________________________________________________________________________
