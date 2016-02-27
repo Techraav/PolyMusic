@@ -40,13 +40,23 @@
 				<td align="center">{{ $b->members()->count() }}</td>
 				<td align="center"><span class="icon-validated glyphicon glyphicon-{{ $b->validated == 0 ? 'ok' : 'remove' }}"></span></td>
 				<td align="center">
-					@if(Auth::user()->level->level > 2)
-						<form method="post" action="{{ url('admin/bands/delete/'.$b->id) }}">
-						{{ csrf_field() }}
-							<input hidden name="id" value="{{ $b->id }}" />
-							<button align="right" title="Supprimer le groupe {{ $b->name }} ?" type="submit" class="glyphicon glyphicon-trash"></button>
-							<a href="{{ url('admin/bands/edit/'.$b->id) }}" title="Modifier le groupe {{ $b->name }} ?"class="glyphicon glyphicon-pencil"></a>
-						</form>
+					@if(Auth::user()->level->level > 2)							
+						<button onclick="dialogDelete(this)" 
+								id="{{ $b->id }}" 
+								name="{{ $b->name }}" 
+								link="{{ url('admin/bands/delete/'.$b->id) }}" 
+								align="right" 
+								title="Supprimer le groupe {{ $b->name }} ?" 
+								class="glyphicon glyphicon-trash">
+						</button>
+
+						<button onclick="dialogEdit(this)" 
+								id="{{ $b->id }}" 
+								name="{{ $b->name }}" 
+								link="{{ url('admin/bands/edit/'.$b->id) }}" 
+								title="Modifier le groupe {{ $b->name }} ?"
+								class="glyphicon glyphicon-pencil">
+						</button>
 					@else
 						-
 					@endif
@@ -64,5 +74,39 @@
 	</table>
 
 	<div align="right"> {!! $bands->render() !!} </div>
+
+	@include('admin.bands.modal-delete')
+
+	@include('admin.bands.modal-edit')
+
+@stop
+
+@section('js')
+
+<script type="text/javascript">
+		function dialogDelete(el)
+		{
+			var id = el.getAttribute('id');
+			var name = el.getAttribute('name');
+			var link = el.getAttribute('link');
+
+			$('#modalDelete form').attr('action', link);
+			$('#modalDelete h4').html("Supprimer le groupe &laquo; " + name + " &raquo; ?");
+			$('#modalDelete #band_id').attr('value', id);
+			$('#modalDelete').modal('toggle');
+		}
+
+		function dialogEdit(el)
+		{
+			var id = el.getAttribute('id');
+			var name = el.getAttribute('name');
+			var link = el.getAttribute('link');
+
+			$('#modalEdit form').attr('action', link);
+			$('#modalEdit #name').attr('value', name);
+			$('#modalEdit #band_id').attr('value', id);
+			$('#modalEdit').modal('toggle');
+		}	
+</script>
 
 @stop

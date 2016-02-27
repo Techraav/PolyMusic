@@ -19,12 +19,8 @@
 					<td align="center">{{ $c->announcements()->count() }}</td>
 					<td align="center">
 						@if($c->id != 1 && $c->id != 2)
-						<form method="post" action="{{ url('admin/categories/delete') }}">
-						{{ csrf_field() }}
-							<input hidden name="category_id" value="{{ $c->id }}" />
-							<button align="right" title="Supprimer la catégorie {{ $c->name }} ?" type="submit" class="glyphicon glyphicon-trash"></button>
-							<a href="{{ url('admin/categories/edit/'.$c->id) }}" title="Modifier la catégorie {{ $c->name }} ?"class="glyphicon glyphicon-pencil"></a>
-						</form>
+							<button onclick="dialogEdit(this)" category-name="{{ $c->name }}" category-id="{{ $c->id }}" link="{{ url('admin/categories/edit') }}" title="Modifier la catégorie {{ $c->name }} ?" class="glyphicon glyphicon-pencil"></button>
+							<button onclick="dialogDelete(this)"  category-name="{{ $c->name }}"  category-id="{{ $c->id }}" link="{{ url('admin/categories/delete/'.$c->id) }}" align="right" title="Supprimer la catégorie {{ $c->name }} ?" type="submit" class="glyphicon glyphicon-trash"></button>
 						@else
 							-
 						@endif

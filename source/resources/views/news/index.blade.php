@@ -12,13 +12,12 @@
 
 @section('content')
 <h1 style="text-align: center">News</h1>
-@if(isset($news))
 	@forelse($news as $n)
 		<div class="frame-news">
 			<h2><a href="{{ url('news/view/'.$n['slug'])}}">{{$n['title']}}</a>
 				@if(Auth::check() && Auth::user()->level->level >= 1)
-					<a class="icon" href="{{ url('admin/news/edit/'.$n['slug']) }}"><span class="glyphicon glyphicon-pencil"></span></a>				
-					<a class="icon" href="{{ url('admin/news/delete/'.$n['slug']) }}"><span class="glyphicon glyphicon-trash"></span></a>
+					<a class="glyphicon glyphicon-pencil" href="{{ url('admin/news/edit/'.$n['slug']) }}"></a>				
+					<button onclick="dialog(this)" news-id="{{ $n->id }}" link="{{ url('admin/news/delete/'.$n->id) }}" class="glyphicon glyphicon-trash" ></button>
 				@endif
 			</h2>
 			<p>{!! $n['content'] !!} <br/>
@@ -29,13 +28,55 @@
 		</div>
 		<br/>	
 	@empty
+    	<h3 align="center"><i>Pas de news pour le moment.</i></h3>
 	@endforelse
-@else
-    <li class="list-group-item"><p>Pas de news pour le moment.</p></li>  
-@endif
 
 	<div align="right">
 		{!! $news->render() !!}
 	</div>
 
-@endsection
+	  <!-- Modal -->
+  	<div class="modal fade" id="myModal" role="dialog">
+    	<div class="modal-dialog">
+    
+      	<!-- Modal content-->
+	      	<div class="modal-content">
+	       	 	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h4 class="modal-title">Voulez-vous vraiment supprimer cette news ?</h4>
+	        	</div>
+
+		        <form id="modal-form" class="modal-form" method="post" action="">
+		        {!! csrf_field() !!}
+			        <div class="modal-body">
+	        		<p class="text-danger"><b>Attention ! Cette action est irréversible !</b></p>
+			         	<input hidden value="" name="user_id" id="user_id" />
+			        </div>
+			        <div class="modal-footer">
+			          	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+			          	<button type="submit" class="btn btn-primary">Supprimer</button>
+			        </div>
+				</form>
+
+	   		</div>
+    	</div>
+  	</div>
+
+@stop
+
+
+@section('js')
+
+<script type="text/javascript">
+		function dialog(el)
+		{
+			var id = el.getAttribute('news-id');
+			var link = el.getAttribute('link');
+
+			$('#modal-form').attr('action', link);
+			$('#news_id').attr('value', id);
+			$('#myModal').modal('toggle');
+		}
+</script>
+
+@stop

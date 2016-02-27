@@ -21,12 +21,28 @@
 					<td align="center">{{ $d->users->count() }}</td>
 					<td align="center">
 					@if($d->id != 1)
-						<form method="post" action="{{ url('admin/departments/delete/'.$d->id) }}">
-						{{ csrf_field() }}
-							<input hidden name="id" value="{{ $d->id }}" />
-							<button align="right" title="Supprimer le départment {{ $d->name }} ?" type="submit" class="glyphicon glyphicon-trash"></button>
-							<a href="{{ url('admin/departments/edit/'.$d->id) }}" title="Modifier le département {{ $d->name }} ?"class="glyphicon glyphicon-pencil"></a>
-						</form>
+						@if(Auth::user()->level->level > 3)
+						<button 
+							onclick="dialogDelete(this)"
+							name="{{ $d->name}}"
+							id="{{ $d->id }}"
+							link="{{ url('admin/departments/delete/'.$d->id) }}"
+							align="right" 
+							title="Supprimer le départment {{ $d->name }} ?" 
+							type="submit" 
+							class="glyphicon glyphicon-trash">
+						</button>
+						@endif
+							
+						<button 
+							onclick="dialogEdit(this)"
+							name="{{ $d->name}}"
+							short-name="{{ $d->short_name }}"
+							id="{{ $d->id }}"
+							link="{{ url('admin/departments/edit/'.$d->id) }}" 
+							title="Modifier le département {{ $d->name }} ?"
+							class="glyphicon glyphicon-pencil">
+						</button>
 					@else
 						-
 					@endif

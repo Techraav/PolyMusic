@@ -125,7 +125,7 @@ class NewsController extends Controller {
       return Redirect::back()->withErrors($validation->errors());
     }
 
-    $content = postTextFormat($request->content, ['table', 'tbody', 'thead', 'td', 'tr', 'th', 'ul', 'li', 'h2', 'h3', 'h4', 'h5', 'h6', 'img']);
+    $content = $request->content;
 
     $news = News::createWithSlug([
       'title'   => $request->title,
@@ -158,7 +158,7 @@ class NewsController extends Controller {
 
     $slug = str_slug($request->title . '-' . $news->id);
 
-    $content = postTextFormat($request->content, ['table', 'tbody', 'thead', 'td', 'tr', 'th', 'ul', 'li', 'h2', 'h3', 'h4', 'h5', 'h6', 'img']);
+    $content = $request->content;
 
     $news->update([
       'title'   => $request->title,
@@ -178,9 +178,10 @@ class NewsController extends Controller {
    * @param  int  $slug
    * @return Response
    */
-  public function destroy(Request $request, $slug)
+  public function destroy(Request $request, $id)
   {
-    News::where('slug', $slug)->first()->delete();
+    $news = News::find($id);
+    $news->delete();
     Flash::success('La news a bien été supprimée.');
     return redirect('news');
   }

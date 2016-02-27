@@ -2,16 +2,38 @@
 
 @section('content')
 
-	<button id="btn" class="btn btn-primary" onclick="test()">Test</button>
-	<form id="form" method="post">
-		{{ csrf_field() }}
-		<input id="submit" data-id="1" type="button" value="Valider" role="button" class="btn btn-primary">
-	</form> 
+<div class="container">
 
-	<style type="text/css">
-		#form{
-			display:none;
-		}
-	</style>
+	<form method="post" action="#">
+		<input  type="text" name="truc"/>
+		<button type="submit"> Valider </button>
+	</form>
+  
+</div>
+@stop
+
+@section('js')
+
+<script type="text/javascript">
+
+// $('form').submit(function(e){
+// 	e.preventDefault();
+// 	bootbox.confirm("Are you sure?", function(result) {
+// 	  if(result)
+// 	  	$('form').submit();
+// 	});
+// });
+
+
+$('button').click(function (e){
+
+	e.preventDefault();
+	bootbox.confirm("Are you sure?", function (result) {
+		if(result)
+			$('form').submit();		
+  });
+});
+
+</script>
 
 @stop

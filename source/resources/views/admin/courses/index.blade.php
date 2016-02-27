@@ -56,16 +56,21 @@
 					 @endif
 					</td>
 					<td align="center">
-						<form method="post" action="{{ url('admin/courses/delete/'.$c->id) }}">
-						{{ csrf_field() }}
-							<input hidden name="id" value="{{ $c->id }}" />
-							@if( Auth::user()->level->level >= 3 || $c->user_id == Auth::user()->id )
-								<button align="right" title="Supprimer le cours {{ $c->name }} ? (définitif)" type="submit" class="glyphicon glyphicon-trash"></button>
-								<a href="{{ url('admin/courses/edit/'.$c->id) }}" title="Modifier le cours {{ $c->name }} ?"class="glyphicon glyphicon-pencil"></a>
-							@else
-								&nbsp;&nbsp; - &nbsp;
-							@endif
-						</form>
+						@if( Auth::user()->level->level >= 3 || $c->user_id == Auth::user()->id )
+							<button onclick="dialogDelete(this)"
+									name="{{ ucfirst($c->name) }}"
+									id="{{ $c->id }}"
+									link="{{ url('admin/courses/delete/'.$c->id) }}" 
+									align="right" 
+									title="Supprimer le cours {{ $c->name }} ? (définitif)" 
+									type="submit"
+						 			class="glyphicon glyphicon-trash">
+							</button>
+
+							<a href="{{ url('admin/courses/edit/'.$c->id) }}" title="Modifier le cours {{ $c->name }} ?"class="glyphicon glyphicon-pencil"></a>
+						@else
+							&nbsp;&nbsp; - &nbsp;
+						@endif
 					</td>
 				</tr>
 			@empty
@@ -183,4 +188,19 @@
 	<script type="text/javascript">
 		CKEDITOR.replace( 'infos' );
 	</script>
+
+	<script type="text/javascript">
+		function dialogDelete(el)
+		{
+			var id = el.getAttribute('id');
+			var name = el.getAttribute('name');
+			var link = el.getAttribute('link');
+
+			$('#modalDelete form').attr('action', link);
+			$('#modalDelete h4').html("Supprimer le groupe &laquo; " + name + " &raquo; ?");
+			$('#modalDelete #band_id').attr('value', id);
+			$('#modalDelete').modal('toggle');
+		}
+	</script>
+
 @stop

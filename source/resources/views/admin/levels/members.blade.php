@@ -7,7 +7,7 @@
 @section('content')
 	
 	<h1 align="center">{{ ucfirst($name).'s' }}</h1>
-	<h3 align="center">Level : {{ $level }}</h3>
+	<h3 align="center">Level : {{ $level->level }}</h3>
 	<br />
 	<div class="col-md-4 col-md-offset-4">
 		<ul class="list-group list-members list-hover">
@@ -17,8 +17,8 @@
 			@forelse($users as $u)
 			<li class="list-group-item">
 				<a href=" {{ url('admin/users/'.$u->slug) }}">{{ ucfirst($u->last_name) }} {{ ucfirst($u->first_name) }}</a>
-				@if($level > 1)
-				<form method="post" action="{{ url('admin/levels/'.$name.'/members/remove') }}">
+				@if($level->id > 1)
+				<form method="post" action="{{ url('admin/levels/'.$level->id.'/members/remove') }}">
 				{{ csrf_field() }}
 					<input hidden name="level" value="{{ $level }}" />
 					<input hidden name="user_id" value="{{ $u->id }}" />

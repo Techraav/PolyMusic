@@ -10,4 +10,27 @@
 	
 	@include('admin.levels.table')
 
+	@include('admin.levels.modal-edit')
+
+@stop
+
+@section('js')
+
+<script type="text/javascript">
+
+		function dialogEdit(el)
+		{
+			var id = el.getAttribute('level-id');
+			var name = el.getAttribute('level-name');
+			var infos = el.getAttribute('level-infos');
+			var link = el.getAttribute('link');
+
+			$('#modalEdit form').attr('action', link);
+			$('#modalEdit #infos').html(infos);
+			$('#modalEdit #name').attr('value', name);
+			$('#modalEdit #id').attr('value', id);
+			$('#modalEdit').modal('toggle');
+		}	
+</script>
+
 @stop

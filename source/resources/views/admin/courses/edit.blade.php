@@ -14,7 +14,7 @@
 				{{ csrf_field() }}
 				
 				<div class="form-group">
-					<label for="name" class="control-label col-lg-2">Titre du cours :</label>
+					<label for="name" class="control-label col-lg-2">Nom :</label>
 					<div class="col-lg-10">
 						<input required class="form-control" type="text" name="name" id="name" value="{{ $course->name }}" placeholder="Ex : Cours de guitare débutant du lundi" />
 					</div>
@@ -34,7 +34,7 @@
 									<option value="{{ Auth::user()->id }}">{{ ucfirst(Auth::user()->first_name).' '.ucfirst(Auth::user()->last_name) }}</option>
 								</optgroup>
 								<optgroup label="Tous :">
-								@foreach (App\User::where('level', '>', '1')->orderBy('last_name')->get() as $user)
+								@foreach (App\User::where('level_id', '>', '2')->orderBy('last_name')->get() as $user)
 									<option value="{{ $user->id }}">{{ ucfirst($user->last_name).' '.ucfirst($user->first_name) }}</option>
 								@endforeach
 								</optgroup>

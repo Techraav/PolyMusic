@@ -27,16 +27,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -59,31 +49,6 @@ class CategoryController extends Controller
 
         Flash::success('L\'instrument a bien été créé !');
         return Redirect::back();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $categories = Category::orderBy('name')->paginate(30);
-        $catToEdit = Category::find($id);
-
-        return view('admin.categories.edit', compact('categories', 'catToEdit'));
     }
 
     /**
@@ -118,9 +83,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        Category::find($request->category_id)->delete();
+        Category::find($id)->delete();
         Flash::success('La catégorie a bien été supprimée !');
         return redirect('admin/categories');
     }

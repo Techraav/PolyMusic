@@ -24,21 +24,21 @@
             <div class="form-group">
 
               <div class="col-md-10 col-md-offset-1">
-                <input type="text" class="form-control" name="title" required placeholder="Titre" value="">
+                <input type="text" class="form-control" name="title" id="title" required placeholder="Titre" value="">
               </div>
             </div>
 
             <div class="form-group">
 
               <div class="col-md-10 col-md-offset-1">
-                <input type="text" class="form-control" name="subject" required placeholder="Sujet" value="">
+                <input type="text" class="form-control" name="subject" id="subject" required placeholder="Sujet" value="">
               </div>
             </div>
 
             <div class="form-group">
 
                 <div class="col-md-10 col-md-offset-1">
-                    <textarea class="form-control" rows="10" name="content" required placeholder="Contenu de votre annonce..."></textarea>
+                    <textarea class="form-control" rows="10" name="content" id="content" required placeholder="Contenu de votre annonce..."></textarea>
                     <div class="checkbox">
                       <label>
                         <input type="checkbox" checked required>Active
@@ -48,7 +48,9 @@
             </div>
             
             <div class="form-group buttons">
-                <div class="col-md-8 col-md-offset-4">
+                <div class="col-md-10 col-md-offset-1">
+                    <button type="reset" class="btn btn-default">Annuler</button>
+                    <button type="button" onclick="preview()" class="btn btn-default">Prévisualisation</button>
                     <button type="submit" class="btn btn-primary">Publier</button>
                 </div>
             </div>
@@ -56,4 +58,60 @@
     </div>   
 
 </div> 
+
+  <!-- Modal -->
+    <div class="modal fade" id="previewModal" role="dialog">
+        <div class="modal-preview">
+    
+        <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Prévisualisation</h4>
+                </div>
+                <div class="jumbotron">
+                    <div id="view" class="post-content">
+                        <h1 align="center"></h1>
+                        <span class="announcement-content">
+                            <h2 align="center">Sujet : <i></i></h3>
+                            <br />
+                            <p id="content" > </p>
+                        </span>
+                        <br />
+                        <p align="right" class="announcement-infos">Rédigé par {!! printUserLink(Auth::user()->id) !!}, le {{ date('d/m/Y') }}</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Supprimer</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 @endsection
+
+@section('js')
+    <script src="{{ URL::asset('/js/ckeditor.js')  }}"></script>
+    <script type="text/javascript">
+        CKEDITOR.replace( 'content' );
+    </script>
+
+    <script type="text/javascript">
+        
+        function preview(){
+
+            var title   = $('#title').val();
+            var subject = $('#subject').val();
+            var content = CKEDITOR.instances.content.getData();
+
+            $('#previewModal h1').html(title);
+            $('#previewModal h2 i').html(subject);
+            $('#previewModal #content').html(content);
+
+            $('#previewModal').modal('toggle');
+        }
+        
+    </script>
+
+@stop

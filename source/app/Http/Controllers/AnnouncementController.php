@@ -110,7 +110,7 @@ class AnnouncementController extends Controller {
       return Redirect::back()->withErrors($validation->errors());
     }
 
-    $content = postTextFormat($request->content);
+    $content = $request->content;
 
     $announcement = Announcement::createWithSlug([
       'user_id'   => Auth::user()->id,
@@ -142,7 +142,7 @@ class AnnouncementController extends Controller {
 
     $slug = str_slug($request->title . '-' . $news->id);
 
-    $content = postTextFormat($request->content);
+    $content = $request->content;
 
     $annonce->update([
       'title'   => $request->title,

@@ -34,15 +34,16 @@ class LevelController extends Controller {
 	* @param $name of the level
 	* @return list of members
 	*/
-	public function members($name)
+	public function members($id)
 	{	
-		$level = Level::where('name', $name)->first()->level;
+		$level = Level::where('id', $id)->first();
+		$name = $level->name;
 		if(!isset($level))
 		{
-			Flash::error('Ce niveau n\'existe pas.');
+			Flash::error('Ce level n\'existe pas.');
 			return view('admin.errors.404');
 		}
-		$users = User::where('level', $level)->orderBy('last_name')->paginate(30);
+		$users = User::where('level_id', $id)->orderBy('last_name')->paginate(30);
 		return view('admin.levels.members', compact('level', 'name', 'users'));
 	}
 
@@ -92,13 +93,15 @@ class LevelController extends Controller {
 			'message'	=> 'added level '.$request->name.' (level: '.$request->level.')']);
 
 		Flash::success('Le level a bien été créé !');
-		return redirect('admin/levels'); 
+		return redirect('admin/levels'); */
 	}
 
-	public function removeMember(Request $request, $name)
+	public function removeMember(Request $request, $id)
 	{	
 		$user = User::where('id', $request->user_id)->first();
-		$user->update([	'level'	=> 0 ]);
+		$user->update([	'level_id'	=> 1 ]);
+
+		$name = Level::find($id)->name;
 
 		Modification::create([
 			'table'		=> 'levels',
@@ -106,7 +109,7 @@ class LevelController extends Controller {
 			'message'	=> 'removed '.$user->first_name.' '.$user->last_name.' from level '.ucfirst($name).'s']);
 
 		Flash::success($user->first_name.' '.$user->last_name.' a bien été retiré des '.ucfirst($name).'s');
-		return Redirect::back();*/
+		return Redirect::back();
 	}
 
 	/**

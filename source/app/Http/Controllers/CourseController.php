@@ -133,7 +133,7 @@ class CourseController extends Controller {
 
 		$slug = $article->slug;
 
-		$infos = postTextFormat($request->infos, allowedTags(['a', 'hr', 'br', 'b', 'i', 'u', 'ul', 'li']));
+		$infos = $request->infos;
 		$course = Course::createWithSlug([
 			'name'		=> $request->name,
 			'day'		=> $request->day,

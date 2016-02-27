@@ -116,7 +116,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:2'], function(){
 	Route::get('categories/edit/{id}', 'CategoryController@edit')	->name('category.edit');
 
 	Route::post('categories/edit', 'CategoryController@update')	->name('category.update');
-	Route::post('categories/delete', 'CategoryController@destroy')	->name('category.destroy');
+	Route::post('categories/delete/{id}', 'CategoryController@destroy')	->name('category.destroy');
 
 	Route::get('users', 'UserController@index')	->name('users.index');
 
@@ -141,7 +141,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:2'], function(){
 	// NEWS : POST
 	Route::post('news/create', 			'NewsController@store')		->name('news.store');
 	Route::post('news/edit/{slug}', 	'NewsController@update')	->name('news.update');
-	Route::post('news/delete/{slug}', 	'NewsController@destroy')	->name('news.destroy');
+	Route::post('news/delete/{id}', 	'NewsController@destroy')	->name('news.destroy');
 
 // _____________________________________________________________________________________________________________
 
@@ -223,7 +223,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:2'], function(){
 	Route::post('levels/create', 			'LevelController@store')	->name('levels.store')		->middleware('level:3');
 	Route::post('levels/edit/{level}', 		'LevelController@update')	->name('levels.update')		->middleware('level:3');
 	Route::post('levels/delete/{level}', 	'LevelController@destroy')	->name('levels.destoy')		->middleware('level:3');
-	Route::post('levels/{name}/members/remove', 'LevelController@removeMember')->name('levels.removemember')->middleware('level:3');
+	Route::post('levels/{id}/members/remove', 'LevelController@removeMember')->name('levels.removemember')->middleware('level:3');
 
 
 // _____________________________________________________________________________________________________________
