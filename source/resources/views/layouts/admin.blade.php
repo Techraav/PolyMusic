@@ -30,7 +30,7 @@
                 <p align="center"><i><b>Administration</b></i></p>
             </div>
             <div class="panel-body">
-                Bienvenue sur la zone d'administration du site.
+                <p>Bienvenue sur la zone d'administration du site.</p>
             </div>
         </div>
 

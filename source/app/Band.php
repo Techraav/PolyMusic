@@ -33,7 +33,8 @@ class Band extends Model {
 
 	public function manager()
 	{
-		return $this->user_id;
+		$id =  $this->user_id;
+		return User::find($id);
 	}
 
 }

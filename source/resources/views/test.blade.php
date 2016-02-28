@@ -4,10 +4,14 @@
 
 <div class="container">
 
-	<form method="post" action="#">
+	<form method="POST" action="{{ url('test') }}">
+	{{ csrf_field() }}
 		<input  type="text" name="truc"/>
-		<button type="submit"> Valider </button>
+		<input type="submit" />
 	</form>
+	
+	<button id="test">Test</button>
+
   
 </div>
 @stop
@@ -25,13 +29,26 @@
 // });
 
 
-$('button').click(function (e){
+$('#test').on('click', function()
+{
+	$('form').submit();
+});
 
-	e.preventDefault();
-	bootbox.confirm("Are you sure?", function (result) {
-		if(result)
-			$('form').submit();		
-  });
+var valide = false;
+  
+$('form').submit(function (e) {
+	if (!valide) {
+    e.preventDefault();
+    
+    bootbox.confirm("Are you sure?", (function (window) {
+      return function (result) {
+        if (result) {
+          window.valide = true;
+          $('form').submit();
+        }
+    	}
+    })(window));
+  }
 });
 
 </script>

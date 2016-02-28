@@ -11,8 +11,9 @@
 		<p>Voici la liste des groupes, validés ou non, créés par les utilisateurs du site.</p>
 		<p>Vous pouvez cliquer sur le nom d'un groupe pour accéder à l'article le concernant.</p>
 		<p>Vous pouvez cliquer sur le nom du créateur pour accéder à son profil.</p>
-		<p>Vous pouvez choisir de n'afficher que les groupes validés ou en attente de validation.</p>
+		<!-- <p>Vous pouvez choisir de n'afficher que les groupes validés ou en attente de validation.</p> -->
 		<p>Il faut être au moins <b>Admin</b> pour modifier ou supprimer un groupe.</p>
+		<p>Pour valider ou invalider une groupe, il faut cliquer cliquer sur &laquo; modifier &raquo;.</p>
 		<hr />
 		<p>Nombre total de groupes : {{ App\Band::count() }}.</p>
 	</div>
@@ -38,7 +39,7 @@
 				<td align="center"><a href="{{ url('bands/'.$b->slug) }}">{{ ucfirst($b->name) }}</a></td>
 				<td>{!! printUserLink($b->user_id) !!}</td>
 				<td align="center">{{ $b->members()->count() }}</td>
-				<td align="center"><span class="icon-validated glyphicon glyphicon-{{ $b->validated == 0 ? 'ok' : 'remove' }}"></span></td>
+				<td align="center"><span class="icon-validated glyphicon glyphicon-{{ $b->validated == 1 ? 'ok' : 'remove' }}"></span></td>
 				<td align="center">
 					@if(Auth::user()->level->level > 2)							
 						<button onclick="dialogDelete(this)" 
@@ -53,6 +54,10 @@
 						<button onclick="dialogEdit(this)" 
 								id="{{ $b->id }}" 
 								name="{{ $b->name }}" 
+								infos="{{ $b->infos }}"
+								manager-id="{{ $b->user_id }}"
+								manager="{{ $b->manager()->first_name.' '.$b->manager()->last_name }}"
+								validated="{{ $b->validated }}"
 								link="{{ url('admin/bands/edit/'.$b->id) }}" 
 								title="Modifier le groupe {{ $b->name }} ?"
 								class="glyphicon glyphicon-pencil">
@@ -82,6 +87,10 @@
 @stop
 
 @section('js')
+    <script src="{{ URL::asset('/js/ckeditor.js')  }}"></script>
+    <script type="text/javascript">
+        CKEDITOR.replace( 'infos' );
+    </script>
 
 <script type="text/javascript">
 		function dialogDelete(el)
@@ -101,10 +110,24 @@
 			var id = el.getAttribute('id');
 			var name = el.getAttribute('name');
 			var link = el.getAttribute('link');
+			var infos = el.getAttribute('infos');
+			var manager_id = el.getAttribute('manager-id');
+			var manager = el.getAttribute('manager');
+			var validated = el.getAttribute('validated');
+
+			var html = '<option selected value="' + manager_id + '">' + manager + '</option>';
+
+			console.log(html);
+
+
 
 			$('#modalEdit form').attr('action', link);
 			$('#modalEdit #name').attr('value', name);
 			$('#modalEdit #band_id').attr('value', id);
+			$('#modalEdit #manager').attr('value', manager);
+			$('#modalEdit #user_id').attr('value', manager_id);
+			$('#modalEdit #validated').attr('checked', validated == 1);
+			CKEDITOR.instances.infos.setData(infos);
 			$('#modalEdit').modal('toggle');
 		}	
 </script>

@@ -16,6 +16,11 @@ Route::get('test', function()
 	return view('test');
 });
 
+Route::post('test', function()
+{
+	echo 'Sucess !';
+});
+
 Route::get('/', function()
 {
 	return View::make('welcome');
@@ -97,7 +102,7 @@ Route::get('users/{slug}', 'UserController@show')	->name('user.show');
 //                         					USERS ROUTES
 // ____________________________________________________________________________________________________
 
-Route::get('bands/{slug}', 'BandController@show')	->name('bands.show');
+Route::get('bands/show/{slug}', 'BandController@show')	->name('bands.show');
 
 //====================================================================================================================================
 

@@ -9,7 +9,7 @@
 				<h3 align="center"><img class="band-picture" width="300" src=" {{ URL::asset('/img/band_pictures/'.$band->image) }} " /></h3>
 			</div>
 			<div class="col-lg-8">
-				<p align="center">Manager : {!! printUserLink($band->manager()) !!}</p>
+				<p align="center">Manager : {!! printUserLink($band->manager()->id) !!}</p>
 				<br />
 				<h2 align="center">Membres :</h2>
 					@foreach($band->members as $m)

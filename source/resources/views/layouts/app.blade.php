@@ -31,9 +31,9 @@
             <div class="panel-heading">
                 <p align="center"><i><b>Bienvenue !</b></i></p>
             </div>
-            <ul class="list-group">
-            
-            </ul>
+            <div class="panel-body">
+              <p>Bienvenue sur le site du Club Musique de Polytech Tours !</p>
+            </div>
         </div>
 
         @include('layouts.app.news')

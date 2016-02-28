@@ -147,13 +147,15 @@ class BandController extends Controller {
 			'name'		=> $request->name,
 			'infos'		=> $request->infos,
 			'user_id'	=> $request->user_id,
-			'slug'		=> $slug
+			'slug'		=> $slug,
+			'validated' => isset($request->validated)
 			]);
 
-		makeModification('bands', 'Modified band '.ucfirst($band->name));
+		makeModification('bands', 'Modified band '.ucfirst($request->name));
 
 		Flash::success('Les informations du groupe ont bien été modifiées');
-		return redirect('bands/show/'.$slug);
+		// return redirect('bands/show/'.$slug);
+		return Redirect::back();
 
 	}
 

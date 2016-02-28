@@ -5,6 +5,7 @@
          <a class="glyphicon glyphicon-plus" title="Ajouter une news" href="{{ url('admin/news/create') }}"></a>
           @endif
     </div>
+      <div class="panel-body">
         <ul class="list-group">
           @forelse( App\News::where('active', 1)->orderBy('id', 'desc')->limit(10)->get() as $n)
           <li class="list-group-item news-item">
@@ -14,12 +15,10 @@
               <span class="glyphicon glyphicon-menu-right"></span>
           </li>
           @empty
-            <li class="list-group-item"><p>Pas de news pour le moment.</p></li>                  
+            <p>Pas de news pour le moment.</p>
           @endforelse
-<!--                   @if(Auth::check() && Auth::user()->level->level >= 1)
-            <li class="list-group-item"></li>
-          @endif -->
         </ul>
+      </div>
 
 
     {{-- 2e VERSION --}}
