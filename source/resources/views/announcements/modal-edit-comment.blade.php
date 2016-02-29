@@ -5,7 +5,7 @@
       	<div class="modal-content">
        	 	<div class="modal-header">
           		<button type="button" class="close" data-dismiss="modal">&times;</button>
-          		<h4 class="modal-title">Voulez-vous vraiment supprimer ce commentaire ?</h4>
+          		<h4 class="modal-title">Modification d'un commentaire</h4>
         	</div>
 
 	        <form id="formEditComment" class="modal-form" method="post" action="">

@@ -8443,3 +8443,15 @@ div.manage a:hover, div.manage button:hover{
 	color:inherit;
 	font-weight:bold;
 }
+
+.comment-manage {
+    position: absolute;
+    text-align: right;
+    top: 10px;
+    right: 10px;
+    width: 60px;
+}
+
+.comment-manage button {
+    padding: 1px;
+}

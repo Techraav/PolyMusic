@@ -64,7 +64,7 @@
 				  			<button onclick="dialogDeleteComment(this)" 
 						  			comment-id="$c->id" 
 						  			link="{{ url('comment/delete/'.$c->id) }}" 
-						  			class="btn-delete glyphicon glyphicon-remove">
+						  			class="btn-delete glyphicon glyphicon-trash">
 				  			</button>
 			  		</div>
 			  		@endif
@@ -128,29 +128,24 @@
 		{
 			var id = el.getAttribute('comment-id');
 			var link = el.getAttribute('link');
-
 			$('#formDeleteComment').attr('action', link);
 			$('#formDeleteComment #comment_id').attr('value', id);
 			$('#modalDeleteComment').modal('toggle');
 		}
-
 		function dialogEditComment(el)
 		{
 			var id = el.getAttribute('id');
 			var content = el.getAttribute('content');
 			var link = el.getAttribute('link');
-
 			$('#formEditComment').attr('action', link);
 			$('#formEditComment #comment_id').attr('value', id);
 			CKEDITOR.instances.content.setData(content);
 			$('#modalEditComment').modal('toggle');
 		}
-
 		function dialogDeleteAnnouncement(el)
 		{
 			var id = el.getAttribute('id');
 			var link = el.getAttribute('link');
-
 			$('#formDeleteAnnouncement').attr('action', link);
 			$("#formDeleteAnnouncement #announcement_id").attr('value', id);
 			$('#modalDeleteAnnouncement').modal('toggle');

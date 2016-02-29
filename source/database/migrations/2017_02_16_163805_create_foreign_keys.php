@@ -33,8 +33,18 @@ class CreateForeignKeys extends Migration {
 						->onDelete('cascade')
 						->onUpdate('cascade');
 		});
+		Schema::table('events', function(Blueprint $table) {
+			$table->foreign('article_id')->references('id')->on('articles')
+						->onDelete('cascade')
+						->onUpdate('cascade');
+		});
 		Schema::table('bands', function(Blueprint $table) {
 			$table->foreign('user_id')->references('id')->on('users')
+						->onDelete('cascade')
+						->onUpdate('cascade');
+		});
+		Schema::table('bands', function(Blueprint $table) {
+			$table->foreign('article_id')->references('id')->on('articles')
 						->onDelete('cascade')
 						->onUpdate('cascade');
 		});
@@ -45,6 +55,11 @@ class CreateForeignKeys extends Migration {
 		});
 		Schema::table('articles', function(Blueprint $table) {
 			$table->foreign('user_id')->references('id')->on('users')
+						->onDelete('cascade')
+						->onUpdate('cascade');
+		});
+		Schema::table('articles', function(Blueprint $table) {
+			$table->foreign('category_id')->references('id')->on('categories')
 						->onDelete('cascade')
 						->onUpdate('cascade');
 		});
@@ -85,6 +100,11 @@ class CreateForeignKeys extends Migration {
 		});
 		Schema::table('announcements', function(Blueprint $table) {
 			$table->foreign('user_id')->references('id')->on('users')
+						->onDelete('cascade')
+						->onUpdate('cascade');
+		});
+		Schema::table('announcements', function(Blueprint $table) {
+			$table->foreign('category_id')->references('id')->on('categories')
 						->onDelete('cascade')
 						->onUpdate('cascade');
 		});
@@ -138,23 +158,8 @@ class CreateForeignKeys extends Migration {
 						->onDelete('cascade')
 						->onUpdate('cascade');
 		});
-		Schema::table('announcements', function(Blueprint $table){
-			$table->foreign('category_id')->references('id')->on('categories')
-						->onDelete('cascade')
-						->onUpdate('cascade');
-		});
-		Schema::table('articles', function(Blueprint $table){
-			$table->foreign('category_id')->references('id')->on('categories')
-						->onDelete('cascade')
-						->onUpdate('cascade');
-		});
-		Schema::table('bands', function(Blueprint $table){
-			$table->foreign('article_id')->references('id')->on('articles')
-						->onDelete('cascade')
-						->onUpdate('cascade');
-		});
-		Schema::table('events', function(Blueprint $table){
-			$table->foreign('article_id')->references('id')->on('articles')
+		Schema::table('notifications', function(Blueprint $table) {
+			$table->foreign('user_id')->references('id')->on('users')
 						->onDelete('cascade')
 						->onUpdate('cascade');
 		});
@@ -166,7 +171,7 @@ class CreateForeignKeys extends Migration {
 			$table->dropForeign('users_department_id_foreign');
 		});
 		Schema::table('users', function(Blueprint $table) {
-			$table->dropForeign('users_level_foreign');
+			$table->dropForeign('users_level_id_foreign');
 		});
 		Schema::table('courses', function(Blueprint $table) {
 			$table->dropForeign('courses_instrument_id_foreign');
@@ -177,8 +182,14 @@ class CreateForeignKeys extends Migration {
 		Schema::table('courses', function(Blueprint $table) {
 			$table->dropForeign('courses_user_id_foreign');
 		});
+		Schema::table('events', function(Blueprint $table) {
+			$table->dropForeign('events_article_id_foreign');
+		});
 		Schema::table('bands', function(Blueprint $table) {
 			$table->dropForeign('bands_user_id_foreign');
+		});
+		Schema::table('bands', function(Blueprint $table) {
+			$table->dropForeign('bands_article_id_foreign');
 		});
 		Schema::table('news', function(Blueprint $table) {
 			$table->dropForeign('news_user_id_foreign');
@@ -186,35 +197,35 @@ class CreateForeignKeys extends Migration {
 		Schema::table('articles', function(Blueprint $table) {
 			$table->dropForeign('articles_user_id_foreign');
 		});
-		Schema::table('users_teach_courses', function(Blueprint $table) {
-			$table->dropForeign('users_teach_courses_user_id_foreign');
+		Schema::table('articles', function(Blueprint $table) {
+			$table->dropForeign('articles_category_id_foreign');
 		});
-		Schema::table('users_teach_courses', function(Blueprint $table) {
-			$table->dropForeign('users_teach_courses_course_id_foreign');
+		Schema::table('course_user', function(Blueprint $table) {
+			$table->dropForeign('course_user_course_id_foreign');
 		});
-		Schema::table('users_learn_courses', function(Blueprint $table) {
-			$table->dropForeign('users_learn_courses_course_id_foreign');
+		Schema::table('course_user', function(Blueprint $table) {
+			$table->dropForeign('course_user_user_id_foreign');
 		});
-		Schema::table('users_learn_courses', function(Blueprint $table) {
-			$table->dropForeign('users_learn_courses_user_id_foreign');
+		Schema::table('band_user', function(Blueprint $table) {
+			$table->dropForeign('band_user_user_id_foreign');
 		});
-		Schema::table('band_members', function(Blueprint $table) {
-			$table->dropForeign('band_members_user_id_foreign');
+		Schema::table('band_user', function(Blueprint $table) {
+			$table->dropForeign('band_user_band_id_foreign');
 		});
-		Schema::table('band_members', function(Blueprint $table) {
-			$table->dropForeign('band_members_band_id_foreign');
+		Schema::table('band_user', function(Blueprint $table) {
+			$table->dropForeign('band_user_instrument_id_foreign');
 		});
-		Schema::table('band_members', function(Blueprint $table) {
-			$table->dropForeign('band_members_instrument_id_foreign');
+		Schema::table('band_event', function(Blueprint $table) {
+			$table->dropForeign('band_event_band_id_foreign');
 		});
-		Schema::table('band_events', function(Blueprint $table) {
-			$table->dropForeign('band_events_band_id_foreign');
-		});
-		Schema::table('band_events', function(Blueprint $table) {
-			$table->dropForeign('band_events_event_id_foreign');
+		Schema::table('band_event', function(Blueprint $table) {
+			$table->dropForeign('band_event_event_id_foreign');
 		});
 		Schema::table('announcements', function(Blueprint $table) {
 			$table->dropForeign('announcements_user_id_foreign');
+		});
+		Schema::table('announcements', function(Blueprint $table) {
+			$table->dropForeign('announcements_category_id_foreign');
 		});
 		Schema::table('comments', function(Blueprint $table) {
 			$table->dropForeign('comments_announcement_id_foreign');
@@ -224,9 +235,6 @@ class CreateForeignKeys extends Migration {
 		});
 		Schema::table('emails', function(Blueprint $table) {
 			$table->dropForeign('emails_receiver_id_foreign');
-		});
-		Schema::table('emails', function(Blueprint $table) {
-			$table->dropForeign('emails_sender_id_foreign');
 		});
 		Schema::table('images', function(Blueprint $table) {
 			$table->dropForeign('images_article_id_foreign');
@@ -248,6 +256,9 @@ class CreateForeignKeys extends Migration {
 		});
 		Schema::table('course_modifications', function(Blueprint $table) {
 			$table->dropForeign('course_modifications_course_id_foreign');
+		});
+		Schema::table('notifications', function(Blueprint $table) {
+			$table->dropForeign('notifications_user_id_foreign');
 		});
 	}
 }
