@@ -1,3 +1,11 @@
+<?php 
+  $notifications = 0;
+  if(Auth::check())
+  {
+    $notifications = App\Notification::where('user_id', Auth::user()->id)->where('new', 1)->count();
+  }
+?>
+
 <nav class="navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -37,12 +45,27 @@
         <li><a href="{{url('auth/login')}}">Connexion </a></li>
       @else
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-expanded="false">  <span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-expanded="false">  <span class="glyphicon glyphicon-user">
+                @if($notifications > 0)
+                <span class="notification-number">
+                  {{ $notifications }}      
+                </span>
+                @endif
+          </span><span class="caret"></span></a>
           <ul class="dropdown-menu user-menu" role="menu">
             <li> <a href="{{ url('users/'.Auth::user()->slug) }}"><span class="glyphicon glyphicon-user"></span> {{ Auth::user()->first_name.' '.Auth::user()->last_name }}</a></li>
 			@if(Auth::user()->level->level > 0)
            	<li><a href=" {{ url('admin') }} " class="admin-link"> <span class="glyphicon glyphicon-cog"></span> Administration</a></li>
            	@endif
+            <li><a href="{{ url('notifications') }}"> 
+              <span class="glyphicon glyphicon-bell">
+                @if($notifications > 0)
+                <span class="notification-number">
+                  {{ $notifications }}      
+                </span>
+                @endif
+              </span> Notifications</a>
+            </li>
             <li><a href="{{ url('auth/logout') }}"> <span class="glyphicon glyphicon-log-out"></span> Déconnexion</a></li>
           </ul>
         </li>

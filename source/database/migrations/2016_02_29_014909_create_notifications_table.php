@@ -12,6 +12,7 @@ class CreateNotificationsTable extends Migration {
 			$table->timestamps();
 			$table->string('message', 255);
 			$table->integer('user_id')->unsigned()->index();
+			$table->tinyInteger('new')->unsigned()->default(1);
 		});
 	}
 

@@ -68,7 +68,7 @@ Route::post('announcements/delete/{slug}', 'AnnouncementController@destroy')->na
 
 // ____________________________________________________________________________________________________
 //
-//                         					COMMENTS ROUTES
+//                         					COMMENT ROUTES
 // ____________________________________________________________________________________________________
 
 Route::post('announcements/comment/create', 'CommentController@store')	->name('comments.create')	->middleware('auth');
@@ -78,7 +78,7 @@ Route::post('comment/delete/{id}', 'CommentController@destroy')	->name('comments
 
 // ____________________________________________________________________________________________________
 //
-//                         					COURSES ROUTES
+//                         					COURSE ROUTES
 // ____________________________________________________________________________________________________
 
 Route::get('courses', 'CourseController@index')			->name('course.index');
@@ -87,9 +87,12 @@ Route::get('courses/{slug}', 'CourseController@show')	->name('course.show');
 Route::post('courses/{slug}', 'CourseController@toggleSignUp')	->name('course.togglesignup');
 
 
+
+Route::get('notifications', 'NotificationController@index')->name('notification.index')->middleware('auth');
+
 // ____________________________________________________________________________________________________
 //
-//                         					USERS ROUTES
+//                         					USER ROUTES
 // ____________________________________________________________________________________________________
 
 Route::get('users/{slug}', 'UserController@show')	->name('user.show');
@@ -97,9 +100,11 @@ Route::get('users/{slug}', 'UserController@show')	->name('user.show');
 
 
 
+
+
 // ____________________________________________________________________________________________________
 //
-//                         					USERS ROUTES
+//                         					BAND ROUTES
 // ____________________________________________________________________________________________________
 
 Route::get('bands/show/{slug}', 'BandController@show')	->name('bands.show');

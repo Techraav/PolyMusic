@@ -8455,3 +8455,41 @@ div.manage a:hover, div.manage button:hover{
 .comment-manage button {
     padding: 1px;
 }
+
+.notification-number {
+    font-size: 11px;
+    color: white;
+    text-align: center;
+    padding: 0 4px 4px 3px;
+    background: #D83A3A;
+    border-radius: 10px;
+    position: absolute;
+    top: -7px;
+    left: 10px;
+}
+
+.glyphicon-bell .notification-number {
+    padding: 0 3px 4px 3px;
+    top: -7px;
+    left: 8px;
+}
+
+.notifications .new{
+	background:gray;
+}
+
+span.time {
+    text-indent: 30px;
+    font-style: italic;
+    font-size: 13px;
+}
+
+.notifications li p {
+    font-size: 16px;
+    text-indent: 10px;
+    /* font-weight: bold; */
+}
+
+.notifications li.new:hover {
+    background: rgba(44,62,80,0.13);
+}
