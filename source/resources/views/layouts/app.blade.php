@@ -32,7 +32,8 @@
                 <p align="center"><i><b>Bienvenue !</b></i></p>
             </div>
             <div class="panel-body">
-              <p>Bienvenue sur le site du Club Musique de Polytech Tours !</p>
+              <!-- <p>Bienvenue sur le site du Club Musique de Polytech Tours !</p> -->
+              <p><img src="{{URL::asset('/img/logo.png')}}" /></p>
             </div>
         </div>
 

@@ -1,3 +1,11 @@
+<?php 
+  $notifications = 0;
+  if(Auth::check())
+  {
+    $notifications = App\Notification::where('user_id', Auth::user()->id)->where('new', 1)->count();
+  }
+?>
+
 <nav class="navbar-default navbar-admin">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -48,7 +56,7 @@
             <li><a href="{{ url('admin/courses') }}">Cours</a></li>
             <li><a style="color:red" href="{{ url('admin/documents') }}">Document de cours</a></li>
             <li><a style="color:red" href="{{ url('admin/events') }}">Événements</a></li>
-            <li><a style="color:red" href="{{ url('admin/bands') }}">Groupes</a></li>
+            <li><a href="{{ url('admin/bands') }}">Groupes</a></li>
             <li><a href="{{ url('admin/instruments') }}">Instruments</a></li>
             <li><a href="{{ url('admin/users') }}">Membres</a></li>
             <li><a style="color:red" href="{{ url('admin/news') }}">News</a></li>
