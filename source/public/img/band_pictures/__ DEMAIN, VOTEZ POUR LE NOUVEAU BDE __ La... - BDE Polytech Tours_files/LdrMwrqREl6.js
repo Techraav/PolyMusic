@@ -1,6 +1,0 @@
-/*!CK:2269002667!*//*1456715520,*/
-
-if (self.CavalryLogger) { CavalryLogger.start_js(["N9plJ"]); }
-
-__d('legacy:SubscribeButton',['SubscribeButton'],function a(b,c,d,e,f,g){if(c.__markCompiled)c.__markCompiled();b.SubscribeButton=c('SubscribeButton');},3);
-__d('PagesVoiceBar',['$','Arbiter','AsyncRequest','BlueBar','ChannelConstants','DOM','URI','ViewportBounds'],function a(b,c,d,e,f,g,h,i,j,k,l,m,n,o){if(c.__markCompiled)c.__markCompiled();var p='PagesVoiceBar/initialized',q='PagesVoiceBar/switchVoice',r='page_transition',s='pages_voice_bar_sync',t=null,u=null,v=false,w=o.addTop(0);function x(da,ea){new j('/ajax/pages/switch_voice.php').setData(ea).setHandler(function(fa){ba();}).send();}function y(){t=null;}function z(da,ea){if(ea.obj.profile_id&&ea.obj.profile_id===t)ba();}function aa(da){i.subscribe(p,da);}function ba(){n.getNextURI().go();}var ca={initVoiceBar:function(){if(v)return;u=h('pagesVoiceBarContent');i.subscribe(q,x);i.subscribe(r,y);i.subscribe(l.getArbiterType(s),z);v=true;i.inform(p,null,i.BEHAVIOR_STATE);},update:function(da,ea){aa(function(){t=ea;m.setContent(u,da);var fa=u.offsetHeight;if(w.getSize()!==fa){w.remove();w=o.addTop(o.getTop()+fa);}});}};f.exports=ca;},null);

@@ -1,5 +1,0 @@
-/*!CK:1601217565!*//*1456429569,*/
-
-if (self.CavalryLogger) { CavalryLogger.start_js(["vvqT4"]); }
-
-__d('MercuryYoutubeLinkParser',['MercuryConfig','MercuryShareAttachmentRenderLocations','URI'],function a(b,c,d,e,f,g,h,i,j){'use strict';if(c.__markCompiled)c.__markCompiled();var k='www.youtube.com',l='m.youtube.com',m='https://www.youtube.com/',n='/watch',o={_isValidYoutubeLink:function(p,q){var r=this._getYoutubeURI(q),s=r.getDomain(),t=r.getPath(),u=r.getQueryData();if(h.WWWMessengerYoutubePreviewGK)return ((s===k||s===l)&&this._isValidYoutubePath(t,u)&&(p===i.MESSENGER||p===i.CHAT));return false;},_getYoutubeURI:function(p){return new j(new j(p).getQueryData().u);},_isValidYoutubePath:function(p,q){return (p===n&&q.v!=null);},_getVideoEmbedURI:function(p,q){if(this._isValidYoutubeLink(p,q)){var r=this._getYoutubeURI(q);return new j(m).setPath('/embed/'+r.getQueryData().v).toString();}else return '';}};f.exports=o;},null);
