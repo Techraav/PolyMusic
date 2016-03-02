@@ -1,0 +1,6 @@
+/*!CK:1893931052!*//*1456844853,*/
+
+if (self.CavalryLogger) { CavalryLogger.start_js(["9n4Yn"]); }
+
+__d('legacy:contact-importer-friend-selector',['CIFriendSelector'],function a(b,c,d,e,f,g){if(c.__markCompiled)c.__markCompiled();b.CIFriendSelector=c('CIFriendSelector');},3);
+__d('PhotoUtils',['Event','URI'],function a(b,c,d,e,f,g,h,i){if(c.__markCompiled)c.__markCompiled();var j={getImagesFromData:function(k){var l=[];for(var m in k)if(m.indexOf('image')===0)l.push(k[m]);return l;},getFBIDFromData:function(k){return k&&k.id;},getOriginalImageFromData:function(k){return k.original||k.download_image;},getDownloadURLFromData:function(k){var l=this.getOriginalImageFromData(k);if(!l)return null;var m=new i(l.uri);m.addQueryData({dl:1});return m;},getPermalinkFromData:function(k){return k.permalink;},canViewerMakeCoverPhoto:function(k){return !!k.can_viewer_make_cover_photo;},getCoverPhotoURLFromData:function(k){return new i('/profile.php').addQueryData({preview_cover:j.getFBIDFromData(k)});},preload:function(k,l,m){var n=k.getDimensions();for(var o=0;o<l.length;++o){var p=n.getBestFitImageFromPhoto(l[o],n.getMaxStageDimensions()),q=new Image();m&&h.listen(q,'load',m.bind(null,l[o]));k.getLogger().log(p.uri);q.src=p.uri;}}};f.exports=j;},null);

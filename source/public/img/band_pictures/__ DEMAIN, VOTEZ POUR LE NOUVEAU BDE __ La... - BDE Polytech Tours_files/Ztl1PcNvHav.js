@@ -1,0 +1,5 @@
+/*!CK:2248244829!*//*1456852632,*/
+
+if (self.CavalryLogger) { CavalryLogger.start_js(["8x3lQ"]); }
+
+__d('ChatSidebarSheetChatShutdownMsg.react',['ChannelConstants','ReactComponentWithPureRenderMixin','React','fbt'],function a(b,c,d,e,f,g,h,i,j,k){'use strict';if(c.__markCompiled)c.__markCompiled();var l=j.PropTypes,m=j.createClass({displayName:'ChatSidebarSheetChatShutdownMsg',mixins:[i],propTypes:{hint:l.string},render:function(){var n=this.props.hint;switch(n){case h.HINT_AUTH:return (j.createElement('div',null,k._("Votre session a expir\u00e9. Veuillez vous reconnecter.")));case h.HINT_MAINT:return (j.createElement('div',null,k._("{Chat} est en cours de maintenance.",[k.param('Chat',k._("Discussion instantan\u00e9e"))])));case h.HINT_CONN:return (j.createElement('div',null,k._("{Chat} Facebook n\u2019est pas disponible.",[k.param('Chat',k._("Discussion instantan\u00e9e"))])));default:return (j.createElement('div',null,k._("{Chat} Facebook n\u2019est pas disponible.",[k.param('Chat',k._("Discussion instantan\u00e9e"))])));}}});f.exports=m;},null);

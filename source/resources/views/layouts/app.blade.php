@@ -27,14 +27,9 @@
   </div>
     {{-- SIDEBAR --}}
     <div class="col-lg-3">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <p align="center"><i><b>Bienvenue !</b></i></p>
-            </div>
-            <div class="panel-body">
+        <div class="panel panel-welcome">
               <!-- <p>Bienvenue sur le site du Club Musique de Polytech Tours !</p> -->
-              <p><img src="{{URL::asset('/img/logo.png')}}" /></p>
-            </div>
+              <p align="center"><img src="{{URL::asset('/img/logo.png')}}" /></p>
         </div>
 
         @include('layouts.app.news')

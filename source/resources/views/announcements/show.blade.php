@@ -92,7 +92,7 @@
 			<input hidden value="{{ $announcement->id }}" name="announcement_id" />
 
 			<div class="form-group">
-				<textarea rows="8" class="form-control" placeholder="Votre commentaire..." name="comment_content"></textarea>
+				<textarea required rows="8" class="form-control" placeholder="Votre commentaire..." name="comment_content"></textarea>
 			</div>
 
 			<div class="form-group">
