@@ -1870,7 +1870,7 @@ pre code{
 }
 
 .col-xs-1,.col-sm-1,.col-md-1,.col-lg-1,.col-xs-2,.col-sm-2,.col-md-2,.col-lg-2,.col-xs-3,.col-sm-3,.col-md-3,.col-lg-3,.col-xs-4,.col-sm-4,.col-md-4,.col-lg-4,.col-xs-5,.col-sm-5,.col-md-5,.col-lg-5,.col-xs-6,.col-sm-6,.col-md-6,.col-lg-6,.col-xs-7,.col-sm-7,.col-md-7,.col-lg-7,.col-xs-8,.col-sm-8,.col-md-8,.col-lg-8,.col-xs-9,.col-sm-9,.col-md-9,.col-lg-9,.col-xs-10,.col-sm-10,.col-md-10,.col-lg-10,.col-xs-11,.col-sm-11,.col-md-11,.col-lg-11,.col-xs-12,.col-sm-12,.col-md-12,.col-lg-12{
-	position:relative;
+	/* position:relative; */
 	min-height:1px;
 	padding-left:15px;
 	padding-right:15px
@@ -4369,31 +4369,28 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 	max-width:none
 }
 
-.nav-tabs{
-	border-bottom: 2px solid #2C3E50;
+.band-sheet .nav-tabs{
+	width: inherit;
+	margin: auto;
 }
 
 .nav-tabs>li{
 	float:left;
-	margin-bottom:-1px;
-	background: rgb(44, 62, 80);
-	border-radius: 7px;
-	border-bottom-left-radius: 0px;
-	border-bottom-right-radius: 0px;
-	margin-right: 2px;
-	font-size: 16px;
-	font-weight: normal;
-	letter-spacing: -1px;
+	margin-bottom: -2px;
+	font-size: 22px;
+	font-weight: bold;
+	letter-spacing: -2px;
+	color: #2C3E50;
+	font-weight: bold;
 }
 
 .nav-tabs>li>a{
-	margin-right:2px;
-	line-height:1.42857143;
-	/* border:1px solid transparent; */
-	border-radius: 3px 4px 0 0;
 	font-weight: normal !important;
-	transition: border 0s !important;
+	/* transition: border 0s !important; */
 	margin-right: 0;
+	padding: 7px 24px;
+	border-bottom: 4px solid rgba(44, 62, 80, 0);
+	transition: all 0.3s ease-in-out !important;
 }
 
 .nav-tabs>li>a:hover{
@@ -4401,7 +4398,6 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 }
 
 .nav-tabs>li.active>a,.nav-tabs>li.active>a:hover,.nav-tabs>li.active>a:focus{
-	color: #a051a0;
 	cursor:default;
 }
 
@@ -6386,7 +6382,7 @@ button.close{
 	right:0;
 	bottom:0;
 	left:0;
-	z-index:1050;
+	z-index: 1050;
 	-webkit-overflow-scrolling:touch;
 	outline:0
 }
@@ -7613,7 +7609,8 @@ a.list-group-item-danger.active:hover,a.list-group-item-danger.active:focus{
 	font-style:italic;
 }
 
-blockquote.comment p{
+
+blockquote.comment .comment-content p{
 	text-indent:30px;
 	font-size:17px !important;
 	color: rgb(100,100,100);
@@ -7626,10 +7623,10 @@ blockquote.comment h4{
 }
 
 .comment-pp{
-    width: 150px;
+    width: 90%;
     display:block;
+    max-width: 200px;
     margin:auto;
-
 }
 
 blockquote.comment{
@@ -7648,20 +7645,18 @@ blockquote.comment{
 	position:relative;
  }
 
- .comment-member{
- 	float:left;
- 	width:20%;
- 	height:230px;
- }
-
  .comment-content{
- 	float:left;
  	border-left:1px solid rgb(220,220,220) !important;
- 	width:75%;
- 	margin-left:5px;
- 	padding-left:20px;
+ 	padding-left:25px;
  	min-height:238px;
  }
+
+@media (max-width:767px){
+	.comment-content{
+		border-top:1px solid rgb(220,220,220) !important;
+		border-left:none !important;	
+	}
+}
 
 .comment small{
 	display:block;
@@ -7680,13 +7675,12 @@ blockquote.comment{
 }
 
 .comment .rang{
-	width:200px;
+	width: 100%;
 	display:block;
 	margin:auto;
 	color:gray;
 	font-size:16px;
 	font-style:italic;
-
 }
 
 .post-content{
@@ -7696,6 +7690,14 @@ blockquote.comment{
 	border-radius: 5px;
 	padding-top: 10px;
 	position:relative;
+}
+
+@media (max-width:768px){
+	.post-content{
+		padding-left:20px;
+		padding-right:20px;
+		text-align:left;
+	}
 }
 
 .btn-submit{
@@ -8419,7 +8421,7 @@ button.glyphicon:hover{
 }
 
 #modalEditComment .modal-dialog, #modalEdit .modal-dialog{
-	width:800px !important;
+	max-width: 800px !important;
 }
 
 div.manage{
@@ -8533,6 +8535,7 @@ span.time {
 
 .band-sheet .right{
 	padding-left:30px;
+	position: relative;
 	margin-top: -20px;
 }
 
@@ -8541,15 +8544,9 @@ span.time {
 	/* margin-top:-20px; */
 }
 
-.nav-tabs>li>a:hover, .nav-tabs>li.active a, .nav-tabs>li>a:focus {
-    color: #fff !important; 
-}
+.nav-tabs>li>a:hover, .nav-tabs>li.active a, .nav-tabs>li>a:focus {color: inherit;}
 
-.nav-tabs>li>a:hover, .nav-tabs>li.active a {
-    background: #181F27;
-    border-radius: inherit;
-    margin-right: 0;
-}
+.nav-tabs>li>a:hover, .nav-tabs>li.active a {border-bottom-color: #2C3E50;}
 
 span.help-block.inline {
     display: inline;
@@ -8585,4 +8582,9 @@ span.help-block.inline {
 
 .members {
     text-align: center;
+}
+
+.nav-tabs>li.active>a {
+    color: rgba(44, 62, 80, 0.59);
+    border-color: rgba(44, 62, 80, 0.59);
 }

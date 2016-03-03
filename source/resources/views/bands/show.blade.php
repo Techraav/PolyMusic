@@ -18,7 +18,7 @@
 					<li><a href="#other" data-toggle="tab">Événements</a></li>
 				</ul>
 				<div class="tab-content" id="myTabContent">
-					<div id="members	" class="tab-pane fade active in members" >
+					<div id="members" class="tab-pane fade active in members" >
 						<!-- <h2 align="center">Membres :</h2> -->
 						<br />
 						<br />
