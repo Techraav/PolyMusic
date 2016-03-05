@@ -8,7 +8,7 @@ class Event extends Model {
 
 	protected $table = 'events';
 	public $timestamps = true;
-	protected $fillable = array('timestamps', 'location', 'day', 'start', 'end', 'infos', 'name', 'slug', 'article_id');
+	protected $fillable = array('timestamps', 'location', 'day', 'start', 'end', 'infos', 'name', 'slug', 'article_id', 'date', 'user_id');
 	protected $nameField = 'name';
 
 	public function bands()

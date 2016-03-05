@@ -140,6 +140,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:2'], function(){
 
 	// ANNOUNCEMENTS : GET
 	Route::get('announcements', 	'AnnouncementController@adminIndex')	->name('announcements.adminindex');
+	Route::get('announcements/{category}', 	'AnnouncementController@adminIndex')	->name('announcements.adminindexcategory');
 
 // _____________________________________________________________________________________________________________
 
@@ -212,6 +213,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:2'], function(){
 
 
 // _____________________________________________________________________________________________________________
+
+	Route::get('events', 'EventController@adminIndex')->name('events.adminindex');
+// _____________________________________________________________________________________________________________
+
 
 	// USERS : GET
 	Route::get('users',	'UserController@index')	->name('users.index');	

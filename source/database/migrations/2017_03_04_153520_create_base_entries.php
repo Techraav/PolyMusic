@@ -369,6 +369,8 @@ class CreateBaseEntries extends Migration
             'infos'     => 'infos du premier event',
             'name'      => 'Concert de The Band',
             'slug'      => 'concert-the-band',
+            'user_id'   => 1,
+            'date'      => '2016-03-27',
             'article_id'   => 1
             ]);
 
@@ -381,6 +383,8 @@ class CreateBaseEntries extends Migration
             'infos'     => 'infos du deuxieme event',
             'name'      => 'Concert de ouf',
             'slug'      => 'concert-de-ouf',
+            'user_id'   => 2,
+            'date'      => '2016-04-12',
             'article_id'   => 2
             ]);
 

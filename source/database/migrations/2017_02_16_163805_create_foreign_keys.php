@@ -38,6 +38,11 @@ class CreateForeignKeys extends Migration {
 						->onDelete('cascade')
 						->onUpdate('cascade');
 		});
+		Schema::table('events', function(Blueprint $table) {
+			$table->foreign('user_id')->references('id')->on('users')
+						->onDelete('cascade')
+						->onUpdate('cascade');
+		});
 		Schema::table('bands', function(Blueprint $table) {
 			$table->foreign('user_id')->references('id')->on('users')
 						->onDelete('cascade')
@@ -184,6 +189,9 @@ class CreateForeignKeys extends Migration {
 		});
 		Schema::table('events', function(Blueprint $table) {
 			$table->dropForeign('events_article_id_foreign');
+		});
+		Schema::table('events', function(Blueprint $table) {
+			$table->dropForeign('events_user_id_foreign');
 		});
 		Schema::table('bands', function(Blueprint $table) {
 			$table->dropForeign('bands_user_id_foreign');
