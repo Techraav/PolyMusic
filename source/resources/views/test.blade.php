@@ -7,49 +7,57 @@
 	<form method="POST" action="{{ url('test') }}">
 	{{ csrf_field() }}
 		<input  type="text" name="truc"/>
-		<input type="submit" />
+		<input id="button" type="submit" />
 	</form>
+
 	
+
 	<button id="test">Test</button>
 
-  
-</div>
+ </div>
 @stop
 
 @section('js')
 
 <script type="text/javascript">
 
-// $('form').submit(function(e){
-// 	e.preventDefault();
-// 	bootbox.confirm("Are you sure?", function(result) {
-// 	  if(result)
-// 	  	$('form').submit();
+// var valide = false;
+
+// $('#button').click(function(e){
+//   // if(!valide)
+//     e.preventDefault();
+
+//   bootbox.confirm("Are you sure?", function(result) {
+//     if(result)
+//     {
+//       // valide = true;
+//       $('form').submit();
+//     }
 // 	});
 // });
 
 
-$('#test').on('click', function()
-{
-	$('form').submit();
-});
+// $('#test').on('click', function()
+// {
+// 	$('form').submit();
+// });
 
-var valide = false;
+// var valide = false;
   
-$('form').submit(function (e) {
-	if (!valide) {
-    e.preventDefault();
+// $('form').submit(function (e) {
+// 	if (!valide) {
+//     e.preventDefault();
     
-    bootbox.confirm("Are you sure?", (function (window) {
-      return function (result) {
-        if (result) {
-          window.valide = true;
-          $('form').submit();
-        }
-    	}
-    })(window));
-  }
-});
+//     bootbox.confirm("Are you sure?", (function (window) {
+//       return function (result) {
+//         if (result) {
+//           window.valide = true;
+//           $('form').submit();
+//         }
+//     	}
+//     })(window));
+//   }
+// });
 
 </script>
 

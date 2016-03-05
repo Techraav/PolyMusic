@@ -36,15 +36,15 @@
 		@foreach ($comments as $c)
 		<blockquote class="comment">
 		<div class="row">
-				<div class="comment-member">
+				<div class="comment-member col-sm-3">
 					<h4 align="center"><b>{!! printUserLink($c->user_id) !!}</b></h4>
 					<p align="center"><img class="comment-pp" src=" {{ URL::asset('/img/profil_pictures/'.userData('profil_picture', $c->user_id)) }} " /></p>
 					<span align="center" class="rang">{{ ucfirst(App\Level::where('level', userData('level', $c->user_id))->first()->name) }}</span>
 				</div> 
-		  		<div class="comment-content">
+		  		<div class="comment-content col-sm-9">
 		  		<br />
 		  			<span >
-		  			<i>{!! $c->content !!}</i>
+		  			{!! $c->content !!}
 			  		</span>
 			  		<br />
 			  		<small class="date">Le {{ date_format($c->created_at, 'd/m/Y') }}, à {{date_format($c->created_at, 'H:i:s') }}</small>
@@ -92,7 +92,7 @@
 			<input hidden value="{{ $announcement->id }}" name="announcement_id" />
 
 			<div class="form-group">
-				<textarea rows="8" class="form-control" placeholder="Votre commentaire..." name="comment_content"></textarea>
+				<textarea required rows="8" class="form-control" placeholder="Votre commentaire..." name="comment_content"></textarea>
 			</div>
 
 			<div class="form-group">

@@ -1,6 +1,6 @@
 <div class="panel panel-default panel-news">
     <div class="panel-heading">
-        <p align="center"><a title="Tout voir" href="{{ url('news')}}"><i><b>Dernières news</b></i></a></p>
+        <p align="center"><a title="Tout voir" href="{{ url('news')}}"><b>Dernières news</b></a></p>
           @if(Auth::check() && Auth::user()->level->level >= 1)
          <a class="glyphicon glyphicon-plus" title="Ajouter une news" href="{{ url('admin/news/create') }}"></a>
           @endif

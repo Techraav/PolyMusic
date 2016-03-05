@@ -1,6 +1,6 @@
 <div class="panel-default panel panel-course-modif">
 	<div class="panel-heading">
-		    <p align="center"><a align="right" href="{{ url('admin/modifications/courses') }}"><i><b>Gestion de membres des cours</b></i></a></p>
+		    <p align="center"><a align="right" href="{{ url('admin/modifications/courses') }}"><b>Gestion de membres des cours</b></a></p>
 	</div>
 		<ul class="list-group">
 			@forelse( App\CourseModification::orderBy('id', 'desc')->limit(5)->get() as $m)
