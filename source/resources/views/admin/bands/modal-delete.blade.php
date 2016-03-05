@@ -6,7 +6,7 @@
       	<div class="modal-content">
        	 	<div class="modal-header">
           		<button type="button" class="close" data-dismiss="modal">&times;</button>
-          		<h4 id="modal-title" class="modal-title"></h4>
+          		<h4 id="modal-title" class="modal-title">Supprimer un groupe</h4>
         	</div>
 
 	        <form id="delete-form" class="modal-form" method="post" action="">

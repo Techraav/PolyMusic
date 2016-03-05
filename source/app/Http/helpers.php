@@ -16,6 +16,46 @@
 		return $data;
 	}
 
+	function printDay($id, $three = false) 
+	{
+		$day = '';
+		switch ($id) {
+			case 0:
+				$day = $three ? 'Lun' : 'Lundi';
+				break;
+
+			case 1:
+				$day = $three ? 'Mar' : 'Mardi';
+				break;
+			
+			case 2:
+				$day = $three ? 'Mer' : 'Mercredi';
+				break;
+			
+			case 3:
+				$day = $three ? 'Jeu' : 'Jeudi';
+				break;
+			
+			case 4:
+				$day = $three ? 'Ven' : 'Vendredi';
+				break;
+			
+			case 5:
+				$day = $three ? 'Sam' : 'Samedi';
+				break;
+			
+			case 6:
+				$day = $three ? 'Dim' : 'Dimanche';
+				break;
+			
+			default:
+				$day = 'undefinded';
+				break;
+		}
+
+		return $day;
+	}
+
 	/**
 	*	Store a modification
 	*
