@@ -30,7 +30,13 @@
 					<tr>
 						<td>Département :</td>
 						<td>{{ App\Department::where('id', $user -> department_id)->first()->name }}</td>
-					</tr>					
+					</tr>
+					@if(Auth::user()->id == $user->id)
+						<tr>
+							<td>Téléphone :</td>
+							<td>{{ $user->phone }}</td>
+						</tr>
+					@endif				
 				</tbody>
 			</table>
 		</div>	

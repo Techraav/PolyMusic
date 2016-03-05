@@ -98,7 +98,12 @@ Route::get('notifications', 'NotificationController@index')->name('notification.
 Route::get('users/{slug}', 'UserController@show')	->name('user.show');
 
 
+// ____________________________________________________________________________________________________
+//
+//                         					ARTICLES ROUTES
+// ____________________________________________________________________________________________________
 
+Route::get('articles/view/{slug}', 'ArticleController@show') ->name('article.show');
 
 
 
