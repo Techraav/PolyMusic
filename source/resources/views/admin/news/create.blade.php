@@ -30,7 +30,7 @@
             <div class="form-group">
                 <div class="col-md-8 col-md-offset-2">
                     <label for="date">Date de publication : </label>                      
-                    <input required type="date" class="form-control" value="{{ date( 'Y-m-d') }}" >
+                    <input required type="date" name="date" class="form-control" value="{{ date( 'Y-m-d') }}" >
                 </div>
             </div>
 

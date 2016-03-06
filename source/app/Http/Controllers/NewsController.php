@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use DB;
 use App\News;
 use Validator;
 use Illuminate\Http\Request;
@@ -35,7 +36,7 @@ class NewsController extends Controller {
    */
   public function adminIndex()
   {
-    $news = News::published()->orderBy('id', 'desc')->paginate(15);
+    $news = News::orderBy('published_at', 'desc')->paginate(15);
     return view('admin.news.index', compact('news'));
   }
 
@@ -180,7 +181,13 @@ class NewsController extends Controller {
       ]);
 
     Flash::success('La news a bien été modifiée ! ');
-    return redirect('news/view/' . $slug);  
+    $news = News::where('id', $news->id)->where('active', 1)->where('published_at', '<=', DB::raw('NOW()'))->first();
+    if(!empty($news))
+    {
+      return redirect('news/view/' . $news->slug);  
+    }
+
+    return redirect('admin/news');
   }
 
   /**
@@ -189,12 +196,12 @@ class NewsController extends Controller {
    * @param  int  $slug
    * @return Response
    */
-  public function destroy(Request $request, $id)
+  public function destroy(Request $request, $slug)
   {
-    $news = News::find($id);
+    $news = News::where('slug', $slug);
     $news->delete();
     Flash::success('La news a bien été supprimée.');
-    return redirect('news');
+    return Redirect::back() ;
   }
 
 }

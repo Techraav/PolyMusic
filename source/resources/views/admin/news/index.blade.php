@@ -25,8 +25,8 @@
 					<td>{!! printUserLink($n->user_id) !!}</td>
 					<td><a href="{{ url('news/view/'.$n->slug) }}">{{ ucfirst($n->title) }}</a></td>
 					<td align="center">{{ showDate($n->published_at, 'Y-m-d', 'd/m/Y') }}</td>
-					<td align="center"><span class="icon-validated glyphicon glyphicon-{{ $n->validated == 1 ? 'ok' : 'remove' }}"></span></td>
-					<td align="center">
+					<td align="center"><span class="icon-validated glyphicon glyphicon-{{ $n->active == 1 && strtotime($n->published_at) <= time() ? 'ok' : 'remove' }}"></span></td>
+					<td align="center" class="manage">
 					@if(Auth::user()->level->level > 2)							
 						<button onclick="dialogDelete(this)" 
 								slug="{{ $n->slug }}" 
