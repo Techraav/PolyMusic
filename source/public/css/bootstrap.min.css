@@ -6525,6 +6525,8 @@ button.close{
 	margin:30px auto;
 }
 
+.modal-preview {}
+
 
 .tooltip{
 	position:absolute;
@@ -8410,9 +8412,10 @@ a.glyphicon:hover, button.glyphicon:hover{
 	width:400px !important;
 }
 
-button.glyphicon{
+button.glyphicon, table td.manage a{
 	color:gray;
 	opacity:0.6;
+	text-decoration: none;
 }
 
 button.glyphicon:hover{
@@ -8551,7 +8554,7 @@ span.time {
 span.help-block.inline {
     display: inline;
     font-size: 14px;
-    letter-spacing: -1px;
+    /* letter-spacing: -1px; */
 }
 
 .band-sheet img.profil-picture {
@@ -8600,5 +8603,6 @@ table thead td {
 iframe {
     width: 100%;
     height: 100%;
-    display:block
+    display:block;
+    border: none;
 }

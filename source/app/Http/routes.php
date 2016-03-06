@@ -114,6 +114,20 @@ Route::get('articles/view/{slug}', 'ArticleController@show') ->name('article.sho
 
 Route::get('bands/show/{slug}', 'BandController@show')	->name('bands.show');
 
+
+// ____________________________________________________________________________________________________
+//
+//                         					EVENT ROUTES
+// ____________________________________________________________________________________________________
+
+Route::get('events/edit/{id}', 'EventController@edit')->name('events.edit')->middleware('level:2');
+// Route::get('events/show/{slug}')
+Route::get('events/manage/{id}', 'EventController@manage')->name('events.manage')->middleware('level:2');
+
+Route::post('events/delete/{id}', 'EventController@destroy')->name('events.destroy')->middleware('level:2');
+Route::post('events/edit/{id}', 'EventController@update')->name('events.update')->middleware('level:2');
+
+
 //====================================================================================================================================
 
 
@@ -122,7 +136,7 @@ Route::get('bands/show/{slug}', 'BandController@show')	->name('bands.show');
 //                         				ADMIN BACKOFFICE ROUTES
 // ____________________________________________________________________________________________________
 
-Route::group(['prefix' => 'admin', 'middleware' => 'level:2'], function(){
+Route::group(['prefix' => 'admin', 'middleware' => 'level:3'], function(){
 
 	Route::get('/', function(){
 		return view('admin.index');
@@ -233,34 +247,34 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:2'], function(){
 // ____________________________________________________________________________________________________
 
 	// LEVELS : GET
-	Route::get('levels', 					'LevelController@index')	->name('levels.index')		->middleware('level:3');
-	Route::get('levels/create', 			'LevelController@create')	->name('levels.create')		->middleware('level:3');
-	Route::get('levels/edit/{level}', 		'LevelController@edit')		->name('levels.edit')		->middleware('level:3');
-	Route::get('levels/delete/{level}', 	'LevelController@delete')	->name('levels.delete')		->middleware('level:3');
-	Route::get('levels/{name}/members', 	'LevelController@members')	->name('levels.members')	->middleware('level:3');
+	Route::get('levels', 					'LevelController@index')	->name('levels.index')		->middleware('level:4');
+	Route::get('levels/create', 			'LevelController@create')	->name('levels.create')		->middleware('level:4');
+	Route::get('levels/edit/{level}', 		'LevelController@edit')		->name('levels.edit')		->middleware('level:4');
+	Route::get('levels/delete/{level}', 	'LevelController@delete')	->name('levels.delete')		->middleware('level:4');
+	Route::get('levels/{name}/members', 	'LevelController@members')	->name('levels.members')	->middleware('level:4');
 
 
 	// LEVELS : POST
-	Route::post('levels/create', 			'LevelController@store')	->name('levels.store')		->middleware('level:3');
-	Route::post('levels/edit/{level}', 		'LevelController@update')	->name('levels.update')		->middleware('level:3');
-	Route::post('levels/delete/{level}', 	'LevelController@destroy')	->name('levels.destoy')		->middleware('level:3');
-	Route::post('levels/{id}/members/remove', 'LevelController@removeMember')->name('levels.removemember')->middleware('level:3');
+	Route::post('levels/create', 			'LevelController@store')	->name('levels.store')		->middleware('level:4');
+	Route::post('levels/edit/{level}', 		'LevelController@update')	->name('levels.update')		->middleware('level:4');
+	Route::post('levels/delete/{level}', 	'LevelController@destroy')	->name('levels.destoy')		->middleware('level:4');
+	Route::post('levels/{id}/members/remove', 'LevelController@removeMember')->name('levels.removemember')->middleware('level:4');
 
 
 // _____________________________________________________________________________________________________________
 
 	// DEPARTEMENTS : GET
-	Route::get('departments', 'DepartmentController@index')					->name('departments.index')		->middleware('level:3');
-	Route::get('departments/create', 'DepartmentController@create')			->name('departments.create')	->middleware('level:3');
-	Route::get('departments/edit/{id}', 'DepartmentController@edit')		->name('departments.edit')		->middleware('level:3');
-	Route::get('departments/delete/{id}', 'DepartmentController@delete')	->name('departments.delete')	->middleware('level:3');
-	Route::get('departments/{id}/members', 'DepartmentController@members')	->name('departments.members')	->middleware('level:3');
+	Route::get('departments', 'DepartmentController@index')					->name('departments.index')		->middleware('level:4');
+	Route::get('departments/create', 'DepartmentController@create')			->name('departments.create')	->middleware('level:4');
+	Route::get('departments/edit/{id}', 'DepartmentController@edit')		->name('departments.edit')		->middleware('level:4');
+	Route::get('departments/delete/{id}', 'DepartmentController@delete')	->name('departments.delete')	->middleware('level:4');
+	Route::get('departments/{id}/members', 'DepartmentController@members')	->name('departments.members')	->middleware('level:4');
 
 	// DEPARTEMENTS : POST
-	Route::post('departments/create', 'DepartmentController@store')			->name('departments.store')		->middleware('level:3');
-	Route::post('departments/edit/{id}', 'DepartmentController@update')		->name('departments.update')	->middleware('level:3');
-	Route::post('departments/delete/{id}', 'DepartmentController@destroy')	->name('departments.destroy')	->middleware('level:3');
-	Route::post('departments/{id}/members/remove', 'DepartmentController@removemember')->name('departments.removemember')->middleware('level:3');
+	Route::post('departments/create', 'DepartmentController@store')			->name('departments.store')		->middleware('level:4');
+	Route::post('departments/edit/{id}', 'DepartmentController@update')		->name('departments.update')	->middleware('level:4');
+	Route::post('departments/delete/{id}', 'DepartmentController@destroy')	->name('departments.destroy')	->middleware('level:4');
+	Route::post('departments/{id}/members/remove', 'DepartmentController@removemember')->name('departments.removemember')->middleware('level:4');
 
 
 	// BLACKLIST : GET

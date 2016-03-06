@@ -62,6 +62,25 @@ class EventController extends Controller {
     }
 
     /**
+    * Display the specified resource.
+    *
+    * @param  int  $id
+    * @return Response
+    */
+    public function manage($id)
+    {
+        $event = Event::find($id);
+        if(Auth::user()->id != $event->user_id && Auth::user()->level_id < 3)
+        {
+            Flash::error("Vous n'avez pas les droits suffisants pour ceci.");
+            return Redirect::back();
+        }
+
+        return view('events.manage', compact('event'));
+
+    }
+
+    /**
     * Show the form for editing the specified resource.
     *
     * @param  int  $id
@@ -69,7 +88,14 @@ class EventController extends Controller {
     */
     public function edit($id)
     {
+        $event = Event::find($id);
+        if(empty($event))
+        {
+            Flash::error('Cet événement n\'existe pas.');
+            abort(404);
+        }
 
+        return view('events.edit', compact('event'));
     }
 
     /**
@@ -78,9 +104,43 @@ class EventController extends Controller {
     * @param  int  $id
     * @return Response
     */
-    public function update($id)
+    public function update(Request $request, $id)
     {
+        $event = Event::find($id);
 
+        if(empty($event))
+        {
+            Flash::error('Cet événement n\'existe pas.');
+            abort(404);
+        }
+
+        $validator = $this->validator($request->all());
+
+        if($validator->fails())
+        {
+            Flash::error('Impossibe de modifier l\'événement. Vérifiez les informations renseignées.');
+            return Redirect::back()->withErrors($validator->errors());
+        }
+
+        $oldName = $event->name;
+        $newName = $request->name;
+        
+        $slug = str_slug($request->name).'-'.$event->id;
+        $day = date('N', strtotime($request->date))-1;
+        $event->update([
+            'name' => $newName,
+            'location' => $request->location,
+            'date' => $request->date,
+            'start' => $request->start,
+            'day' => $day,
+            'end' => $request->end,
+            'infos' => $request->infos,
+            ]);
+
+        makeModification('events', $request->date."'s event has been updated");
+
+        Flash::success("L'événement a bien été créé !");
+        return redirect('events/show/'.$event->slug);
     }
 
     /**
@@ -91,7 +151,22 @@ class EventController extends Controller {
     */
     public function destroy($id)
     {
+        $event = Event::find($id);
+        $event->delete();
 
+        Flash::success("L'événement a bien été supprimé.");
+        return Redirect::back();
+    }
+
+    public function validator($data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|min:5|max:255',
+            'location' => 'required|min:5|max:255',
+            'date' => 'required|min:today',
+            'start' => 'required',
+            'end' => 'required',
+            ]);
     }
   
 }

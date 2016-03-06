@@ -16,6 +16,16 @@
 		return $data;
 	}
 
+	function getWeekDay($date = "")
+	{
+		if($date == "")
+		{
+			$date = strtotime(date("Y-m-d"));
+		}
+		$day = date('N', $date)-1;
+		return day($day);
+	}
+
 	function printDay($id, $three = false) 
 	{
 		$day = '';
