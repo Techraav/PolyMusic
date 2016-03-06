@@ -181,7 +181,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:2'], function(){
 	// ARTICLES : POST
 	Route::post('articles/create', 			'ArticleController@store')	->name('articles.store');
 	Route::post('articles/edit/{slug}', 	'ArticleController@update')	->name('articles.update');
-	Route::post('articles/delete{slug}', 	'ArticleController@destroy')->name('articles.destroy');
+	Route::post('articles/delete/{slug}', 	'ArticleController@destroy')->name('articles.destroy');
 
 
 // _____________________________________________________________________________________________________________

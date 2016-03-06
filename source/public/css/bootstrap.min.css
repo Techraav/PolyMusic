@@ -7964,6 +7964,9 @@ tr.bold{
     font-weight: bold;
 }
 
+.news-datas{
+	color: #2C3E50;
+}
 .content{
     height: 100%;
     margin-left: 55px;

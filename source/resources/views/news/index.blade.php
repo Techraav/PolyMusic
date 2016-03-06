@@ -21,7 +21,7 @@
 				@endif
 			</h2>
 			<p>{!! $n['content'] !!} <br/>
-				<div class="news-infos" align="right">Créée par 
+				<div class="news-datas" align="right">Créée par 
 					<b>{!! printUserLink($n->user_id) !!}</b> le {{date_format($n['created_at'], 'd/m/Y')}}
 				</div>
 			</p>
