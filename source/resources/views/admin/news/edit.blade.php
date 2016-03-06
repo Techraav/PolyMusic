@@ -24,9 +24,7 @@
             {!! csrf_field() !!}
 
     		<div class="form-group">
-                <label for="title" class="col-md-4 control-label">Titre</label>
-
-                <div class="col-md-6">
+                <div class="col-md-8 col-md-offset-2">
                     <input type="text" class="form-control" name="title" value="{{ $news['title'] }}" required>
                 </div>
             </div>
@@ -40,9 +38,7 @@
 
 
             <div class="form-group">
-                <label for="textArea" class="col-md-4 control-label">Contenu de la news</label>
-
-                <div class="col-md-6">
+                <div class="col-md-8 col-md-offset-2">
                     <textarea class="form-control" rows="10" name="content" required>{{ $news['content'] }}</textarea>
                     <div class="checkbox">
                         <label>
@@ -53,7 +49,7 @@
             </div>
                 
                 <div class="form-group buttons">
-                    <div class="col-md-4 col-md-offset-4">
+                    <div class="col-md-8 col-md-offset-2">
                         <button type="submit" class="btn btn-primary">Modifier</button>
                     </div>
                 </div>

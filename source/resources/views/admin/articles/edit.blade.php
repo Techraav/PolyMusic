@@ -40,7 +40,7 @@
 			
 		<div class="form-group">
 			<div class="col-md-10 col-md-offset-1">
-				<textarea rows="3" name="content" class="form-control" placeholder="Contenu de votre article..." required value="{{ $article->content }}"></textarea>
+				<textarea rows="3" name="content" class="form-control" placeholder="Contenu de votre article..." required>{{ $article->content }}</textarea>
 			</div>
 		</div>
 
