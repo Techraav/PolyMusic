@@ -29,6 +29,17 @@ class NewsController extends Controller {
   }
 
   /**
+   * Display a listing of the resource.
+   *
+   * @return Response
+   */
+  public function adminIndex()
+  {
+    $news = News::published()->orderBy('id', 'desc')->paginate(15);
+    return view('admin.news.index', compact('news'));
+  }
+
+  /**
    * Show the form for creating a new resource.
    *
    * @return Response

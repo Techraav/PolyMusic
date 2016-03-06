@@ -54,14 +54,14 @@ class ArticleController extends Controller {
    */
   public function show($slug)
   {
-    $articles = Article::where('slug', $slug)->first();
-    if(empty($articles))
+    $article = Article::where('slug', $slug)->first();
+    if(empty($article))
     {
       Flash::error('Cet article n\'existe pas.');
-      return view('error.404');
+      return view('errors.404');
     }
 
-    return view('articles.show', compact('articles'));
+    return view('articles.show', compact('article'));
   }
 
   /**
@@ -70,13 +70,13 @@ class ArticleController extends Controller {
    * @param  int  $id
    * @return Response
    */
-  public function edit($id)
+  public function edit($slug)
   {
-    $article = Article::where('id', $id)->first();
+    $article = Article::where('slug', $slug)->first();
     if(Auth::user()->id != $article->user_id && Auth::user()->level->level < 3)
     {
       Flash::error("Vous n'avez pas le droit de modifier cet article !");
-      return view('error.404');
+      return view('errors.404');
     }
     return view('admin.articles.edit', compact('article'));
   }
@@ -92,7 +92,7 @@ class ArticleController extends Controller {
     if(empty($article))
     {
       Flash::error('Cet article n\'existe pas ou a déjà été supprimé.');
-      return view('error.404');
+      return view('errors.404');
     }
 
     return view('admin.articles.delete', compact('article'));

@@ -10,7 +10,7 @@
 			<h1 align="center">{{ ucfirst($announcement->title) }} </h1>
 			@if($announcement->user_id == Auth::user()->id || Auth::user()->level->level > 3)
 				<div class="manage">
-					<a href="{{ url('announcements/edit/'.$announcement->id) }}" class="btn-edit glyphicon glyphicon-pencil"></a>
+					<a href="{{ url('announcements/edit/'.$announcement->slug) }}" class="btn-edit glyphicon glyphicon-pencil"></a>
 
 					<button onclick="dialogDeleteAnnouncement(this)"
 							id="{{ $announcement->id }}"
