@@ -8,7 +8,12 @@ class Article extends Model {
 
 	protected $table = 'articles';
 	public $timestamps = true;
-	protected $fillable = array('timestamps', 'title', 'subtitle', 'content', 'user_id', 'slug', 'category_id');
+	protected $fillable = array('timestamps', 'title', 'subtitle', 'content', 'user_id', 'slug', 'category_id', 'validated');
+
+	public function validate()
+	{
+		return $this->update(['validated'	=> 1 ]);
+	}
 
 	public function author()
 	{

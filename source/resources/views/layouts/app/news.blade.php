@@ -6,7 +6,7 @@
           @endif
     </div>
         <ul class="list-group">
-          @forelse( App\News::published()->orderBy('published_at', 'desc')->limit(10)->get() as $n)
+          @forelse( App\News::published()->orderBy('published_at', 'desc')->limit(5)->get() as $n)
           <li class="list-group-item news-item">
               <div class="news-infos"><p><span>{{ showDate($n['published_at'], 'Y-m-d', 'j M Y', false) }}</span></p></div> 
               <!-- <span class="trait"></span> -->

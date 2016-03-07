@@ -13,6 +13,7 @@
 					<a href="{{ url('announcements/edit/'.$announcement->slug) }}" class="btn-edit glyphicon glyphicon-pencil"></a>
 
 					<button onclick="dialogDeleteAnnouncement(this)"
+							link="{{ url('announcements/delete/'.$announcement->slug) }}"
 							id="{{ $announcement->id }}"
 							title="{{ $announcement->title }}"
 							class="btn-edit glyphicon glyphicon-trash">

@@ -168,7 +168,8 @@ class CreateBaseEntries extends Migration
                             neque egestas lacinia</p>',
             'user_id'   => 2,
             'slug'      => 'cours-de-guitare-1',
-            'category_id' => 3            
+            'category_id' => 3,
+            'validated' => 1            
             ]);
 
         // Create Article 'Cours de piano'
@@ -182,7 +183,9 @@ class CreateBaseEntries extends Migration
                             neque egestas lacinia</p>',
             'user_id'   => 3,
             'slug'      => 'cours-de-piano-2',
-            'category_id' => 3
+            'category_id' => 3,
+            'validated'     => 1
+
             
             ]);
 
@@ -279,7 +282,7 @@ class CreateBaseEntries extends Migration
             'user_id'   => 2,
             'content'   => '<p>contenu de la deuxieme annonce</p>',
             'title'     => 'test d\'une seconde annonce',
-            'slug'      => 'test-seconde-annonce-1',
+            'slug'      => 'test-seconde-annonce-2',
             'validated' => 1,
             'subject'   => 'Deuxieme annonce pour tester',
             'category_id'   => 1
@@ -291,7 +294,7 @@ class CreateBaseEntries extends Migration
             'user_id'   => 3,
             'content'   => '<p>azre</p>',
             'title'     => 'azr',
-            'slug'      => 'test-annonce-invalidee-1',
+            'slug'      => 'test-annonce-invalidee-3',
             'validated' => 0,
             'subject'   => 'Annonce invalidée pour tester',
             'category_id'   => 1
@@ -343,7 +346,8 @@ class CreateBaseEntries extends Migration
                             neque egestas lacinia</p>',
             'user_id'   => 1,
             'slug'      => 'premier-article-3',
-            'category_id'   => 2
+            'category_id'   => 2,
+            'validated'     => 1
             ]);
 
         // Create Article 'deuxieme article'

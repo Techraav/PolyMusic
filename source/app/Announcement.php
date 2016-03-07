@@ -10,6 +10,11 @@ class Announcement extends Model {
 	public $timestamps = true;
 	protected $fillable = array('timestamps', 'user_id', 'title', 'content', 'tags', 'slug', 'validated', 'subject', 'category_id');
 
+	public function validate()
+	{
+		return $this->update(['validated'	=> 1 ]);
+	}
+
 	public function comments()
 	{
 		return $this->hasMany('App\Comment');

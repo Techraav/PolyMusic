@@ -43,6 +43,17 @@ class AnnouncementController extends Controller {
         return view('admin.announcements.index', compact('announcements'));
     }
 
+    public function adminIndexValidated($value)
+    {
+        if($value != 0 && $value != 1)
+        {
+            Flash::error('Valeur incorrecte, impossible de charger les annonces validés/invalidés.');
+            return redirect('admin/announcements');
+        }
+        $announcements = Announcement::where('validated', $validated)->orderBy('id', 'desc')->paginate(15);
+        return view('admin.announcements.index', compact('announcements'));
+    }
+
     /**
     * Show the form for creating a new resource.
     *
@@ -61,8 +72,8 @@ class AnnouncementController extends Controller {
     */
     public function show($slug)
     {
-        $announcement = Announcement::where('slug', $slug)->where('validated', 1)->first();
-        if(empty($announcement))
+        $announcement = Announcement::where('slug', $slug)->first();
+        if(empty($announcement) || ($announcement->validated == 0 && (Auth::guest() || (Auth::user()->id != $announcement->user_id && Auth::user()->level_id < 3))) )
         {
           Flash::error('Cette annonce n\'existe pas !');
           return view('errors.404');
@@ -170,6 +181,14 @@ class AnnouncementController extends Controller {
         return redirect('announcements/view/' . $slug);  
     }
 
+    public function validatePost($id)
+    {
+        $announcement = Announcement::find($id);
+        $announcement->validate();
+        Flash::success("L'annonce a bien été validée.");
+        return Redirect::back();
+    }
+
     /**
     * Remove the specified resource from storage.
     *
@@ -178,9 +197,11 @@ class AnnouncementController extends Controller {
     */
     public function destroy($slug)
     {
-        Announcement::where('slug', $slug)->first()->delete();
-        Flash::success('L\'annonce a bien été supprimée.');
-        return redirect('announcements');
+        $announcement = Announcement::where('slug', $slug)->first();
+        $announcement->update(['validated' => 0]);
+        makeModification('announcements', 'Announcement "'.$announcement->title.'" has been unvalidated');
+        Flash::success('L\'annonce a bien été invalidée.');
+        return Auth::user()->level_id > 2 ? redirect('admin/announcements') : redirect('announcements');
     }
 
     // ____________________________________________________________________________________________________

@@ -25,16 +25,24 @@
 					<td>{!! printUserLink($n->user_id) !!}</td>
 					<td><a href="{{ url('news/view/'.$n->slug) }}">{{ ucfirst($n->title) }}</a></td>
 					<td align="center">{{ showDate($n->published_at, 'Y-m-d', 'd/m/Y') }}</td>
-					<td align="center"><span class="icon-validated glyphicon glyphicon-{{ $n->active == 1 && strtotime($n->published_at) <= time() ? 'ok' : 'remove' }}"></span></td>
 					<td align="center" class="manage">
-					@if(Auth::user()->level->level > 2)							
-						<button onclick="dialogDelete(this)" 
-								slug="{{ $n->slug }}" 
-								align="right" 
-								link="{{ url('admin/news/delete/'.$n->slug) }}" 
-								title="Supprimer la news ?" 
-								class="glyphicon glyphicon-trash">
-						</button>
+						<a href="{{ $n->active == 1 ? url('admin/news/validated/1') : url('admin/news/validated/0') }}"
+						   class="icon-validated glyphicon glyphicon-{{ $n->active == 1 ? 'ok' : 'remove' }}">
+						</a>
+					</td>
+					<td align="center" class="manage">
+					@if(Auth::user()->level_id > 2)		
+						@if($n->active == 1)					
+							<button onclick="dialogDelete(this)" 
+									slug="{{ $n->slug }}" 
+									align="right" 
+									link="{{ url('admin/news/delete/'.$n->slug) }}" 
+									title="Supprimer la news ?" 
+									class="glyphicon glyphicon-trash">
+							</button>
+						@else
+							&nbsp; <a title="Activer la news ?" class="glyphicon glyphicon-plus" href="{{ url('admin/news/activate/'.$n->id) }} "></a>&nbsp;
+						@endif
 						<a class="glyphicon glyphicon-pencil" href="{{ url('admin/news/edit/'.$n['slug']) }}"></a>	
 					@else
 						-

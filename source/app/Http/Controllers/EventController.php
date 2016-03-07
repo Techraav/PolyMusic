@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Event;
+use App\Band;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -28,6 +29,22 @@ class EventController extends Controller {
     {
         $events = Event::orderBy('name')->paginate(15);
         return view('admin.events.index', compact('events'));
+    }
+
+    public function removeBand($event_id, $band_id)
+    {
+        $event = Event::find($event_id);
+        $event->bands()->detach([$band_id]);
+        Flash::success('Le groupe a bien été retiré de l\'événement.');
+        return Redirect::back();
+    }
+
+    public function addBand($event_id, $band_id)
+    {
+        $band = Band::find($band_id);
+        $band->events()->sync([$event_id]);
+        Flash::success('Le groupe a bien été ajouté de l\'événement.');
+        return Redirect::back();
     }
 
     /**
@@ -76,7 +93,9 @@ class EventController extends Controller {
             return Redirect::back();
         }
 
-        return view('events.manage', compact('event'));
+        $bands = Band::orderBy('name')->paginate(15);
+
+        return view('events.manage', compact('event', 'bands'));
 
     }
 

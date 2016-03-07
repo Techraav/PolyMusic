@@ -10,7 +10,10 @@
 		<p>Voici une vue d'ensemble des événements créé.</p>
 	</div>
 
-	<h1>Liste des événements</h1>
+	<h1 align="center">Liste des événements</h1>
+
+	<br />
+	
 	<table class="table table-triped table-hover">
 		<thead>
 			<tr>

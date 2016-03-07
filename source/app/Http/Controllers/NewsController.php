@@ -40,6 +40,32 @@ class NewsController extends Controller {
     return view('admin.news.index', compact('news'));
   }
 
+  public function validated($value)
+  {
+    if($value != 0 && $value != 1)
+    {
+        Flash::error('Valeur incorrecte, impossible de charger les news validés/invalidés.');
+        return redirect('admin/news');
+    }
+
+    $news = News::where('active', $value)->orderBy('published_at', 'desc')->paginate(15);
+    if(empty($news[0]))
+    {
+      Flash::error('Aucune news ne correspond à votre demande.');
+      return redirect('admin/news');
+    }
+    return view('admin.news.index', compact('news'));
+  }
+
+  public function activate($id)
+  {
+    $news = News::find($id);
+    $news->activate();
+
+    Flash::success("La news a bien été activée.");
+    return Redirect::back();
+  }
+
   /**
    * Show the form for creating a new resource.
    *
@@ -76,8 +102,13 @@ class NewsController extends Controller {
   public function show($slug)
   {
     $news = News::published()->where('slug', $slug)->first();
-    if(empty($news) || $news->active == 0)
+    if(empty($news))
     {
+      if(Auth::check() && Auth::user()->level_id > 2)
+      {
+        $news = News::where('slug', $slug)->first();
+        return view('news.show', compact('news'));
+      }
       Flash::error('Cette news n\'existe pas.');
       return redirect('news');
     }
@@ -199,8 +230,9 @@ class NewsController extends Controller {
   public function destroy(Request $request, $slug)
   {
     $news = News::where('slug', $slug);
-    $news->delete();
-    Flash::success('La news a bien été supprimée.');
+    $news->update(['active' => 0]);
+
+    Flash::success('La news a bien été désactivée.');
     return Redirect::back() ;
   }
 

@@ -4377,7 +4377,7 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 .nav-tabs>li{
 	float:left;
 	margin-bottom: -2px;
-	font-size: 22px;
+	font-size: 21px;
 	font-weight: bold;
 	letter-spacing: -2px;
 	color: #2C3E50;
@@ -4388,7 +4388,7 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 	font-weight: normal !important;
 	/* transition: border 0s !important; */
 	margin-right: 0;
-	padding: 7px 24px;
+	padding: 7px 20px;
 	border-bottom: 4px solid rgba(44, 62, 80, 0);
 	transition: all 0.3s ease-in-out !important;
 }
@@ -8608,4 +8608,8 @@ iframe {
     height: 100%;
     display:block;
     border: none;
+}
+
+.panel-welcome img{
+	width:100%;
 }

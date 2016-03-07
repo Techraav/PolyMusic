@@ -16,6 +16,7 @@ class CreateArticlesTable extends Migration {
 			$table->integer('user_id')->unsigned()->index();
 			$table->string('slug', 255)->index();
 			$table->integer('category_id')->index()->unsigned()->default(1);
+			$table->integer('validated')->unsigned()->default(1);
 		});
 	}
 

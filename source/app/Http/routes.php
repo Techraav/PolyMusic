@@ -160,6 +160,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:3'], function(){
 	// ANNOUNCEMENTS : GET
 	Route::get('announcements', 	'AnnouncementController@adminIndex')	->name('announcements.adminindex');
 	Route::get('announcements/{category}', 	'AnnouncementController@adminIndex')	->name('announcements.adminindexcategory');
+	Route::get('announcements/validated/{value}', 	'AnnouncementController@adminIndexValidated')	->name('announcements.adminindexvalidated');
+	Route::get('announcements/validate/{id}', 'AnnouncementController@validatePost')->name('announcements.validate');
 
 // _____________________________________________________________________________________________________________
 
@@ -168,6 +170,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:3'], function(){
 	Route::get('news/edit/{slug}', 		'NewsController@edit')		->name('news.edit');
 	Route::get('news/create', 			'NewsController@create')	->name('news.create');
 	Route::get('news/delete/{slug}', 	'NewsController@delete')	->name('news.delete');
+	Route::get('news/validated/{value}','NewsController@validated')	->name('news.validated');
+	Route::get('news/activate/{id}', 	'NewsController@activate')->name('news.active');
 	
 	// NEWS : POST
 	Route::post('news/create', 			'NewsController@store')		->name('news.store');
@@ -188,9 +192,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:3'], function(){
 
 	// ARTICLES : GET
 	Route::get('articles',					'ArticleController@adminIndex')	->name('articles.adminindex');
+	Route::get('articles/{category}',		'ArticleController@adminIndex')	->name('articles.adminIndexCategory');
+	Route::get('articles/validated/{value}','ArticleController@adminIndexValidated')->name('articles.adminIndexValidated');
 	Route::get('articles/create', 			'ArticleController@create')		->name('articles.create');
 	Route::get('articles/edit/{slug}', 		'ArticleController@edit')		->name('articles.edit');
 	Route::get('articles/delete/{slug}', 	'ArticleController@delete') 	->name('articles.delete');
+	Route::get('articles/validate/{id}', 	'ArticleController@validatePost')	->name('articles.validate');
 
 	// ARTICLES : POST
 	Route::post('articles/create', 			'ArticleController@store')	->name('articles.store');
@@ -233,6 +240,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:3'], function(){
 
 // _____________________________________________________________________________________________________________
 
+	Route::get('events', 'EventController@adminIndex')->name('events.adminindex');
+	Route::post('events/{event_id}/removeband/{band_id}', 'EventController@removeBand')->name('events.removeBand');
+	Route::post('events/{event_id}/addband/{band_id}', 'EventController@addband')->name('events.addband');
 	Route::get('events', 'EventController@adminIndex')->name('events.adminindex');
 // _____________________________________________________________________________________________________________
 

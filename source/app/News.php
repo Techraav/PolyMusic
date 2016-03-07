@@ -12,6 +12,12 @@ class News extends Model {
 	protected $fillable = array('published_at', 'title', 'content', 'user_id', 'active', 'slug');
 	protected $nameField = 'title';
 
+
+	public function activate()
+	{
+		return $this->update(['active' => 1]);
+	}
+
 	public function author()
 	{
 		return $this->belongsTo('App\User');

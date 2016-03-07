@@ -5,7 +5,16 @@
 	<div class="jumbotron">
 		<h1 align="center">Gestion des articles</h1>
 		<p>Voici une vue densemble des annonces.</p>
+		<hr />
+		<p>Nombre total d'articles créés : {{ App\Article::count() }}.</p>
 	</div>
+
+	<h2 align="center">Liste des articles</h2>
+	@if(isset($category))
+		<h4 align="center" class="help-block">Catégorie : <i>{{ucfirst($category)}}</i></h4>
+	@endif
+
+	<br />
 
 	<table class="table table-hover table-striped">
 		<thead>
@@ -13,8 +22,8 @@
 				<td width="150" align="center"><b>Créé le</b></td>
 				<td><b>Auteur</b></td>
 				<td><b>Titre</b></td>
-				<td align="center"><b>Sous-titre</b></td>
-				<td align="center" width="100"><b>Categorie</b></td>				
+				<td align="center" width="100"><b>Categorie</b></td>	
+				<td align="center" width="80"><b>Validé</b></td>			
 				<td align="center" width="100"><b>Gérer</b></td>
 			</tr>
 		</thead>
@@ -23,18 +32,27 @@
 				<tr>
 					<td align="center">{{ showDate($a->created_at, 'Y-m-d H:i:s', 'd/m/Y') }}</td>
 					<td>{!! printUserLink($a->user_id) !!}</td>
-					<td><a href="{{ url('announcements/view/'.$a->slug) }}">{{ ucfirst($a->title) }}</a></td>
-					<td><a href="{{ url('announcements/view/'.$a->slug) }}">{{ ucfirst($a->subtitle) }}</a></td>
-					<td align="center"><a href="{{ url('admin/announcements/'.$a->category->id) }}">{{ ucfirst($a->category->name) }}</a></td>
-					<td align="center">
-					@if(Auth::user()->level->level > 2)							
-						<button onclick="dialogDelete(this)" 
-								slug="{{ $a->slug }}" 
-								align="right" 
-								link="{{ url('admin/articles/delete/'.$a->slug) }}" 
-								title="Supprimer l'article ?" 
-								class="glyphicon glyphicon-trash">
-						</button>
+					<td><a href="{{ url('articles/view/'.$a->slug) }}">{{ ucfirst($a->title) }}</a></td>
+					<td align="center"><a href="{{ url('admin/articles/'.$a->category->id) }}">{{ ucfirst($a->category->name) }}</a></td>
+					<td align="center" class="manage">
+						<a href="{{ $a->validated == 1 ? url('admin/articles/validated/1') : url('admin/articles/validated/0') }}"
+						   class="icon-validated glyphicon glyphicon-{{ $a->validated == 1 ? 'ok' : 'remove' }}">
+						</a>
+					</td>
+					<td align="center" class="manage">
+
+					@if(Auth::user()->level->level > 2)	
+						@if($a->validated == 1)
+							<button onclick="dialogDelete(this)" 
+									slug="{{ $a->slug }}" 
+									align="right" 
+									link="{{ url('admin/articles/delete/'.$a->slug) }}" 
+									title="Supprimer l'article ?" 
+									class="glyphicon glyphicon-trash">
+							</button>
+						@else
+							&nbsp; <a title="Valider l'article ?" class="glyphicon glyphicon-ok" href="{{ url('admin/articles/validate/'.$a->id) }}"></a>&nbsp;						
+						@endif						
 						<a class="glyphicon glyphicon-pencil" href="{{ url('admin/articles/edit/'.$a['slug']) }}"></a>	
 					@else
 						-

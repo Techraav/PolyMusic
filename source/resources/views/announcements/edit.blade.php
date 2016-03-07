@@ -1,4 +1,4 @@
-@extends('layouts.iframe')
+@extends('layouts.app')
 
 @section('content')
 
