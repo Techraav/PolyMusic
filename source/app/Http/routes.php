@@ -240,15 +240,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:3'], function(){
 
 // _____________________________________________________________________________________________________________
 
-	Route::get('events', 'EventController@adminIndex')->name('events.adminindex');
-	Route::post('events/{event_id}/removeband/{band_id}', 'EventController@removeBand')->name('events.removeBand');
-	Route::post('events/{event_id}/addband/{band_id}', 'EventController@addband')->name('events.addband');
-	Route::get('events', 'EventController@adminIndex')->name('events.adminindex');
+	Route::get('events', 'EventController@adminIndex')									->name('events.adminindex');
+	Route::post('events/{event_id}/removeband/{band_id}', 'EventController@removeBand')	->name('events.removeBand');
+	Route::post('events/{event_id}/addband/{band_id}', 'EventController@addband')		->name('events.addband');
+	Route::get('events', 'EventController@adminIndex')									->name('events.adminindex');
 // _____________________________________________________________________________________________________________
 
 
 	// USERS : GET
-	Route::get('users',	'UserController@index')	->name('users.index');	
+	Route::get('users',	'UserController@index')				->name('users.index');
+	Route::get('users/edit/{slug}', 'UserController@edit')	->name('user.edit');	
 
 // _____________________________________________________________________________________________________________
 

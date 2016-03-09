@@ -86,12 +86,6 @@ class ArticleController extends Controller {
 		  return view('errors.404');
 		}
 
-	    if($article->validated == 0 && Auth::check() && Auth::user()->level_id > 2)
-	    {
-	        $article = Article::where('slug', $slug)->first();
-	        return view('articles.show', compact('articles'));
-      	}
-
 		return view('articles.show', compact('article'));
 	}
 
