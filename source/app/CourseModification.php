@@ -12,17 +12,17 @@ class CourseModification extends Model {
 
 	public function course()
 	{
-		return $this->belongsTo('App\Course');
+		return $this->belongsTo('App\Course')->select(['slug', 'user_id', 'name', 'id']);
 	}
 
 	public function author()
 	{
-		return $this->belongsTo('App\User', 'author_id');
+		return $this->belongsTo('App\User', 'author_id')->select(['slug', 'first_name', 'last_name', 'id']);
 	}
 
 	public function user()
 	{
-		return $this->belongsTo('App\User', 'user_id');
+		return $this->belongsTo('App\User', 'user_id')->select(['slug', 'first_name', 'last_name', 'id']);
 	}
 
 }

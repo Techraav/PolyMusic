@@ -12,7 +12,7 @@ class Course extends Model {
 
 	public function users()
 	{
-		return $this->belongsToMany('App\User');
+		return $this->belongsToMany('App\User')->select(['id', 'slug', 'first_name', 'last_name']);
 	}
 
 	public function instrument()
@@ -32,7 +32,7 @@ class Course extends Model {
 
 	public function manager()
 	{
-		return $this->belongsTo('App\User', 'user_id');
+		return $this->belongsTo('App\User', 'user_id')->select(['id', 'slug', 'first_name', 'last_name']);
 	}
 
 	public function modifications()

@@ -1,9 +1,13 @@
+<?php 
+    $modif = App\Modification::orderBy('id', 'desc')->with('user')->limit(5)->get(['message', 'user_id', 'id', 'table', 'created_at'])
+?>
+
 <div class="panel panel-default panel-modifications">
     <div class="panel-heading">
         <p align="center"><a align="right" href="{{ url('admin/modifications') }}"><b>Dernières modifications</b></a></p>
     </div>
     <ul class="list-group">
-        @forelse( App\Modification::orderBy('id', 'desc')->limit(5)->get() as $m)
+        @forelse( $modif as $m)
         <li class="list-group-item">
         	<ul class="list-group">
         		<li class="list-group-item">
