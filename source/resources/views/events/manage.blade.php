@@ -4,7 +4,7 @@
 
 	<div class="col-lg-8 col-lg-offset-2">
 		<h1 align="center">{{ ucfirst($event->name) }} </h1>
-		<h4 class="help-block" align="center">Créateur : {!! printUserLink($event->user_id) !!}</h4>
+		<h4 class="help-block" align="center">Créateur : {!! printUserLinkV2($event->manager) !!}</h4>
 		<br />
 
 		<h3 align="center">Groupes asociés à l'événement :</h3>
@@ -21,7 +21,7 @@
 			<tbody>
 				@forelse($event->bands as $b)
 					<tr>
-						<td>{!! printUserLink($b->user_id) !!}</td>
+						<td>{!! printUserLinkV2($b->manager) !!}</td>
 						<td><a href="{{ url('bands/show/'.$b->slug) }}">{{ ucfirst($b->name) }}</a></td>
 						<td align="center" class="manage">
 							@if($b->user_id == Auth::user()->id || Auth::user()->level_id > 2)
@@ -66,7 +66,7 @@
 					@if(!$b->events->contains($event->id))
 						<?php $n += 1 ?>
 						<tr>
-							<td>{!! printUserLink($b->user_id) !!}</td>
+							<td>{!! printUserLinkV2($b->manager) !!}</td>
 							<td><a href="{{ url('bands/show/'.$b->slug) }}">{{ ucfirst($b->name) }}</a></td>
 							<td align="center" class="manage">
 								@if($b->user_id == Auth::user()->id || Auth::user()->level_id > 2)

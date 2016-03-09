@@ -15,12 +15,12 @@ class Instrument extends Model {
 
 	public function players()
 	{
-		return $this->hasMany('App\BandUser');
+		return $this->hasMany('App\BandUser', 'instrument_id')->with('user');
 	}
 
 	public function courses()
 	{
-		return $this->hasMany('App\Course');
+		return $this->hasMany('App\Course')->with('band');
 	}
 
 }

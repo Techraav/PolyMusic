@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+p@extends('layouts.admin')
 
 @section('content')
 
@@ -23,7 +23,7 @@
 		<tbody>
 			@forelse($modifs as $m)
 				<tr>
-					<td>{!! printUserLink($m->user_id) !!}</td>
+					<td>{!! printUserLinkV2($m->author) !!}</td>
 					<td>{{ $m->table }}</td>
 					<td>{{ $m->message }}</td>
 				</tr>

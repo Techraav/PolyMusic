@@ -30,6 +30,7 @@
 					<td align="center"><b>Responsable</b></td>
 					<td align="center"><b>Élèves</b></td>
 					<td align="center"><b>Profs</b></td>
+					<td align="center"><b>Documents</b></td>
 					<td align="center"><b>Demande(s)</b></td>
 					<td align="center"><b>Gérer</b></td>
 				</tr>
@@ -45,9 +46,10 @@
 					<td>{{ ucfirst(day($c->day)) }}</td>
 					<td align="center" >{{ date_format(date_create_from_format('H:i:s', $c->start), 'H:i') }} - {{ date_format(date_create_from_format('H:i:s', $c->end), 'H:i') }}</td>
 					</td>
-					<td align="center">{!! printUserLink($c->user_id) !!}</td>
+					<td align="center">{!! printUserLinkV2($c->manager) !!}</td>
 					<td align="center">{{ App\CourseUser::where('course_id', $c->id)->where('level', 0)->count() }}</td>
 					<td align="center">{{ App\CourseUser::where('course_id', $c->id)->where('level', 1)->count() }}</td>
+					<td align="center"><a href="{{ url('admin/documents/course/'.$c->id) }}">{{ App\Document::where('course_id', $c->id)	->count() }}</a></td>
 					<td align="center">
 					 @if(App\CourseUser::where('course_id', $c->id)->where('validated', 0)->count() > 0)
 							<p class="text-danger"> <b>{{ App\CourseUser::where('course_id', $c->id)->where('validated', 0)->count() }}</b></p>

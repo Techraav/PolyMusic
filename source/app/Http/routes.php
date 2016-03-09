@@ -250,6 +250,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:3'], function(){
 	// USERS : GET
 	Route::get('users',	'UserController@index')	->name('users.index');	
 
+// _____________________________________________________________________________________________________________
+
+	Route::get('documents', 'DocumentController@index')->name('document.index');
+	Route::get('documents/user/{id}', 'DocumentController@fromUser')->name('document.fromuser');
+	Route::get('documents/course/{id}', 'DocumentController@forCourse')->name('document.forcourse');
+
 
 // ____________________________________________________________________________________________________
 //

@@ -6,7 +6,7 @@
 		<div class=" row">
 			<div class="col-lg-4 left">
 				<h1 align="center">{{ ucfirst($band->name) }}</h1>
-				<span class="help-block">Manager : {!! printUserLink($band->manager()->id) !!}</span>
+				<span class="help-block">Manager : {!! printUserLinkV2($band->manager) !!}</span>
 		<!-- 		<br />
 				<br /> -->
 				<p align="center"><img class="band-picture" width="250" src=" {{ URL::asset('/img/band_pictures/'.$band->image) }} " /></p>
@@ -32,7 +32,7 @@
 							<tbody>
 								@foreach($band->members as $m)
 								<tr>
-									<td align="center">{!! printUserLink($m->id) !!} {!! $m->id == $band->user_id ? '<span class="help-block inline">(Manager)</span>' : '' !!}</td>
+									<td align="center">{!! printUserLinkV2($m) !!} {!! $m->id == $band->user_id ? '<span class="help-block inline">(Manager)</span>' : '' !!}</td>
 									<td align="center">{{ App\BandUser::where('user_id', $m->id)->where('band_id', $band->id)->first()->instrument->name }}</td>
 								</tr>
 								@endforeach
@@ -42,7 +42,7 @@
 						@foreach($band->members as $m)
 							<div class="member">
 								<p align="center"><img class="profil-picture" src="{{ URL::asset('img/profil_pictures/'.$m->profil_picture) }}" /></p>
-								<p align="center">{!! printUserLink($m->id) !!} </p>
+								<p align="center">{!! printUserLinkV2($m) !!} </p>
 								<p class="instrument" align="center"><i>{{ App\BandUser::where('user_id', $m->id)->where('band_id', $band->id)->first()->instrument->name }}</i></p>
 								@if ($m->id == $band->user_id)
 									<p align="center"<span class="help-block inline">(Manager)</span></p>

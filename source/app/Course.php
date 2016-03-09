@@ -32,12 +32,12 @@ class Course extends Model {
 
 	public function manager()
 	{
-		return $this->hasOne('App\User');
+		return $this->belongsTo('App\User', 'user_id');
 	}
 
-	public function course_modification()
+	public function modifications()
 	{
-		return $this->belongsTo('App\CourseModification');
+		return $this->hasMany('App\CourseModification');
 	}
 
 	public function setDefaultInstrument()

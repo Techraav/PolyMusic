@@ -21,4 +21,14 @@ class BandUser extends Model {
 		return $this->update(['instrument_id' => Instrument::$defaultValue]);
 	}
 
+	public function user()
+	{
+		return $this->belongsTo('App\User', 'user_id');
+	}
+
+	public function band()
+	{
+		return $this->belongsTo('App\Band', 'band_id');
+	}
+
 }

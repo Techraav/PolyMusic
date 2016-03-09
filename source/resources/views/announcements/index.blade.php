@@ -28,7 +28,7 @@
 			@forelse($announcements as $a)
 				<tr>
 			    	<td>{{date_format($a['created_at'], 'd/m/Y')}}</td>
-			    	<td>{!! printUserLink($a->user_id) !!}</td>
+			    	<td>{!! printUserLinkV2($a->author) !!}</td>
 			    	<td><a href="{{ url('announcements/view/'.$a['slug'])}}">{{ucfirst($a['title'])}}</a></td>
 			    	<td>{{$a['subject']}}</td>
 			    </tr>

@@ -15,7 +15,7 @@
 			</h2>
 			<p>{!! $news['content'] !!} <br/>
 				<div class="news-datas" align="right">Créée par 
-					<b>{!! printUserLink($news->user_id) !!}</b> le {{date_format($news['created_at'], 'd/m/Y')}}
+					<b>{!! printUserLinkV2($news->author) !!}</b> le {{date_format($news['created_at'], 'd/m/Y')}}
 				</div>
 			</p>
 		</div>

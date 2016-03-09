@@ -7,7 +7,7 @@
         <li class="list-group-item">
         	<ul class="list-group">
         		<li class="list-group-item">
-        			<b>Par</b> : {!! printUserLink($m->user_id) !!}, le {{ date_format($m->created_at, 'd/m/Y') }} à {{ date_format($m->created_at, 'H:i:s') }} 
+        			<b>Par</b> : {!! printUserLinkV2($m->user) !!}, le {{ date_format($m->created_at, 'd/m/Y') }} à {{ date_format($m->created_at, 'H:i:s') }} 
         		</li>
         		<li class="list-group-item"><b>Table</b> : {{ $m->table }}</li>
         		<li class="list-group-item"><b>Infos</b> : {{ $m->message }}</li>

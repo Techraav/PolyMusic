@@ -21,6 +21,11 @@ class Band extends Model {
 		return $this->belongsToMany('App\Event');
 	}
 
+	public function manager()
+	{
+		return $this->belongsTo('App\User', 'user_id');
+	}
+
 	public function scopeValidated($query)
 	{
 		return $query->where('validated', 1);
@@ -29,12 +34,6 @@ class Band extends Model {
 	public function scopeUnvalidated($query)
 	{
 		return $query->where('validated', 0);
-	}
-
-	public function manager()
-	{
-		$id =  $this->user_id;
-		return User::find($id);
 	}
 
 }

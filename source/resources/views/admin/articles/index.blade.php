@@ -10,7 +10,7 @@
 	</div>
 
 	<h2 align="center">Liste des articles</h2>
-	@if(isset($category))
+	@if(isset($category) && $category != '')
 		<h4 align="center" class="help-block">Catégorie : <i>{{ucfirst($category)}}</i></h4>
 	@endif
 
@@ -31,7 +31,7 @@
 			@forelse($articles as $a)
 				<tr>
 					<td align="center">{{ showDate($a->created_at, 'Y-m-d H:i:s', 'd/m/Y') }}</td>
-					<td>{!! printUserLink($a->user_id) !!}</td>
+					<td>{!! printUserLinkV2($a->author) !!}</td>
 					<td><a href="{{ url('articles/view/'.$a->slug) }}">{{ ucfirst($a->title) }}</a></td>
 					<td align="center"><a href="{{ url('admin/articles/'.$a->category->id) }}">{{ ucfirst($a->category->name) }}</a></td>
 					<td align="center" class="manage">

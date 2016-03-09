@@ -7,7 +7,7 @@ html{
 }
 
 body{
-	margin:0
+	margin:0;
 }
 
 article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{
@@ -1354,7 +1354,7 @@ body{
 	font-size:15px;
 	line-height:1.42857143;
 	color:#2c3e50;
-	background-color:#ffffff
+	background-color:#ffffff;
 }
 
 input,button,select,textarea{
@@ -4380,7 +4380,7 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 	font-size: 21px;
 	font-weight: bold;
 	letter-spacing: -2px;
-	color: #2C3E50;
+	color: #8194A7;
 	font-weight: bold;
 }
 
@@ -8552,7 +8552,7 @@ span.time {
 
 .nav-tabs>li>a:hover, .nav-tabs>li.active a, .nav-tabs>li>a:focus {color: inherit;}
 
-.nav-tabs>li>a:hover, .nav-tabs>li.active a {border-bottom-color: #2C3E50;}
+.nav-tabs>li>a:hover, .nav-tabs>li.active a {border-bottom-color: #8194A7;}
 
 span.help-block.inline {
     display: inline;
@@ -8591,8 +8591,8 @@ span.help-block.inline {
 }
 
 .nav-tabs>li.active>a {
-    color: rgba(44, 62, 80, 0.59);
-    border-color: rgba(44, 62, 80, 0.59);
+    color: rgb(44, 62, 80);
+    border-color: rgb(44, 62, 80);
 }
 
 table.table-hover a {

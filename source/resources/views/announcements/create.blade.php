@@ -78,7 +78,7 @@
                             <p id="content" > </p>
                         </span>
                         <br />
-                        <p align="right" class="announcement-infos">Rédigé par {!! printUserLink(Auth::user()->id) !!}, le {{ date('d/m/Y') }}</p>
+                        <p align="right" class="announcement-infos">Rédigé par {!! printUserLinkV2(Auth::user()) !!}, le {{ date('d/m/Y') }}</p>
                     </div>
                 </div>
                 <div class="modal-footer">

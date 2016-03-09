@@ -22,7 +22,7 @@
 			@forelse($news as $n)
 				<tr>
 					<td align="center">{{ showDate($n->created_at, 'Y-m-d H:i:s', 'd/m/Y') }}</td>
-					<td>{!! printUserLink($n->user_id) !!}</td>
+					<td>{!! printUserLinkV2($n->author) !!}</td>
 					<td><a href="{{ url('news/view/'.$n->slug) }}">{{ ucfirst($n->title) }}</a></td>
 					<td align="center">{{ showDate($n->published_at, 'Y-m-d', 'd/m/Y') }}</td>
 					<td align="center" class="manage">

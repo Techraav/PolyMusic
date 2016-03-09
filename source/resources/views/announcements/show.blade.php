@@ -26,7 +26,7 @@
 				{!! $announcement->content !!}
 			</span>
 			<br />
-			<p align="right" class="announcement-infos">Rédigé par {!! printUserLink($announcement->user_id) !!}, le {{ date_format($announcement['created_at'], 'd/m/Y') }}</p>
+			<p align="right" class="announcement-infos">Rédigé par {!! printUserLinkV2($announcement->author) !!}, le {{ date_format($announcement['created_at'], 'd/m/Y') }}</p>
 	</div>
 </div>
 <div class="announcement-comments">
@@ -38,7 +38,7 @@
 		<blockquote class="comment">
 		<div class="row">
 				<div class="comment-member col-sm-3">
-					<h4 align="center"><b>{!! printUserLink($c->user_id) !!}</b></h4>
+					<h4 align="center"><b>{!! printUserLinkV2($c->author) !!}</b></h4>
 					<p align="center"><img class="comment-pp" src=" {{ URL::asset('/img/profil_pictures/'.userData('profil_picture', $c->user_id)) }} " /></p>
 					<span align="center" class="rang">{{ ucfirst(App\Level::where('level', userData('level', $c->user_id))->first()->name) }}</span>
 				</div> 

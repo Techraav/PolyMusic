@@ -15,6 +15,8 @@ class CreateDocumentsTable extends Migration {
 			$table->integer('user_id')->unsigned()->index();
 			$table->text('description');
 			$table->integer('course_id')->index()->unsigned();
+			$table->tinyInteger('validated')->index()->unsigned()->default(1);
+			
 		});
 	}
 

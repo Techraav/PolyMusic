@@ -19,7 +19,7 @@
 			{!! $article->content !!}
 		</span>
 		<br />
-		<p align="right" class="announcement-infos">Rédigé par {!! printUserLink($article->user_id) !!}, le {{ date_format($article['created_at'], 'd/m/Y') }}</p>
+		<p align="right" class="announcement-infos">Rédigé par {!! printUserLinkV2($article->author) !!}, le {{ date_format($article['created_at'], 'd/m/Y') }}</p>
 	</div>	
 </div>
 @stop

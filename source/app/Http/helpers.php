@@ -26,44 +26,9 @@
 		return day($day);
 	}
 
-	function printDay($id, $three = false) 
+	function printDay($id, $three=false) 
 	{
-		$day = '';
-		switch ($id) {
-			case 0:
-				$day = $three ? 'Lun' : 'Lundi';
-				break;
-
-			case 1:
-				$day = $three ? 'Mar' : 'Mardi';
-				break;
-			
-			case 2:
-				$day = $three ? 'Mer' : 'Mercredi';
-				break;
-			
-			case 3:
-				$day = $three ? 'Jeu' : 'Jeudi';
-				break;
-			
-			case 4:
-				$day = $three ? 'Ven' : 'Vendredi';
-				break;
-			
-			case 5:
-				$day = $three ? 'Sam' : 'Samedi';
-				break;
-			
-			case 6:
-				$day = $three ? 'Dim' : 'Dimanche';
-				break;
-			
-			default:
-				$day = 'undefinded';
-				break;
-		}
-
-		return $day;
+		return day($id, $three);
 	}
 
 	/**
@@ -92,10 +57,15 @@
 	*
 	* @return $day string
 	*/
-	function day($n)
+	function day($n, $tree=false)
 	{
 		$days = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
 		$day = $days[$n];
+
+		if($three)
+		{
+			$day = substr($day, 3);
+		}
 
 		return $day;
 	}
@@ -135,6 +105,49 @@
 		}
 
 		$link = '<a '.$class.' href="'.url('users/'.$slug).'">'.ucfirst($first).' '.ucfirst($second).'</a>';
+
+		return $link;
+	}
+
+	function printLink($url, $msg, array $attributes=[], array $classes=[])
+	{
+		$class = '';
+		if(!empty($classes))
+		{
+			$class .= 'class="';
+			foreach ($classes as $c) {
+				$class .= $c.' ';
+			}
+			$class .= '"';
+		}
+		$link = '<a ';
+
+		if(!empty($attributes))
+		{
+			foreach($attributes as $k => $v)
+				$link .= $k.'="'.$v.'" ';
+		}
+
+		$link .= $class.' href="'.url($url).'">'. $msg .'</a>';
+
+		return $link;
+	}
+
+	function printUserLinkV2(App\User $user, $firstThenLast = true, array $classes=[])
+	{
+		$class = '';
+		if(!empty($classes))
+		{
+			$class .= 'class="';
+			foreach ($classes as $c) {
+				$class .= $c.' ';
+			}
+			$class .= '"';
+		}
+
+		$name = $user->first_name.' '.$user->last_name;
+
+		$link = '<a '.$class.' href="'.url('users/'.$user->slug).'">'. $name .'</a>';
 
 		return $link;
 	}

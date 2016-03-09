@@ -50,7 +50,7 @@ class AnnouncementController extends Controller {
             Flash::error('Valeur incorrecte, impossible de charger les annonces validés/invalidés.');
             return redirect('admin/announcements');
         }
-        $announcements = Announcement::where('validated', $validated)->orderBy('id', 'desc')->paginate(15);
+        $announcements = Announcement::where('validated', $value)->orderBy('id', 'desc')->paginate(15);
         return view('admin.announcements.index', compact('announcements'));
     }
 

@@ -49,14 +49,19 @@ class User extends Model implements AuthenticatableContract,
 		return $this->belongsTo('App\Department');
 	}
 
-	public function emails_sent()
+	public function emailSent()
 	{
-		return $this->hasMany('App\Email');
+		return $this->hasMany('App\Email', 'sender_id');
 	}
 
-	public function emails_received()
+	public function documents()
 	{
-		return $this->hasMany('App\Email');
+		return $this->hasMany('App\Document');
+	}
+
+	public function emailReceived()
+	{
+		return $this->hasMany('App\Email', 'receiver_id');
 	}
 
 	public function courses()
@@ -76,17 +81,17 @@ class User extends Model implements AuthenticatableContract,
 
 	public function modifications()
 	{
-		return $this->belongsToMany('App\Modification');
+		return $this->hasMany('App\Modification');
 	}
 
-	public function course_manager()
+	public function courseManaged()
 	{
-		return $this->belongsTo('App\Course');
+		return $this->hasMany('App\Course', 'user_id');
 	}
 
-	public function course_modification()
+	public function courseModified()
 	{
-		return $this->belongsTo('CourseModification');
+		return $this->hasMany('App\CourseModification', 'author_id');
 	}
 
 	public function bannish()

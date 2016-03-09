@@ -18,10 +18,10 @@ class Comment extends Model {
 
 	public function author()
 	{
-		return $this->belongsTo('App\User');
+		return $this->belongsTo('App\User', 'user_id');
 	}
 
-	public function answer_to()
+	public function answerTo()
 	{
 		return $this->belongsTo('App\Comment', 'answer_to');
 	}

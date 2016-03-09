@@ -30,7 +30,7 @@
 			@forelse($events as $e)
 				<tr>
 					<td align="center">{{ printDay($e->day, true) }} {{ showDate($e->date, 'Y-m-d', 'd/m/Y') }}</td>
-					<td>{!! printUserLink($e->user_id) !!}</td>
+					<td>{!! printUserLinkV2($e->manager) !!}</td>
 					<td><a href="{{ url('events/manage/'.$e->id) }}">{{ $e->name }}</a>
 						&nbsp;
 						<a title="Voir la fiche de l'événement" class="glyphicon glyphicon-file" href="{{ url('events/show/'.$e->slug) }}"></a></td>
