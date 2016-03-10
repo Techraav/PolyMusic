@@ -26,7 +26,7 @@ class CourseController extends Controller {
 	*/
 	public function index()
 	{
-		$courses = Course::orderBy('day')->paginate(20);
+		$courses = Course::orderBy('day')->with('manager','instrument', 'article', 'documents')->paginate(20);
 		return view('courses.index', compact('courses'));
 	}
 
@@ -37,8 +37,20 @@ class CourseController extends Controller {
 	*/
 	public function adminIndex()
 	{
-		$courses = Course::orderBy('day')->paginate(20);
+		$courses = Course::orderBy('day')->with('manager', 'users', 'instrument', 'article', 'documents')->paginate(20);
 		return view('admin.courses.index', compact('courses'));
+	}
+
+	/**
+	* Display a listing of the resource.
+	*
+	* @return Response
+	*/
+	public function instrument($id)
+	{
+		$courses = Course::ofInstrument($id)->orderBy('day')->with('manager', 'users', 'instrument', 'article', 'documents')->paginate(20);
+		$instrument = true;
+		return view('admin.courses.index', compact('courses', 'instrument'));
 	}
 
 	/**
@@ -60,7 +72,7 @@ class CourseController extends Controller {
 	*/
 	public function members($slug)
 	{
-		$course = Course::where('slug', $slug)->first();
+		$course = Course::where('slug', $slug)->with('manager', 'instrument', 'article', 'documents')->first();
 		$id 	= $course->id;
 
 		$students = CourseUser::where('course_id', $id)->where('validated', 1)->where('level', 0)->paginate(30);
@@ -90,7 +102,7 @@ class CourseController extends Controller {
 	*/
 	public function edit($id)
 	{
-		$course = Course::where('id', $id)->first();
+		$course = Course::where('id', $id)->with('manager', 'users', 'instrument', 'article', 'documents')->first();
 		if(Auth::user()->id != $course->user_id && Auth::user()->level->level < 3)
 		{
 			Flash::error("Vous n'avez pas le droit de modifier ce cours !");

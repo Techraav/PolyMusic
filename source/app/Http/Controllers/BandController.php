@@ -17,7 +17,7 @@ class BandController extends Controller {
 	*/
 	public function index()
 	{
-		$bands = Band::validated()->orderBy('name')->paginate(10);
+		$bands = Band::validated()->orderBy('name')->with('members', 'events', 'manager', 'article')->paginate(10);
 		return view('admin.bands.index', compact('bands'));
 	}
 
@@ -28,7 +28,7 @@ class BandController extends Controller {
 	*/
 	public function adminIndex()
 	{
-		$bands = Band::orderBy('name')->paginate(20);
+		$bands = Band::orderBy('name')->with('members', 'events', 'manager', 'article')->paginate(20);
 		return view('admin.bands.index', compact('bands'));
 	}
 
@@ -89,7 +89,7 @@ class BandController extends Controller {
 	*/
 	public function show($slug)
 	{
-		$band = Band::where('slug', $slug)->first();
+		$band = Band::where('slug', $slug)->with('members', 'events', 'manager', 'article')->first();
 		return view('bands.show', compact('band'));
 	}
 
@@ -101,7 +101,7 @@ class BandController extends Controller {
 	*/
 	public function edit($id)
 	{
-		$band = Band::find($id);
+		$band = Band::with('members', 'events', 'manager', 'article')->find($id);
 		if(Auth::user()->id != $band->manager() && Auth::user()->level_id < 3)
 		{
 			Flash::error('Vous n\'avez pas les droits suffisants pour modifier ce groupe.');
@@ -113,7 +113,7 @@ class BandController extends Controller {
 
 	public function manage($id)
 	{
-		$band = Band::find($id);
+		$band = Band::with('members', 'events', 'manager', 'article')->find($id);
 		if($band->manager() != Auth::user()->id && Auth::user()->level < 2)
 		{
 			Flash::error("Vous ne disposez pas des droits suffisant gérer ce groupe.");

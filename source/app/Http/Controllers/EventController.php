@@ -27,7 +27,7 @@ class EventController extends Controller {
     */
     public function adminIndex()
     {
-        $events = Event::orderBy('name')->paginate(15);
+        $events = Event::orderBy('name')->with('bands', 'manager', 'article')->paginate(15);
         return view('admin.events.index', compact('events'));
     }
 
@@ -86,7 +86,7 @@ class EventController extends Controller {
     */
     public function manage($id)
     {
-        $event = Event::find($id);
+        $event = Event::with('bands', 'manager', 'article')->find($id);
         if(Auth::user()->id != $event->user_id && Auth::user()->level_id < 3)
         {
             Flash::error("Vous n'avez pas les droits suffisants pour ceci.");
@@ -107,7 +107,7 @@ class EventController extends Controller {
     */
     public function edit($id)
     {
-        $event = Event::find($id);
+        $event = Event::with('bands', 'manager', 'article')->find($id);
         if(empty($event))
         {
             Flash::error('Cet événement n\'existe pas.');

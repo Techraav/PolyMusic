@@ -57,7 +57,7 @@
 	*
 	* @return $day string
 	*/
-	function day($n, $tree=false)
+	function day($n, $three=false)
 	{
 		$days = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
 		$day = $days[$n];

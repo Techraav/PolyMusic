@@ -17,7 +17,7 @@ class UserController extends Controller {
 	public function index(Request $request)
 	{
 		
-		$users = User::orderBy('last_name')->paginate(20);
+		$users = User::orderBy('last_name')->with('department', 'level', 'courses')->paginate(20);
 	 	return view('admin.users.index', compact('users'));
 	}
 
@@ -29,7 +29,7 @@ class UserController extends Controller {
 	*/
 	public function show($slug)
 	{
-		$user = User::where('slug', $slug)->first();
+		$user = User::where('slug', $slug)->with('level', 'department', 'courses')->first();
 		if(empty($user))
 		{
 			Flash::error('Cet utilisateur n\'existe pas.');
@@ -53,7 +53,7 @@ class UserController extends Controller {
 			return Redirect::back();
 		}
 
-		$user = User::where('slug', $slug)->first();
+		$user = User::where('slug', $slug)->with('department', 'level', 'courses')->first();
 
 		if(empty($user))
 		{

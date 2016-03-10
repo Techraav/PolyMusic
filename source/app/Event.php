@@ -21,6 +21,11 @@ class Event extends Model {
 		return $this->belongsTo('App\User', 'user_id');
 	}
 
+	public function article()
+	{
+		return $this->belongsTo('App\Article');
+	}
+
 	public function scopeOfDay($query, $day)	
 	{
 		return $query->where('day', $day);

@@ -18,7 +18,7 @@ class ModificationController extends Controller
      */
     public function index()
     {
-        $modifs = Modification::orderBy('id', 'desc')->paginate(30);
+        $modifs = Modification::orderBy('id', 'desc')->with('user')->paginate(30);
         return view('admin.modifications.index', compact('modifs'));
     }
 
@@ -29,14 +29,14 @@ class ModificationController extends Controller
      */
     public function courses()
     {
-        $modifs = CourseModification::orderBy('id', 'desc')->paginate(20);
+        $modifs = CourseModification::orderBy('id', 'desc')->with('course', 'author', 'user')->paginate(20);
         $concerned = "Tous";
         return view('admin.modifications.courses', compact('modifs', 'concerned'));
     }
 
     public function oneCourse($id)
     {
-        $modifs = CourseModification::where('course_id', $id)->orderBy('id', 'desc')->paginate(20);
+        $modifs = CourseModification::where('course_id', $id)->orderBy('id', 'desc')->with('course', 'author', 'user')->paginate(20);
         $course = Course::where('id', $id)->first();
         $url = url('admin/modifications/courses/'.$course->slug);
         $name = $course->name;

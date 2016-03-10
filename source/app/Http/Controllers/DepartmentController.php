@@ -25,7 +25,7 @@ class DepartmentController extends Controller {
 	*/
 	public function index()
 	{
-		$departments = Department::orderBy('name')->paginate(20);
+		$departments = Department::orderBy('name')->with('users') ->paginate(20);
 		return view('admin.departments.index', compact('departments'));
 	}
 

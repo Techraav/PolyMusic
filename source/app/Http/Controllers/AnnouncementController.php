@@ -25,7 +25,7 @@ class AnnouncementController extends Controller {
     */
     public function index()
     {
-        $announcements = Announcement::where('validated', 1)->paginate(20);
+        $announcements = Announcement::where('validated', 1)->with('author', 'category')->paginate(20);
         return view('announcements.index', compact('announcements'));
     }
 
@@ -33,11 +33,11 @@ class AnnouncementController extends Controller {
     {
         if($category != false)
         {
-            $announcements = Announcement::where('category_id', $category)->orderBy('id', 'desc')->paginate(15);
+            $announcements = Announcement::where('category_id', $category)->with('author', 'category')->orderBy('id', 'desc')->paginate(15);
         }
         else
         {
-            $announcements = Announcement::orderBy('id', 'desc')->paginate(15);
+            $announcements = Announcement::orderBy('id', 'desc')->with('author', 'category')->paginate(15);
         }
 
         return view('admin.announcements.index', compact('announcements'));
@@ -50,7 +50,7 @@ class AnnouncementController extends Controller {
             Flash::error('Valeur incorrecte, impossible de charger les annonces validés/invalidés.');
             return redirect('admin/announcements');
         }
-        $announcements = Announcement::where('validated', $value)->orderBy('id', 'desc')->paginate(15);
+        $announcements = Announcement::where('validated', $value)->with('author', 'category')->orderBy('id', 'desc')->paginate(15);
         return view('admin.announcements.index', compact('announcements'));
     }
 
@@ -72,14 +72,14 @@ class AnnouncementController extends Controller {
     */
     public function show($slug)
     {
-        $announcement = Announcement::where('slug', $slug)->first();
+        $announcement = Announcement::where('slug', $slug)->with('author', 'category')->first();
         if(empty($announcement) || ($announcement->validated == 0 && (Auth::guest() || (Auth::user()->id != $announcement->user_id && Auth::user()->level_id < 3))) )
         {
           Flash::error('Cette annonce n\'existe pas !');
           return view('errors.404');
         }
 
-        $comments = Comment::where('announcement_id', $announcement->id)->paginate(10);
+        $comments = Comment::where('announcement_id', $announcement->id)->with('author')->paginate(10);
         return view('announcements.show', compact('announcement', 'comments'));
     }
 
@@ -91,7 +91,7 @@ class AnnouncementController extends Controller {
     */
     public function edit($slug)
     {
-        $announcement = Announcement::where('slug', $slug)->first();
+        $announcement = Announcement::where('slug', $slug)->with('author', 'category')->first();
         if(empty($announcement))
         {
           Flash::error('Cette annonce n\'existe pas !');
@@ -103,7 +103,7 @@ class AnnouncementController extends Controller {
 
     public function delete($slug)
     {
-        $announcement = Announcement::where('slug', $slug)->first();
+        $announcement = Announcement::where('slug', $slug)->with('author', 'category')->first();
         if(empty($announcement))
         {
           Flash::error('Cette annonce n\'existe pas !');

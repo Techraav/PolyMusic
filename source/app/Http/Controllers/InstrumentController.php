@@ -27,7 +27,7 @@ class InstrumentController extends Controller
      */
     public function index()
     {
-        $instruments = Instrument::orderBy('name')->paginate(30);
+        $instruments = Instrument::with('bands', 'players')->orderBy('name')->paginate(30);
         return view('admin.instruments.index', compact('instruments'));
     }
 
@@ -60,7 +60,7 @@ class InstrumentController extends Controller
      */
     public function edit($id)
     {
-        $instruments = Instrument::orderBy('name')->paginate(30);
+        $instruments = Instrument::with('bands', 'players')orderBy('name')->paginate(30);
         $instruToEdit = Instrument::find($id);
 
         return view('admin.instruments.edit', compact('instruments', 'instruToEdit'));

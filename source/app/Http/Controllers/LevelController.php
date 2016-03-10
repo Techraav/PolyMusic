@@ -23,7 +23,7 @@ class LevelController extends Controller {
 	*/
 	public function index()
 	{
-		$levels = Level::orderBy('level', 'asc')->paginate(20);
+		$levels = Level::orderBy('level', 'asc')->with('users')->paginate(20);
 
 		return view('admin.levels.index', compact('levels'));
 	}
@@ -36,7 +36,7 @@ class LevelController extends Controller {
 	*/
 	public function members($id)
 	{	
-		$level = Level::where('id', $id)->first();
+		$level = Level::where('id', $id)->with('users')->first();
 		$name = $level->name;
 		if(!isset($level))
 		{
@@ -55,7 +55,7 @@ class LevelController extends Controller {
 	*/
 	public function edit($level)
 	{
-		$levels = Level::orderBy('level', 'asc')->paginate(20);
+		$levels = Level::orderBy('level', 'asc')->with('users')->paginate(20);
 		$levelToEdit = Level::where('level', $level)->first();
 	
 		return view('admin.levels.edit', compact('levels', 'levelToEdit'));

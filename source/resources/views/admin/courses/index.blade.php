@@ -11,14 +11,17 @@
 		<p>Les cours proposés par le Club Musique sont référencés ici.</p>
 		<p>Vous pouvez cliquer sur le nom du cours pour voir la liste des élèves et des professeurs.</p>
 		<p>Un article est associé à chaque cours, vous pouvez cliquer sur le symbole à côté nom du cours pour le visionner.</p>
-		<p>Un <b>professeur</b> peut gérer les cours qu'il a lui-même créé uniquement, et peut créer un cours dont il sera le responsable.</p>
-		<p>Les <b>admins</b> et plus, en revanche, peuvent gérer tous les cours, et peuvent créer un cours en définissant un responsable (parmis les professeurs et plus).</p>
+		<p>Un <b>{{ ucfirst(App\Level::find(3)->name) }}</b> peut gérer les cours qu'il a lui-même créé uniquement, et peut créer un cours dont il sera le responsable.</p>
+		<p>Les <b>{{ ucfirst(App\Level::find(4)->name).'s' }}</b> et plus, en revanche, peuvent gérer tous les cours, et peuvent créer un cours en définissant un responsable (parmis les {{ App\Level::find(3)->name.'s' }} et plus).</p>
 		<hr />
 		<p>Nombre de total de cours créés : {{ App\Course::count() }}.</p>
 
 	</div>
 
 	<h2 align="center">Liste des cours :</h2>
+	@if(isset($instrument) && $instrument)
+		<h4 class="help-block" align="center"> Filtre : Instrument ({{ ucfirst($courses[0]->instrument->name) }}) </h4>
+	@endif
 	<br />
 		<table class="table-levels table table-striped table-hover table-middle-align">
 			<thead>
@@ -38,18 +41,18 @@
 			<tbody>
 			@forelse($courses as $c)
 				<tr>
-					<!-- <td>{{ ucfirst(App\Instrument::where('id', $c->instrument_id)->first()->name) }}</td> -->
-					<td>{{ucfirst($c->instrument->name)}}</td>
+					<!-- <td>{{ ucfirst($c->instrument->name) }}</td> -->
+					<td>{!! printLink('admin/courses/instrument/'.$c->instrument->id, ucfirst($c->instrument->name)) !!}</td>
 					<td>
 						<a href="{{ url('admin/courses/'.$c->slug.'/members') }}">{{ $c->name }}</a> &nbsp;
-						<a title="Voir l'article associé" class="glyphicon glyphicon-file" href="{{ url('articles/view/'.App\Article::where('id', $c->article_id)->first()->slug) }}"></a></td>
+						<a title="Voir l'article associé" class="glyphicon glyphicon-file" href="{{ url('articles/view/'.$c->article->slug) }}"></a></td>
 					<td>{{ ucfirst(day($c->day)) }}</td>
 					<td align="center" >{{ date_format(date_create_from_format('H:i:s', $c->start), 'H:i') }} - {{ date_format(date_create_from_format('H:i:s', $c->end), 'H:i') }}</td>
 					</td>
 					<td align="center">{!! printUserLinkV2($c->manager) !!}</td>
 					<td align="center">{{ App\CourseUser::where('course_id', $c->id)->where('level', 0)->count() }}</td>
 					<td align="center">{{ App\CourseUser::where('course_id', $c->id)->where('level', 1)->count() }}</td>
-					<td align="center"><a href="{{ url('admin/documents/course/'.$c->id) }}">{{ App\Document::where('course_id', $c->id)	->count() }}</a></td>
+					<td align="center">{{ $c->documents->count() }}</td>
 					<td align="center">
 					 @if(App\CourseUser::where('course_id', $c->id)->where('validated', 0)->count() > 0)
 							<p class="text-danger"> <b>{{ App\CourseUser::where('course_id', $c->id)->where('validated', 0)->count() }}</b></p>
@@ -122,7 +125,7 @@
 									<option value="{{ Auth::user()->id }}">{{ ucfirst(Auth::user()->first_name).' '.ucfirst(Auth::user()->last_name) }}</option>
 								</optgroup>
 								<optgroup label="Tous :">
-								@foreach (App\User::where('level_id', '>', 1)->orderBy('last_name')->get() as $user)
+								@foreach (App\User::where('level_id', '>', 2)->orderBy('last_name')->get() as $user)
 									<option value="{{ $user->id }}">{{ ucfirst($user->last_name).' '.ucfirst($user->first_name) }}</option>
 								@endforeach
 								</optgroup>

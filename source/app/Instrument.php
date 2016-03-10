@@ -23,4 +23,9 @@ class Instrument extends Model {
 		return $this->hasMany('App\Course')->with('band');
 	}
 
+	public function bands()
+	{
+		return $this->hasMany('App\BandUser', 'instrument_id')->with('band');
+	}
+
 }

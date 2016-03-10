@@ -22,7 +22,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('name')->paginate(30);
+        $categories = Category::orderBy('name')->with('articles', 'announcements')->paginate(30);
         return view('admin.categories.index', compact('categories'));
     }
 

@@ -22,7 +22,7 @@ class ArticleController extends Controller {
 	*/
 	public function index()
 	{
-		$articles = Article::orderBy('id', 'desc')->paginate(20);
+		$articles = Article::orderBy('id', 'desc')->with('author', 'category')->paginate(20);
 		return view('articles.index', compact('articles'));    
 	}
 
@@ -35,12 +35,12 @@ class ArticleController extends Controller {
 	{
 		if($category != false)
 		{
-		    $articles = Article::where('category_id', $category)->orderBy('id', 'desc')->paginate(15);
+		    $articles = Article::where('category_id', $category)->with('author', 'category')->orderBy('id', 'desc')->paginate(15);
 		    $category = Category::find($category)->name;
 		}
 		else
 		{
-		    $articles = Article::orderBy('id', 'desc')->paginate(15);
+		    $articles = Article::orderBy('id', 'desc')->with('author', 'category')->paginate(15);
 		}
 		return view('admin.articles.index', compact('articles', 'category'));    
 	}
@@ -57,7 +57,7 @@ class ArticleController extends Controller {
 			Flash::error('Valeur incorrecte, impossible de charger les articles validés/invalidés.');
 			return redirect('admin/articles');
 		}
-		$articles = Article::where('validated', $value)->paginate(15);
+		$articles = Article::where('validated', $value)->with('author', 'category')->paginate(15);
 		return view('admin.articles.index', compact('articles'));    
 	}
 
@@ -79,7 +79,7 @@ class ArticleController extends Controller {
 	*/
 	public function show($slug)
 	{
-		$article = Article::where('slug', $slug)->first();
+		$article = Article::where('slug', $slug)->with('author', 'category')->first();
 		if(empty($article) || ($article->validated == 0 && (Auth::guest() || Auth::user()->level_id < 3)))
 		{
 		  Flash::error('Cet article n\'existe pas.');
@@ -97,7 +97,7 @@ class ArticleController extends Controller {
 	*/
 	public function edit($slug)
 	{
-		$article = Article::where('slug', $slug)->first();
+		$article = Article::where('slug', $slug)->with('author', 'category')->first();
 		if(Auth::user()->id != $article->user_id && Auth::user()->level->level < 3)
 		{
 		  Flash::error("Vous n'avez pas le droit de modifier cet article !");
@@ -113,7 +113,7 @@ class ArticleController extends Controller {
 	*/
 	public function delete($slug)
 	{
-		$article = Article::where('slug', $slug)->first();
+		$article = Article::where('slug', $slug)->with('author', 'category')->first();
 		if(empty($article))
 		{
 		  Flash::error('Cet article n\'existe pas ou a déjà été supprimé.');

@@ -12,7 +12,7 @@ class Course extends Model {
 
 	public function users()
 	{
-		return $this->belongsToMany('App\User')->select(['id', 'slug', 'first_name', 'last_name']);
+		return $this->belongsToMany('App\User')->select(['slug', 'first_name', 'last_name']);
 	}
 
 	public function instrument()
@@ -22,7 +22,7 @@ class Course extends Model {
 
 	public function article()
 	{
-		return $this->hasOne('App\Article');
+		return $this->belongsTo('App\Article');
 	}
 
 	public function documents()
@@ -53,6 +53,11 @@ class Course extends Model {
 	public function scopeOfDay($query, $day)	
 	{
 		return $query->where('day', $day);
+	}
+
+	public function demands()
+	{
+		return $this->belongsToMany('App\User');
 	}
 
 }

@@ -1,3 +1,7 @@
+<?php 
+  $news = App\News::published()->orderBy('published_at', 'desc')->limit(5)->get(['id', 'published_at', 'title']);
+?>
+
 <div class="panel panel-default panel-news">
     <div class="panel-heading">
         <p align="center"><a title="Tout voir" href="{{ url('news')}}"><b>Dernières news</b></a></p>
@@ -6,7 +10,7 @@
           @endif
     </div>
         <ul class="list-group">
-          @forelse( App\News::published()->orderBy('published_at', 'desc')->limit(5)->get() as $n)
+          @forelse( $news as $n)
           <li class="list-group-item news-item">
               <div class="news-infos"><p><span>{{ showDate($n['published_at'], 'Y-m-d', 'j M Y', false) }}</span></p></div> 
               <!-- <span class="trait"></span> -->
