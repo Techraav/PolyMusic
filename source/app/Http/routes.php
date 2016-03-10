@@ -249,8 +249,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:3'], function(){
 
 
 	// USERS : GET
-	Route::get('users',	'UserController@index')				->name('users.index');
-	Route::get('users/edit/{slug}', 'UserController@edit')	->name('user.edit');	
+	Route::get('users',	'UserController@index')					->name('users.index');
+	Route::get('users/edit/{slug}', 'UserController@edit')		->name('user.edit');	
+	Route::post('users/edit/{slug}', 'UserController@update')	->name('user.update');
 
 // _____________________________________________________________________________________________________________
 
