@@ -13,7 +13,7 @@ class CreateDocumentsTable extends Migration {
 			$table->string('title', 255);
 			$table->string('name', 255);
 			$table->integer('user_id')->unsigned()->index();
-			$table->text('description');
+			$table->string('description', 255);
 			$table->integer('course_id')->index()->unsigned();
 			$table->tinyInteger('validated')->index()->unsigned()->default(1);
 			

@@ -4,61 +4,38 @@
 
 <div class="container">
 
-	<form method="POST" action="{{ url('test') }}">
-	{{ csrf_field() }}
-		<input  type="text" name="truc"/>
-		<input id="button" type="submit" />
+	<form class="form-hozirontal" id="test" truc="ttt">
+		<div class="form-group">
+			<div class="input-group">
+				<span class="input-group-btn">
+					<button type="button" onclick="func2()" class="btn-file btn glyphicon glyphicon-folder-open">
+						<input onchange="func(this)" class="input-file-hidden" type="file" />
+					</button> 
+				</span>
+				<input type="text" class="filename form-control"/>
+			</div>
+		</div>		
 	</form>
 
-	
 
-	<button id="test">Test</button>
 
- </div>
+</div>
 @stop
 
 @section('js')
 
 <script type="text/javascript">
+	function func(el)
+	{
+		var form = $(el).parents('form')[0].getAttribute('id');
+		var filename = $(el).val().replace(/C:\\fakepath\\/i, '');
+		$('#'+form+' .filename').attr('value','Fichier : '+filename);
+	}
 
-// var valide = false;
-
-// $('#button').click(function(e){
-//   // if(!valide)
-//     e.preventDefault();
-
-//   bootbox.confirm("Are you sure?", function(result) {
-//     if(result)
-//     {
-//       // valide = true;
-//       $('form').submit();
-//     }
-// 	});
-// });
-
-
-// $('#test').on('click', function()
-// {
-// 	$('form').submit();
-// });
-
-// var valide = false;
-  
-// $('form').submit(function (e) {
-// 	if (!valide) {
-//     e.preventDefault();
-    
-//     bootbox.confirm("Are you sure?", (function (window) {
-//       return function (result) {
-//         if (result) {
-//           window.valide = true;
-//           $('form').submit();
-//         }
-//     	}
-//     })(window));
-//   }
-// });
-
+	function func2()
+	{
+		$('input')[0].click();
+	}
 </script>
 
 @stop

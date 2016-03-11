@@ -56,7 +56,7 @@
 								name="{{ $b->name }}" 
 								infos="{{ $b->infos }}"
 								manager-id="{{ $b->user_id }}"
-								manager="{{ $b->manager()->first_name.' '.$b->manager()->last_name }}"
+								manager="{{ $b->manager->first_name.' '.$b->manager->last_name }}"
 								validated="{{ $b->validated }}"
 								link="{{ url('admin/bands/edit/'.$b->id) }}" 
 								title="Modifier le groupe {{ $b->name }} ?"

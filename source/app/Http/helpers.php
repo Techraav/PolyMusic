@@ -16,6 +16,18 @@
 		return $data;
 	}
 
+	function cut($str, $n)
+	{
+		$string = substr($str, 0, $n).' <i>[...]</i>';
+
+		return '<span title="'.$str.'">'.$string.'</span>';
+	}
+
+	function glyph($str)
+	{
+		return 'glyphicon glyphicon-'.$str;
+	}
+
 	function getWeekDay($date = "")
 	{
 		if($date == "")

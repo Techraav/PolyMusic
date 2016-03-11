@@ -53,6 +53,35 @@ class CourseController extends Controller {
 		return view('admin.courses.index', compact('courses', 'instrument'));
 	}
 
+	public function documents($id)
+	{
+		$course = Course::with(['documents', 
+								'users' => function($query) { $query->where('validated', 1)->where('level', 1); }, 
+								'manager'])
+						->orderBy('created_at', 'desc')
+						->find($id);
+						
+		return view('admin.courses.documents', compact('course'));
+	}
+
+	public function documentsValidated($id, $value)
+	{
+		if($value != 0 && $value != 1)
+		{
+			Flash::error('Requête invalide.');
+			return Redirect::back();
+		}
+
+		$course = Course::with(['documents' => function($query) use ($value){ 
+													$query->where('validated', $value);	
+												} , 
+								'users', 'manager'])->orderBy('created_at', 'desc')->find($id);
+
+		$filter = $value == 0 ? 'invalidés' : 'validés';
+
+		return view('admin.courses.documents', compact('course', 'filter'));
+	}
+
 	/**
 	* Display the specified resource.
 	*

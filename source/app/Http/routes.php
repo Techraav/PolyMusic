@@ -227,6 +227,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:3'], function(){
 	Route::get('courses/delete/{slug}', 	'CourseController@delete')		->name('courses.delete');
 	Route::get('courses/{slug}/members',	'CourseController@members')		->name('courses.members');
 	Route::get('courses/instrument/{id}', 	'CourseController@instrument')	->name('courses.ofInstrument');
+	Route::get('courses/{id}/documents', 	'CourseController@documents')	->name('courses.documents');
+	Route::get('courses/{id}/documents/validated/{value}', 	'CourseController@documentsValidated')	->name('courses.docsValidated');
 
 	// COURSES : POST
 	Route::post('courses/create', 			'CourseController@store')		->name('courses.create');

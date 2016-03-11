@@ -29,7 +29,7 @@
 				<tr>
 					<td align="center">{{ ucfirst($i->name) }}</td>
 					<td align="center">{{ $i->courses->count() == 0 ? '-' : $i->courses->count() }}</td>
-					<td align="center">{{ $i->players->count() == 0 ? '-' : $i->players->count() }}</td>
+					<td align="center">{{ $i->bands->count() == 0 ? '-' : $i->players->count() }}</td>
 					<td align="center">
 					@if($i->id != 1)
 						@if( ($i->courses->count() == 0 && $i->players->count() == 0) || Auth::user()->level->level >= 3 )
@@ -42,6 +42,7 @@
 					</td>
 				</tr>
 			@empty
+
 				<tr>
 					<td>-</td>
 					<td>-</td>
@@ -71,7 +72,6 @@
 				</table>
 			</form>
 	    </div>
-
 
 	@include('admin.instruments.modal-delete')
 

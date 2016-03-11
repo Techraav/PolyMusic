@@ -32,7 +32,7 @@
 					<td align="center">{{ showDate($d->created_at, 'Y-m-d H:i:s', 'd/m/Y') }}</td>
 					<td>{!! printUserLinkV2($d->author) !!}</td>
 					<td>{!! printLink('courses/show/'.$d->author->slug, ucfirst($d->course->name)) !!}</td>
-					<td>{!! printLink('img/documents/'.$d->name, ucfirst($d->title), ['target'	=> '_blank']) !!}</td>
+					<td>{!! printLink('files/documents/'.$d->name, ucfirst($d->title), ['target'	=> '_blank']) !!}</td>
 					<td align="center" class="manage">
 					@if(Auth::user()->level->level > 2)							
 						@if($d->validated == 1)

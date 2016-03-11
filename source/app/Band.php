@@ -26,6 +26,11 @@ class Band extends Model {
 		return $this->belongsTo('App\User', 'user_id');
 	}
 
+	public function article()
+	{
+		return $this->belongsTo('App\Article', 'article_id');
+	}
+
 	public function scopeValidated($query)
 	{
 		return $query->where('validated', 1);

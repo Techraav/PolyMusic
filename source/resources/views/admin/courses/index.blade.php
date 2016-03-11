@@ -52,7 +52,7 @@
 					<td align="center">{!! printUserLinkV2($c->manager) !!}</td>
 					<td align="center">{{ App\CourseUser::where('course_id', $c->id)->where('level', 0)->count() }}</td>
 					<td align="center">{{ App\CourseUser::where('course_id', $c->id)->where('level', 1)->count() }}</td>
-					<td align="center">{{ $c->documents->count() }}</td>
+					<td align="center">{!! printLink('admin/courses/'.$c->id.'/documents', $c->documents->count()) !!}</td>
 					<td align="center">
 					 @if(App\CourseUser::where('course_id', $c->id)->where('validated', 0)->count() > 0)
 							<p class="text-danger"> <b>{{ App\CourseUser::where('course_id', $c->id)->where('validated', 0)->count() }}</b></p>

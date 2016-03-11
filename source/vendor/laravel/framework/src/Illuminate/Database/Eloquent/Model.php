@@ -32,15 +32,6 @@ use Illuminate\Database\ConnectionResolverInterface as Resolver;
 
 abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializable, QueueableEntity, UrlRoutable
 {
-
-    /**
-    * name field of the table 
-    * default : 'name'
-    * if other value : overwrite in model
-    * @var string
-    */
-    protected $nameField = 'title';
-
     /**
      * The connection name for the model.
      *
@@ -558,45 +549,6 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
     }
 
     /**
-    * Create datas + update with slug
-    * @param array $data
-    * @return static
-    */
-    protected function createWithSlug(array $data = [])
-    {
-        $model = $this->create($data);
-
-        $nameField = $this->nameField;
-        
-        $name = $model->$nameField;
-        
-        $stringToSlug = $name.'-'.$model->id;
-        // $replacement = ['é' => 'e',
-        //                 'è' => 'e',
-        //                 'ê' => 'e', 
-        //                 'ë' => 'e', 
-        //                 'ù' => 'u', 
-        //                 'à' => 'a', 
-        //                 'ç' => 'c', 
-        //                 'â' => 'a', 
-        //                 'û' => 'u', 
-        //                 'î' => 'i', 
-        //                 'ô' => 'o', ];
-        // foreach ($replacement as $k => $v) {
-        //     $stringToSlug = str_replace($k, $v, $stringToSlug);
-        // }
-        
-        $slug = str_slug($stringToSlug);
-        
-        $model->update([
-            'slug'  => $slug,
-            ]);
-
-        return $model;
-    }
-
-
-    /**
      * Save a new model and return the instance. Allow mass-assignment.
      *
      * @param  array  $attributes
@@ -612,52 +564,6 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
         return static::unguarded(function () use ($model, $attributes) {
             return $model->create($attributes);
         });
-    }
-
-    /**
-     * Get the first record matching the attributes or create it.
-     *
-     * @param  array  $attributes
-     * @return static
-     */
-    public static function firstOrCreate(array $attributes)
-    {
-        if (! is_null($instance = (new static)->newQueryWithoutScopes()->where($attributes)->first())) {
-            return $instance;
-        }
-
-        return static::create($attributes);
-    }
-
-    /**
-     * Get the first record matching the attributes or instantiate it.
-     *
-     * @param  array  $attributes
-     * @return static
-     */
-    public static function firstOrNew(array $attributes)
-    {
-        if (! is_null($instance = (new static)->newQueryWithoutScopes()->where($attributes)->first())) {
-            return $instance;
-        }
-
-        return new static($attributes);
-    }
-
-    /**
-     * Create or update a record matching the attributes, and fill it with values.
-     *
-     * @param  array  $attributes
-     * @param  array  $values
-     * @return static
-     */
-    public static function updateOrCreate(array $attributes, array $values = [])
-    {
-        $instance = static::firstOrNew($attributes);
-
-        $instance->fill($values)->save();
-
-        return $instance;
     }
 
     /**
@@ -713,22 +619,6 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
         $instance = new static;
 
         return $instance->newQuery()->get($columns);
-    }
-
-    /**
-     * Find a model by its primary key or return new static.
-     *
-     * @param  mixed  $id
-     * @param  array  $columns
-     * @return \Illuminate\Support\Collection|static
-     */
-    public static function findOrNew($id, $columns = ['*'])
-    {
-        if (! is_null($model = static::find($id, $columns))) {
-            return $model;
-        }
-
-        return new static;
     }
 
     /**
@@ -3580,5 +3470,4 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
     {
         $this->bootIfNotBooted();
     }
-
 }
