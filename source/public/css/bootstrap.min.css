@@ -2966,7 +2966,7 @@ output{
 	transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s
 }
 
-.form-control:focus{
+.form-control:focus, .form-control:focus span{
 	border-color:#2c3e50;
 	outline:0;
 	-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(44,62,80,0.6);
@@ -8651,5 +8651,35 @@ iframe {
 }
 
 .filename{
-	margin-top:1px
+	margin-top:1px;
+	position: relative;
+	cursor: pointer;
+	text-align: left;
+	border-left-width: 50px;
+}
+
+.btn-file {
+    left: -62px;
+    top: -9px;
+    height: 41px !important;
+    border-radius: 0;
+    height: inherit;
+    border: none;
+    background: transparent !important;
+}
+
+.filename:focus .glyphicon-folder-open {
+    color: #DCE4EC;
+}
+
+.filename .glyphicon-folder-open{
+	color: #fff;
+}
+
+#name {
+    vertical-align: top;
+    color: #2C3E50;
+    font-size: 16px;
+    margin-left: -45px;
+    box-shadow: none;
 }
