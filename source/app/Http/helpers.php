@@ -16,6 +16,25 @@
 		return $data;
 	}
 
+	function printFileInput($ext)
+	{
+		$str = "[";
+		foreach ($ext as $e) {
+			$str .= "'$e', ";
+		}
+		$str = substr($str, 0, strlen($str)-2);	
+		$str .= ']';
+
+		$sbtn = '<button onclick="clickFile()" type="button" class="filename form-control">';
+		$sglyph = '<span type="button" class="btn-file btn glyphicon glyphicon-folder-open">';
+		$input = '<input onchange="fileInput(this)" data-extension="'.$str.'" class="input-file-hidden" type="file" />';
+		$eglyph = '</span>';
+		$name = '<span id="name"></span>';
+		$ebtn = '</button>';
+
+		return $sbtn.$sglyph.$input.$eglyph.$name.$ebtn;
+	}
+
 	function cut($str, $n)
 	{
 		$string = substr($str, 0, $n).' <i>[...]</i>';
