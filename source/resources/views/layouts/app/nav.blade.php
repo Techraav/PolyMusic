@@ -54,9 +54,9 @@
           </span><span class="caret"></span></a>
           <ul class="dropdown-menu user-menu" role="menu">
             <li> <a href="{{ url('users/'.Auth::user()->slug) }}"><span class="glyphicon glyphicon-user"></span> {{ Auth::user()->first_name.' '.Auth::user()->last_name }}</a></li>
-			@if(Auth::user()->level->level > 0)
+			     @if(Auth::user()->level_id > 2)
            	<li><a href=" {{ url('admin') }} " class="admin-link"> <span class="glyphicon glyphicon-cog"></span> Administration</a></li>
-           	@endif
+           @endif
             <li><a href="{{ url('notifications') }}"> 
               <span class="glyphicon glyphicon-bell">
                 @if($notifications > 0)

@@ -33,4 +33,59 @@ class DocumentController extends Controller
     	$filter = 'cours';
     	return view('admin.documents.index', compact('documents', 'filter', 'id'));
     }
+
+    public function toggle(Request $request)   
+    {
+        $doc = Document::find($request->id);
+        $doc->validated = $doc->validated == 0 ? 1 : 0;
+        $doc->save();
+        Flash::success('Le document a bien été '.( $doc->validated == 1 ? 'validé' : 'invalidé').'.');
+        return Redirect::back();
+    }
+
+    public function destroy(Request $request)
+    {
+        $doc = Document::find($request->id);
+        $doc->delete();
+        Flash::success('Le document a bien été supprimé.');
+        return Redirect::back();
+    }
+
+    public function edit($id)   
+    {
+        $document = Document::with('author', 'course')->find($id);
+        if(empty($document))
+        {
+            Flash::error('Ce document n\'existe pas.');
+            return Redirect::back();
+        }
+        return view('admin.documents.edit', compact('document'));
+    }
+
+    public function update(Request $request)
+    {   
+        $validator = $this->validator($request->all());
+
+        if($validator->fails())
+        {
+            Flash::error('Impossible de modifier le document. Veuillez vérifier les champs renseignés.');
+            return Redirect::back()->withErrors($validator->errors());
+        }
+
+        $doc = Document::find($request->id);
+        $doc->title = $request->title;
+        $doc->description = $request->description;
+        $doc->save();
+
+        Flash::success('Le document a bien été modifié !');
+        return redirect('admin/documents');
+    }
+
+    protected function validator($data)
+    {
+        return Validator::make($data, [
+            'title' => 'required|min:5|max:255',
+            'description' => 'max:255',
+            ]);
+    }
 }

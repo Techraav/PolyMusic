@@ -54,7 +54,7 @@
             <li><a href="{{ url('admin/articles') }}">Articles</a></li>
             <li><a href="{{ url('admin/categories') }}">Catégories</a></li>
             <li><a href="{{ url('admin/courses') }}">Cours</a></li>
-            <li><a style="color:red" href="{{ url('admin/documents') }}">Document de cours</a></li>
+            <li><a href="{{ url('admin/documents') }}">Document de cours</a></li>
             <li><a href="{{ url('admin/events') }}">Événements</a></li>
             <li><a href="{{ url('admin/bands') }}">Groupes</a></li>
             <li><a href="{{ url('admin/instruments') }}">Instruments</a></li>

@@ -11,7 +11,7 @@
 
 	        <form id="edit-form" class="form form-hozitontal modal-form" method="post" action="{{ url('admin/levels/edit') }}">
 	        {!! csrf_field() !!}
-<br/>
+	<br/>
 				<div class="row">
 					<div class="col-lg-11 col-lg-offset-1">
 						<label class="col-lg-2">Level :</label>

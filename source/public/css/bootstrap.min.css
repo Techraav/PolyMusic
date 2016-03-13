@@ -8685,3 +8685,11 @@ iframe {
     box-shadow: none;
     white-space: nowrap;
 }
+
+td.manage button, td.manage a {
+    margin: -5px;
+}
+
+td.manage .glyphicon-pencil{
+    margin: 2px;
+}

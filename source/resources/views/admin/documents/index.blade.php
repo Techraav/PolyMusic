@@ -34,28 +34,41 @@
 					<td>{!! printLink('courses/show/'.$d->author->slug, ucfirst($d->course->name)) !!}</td>
 					<td>{!! printLink('files/documents/'.$d->name, ucfirst($d->title), ['target'	=> '_blank']) !!}</td>
 					<td align="center" class="manage">
-					@if(Auth::user()->level->level > 2)							
+					@if(Auth::user()->level_id > 3 || $d->course->users->contains(Auth::user()))
 						@if($d->validated == 1)
-						<button onclick="dialogDelete(this)" 
-								id="{{ $d->id }}" 
-								align="right" 
-								link="{{ url('announcements/delete/'.$d->slug) }}"
-								title="Supprimer le document {{ $d->title }} ?" 
-								class="glyphicon glyphicon-trash">
-						</button>
+							<button 
+									onclick="validation(this)"
+									link="{{ url('admin/documents/unvalidate') }}"
+									id="{{ $d->id }}"
+									action="Invalider"
+									msg="Voulez-vous vraiment invalider ce document ?"
+									title="Invalider le document"
+									class="{{ glyph('remove') }}">
+							</button>
 						@else
-							&nbsp; <a title="Valider le document ?" class="glyphicon glyphicon-ok" href="{{ url('admin/documents/validate/'.$d->id) }}"></a>&nbsp;
+							<button 
+									onclick="validation(this)"
+									link="{{ url('admin/documents/validate') }}"
+									id="{{ $d->id }}"
+									action="Valider"
+									msg="Voulez-vous vraiment valider ce document ?"
+									title="Valider le document"
+									class="{{ glyph('ok') }}">
+							</button>
 						@endif
-
-						<button onclick="dialogEdit(this)" 
-								id="{{ $d->id }}" 
-								href="{{ url('announcements/edit/'.$d->slug) }}"
-								title="Modifier le document {{ $d->title }} ?"
-								class="glyphicon glyphicon-pencil">
-						</button>
-					@else
-						-
-					@endif
+					<button
+							onclick="validation(this)"
+							link="{{ url('admin/documents/delete') }}"
+							id="{{ $d->id }}"
+							action="Supprimer"
+							msg="Attention ! Cette action est irréversible !"
+							title="Supprimer le document"
+							class="{{ glyph('trash') }}">
+					</button>
+					<a href="{{ url('admin/documents/edit/'.$d->id) }}" title="Modifier le document" class="{{ glyph('pencil') }}"> </a>
+				@else
+				-
+				@endif
 				</td>
 				</tr>
 			@empty
@@ -71,6 +84,53 @@
 	</table>
 	
 	<div align="right">{!! $documents->render(); !!}</div>
+	<!-- Modal -->
+
+	<div class="modal fade" id="modalValidation" role="dialog">
+		<div class="modal-dialog">
+
+	  	<!-- Modal content-->
+	      	<div class="modal-content">
+	       	 	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h4 id="modal-title" class="modal-title"></h4>
+	        	</div>
+
+		        <form id="delete-form" class="modal-form" method="post" action="">
+		        	{!! csrf_field() !!}
+			        <div class="modal-body">
+	        		<p class="text-danger"><b></b></p>
+			         	<input hidden value="" name="id" id="id" />
+			        </div>
+			        <div class="modal-footer">
+			          	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+			          	<button type="submit" class="btn btn-primary">Valider</button>
+			        </div>
+				</form>
+
+	   		</div>
+		</div>
+	</div>	
+
+@stop
+
+@section('js')
+
+<script type="text/javascript">
+	function validation(el)
+	{
+		var id = el.getAttribute('id');
+		var link = el.getAttribute('link');
+		var action = el.getAttribute('action');
+		var msg = el.getAttribute('msg');
+
+		$("#modalValidation form .text-danger b").text(msg);
+		$("#modalValidation #modal-title").text(action+' un document');
+		$('#modalValidation #id').attr('value', id);
+		$('#modalValidation form').attr('action', link);
+		$('#modalValidation').modal('show');
+	}
+</script>
 
 @stop
 

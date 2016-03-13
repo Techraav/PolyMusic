@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Course;
+use App\Document;
 use App\User;
 use App\Modification;
 use App\Article;
@@ -55,31 +56,37 @@ class CourseController extends Controller {
 
 	public function documents($id)
 	{
-		$course = Course::with(['documents', 
-								'users' => function($query) { $query->where('validated', 1)->where('level', 1); }, 
-								'manager'])
-						->orderBy('created_at', 'desc')
-						->find($id);
-						
-		return view('admin.courses.documents', compact('course'));
+		$course = Course::with(['users' => function($query){ $query->where('level', 1);}, 'manager'])->find($id);
+
+		if(Auth::user()->level_id <= 3 && !($course->users->contains(Auth::user())))
+		{
+			Flash::error('Vous n\'avez pas les droits suffisants.');
+			return Redirect::back();
+		}
+
+		$documents = Document::where('course_id', $id)->with('author')->paginate(15);
+		return view('admin.courses.documents', compact('documents', 'course'));
 	}
 
 	public function documentsValidated($id, $value)
 	{
+		$course = Course::with(['users' => function($query){ $query->where('level', 1);}, 'manager'])->find($id);
+		if(Auth::user()->level_id <= 3 && !$course->users->contains(Auth::user()))
+		{
+			Flash::error('Vous n\'avez pas les droits suffisants.');
+			return Redirect::back();
+		}
+
 		if($value != 0 && $value != 1)
 		{
 			Flash::error('Requête invalide.');
 			return Redirect::back();
 		}
-
-		$course = Course::with(['documents' => function($query) use ($value){ 
-													$query->where('validated', $value);	
-												} , 
-								'users', 'manager'])->orderBy('created_at', 'desc')->find($id);
+		$documents  = Document::where('course_id', $id)->where('validated', $value)->with('author')->paginate(15);
 
 		$filter = $value == 0 ? 'invalidés' : 'validés';
 
-		return view('admin.courses.documents', compact('course', 'filter'));
+		return view('admin.courses.documents', compact('documents', 'filter', 'course'));
 	}
 
 	/**

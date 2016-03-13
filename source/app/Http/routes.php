@@ -228,7 +228,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:3'], function(){
 	Route::get('courses/{slug}/members',	'CourseController@members')		->name('courses.members');
 	Route::get('courses/instrument/{id}', 	'CourseController@instrument')	->name('courses.ofInstrument');
 	Route::get('courses/{id}/documents', 	'CourseController@documents')	->name('courses.documents');
-	Route::get('courses/{id}/documents/validated/{value}', 	'CourseController@documentsValidated')	->name('courses.docsValidated');
+	Route::get('courses/{id}/documents/validation/{value}', 	'CourseController@documentsValidated')	->name('courses.docsValidated');
 
 	// COURSES : POST
 	Route::post('courses/create', 			'CourseController@store')		->name('courses.create');
@@ -257,9 +257,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:3'], function(){
 
 // _____________________________________________________________________________________________________________
 
-	Route::get('documents', 'DocumentController@index')->name('document.index');
-	Route::get('documents/user/{id}', 'DocumentController@fromUser')->name('document.fromuser');
-	Route::get('documents/course/{id}', 'DocumentController@forCourse')->name('document.forcourse');
+	Route::get('documents', 'DocumentController@index')->name('documents.index');
+	Route::get('documents/user/{id}', 'DocumentController@fromUser')->name('documents.fromuser');
+	Route::get('documents/course/{id}', 'DocumentController@forCourse')->name('documents.forcourse');
+	Route::get('documents/edit/{id}', 'DocumentController@edit')->name('documents.edit');
+
+	Route::post('documents/validate', 'DocumentController@toggle')->name('documents.validate');
+	Route::post('documents/unvalidate', 'DocumentController@toggle')->name('documents.unvalidate');
+	Route::post('documents/delete', 'DocumentController@destroy')->name('documents.destroy');
+	Route::post('documents/update', 'DocumentController@update')->name('documents.update');
 
 
 // ____________________________________________________________________________________________________
