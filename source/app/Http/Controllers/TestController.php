@@ -14,9 +14,9 @@ class TestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function test()
+    public function test(Request $request)
     {
-        return view('test.test');
+        dd($request->all());
     }
 
     /**

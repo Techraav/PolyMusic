@@ -8399,7 +8399,7 @@ nav a .glyphicon, nav li .glyphicon, .caret{
 
 a.glyphicon:hover, button.glyphicon:hover{
 	opacity: 1;
-	color:inherit !important;
+	color: inherit;
 }
 
 .frame-news a.glyphicon{
@@ -8655,15 +8655,17 @@ iframe {
 	position: relative;
 	cursor: pointer;
 	text-align: left;
+	z-index: 1;
 	border-left-width: 50px;
 }
 
 .btn-file {
-    left: -62px;
-    top: -9px;
-    height: 41px !important;
-    border-radius: 0;
+    left: -64px;
+    top: -11px;
     height: inherit;
+    width: 50px;
+    color: #fff !important;
+    border-radius: 0;
     border: none;
     background: transparent !important;
 }
@@ -8676,7 +8678,7 @@ iframe {
 	color: #fff;
 }
 
-#name {
+#file-name {
     vertical-align: top;
     color: #2C3E50;
     font-size: 15px;
@@ -8695,9 +8697,41 @@ td.manage .glyphicon-pencil{
 }
 
 .file-error{
-	border-color: red;
+	border-color: #CC5757 !important;
 }
 
 .help-file{
 	margin-left: 10px;
+}
+
+.file-control .exit{
+	text-align:right;
+	display: block;
+	float: right;
+	margin-top: -9px;
+	margin-right: -10px;
+	opacity: 0.5;
+	font-size: 27px;
+	/* padding: 0 !important; */
+	background: none;
+	border: none;
+	color: rgb(44, 62, 80);
+	box-shadow: none !important;
+}
+
+.file-control .exit:hover {
+    opacity: 0.9;
+    text-shadow: 1px 1px 1px rgba(150, 150, 150, 1);
+}
+
+.file-control{
+	border-left-width:50px;
+}
+
+.file-control:hover {
+    border-color:#2c3e50;
+}
+
+.file-control:active, .file-control:focus {
+    border-color: #2c3e50;
 }

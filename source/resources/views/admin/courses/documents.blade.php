@@ -6,6 +6,8 @@
 	<h5 align="center" class="help-block"><i>Géré par : {!! printUserLinkV2($course->manager) !!}</i></h5>
 	<br />
 	<h3 align="center">liste des documents {{ isset($filter) ? $filter : ''}} :</h3>
+	<h5 align="center" class="help-block"><i>Nombre total de documents : {{ App\Document::where('course_id', $course->id)->count() }}</i></h5>
+	
 	<br />
 	<table class="table table-hover table-striped"> 
 		<thead>
@@ -20,50 +22,53 @@
 		</thead>
 		<tbody>
 			@forelse($documents as $d)
-				<td align="center">{{ showDate($d->created_at, 'Y-m-d H:i:s', 'd/m/Y') }}</td>
-				<td align="center">{!! printUserLinkV2($d->author) !!}</td>
-				<td>{{ $d->title }}</td>
-				<td>{!! cut($d->description, 40) !!}</td>
-				<td class="manage" align="center">{!! printLink('admin/courses/'.$course->id.'/documents/validation/'.$d->validated, '', ['title' => 'N\'afficher que les documents '.($d->validated == 0 ? 'non validés' : 'validés').'.'], ['glyphicon', 'glyphicon-'.($d->validated == 0 ? 'remove' : 'ok')]) !!}</td>
-				<td align="center">
-				@if(Auth::user()->level_id > 3 || $course->users->contains(Auth::user()))
-					@if($d->validated == 1)
+				<tr>
+					<td align="center">{{ showDate($d->created_at, 'Y-m-d H:i:s', 'd/m/Y') }}</td>
+					<td align="center">{!! printUserLinkV2($d->author) !!}</td>
+					<td>{!! printLink('files/documents/'.$d->name, ucfirst($d->title), ['target'	=> '_blank']) !!}</td>
+					<td>{!! cut($d->description, 40) !!}</td>
+					<td class="manage" align="center">{!! printLink('admin/courses/'.$course->id.'/documents/validation/'.$d->validated, '', ['title' => 'N\'afficher que les documents '.($d->validated == 0 ? 'non validés' : 'validés').'.'], ['glyphicon', 'glyphicon-'.($d->validated == 0 ? 'remove' : 'ok')]) !!}</td>
+					<td align="center">
+					@if(Auth::user()->level_id > 3 || $course->users->contains(Auth::user()))
+						@if($d->validated == 1)
+							<button 
+									onclick="validaton(this)"
+									link="{{ url('admin/documents/unvalidate') }}"
+									id="{{ $d->id }}"
+									action="invalider"
+									title="Invalider le document"
+									class="{{ glyph('remove') }}">
+							</button>
+						@else
+							<button 
+									onclick="validaton(this)"
+									link="{{ url('admin/documents/validate') }}"
+									id="{{ $d->id }}"
+									action="valider"
+									title="Valider le document"
+									class="{{ glyph('ok') }}">
+							</button>
+							<button
+									onclick="delete(this)"
+									link="{{ url('admin/documents/delete/'.$d->id) }}"
+									id="{{ $d->id }}"
+									title="Supprimer le document"
+									class="{{ glyph('trash') }}"
+							</button>
+						@endif
 						<button 
-								onclick="validaton(this)"
-								link="{{ url('admin/documents/unvalidate') }}"
+								onclick="edit(this)"
+								link="{{ url('admin/documents/edit/'.$d->id) }}"
 								id="{{ $d->id }}"
-								action="invalider"
-								title="Invalider le document"
-								class="{{ glyph('remove') }}">
+								title="Modifier le document"
+								class="{{ glyph('pencil') }}">
 						</button>
 					@else
-						<button 
-								onclick="validaton(this)"
-								link="{{ url('admin/documents/validate') }}"
-								id="{{ $d->id }}"
-								action="valider"
-								title="Valider le document"
-								class="{{ glyph('ok') }}">
-						</button>
-						<button
-								onclick="delete(this)"
-								link="{{ url('admin/documents/delete/'.$d->id) }}"
-								id="{{ $d->id }}"
-								title="Supprimer le document"
-								class="{{ glyph('trash') }}"
-						</button>
+					-
 					@endif
-					<button 
-							onclick="edit(this)"
-							link="{{ url('admin/documents/edit/'.$d->id) }}"
-							id="{{ $d->id }}"
-							title="Modifier le document"
-							class="{{ glyph('pencil') }}">
-					</button>
-				@else
-				-
-				@endif
-				</td>
+					</td>
+				</tr>
+
 			@empty
 				<td align="center">-</td>
 				<td align="center">-</td>
@@ -76,6 +81,37 @@
 	</table>
 
 	<div align="right">{!! $documents->render() !!}</div>
+	<br />
+	<h3 align="center">Ajouter un document</h3>
+	<br />
+	<form class="col-lg-8 col-lg-offset-2" method="post" action="{{ url('admin/documents/store') }}" files="true" id="add-document" accept-charset="UTF-8" enctype="multipart/form-data">
+	{{ csrf_field() }}
+		<div class="form-group">
+			<label class="label-control">Cours :</label>
+			<input required type="text" disabled class="form-control" value="{{ ucfirst($course->name) }}" />
+			<input required hidden name="course_id" value="{{ $course->id }}" />
+		</div>
+
+		<div class="form-group">
+			<label class="label-control">Titre :</label>
+			<input required type="text" class="form-control" name="title" value="" placeholder="Titre du document" />
+		</div>
+
+		<div class="form-group">
+			<label class="label-control">Document :</label>
+			{{-- {!! printFileInput('file', ['pdf'], true, ['application/pdf'], 'Seuls les fichiers au format PDF sont acceptés.') !!}--}}
+			<input type="file" class="form-control" />
+		</div>
+
+		<div class="form-group">
+			<label class="label-control">Description :</label>
+			<textarea rows="4" class="form-control" name="description" placeholder="Decrivez votre document..."></textarea>
+		</div>
+				
+		<div align="center"class="row buttons">
+			<button type="reset" class="btn btn-default">Annuler</button> <button  type="submit" class="btn btn-primary">Valider</button>
+		</div>
+	</form>
 
 	<!-- Modal -->
 	<div class="modal fade" id="modalValidation" role="dialog">

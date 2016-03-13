@@ -49,6 +49,7 @@
     <script src="{{ URL::asset('/js/jquery.js')  }}"></script>
     <script src="{{ URL::asset('/js/bootstrap.min.js')  }}"></script>
     <script src="{{ URL::asset('/js/bootbox.min.js')  }}"></script>
+    <script src="{{ URL::asset('/js/fileInput.js')  }}"></script>
     @yield('js') 
 
     <script>

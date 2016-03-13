@@ -16,7 +16,7 @@
 		return $data;
 	}
 
-	function printFileInput($name, $ext, array $addAttr=[], $msg=false)
+		function printFileInput($name, array $ext, $required=false, array $addAttr=[], $msg=false)
 	{
 		$str = "[";
 		foreach ($ext as $e) {
@@ -34,21 +34,25 @@
 			$attr = substr($attr, 0, strlen($attr)-2).'"';
 		}
 
-		$sbtn 	= '<button onclick="clickFile()" type="button" class="filename form-control">';
-		$sglyph = '<span type="button" class="btn-file btn glyphicon glyphicon-folder-open">';
-		$input 	= '<input onchange="fileInput(this)" data-extension="'.$str.'" '.$attr.' class="input-file-hidden" type="file" name="'.$name.'" />';
-		$eglyph = '</span>';
-		$name 	= '<span id="name"></span>';
-		$ebtn 	= '</button>';
-		$msg 	= !$msg ? '' : '<span class="help-block help-file"><i>'.$msg.'</i></span>';
+		$div 	=	'<div class="form-control file-control">';
+		$btn 	=	'<button onclick="clickFile()" type="button" class="btn-file glyphicon glyphicon-folder-open">';
+		$inp 	=	'<input '. ($required ? 'required' : '') .' onchange="fileInput(this)" data-extension="'.$str.'" '.$attr.' accept="image/jpeg, image/png" class="input-file-hidden" type="file" id="file" name="'.$name.'" />';
+		$ebtn 	=	'</button>';
+		$cb 	=	'<input type="checkbox" name="check" id="file-check" hidden />';
+		$fname 	=	'<span id="file-name"></span>';
+		$exit 	=	'<button type="button" id="exit" class="exit" data-dismiss="alert" aria-hidden="true">×</button>';
+		$ediv 	=	'</div>';
+		$msg 	= 	!$msg ? '' : '<span class="help-block help-file"><i>'.$msg.'</i></span>';
 
-		return $sbtn.$sglyph.$input.$eglyph.$name.$ebtn.$msg;
+		return $div.$btn.$inp.$ebtn.$cb.$fname.$exit.$ediv.$msg;
 	}
 
 	function cut($str, $n)
 	{
-		$string = substr($str, 0, $n).' <i>[...]</i>';
-
+		$string = $str;
+		if(strlen($str) > $n){
+			$string = substr($str, 0, $n).' <i>[...]</i>';
+		}
 		return '<span title="'.$str.'">'.$string.'</span>';
 	}
 

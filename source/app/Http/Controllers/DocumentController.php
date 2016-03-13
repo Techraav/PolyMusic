@@ -81,11 +81,55 @@ class DocumentController extends Controller
         return redirect('admin/documents');
     }
 
+    public function store(Request $request)
+    {
+        $validator = $this->validator($request->all());
+        if($validator->fails() || !isset($request->check))
+        {
+            Flash::error('Impossible d\'ajouter le document, veuillez vérifier les champs renseignés, ainsi que le format de votre document.');
+            return Redirect::back()->withErrors($validator->errors());
+        }
+
+        $file = $request->file('file');
+        $ext = $file->getClientOriginalExtension();
+        $clientName = $file->getClientOriginalName();
+        $destPath = public_path().'/files/documents';
+        $fileName = $request->course_id.Auth::user()->id.date('dmYHis').rand(10000, 99999).'.'.$ext;
+
+        if($file->move($destPath, $fileName))
+        {
+            $title = $request->title;
+            $description = $request->description;
+            $user_id = Auth::user()->id;
+            $course_id = $request->course_id;
+            $validated = isset($request->validated) ? 1 : 0;
+
+            Document::create([
+                'title'         => $title,
+                'name'          => $fileName,
+                'description'   => $description,
+                'course_id'     => $course_id,
+                'user_id'       => $user_id,
+                'validated'     => $validated
+                ]);
+
+            Flash::success('Le document a bien été ajouté.');
+        }
+        else{
+            Flash::error('Une erreur est survenur. Veuillez réessayer. Si le problème persiste, contactez un administrateur.');
+        }
+
+        return Redirect::back();
+    }
+
     protected function validator($data)
     {
         return Validator::make($data, [
-            'title' => 'required|min:5|max:255',
-            'description' => 'max:255',
+            'title'         => 'required|min:5|max:100',
+            'description'   => 'max:255',
+            'file'          => 'required|mimes:pdf'
             ]);
     }
+
+
 }

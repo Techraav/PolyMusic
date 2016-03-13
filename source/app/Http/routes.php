@@ -16,10 +16,7 @@ Route::get('test', function()
 	return view('test');
 });
 
-Route::post('test', function()
-{
-	echo 'Sucess !';
-});
+Route::post('test', 'TestController@test');
 
 Route::get('/', function()
 {
@@ -266,6 +263,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:3'], function(){
 	Route::post('documents/unvalidate', 'DocumentController@toggle')->name('documents.unvalidate');
 	Route::post('documents/delete', 'DocumentController@destroy')->name('documents.destroy');
 	Route::post('documents/update', 'DocumentController@update')->name('documents.update');
+	Route::post('documents/store', 'DocumentController@store')->name('documents.store');
 
 
 // ____________________________________________________________________________________________________
