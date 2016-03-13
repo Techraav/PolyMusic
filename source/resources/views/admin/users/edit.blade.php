@@ -79,7 +79,7 @@
 							<label class="col-md-4 control-label" for="profil_picture">Photo de profil</label>
 
 							<div class="col-md-6">
-								<input type="file" name="profil_picture" accecpt="image/*" id="photo">
+								<input type="file" name="profil_picture" accept="image/jpeg, image/png">
 							</div>
 						</div>
 

@@ -16,7 +16,7 @@
 		return $data;
 	}
 
-	function printFileInput($name, $ext)
+	function printFileInput($name, $ext, array $addAttr=[])
 	{
 		$str = "[";
 		foreach ($ext as $e) {
@@ -25,9 +25,18 @@
 		$str = substr($str, 0, strlen($str)-2);	
 		$str .= ']';
 
+		$attr = '';
+		if(!empty($addAttr)) {
+			$attr .= 'accept="';
+			foreach ($addAttr as $a) {
+				$attr .= $a.', ';
+			}
+			$attr = substr($attr, 0, strlen($attr)-2).'"';
+		}
+
 		$sbtn 	= '<button onclick="clickFile()" type="button" class="filename form-control">';
 		$sglyph = '<span type="button" class="btn-file btn glyphicon glyphicon-folder-open">';
-		$input 	= '<input onchange="fileInput(this)" data-extension="'.$str.'" class="input-file-hidden" type="file" name="'.$name.'" />';
+		$input 	= '<input onchange="fileInput(this)" data-extension="'.$str.'" '.$attr.' class="input-file-hidden" type="file" name="'.$name.'" />';
 		$eglyph = '</span>';
 		$name 	= '<span id="name"></span>';
 		$ebtn 	= '</button>';
