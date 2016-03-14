@@ -79,7 +79,7 @@ Route::post('comment/delete/{id}', 'CommentController@destroy')	->name('comments
 // ____________________________________________________________________________________________________
 
 Route::get('courses', 'CourseController@index')			->name('course.index');
-Route::get('courses/{slug}', 'CourseController@show')	->name('course.show');
+Route::get('courses/show/{slug}', 'CourseController@show')	->name('course.show');
 
 Route::post('courses/{slug}', 'CourseController@toggleSignUp')	->name('course.togglesignup');
 

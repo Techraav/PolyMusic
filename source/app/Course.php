@@ -15,6 +15,11 @@ class Course extends Model {
 		return $this->belongsToMany('App\User')->withPivot('level', 'validated');
 	}
 
+	public function teachers()
+	{
+		return $this->belongsToMany('App\User')->withPivot('level', 'validated');
+	}
+
 	public function instrument()
 	{
 		return $this->belongsTo('App\Instrument');

@@ -97,7 +97,23 @@ class CourseController extends Controller {
 	*/
 	public function show($slug)
 	{
-
+		$course = Course::where('slug', $slug)
+						->with(['manager', 
+								'instrument',
+								'article' => function($query){ $query->with('images'); },
+								'users' => function($query){ $query->where('level', 0)->where('validated', 1)->orderBy('last_name')->limit(15); },	
+								'teachers'	=> function($query){ $query->where('level', 1)->where('validated', 1)->orderBy('last_name')->limit(15); },	
+							])
+						->first();
+		if(Auth::check())
+		{
+			if($course->users->contains(Auth::user()) || $course->teachers->contains(Auth::user()) || Auth::user()->level_id > 3)
+			{		
+				$course->load(['documents' => function($query){ $query->orderBy('created_at', 'desc')->limit(10); }]);
+			}		
+		}				
+		
+		return view('courses.show', compact('course'));
 	}
 
 	/**
