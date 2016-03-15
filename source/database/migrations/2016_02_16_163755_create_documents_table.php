@@ -11,7 +11,7 @@ class CreateDocumentsTable extends Migration {
 			$table->increments('id');
 			$table->timestamps();
 			$table->string('title', 255);
-			$table->string('name', 255);
+			$table->string('name', 255)->unique();
 			$table->integer('user_id')->unsigned()->index();
 			$table->string('description', 255);
 			$table->integer('course_id')->index()->unsigned();

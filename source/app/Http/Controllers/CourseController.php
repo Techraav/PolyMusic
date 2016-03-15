@@ -100,7 +100,7 @@ class CourseController extends Controller {
 		$course = Course::where('slug', $slug)
 						->with(['manager', 
 								'instrument',
-								'article' => function($query){ $query->with('images'); },
+								'article' => function($query){ $query->with(['images' => function($query){ $query->limit(6);}]); },
 								'users' => function($query){ $query->where('level', 0)->where('validated', 1)->orderBy('last_name')->limit(15); },	
 								'teachers'	=> function($query){ $query->where('level', 1)->where('validated', 1)->orderBy('last_name')->limit(15); },	
 							])

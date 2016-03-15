@@ -99,8 +99,7 @@
 
 		<div class="form-group">
 			<label class="label-control">Document :</label>
-			{{-- {!! printFileInput('file', ['pdf'], true, ['application/pdf'], 'Seuls les fichiers au format PDF sont acceptés.') !!}--}}
-			<input type="file" class="form-control" />
+			{!! printFileInput('file', ['pdf'], true, ['application/pdf'], 'Seuls les fichiers au format PDF sont acceptés.') !!}
 		</div>
 
 		<div class="form-group">
