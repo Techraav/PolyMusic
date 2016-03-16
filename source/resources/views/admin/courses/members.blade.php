@@ -6,7 +6,8 @@
 
 @section('content')
 	
-	<h1 align="center">{{ ucfirst($course->name) }}</h1>
+	<h1 align="center">{!! printLink('courses/show/'.$course->slug, ucfirst($course->name)) !!}</h1>
+	<h4 class="help-block" align="center">{!! printLink('admin/documents/course/'.$course->id, 'Gérer les documents') !!}</h4>
 	<span class="help-block" align="center">Responsable : {!! printUserLinkV2($course->manager) !!} </span>
 	<span class="help-block" align="center">Instrument principal : {{ ucfirst(App\Instrument::where('id', $course->instrument_id)->first()->name) }}</span>
 	<span class="help-block" align="center">Élève(s) : {{ $students->count() }}</span>

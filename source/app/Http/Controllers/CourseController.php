@@ -58,6 +58,12 @@ class CourseController extends Controller {
 	{
 		$course = Course::with(['users' => function($query){ $query->where('level', 1);}, 'manager'])->find($id);
 
+		if(empty($course))
+		{
+			Flash::error('Ce cours n\'existe pas.');
+			return abort(404);
+		}
+
 		if(Auth::user()->level_id <= 3 && !($course->users->contains(Auth::user())))
 		{
 			Flash::error('Vous n\'avez pas les droits suffisants.');
@@ -71,6 +77,13 @@ class CourseController extends Controller {
 	public function documentsValidated($id, $value)
 	{
 		$course = Course::with(['users' => function($query){ $query->where('level', 1);}, 'manager'])->find($id);
+
+		if(empty($course))
+		{
+			Flash::error('Ce cours n\'existe pas.');
+			return abort(404);
+		}
+
 		if(Auth::user()->level_id <= 3 && !$course->users->contains(Auth::user()))
 		{
 			Flash::error('Vous n\'avez pas les droits suffisants.');
@@ -105,11 +118,20 @@ class CourseController extends Controller {
 								'teachers'	=> function($query){ $query->where('level', 1)->where('validated', 1)->orderBy('last_name')->limit(15); },	
 							])
 						->first();
+
+		if(empty($course))
+		{
+			Flash::error('Ce cours n\'existe pas.');
+			return abort(404);
+		}
+
+						
 		if(Auth::check())
 		{
 			if($course->users->contains(Auth::user()) || $course->teachers->contains(Auth::user()) || Auth::user()->level_id > 3)
 			{		
-				$course->load(['documents' => function($query){ $query->orderBy('created_at', 'desc')->limit(10); }]);
+				$course->load(['documents' => function($query){ $query->orderBy('created_at', 'desc')->limit(3); }]);
+				$course->load(['modifications' => function($query) { $query->with('user', 'author')->orderBy('created_at')->limit(10); }]);
 			}		
 		}				
 		
@@ -125,6 +147,13 @@ class CourseController extends Controller {
 	public function members($slug)
 	{
 		$course = Course::where('slug', $slug)->with('manager', 'instrument', 'article', 'documents')->first();
+
+		if(empty($course))
+		{
+			Flash::error('Ce cours n\'existe pas.');
+			return abort(404);
+		}
+
 		$id 	= $course->id;
 
 		$students = CourseUser::where('course_id', $id)->where('validated', 1)->where('level', 0)->paginate(30);
@@ -155,6 +184,13 @@ class CourseController extends Controller {
 	public function edit($id)
 	{
 		$course = Course::where('id', $id)->with('manager', 'users', 'instrument', 'article', 'documents')->first();
+
+		if(empty($course))
+		{
+			Flash::error('Ce cours n\'existe pas.');
+			return abort(404);
+		}
+
 		if(Auth::user()->id != $course->user_id && Auth::user()->level->level < 3)
 		{
 			Flash::error("Vous n'avez pas le droit de modifier ce cours !");

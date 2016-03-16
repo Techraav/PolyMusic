@@ -31,7 +31,7 @@
 				<tr>
 					<td align="center">{{ showDate($d->created_at, 'Y-m-d H:i:s', 'd/m/Y') }}</td>
 					<td>{!! printUserLinkV2($d->author) !!}</td>
-					<td>{!! printLink('courses/show/'.$d->author->slug, ucfirst($d->course->name)) !!}</td>
+					<td>{!! printLink('courses/show/'.$d->course->slug, ucfirst($d->course->name)) !!}</td>
 					<td>{!! printLink('files/documents/'.$d->name, ucfirst($d->title), ['target'	=> '_blank']) !!}</td>
 					<td align="center" class="manage">
 					@if(Auth::user()->level_id > 3 || $d->course->users->contains(Auth::user()))
