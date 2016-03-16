@@ -36,7 +36,7 @@
 			@forelse($bands as $b)
 			<tr>
 				<td align="center">{{ date_format($b->created_at, 'd/m/Y') }}</td>
-				<td align="center"><a href="{{ url('bands/'.$b->slug) }}">{{ ucfirst($b->name) }}</a></td>
+				<td align="center"><a href="{{ url('bands/show/'.$b->slug) }}">{{ ucfirst($b->name) }}</a></td>
 				<td>{!! printUserLinkV2($b->manager) !!}</td>
 				<td align="center">{{ $b->members()->count() }}</td>
 				<td align="center"><span class="icon-validated glyphicon glyphicon-{{ $b->validated == 1 ? 'ok' : 'remove' }}"></span></td>

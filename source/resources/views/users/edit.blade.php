@@ -1,23 +1,22 @@
 @extends('layouts.app')
 
 @section('title')
-	Modification {{ $user -> first_name }} {{ $user -> last_name }}
+	Modification {{ $user->first_name }} {{ $user->last_name }}
 @stop
 
 @section('content')
 <div class="jumbotron">
 	<div class="profile">
-		<h1 align="center">{{ $user -> first_name }} {{ $user -> last_name }}</h1>
+		<h1 align="center">{{ $user->first_name}} {{ $user->last_name }}</h1>
 		<div class="row">
 			<div class="profil-pict">
-				<p align="center" ><img src=" {{ URL::asset('/img/profil_pictures/'.$user -> profil_picture) }} " alt=" profile picture "/></p>
+				<p align="center" ><img src=" {{ URL::asset('/img/profil_pictures/'.$user->profil_picture) }} " alt=" profile picture "/></p>
 			</div>
 			<div>
 				
-				<form class="form-horizontal" role="form" method="post" action="{{ url('admin/users/edit/'.$user->slug) }}">
+				<form class="form-horizontal" role="form" method="post" action="{{ url('users/edit/'.$user->slug) }}">
 	            {!! csrf_field() !!}
 	            	<fieldset>                   
-
 			            <div class="form-group">
 			                <label class="col-md-4 control-label" for="email">Adresse e-mail</label>
 
@@ -30,7 +29,7 @@
 			                <label class="col-md-4 control-label" for="birth_date">Date de naissance</label>
 
 			                <div class="col-md-6">
-			                    <input type="date" class="form-control input-sm" name="birth_date" value="{{ showDate($user->birth_date, 'Y-m-d', 'd/m/Y') }}" readonly>
+			                    <input type="date" class="form-control input-sm" name="birth_date" value="{{ $user->birth_date }}" readonly>
 			                </div>
 			            </div>
 
@@ -39,12 +38,12 @@
 
 			                <div class="col-md-6">
 			                    <select class="form-control input-sm" name="school_year">
-			                        <option value="1">PeiP 1</option>
-			                        <option value="2">PeiP 2</option>
-			                        <option value="3">3ème année</option>
-			                        <option value="4">4ème année</option>
-			                        <option value="5">5ème année</option>
-			                        <option value="0">Autre...</option>
+			                        <option value="1" {{$user->school_year == 1 ? 'selected' : ''}}>PeiP 1</option>
+			                        <option value="2" {{$user->school_year == 2 ? 'selected' : ''}}>PeiP 2</option>
+			                        <option value="3" {{$user->school_year == 3 ? 'selected' : ''}}>3ème année</option>
+			                        <option value="4" {{$user->school_year == 4 ? 'selected' : ''}}>4ème année</option>
+			                        <option value="5" {{$user->school_year == 5 ? 'selected' : ''}}>5ème année</option>
+			                        <option value="0" {{$user->school_year == 0 ? 'selected' : ''}}>Autre...</option>
 			                    </select>
 			                </div>
 			            </div>
@@ -76,11 +75,9 @@
 						@endif
 
 						<div class="from-group">
-							<label class="col-md-4 control-label" for="profil_picture">Photo de profil</label>
+							<label class="control-label" for="profil_picture">Photo de profil</label>
 
-							<div class="col-md-6">
-								<input type="file" name="profil_picture" accept="image/jpeg, image/png">
-							</div>
+							{!! printFileInput('profil_picture', ['png','jpeg','jpg'], true, ['accept' => 'image/png, image/jpeg'], 'Seules les images au format PNG et JPEG sont acceptées.', ['truc truc2']) !!}
 						</div>
 
 						<div class="form-group">

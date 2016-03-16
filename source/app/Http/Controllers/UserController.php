@@ -61,7 +61,7 @@ class UserController extends Controller {
 			return view('error.404');
 		}
 
-	  return view('admin.users.edit', compact('user'));	
+	  return view('users.edit', compact('user'));	
 	}
 
 	/**
