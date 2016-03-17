@@ -10,7 +10,7 @@
 		<h1 align="center">{{ $user -> first_name }} {{ $user -> last_name }}</h1>
 		@if($user->id == Auth::user()->id || Auth::user()->level->level > 3)
 			<div class="manage-user">
-				<a href="{{ url('admin/users/edit/'.$user->slug) }}" class="btn-edit glyphicon glyphicon-pencil"></a>
+				<a href="{{ url('users/edit/'.$user->slug) }}" class="btn-edit glyphicon glyphicon-pencil"></a>
 			</div>					
 		@endif
 		<div class="row">

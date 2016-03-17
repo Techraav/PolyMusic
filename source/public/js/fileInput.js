@@ -2,7 +2,7 @@ function fileInput(el)
 {
 	var form = $(el).parents('form')[0].getAttribute('id');
 	var filename = $(el).val().replace(/C:\\fakepath\\/i, '');
-	$('#'+form+' #file-name').text(filename);
+	$('#file-name').text(filename);
 	var fileExtension = filename.substr(filename.lastIndexOf('.')+1);
 	var allowedExtension = $(el).data("extension");
 	allowedExtension = allowedExtension.replace(/'/g,"");
@@ -30,7 +30,7 @@ function clickFile()
 $('.file-control #exit').click(function(){
 	var form = $(this).parents('form')[0].getAttribute('id');
 	$('.file-control').removeClass('file-error');
-	$('#'+form+' #file-name').text('');
+	$('#file-name').text('');
 	$('#'+form+' #file').value = '';
 	$('#'+form+' #file-check').attr('checked', false);
 });	

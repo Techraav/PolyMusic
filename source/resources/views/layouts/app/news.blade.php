@@ -1,5 +1,5 @@
 <?php 
-  $news = App\News::published()->orderBy('published_at', 'desc')->limit(5)->get(['id', 'published_at', 'title']);
+  $news = App\News::published()->orderBy('published_at', 'desc')->limit(5)->get(['id', 'published_at', 'title','slug']);
 ?>
 
 <div class="panel panel-default panel-news">
@@ -14,7 +14,7 @@
           <li class="list-group-item news-item">
               <div class="news-infos"><p><span>{{ showDate($n['published_at'], 'Y-m-d', 'j M Y', false) }}</span></p></div> 
               <!-- <span class="trait"></span> -->
-              <div class="content"><p><a href="{{ url('news/view/'.$n['slug'])}}">{{ strlen($n->title) > 40 ? substr($n->title, 0, 40).'...' :  $n->title }}</a></p></div>
+              <div class="content"><p><a href="{{ url('news/view/'.$n->slug)}}">{{ strlen($n->title) > 40 ? substr($n->title, 0, 40).'...' :  $n->title }}</a></p></div>
               <span class="glyphicon glyphicon-menu-right"></span>
           </li>
           @empty

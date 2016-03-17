@@ -16,7 +16,7 @@
 		return $data;
 	}
 
-		function printFileInput($name, array $ext, $required=false, array $addAttr=[], $msg=false)
+	function printFileInput($name, array $ext, $required=false, array $addAttr=[], $msg=false, array $classes=[])
 	{
 		$str = "[";
 		foreach ($ext as $e) {
@@ -27,16 +27,24 @@
 
 		$attr = '';
 		if(!empty($addAttr)) {
-			$attr .= 'accept="';
-			foreach ($addAttr as $a) {
-				$attr .= $a.', ';
+			foreach ($addAttr as $k => $v) {
+				$attr .= $k.'="'.$v.'"  ';
 			}
-			$attr = substr($attr, 0, strlen($attr)-2).'"';
+			$attr = substr($attr, 0, strlen($attr)-2);
 		}
+
+		$class = 'class="input-file-hidden';
+		if(!empty($classes)){
+			foreach($classes as $c)
+			{
+				$class .= ' '.$c;
+			}
+		}
+		$class .= '"';
 
 		$div 	=	'<div class="form-control file-control">';
 		$btn 	=	'<button onclick="clickFile()" type="button" class="btn-file glyphicon glyphicon-folder-open">';
-		$inp 	=	'<input '. ($required ? 'required' : '') .' onchange="fileInput(this)" data-extension="'.$str.'" '.$attr.' accept="image/jpeg, image/png" class="input-file-hidden" type="file" id="file" name="'.$name.'" />';
+		$inp 	=	'<input '. ($required ? 'required' : '') .' onchange="fileInput(this)" data-extension="'.$str.'" '.$attr.' '.$class.' type="file" id="file" name="'.$name.'" />';
 		$ebtn 	=	'</button>';
 		$cb 	=	'<input type="checkbox" name="check" id="file-check" hidden />';
 		$fname 	=	'<span id="file-name"></span>';
