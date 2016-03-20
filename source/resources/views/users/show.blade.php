@@ -52,7 +52,7 @@
 	<div class="description">
 		<h2>Description :</h2>
 		<p>
-			{{ $user -> description}}
+			{!! $user -> description !!}
 		</p>
 	</div>
 </div>

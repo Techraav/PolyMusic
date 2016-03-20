@@ -82,15 +82,29 @@ class UserController extends Controller {
 			return Redirect::back();
 		}
 
-		$user->update([
+		$file = $request->file('profil_picture');
+		$ext = $file->getClientOriginalExtension();
+		$clientName = $file->getClientOriginalName();
+		$destPath = public_path().'/img/profil_pictures';
+		$fileName = $request->id.Auth::user()->first_name.Auth::user()->last_name;
+
+		if($file->move($destPath, $fileName))
+		{
+			$user->update([
 			'phone' 		=> $request->phone,
-			'profil'		=> $request->profil_picture,
+			'profil_picture'=> $request->profil_picture,
 			'description'	=> $request->description,
 			'school_year'	=> $request->school_year,
 			'department_id'	=> $request->department_id,
 			]);
 
-		makeModification('users', ucfirst(Auth::user()->first_name).' '.ucfirst(Auth::user()->last_name).' updated his information');
+			makeModification('users', ucfirst(Auth::user()->first_name).' '.ucfirst(Auth::user()->last_name).' updated his information');
+
+			Flash::success('Les informations ont bien été modifiées.');
+		}
+		else{
+			Flash::error('Une erreur est survenue.');
+		}
 
 		return redirect('users/'.$user->slug);
 	}
@@ -113,6 +127,7 @@ class UserController extends Controller {
 		return Validator::make($data, [
 			'phone'	=> ["regex:/(\(\+33\)|0|\+33|0033)[1-9]([0-9]{8}|([0-9\- ]){12})/"],
 			'description'	=> 'max:1000',
+			'profil_picture' => 'mimes:jpg,png,jpeg'
 			]);
 	}
   

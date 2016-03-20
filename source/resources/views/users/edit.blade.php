@@ -16,22 +16,24 @@
 				
 				<form class="form-horizontal" role="form" method="post" action="{{ url('users/edit/'.$user->slug) }}">
 	            {!! csrf_field() !!}
-	            	<fieldset>                   
-			            <div class="form-group">
+	            	<fieldset>
+	            		<input name="id" value="{{ $user->id }}" hidden>
+
+	            		<div class="form-group">
 			                <label class="col-md-4 control-label" for="email">Adresse e-mail</label>
 
 			                <div class="col-md-6">
-			                    <input type="email" class="form-control input-sm" name="email" value="{{ $user->email }}" readonly>
+			                    <input type="email" class="form-control" name="email" value="{{ $user->email }}" readonly>
 			                </div>
 			            </div>
 
 			            <div class="form-group">
-			                <label class="col-md-4 control-label" for="birth_date">Date de naissance</label>
+			                <label class="col-md-4 control-label" for="birth_date">Adresse e-mail</label>
 
 			                <div class="col-md-6">
-			                    <input type="date" class="form-control input-sm" name="birth_date" value="{{ $user->birth_date }}" readonly>
+			                    <input type="date" class="form-control" name="birth_date" value="{{ $user->birth_date }}" readonly>
 			                </div>
-			            </div>
+			            </div>                      
 
 			            <div class="form-group">
 			                <label class="col-md-4 control-label" for="school_year">Année d'étude</label>
@@ -77,14 +79,14 @@
 						<div class="from-group">
 							<label class="control-label" for="profil_picture">Photo de profil</label>
 
-							{!! printFileInput('profil_picture', ['png','jpeg','jpg'], true, ['accept' => 'image/png, image/jpeg'], 'Seules les images au format PNG et JPEG sont acceptées.', ['truc truc2']) !!}
+							{!! printFileInput('profil_picture', ['png','jpeg','jpg'], false, ['accept' => 'image/png, image/jpeg'], 'Seules les images au format PNG et JPEG sont acceptées.', []) !!}
 						</div>
 
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="description">Description</label>
 
 							<div class="col-md-10">
-								<textarea rows="3" name="description" class="form-control input-sm" required></textarea>
+								<textarea rows="3" name="description" class="form-control input-sm">{{ $user->description }}</textarea>
 							</div>
 						</div>
 
