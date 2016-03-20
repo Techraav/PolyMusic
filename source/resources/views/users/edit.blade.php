@@ -74,7 +74,7 @@
 				            </div>
 						@endif
 
-						<div class="from-group">
+						<div class="from-group col-lg-6">
 							<label class="control-label" for="profil_picture">Photo de profil</label>
 
 							{!! printFileInput('profil_picture', ['png','jpeg','jpg'], true, ['accept' => 'image/png, image/jpeg'], 'Seules les images au format PNG et JPEG sont acceptées.', ['truc truc2']) !!}

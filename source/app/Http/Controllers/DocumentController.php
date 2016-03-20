@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\File;
 use Laracasts\Flash\Flash;
 
 class DocumentController extends Controller
@@ -46,7 +47,19 @@ class DocumentController extends Controller
     public function destroy(Request $request)
     {
         $doc = Document::find($request->id);
-        $doc->delete();
+
+        if(empty($doc))
+        {
+            Flash::error('Ce document n\'existe pas.');
+            return Redirect::back();
+        }
+
+        $name = $doc->name;
+        $path = public_path().'/files/documents/'.$name;
+        if($doc->delete())
+        {
+            File::delete($path);
+        }
         Flash::success('Le document a bien été supprimé.');
         return Redirect::back();
     }
