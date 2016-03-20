@@ -64,6 +64,7 @@ class StudentController extends Controller {
 				$user->level_id = 1;
 			}
 
+			makeModification('users', printUserLinkV2($user).' is no longer a teacher.');
 			$user->save();
 		}
 
@@ -89,7 +90,11 @@ class StudentController extends Controller {
 		}
 
 		$user_id = $request->user_id;
-		$course->users()->updateExistingPivot($user_id, ['validated' => 1]);
+		$pivot = CourseUser::where('user_id', $user_id)->where('course_id', $id)->where('validated', 0)->where('level', 0)->first();
+		$pivot->validated = 1;
+		$pivot->save();
+
+		// $course->users()->updateExistingPivot($user_id, ['validated' => 1]);
 
 		CourseModification::create([
 			'author_id'	=> Auth::user()->id,
@@ -97,6 +102,9 @@ class StudentController extends Controller {
 			'course_id'	=> $id,
 			'value'		=> 3,
 			]);
+
+		$user = User::find($user_id);
+		$user->sendNotification('Votre demande d\'inscription au cours &laquo; '.ucfirst($course->name).' &raquo; à été <b>acceptée</b> !', 'courses/show/'.$course->slug);
 
 		return Redirect::back();
 	}
@@ -113,7 +121,12 @@ class StudentController extends Controller {
 		}
 
 		$user_id = $request->user_id;
-		$course->users()->detach($user_id);
+		$pivot = CourseUser::where('user_id', $user_id)->where('course_id', $id)->where('level', 0)->first();
+
+		if(!empty($pivot))
+		{	
+			$pivot->delete();
+		}
 
 		CourseModification::create([
 			'author_id'	=> Auth::user()->id,
@@ -121,6 +134,32 @@ class StudentController extends Controller {
 			'course_id'	=> $id,
 			'value'		=> 2,
 			]);
+
+		$user = User::find($user_id);
+		$user->sendNotification('Vous avez été retiré du cours &laquo; '.ucfirst($course->name).' &raquo;.', 'courses/show/'.$course->slug);
+
+		return Redirect::back();
+	}
+
+	public function cancel(Request $request, $course_id)
+	{
+		$course = Course::find($course_id);
+		$user 	= User::find($request->user_id);
+
+		$pivot = CourseUser::where('user_id', $user->id)->where('course_id', $course_id)->where('level', 0)->first();
+		if(!empty($pivot))
+		{	
+			$pivot->delete();
+		}
+
+		CourseModification::create([
+			'author_id'	=> Auth::user()->id,
+			'user_id'	=> $user->id,
+			'course_id'	=> $course_id,
+			'value'		=> 2,
+			]);
+
+		$user->sendNotification('Votre de demande d\'inscription au cours &laquo; '.ucfirst($course->name).' &raquo; a été <b>refusée</b>.', 'courses/show/'.$course->slug);
 
 		return Redirect::back();
 	}

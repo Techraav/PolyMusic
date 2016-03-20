@@ -82,6 +82,7 @@ Route::get('courses', 'CourseController@index')			->name('course.index');
 Route::get('courses/show/{slug}', 'CourseController@show')	->name('course.show');
 
 Route::post('courses/{slug}', 'CourseController@toggleSignUp')	->name('course.togglesignup');
+Route::post('courses/user/management', 'CourseController@userManagement')->name('course.userManagement');
 
 
 
@@ -238,6 +239,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:3'], function(){
 	Route::post('courses/{id}/teacher/remove','TeacherController@remove')	->name('courses.removeteacher');
 	Route::post('courses/{id}/student/accept','StudentController@accept')	->name('courses.acceptstudent');
 	Route::post('courses/{id}/teacher/accept','TeacherController@accept')	->name('courses.acceptteacher');
+	Route::post('courses/{id}/student/cancel','StudentController@cancel')	->name('courses.cancelstudent');
+	Route::post('courses/{id}/teacher/cancel','TeacherController@cancel')	->name('courses.cancelteacher');
 
 
 // _____________________________________________________________________________________________________________

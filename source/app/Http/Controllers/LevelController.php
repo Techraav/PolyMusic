@@ -100,6 +100,7 @@ class LevelController extends Controller {
 	{	
 		$user = User::where('id', $request->user_id)->first();
 		$user->update([	'level_id'	=> 1 ]);
+		$user->sendNotification('Vous êtes maintenant <b>Membre</b>.');
 
 		$name = Level::find($id)->name;
 

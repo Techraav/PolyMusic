@@ -19,6 +19,11 @@ class User extends Model implements AuthenticatableContract,
 	public $timestamps = true;
 	protected $fillable = array('email', 'password', 'first_name', 'last_name', 'birth_date', 'phone', 'profil_picture', 'description', 'school_year', 'slug', 'level_id', 'timestamps', 'department_id');
 
+	public function sendNotification($msg, $link='')
+	{
+		return $this->notifications()->create(['message' => $msg, 'link' => $link, 'user_id' => $this->id]);
+	}
+
 	public function level()
 	{
 		return $this->belongsTo('App\Level');

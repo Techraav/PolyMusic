@@ -1365,7 +1365,7 @@ input,button,select,textarea{
 
 a{
 	color: #2C3E50;
-	text-decoration:none
+	text-decoration:none;
 }
 
 a:hover,a:focus{
@@ -3297,9 +3297,7 @@ textarea.input-lg,select[multiple].input-lg{
 
 .help-block{
 	display:block;
-	margin-top:5px;
-	margin-bottom:10px;
-	color:#597ea2
+	color:#597ea2;
 }
 
 @media (min-width:768px){
@@ -5199,8 +5197,8 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 .pagination{
 	display:inline-block;
 	padding-left:0;
-	margin:21px 0;
-	border-radius:4px
+	margin: 21px 0;
+	border-radius:4px;
 }
 
 .pagination>li{
@@ -5212,12 +5210,11 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 	float:left;
 	text-decoration:none;
 	color:#ffffff;
-	background-color:#a051a0;
-	border:1px solid transparent;
+	background-color: rgb(78, 78, 78);
 	margin-left:-1px;
-	padding:6px 9px;
+	padding: 10px 13px;
 	font-size:13px;
-	line-height:1.5
+	line-height:1.5;
 }
 
 .pagination>li:first-child>a,.pagination>li:first-child>span{
@@ -5234,29 +5231,29 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 .pagination>li>a:hover,.pagination>li>span:hover,.pagination>li>a:focus,.pagination>li>span:focus{
 	z-index:2;
 	color:#ffffff;
-	background-color:#0f7864;
-	border-color:transparent
+	background-color: rgb(48, 48, 48);
+	border-color:transparent;
 }
 
 .pagination>.active>a,.pagination>.active>span,.pagination>.active>a:hover,.pagination>.active>span:hover,.pagination>.active>a:focus,.pagination>.active>span:focus{
 	z-index:3;
 	color:#ffffff;
-	background-color:#0f7864;
+	background-color: rgb(48, 48, 48);
 	border-color:transparent;
-	cursor:default
+	cursor:default;
 }
 
 .pagination>.disabled>span,.pagination>.disabled>span:hover,.pagination>.disabled>span:focus,.pagination>.disabled>a,.pagination>.disabled>a:hover,.pagination>.disabled>a:focus{
 	color:#ecf0f1;
-	background-color:#3be6c4;
+	background-color: rgba(78, 78, 78, 0.6);
 	border-color:transparent;
-	cursor:not-allowed
+	cursor:not-allowed;
 }
 
 .pagination-lg>li>a,.pagination-lg>li>span{
 	padding:18px 27px;
 	font-size:19px;
-	line-height:1.3333333
+	line-height:1.3333333;
 }
 
 .pagination-lg>li:first-child>a,.pagination-lg>li:first-child>span{
@@ -5808,13 +5805,13 @@ to{
 
 .list-group-item:first-child{
 	border-top-right-radius:4px;
-	border-top-left-radius:4px
+	border-top-left-radius:4px;
 }
 
 .list-group-item:last-child{
 	margin-bottom:0;
 	border-bottom-right-radius:4px;
-	border-bottom-left-radius:4px
+	border-bottom-left-radius:4px;
 }
 
 a.list-group-item,button.list-group-item{
@@ -6429,7 +6426,7 @@ button.close{
 	box-shadow:0 3px 9px rgba(0,0,0,0.5);
 	-webkit-background-clip:padding-box;
 	background-clip:padding-box;
-	outline:0
+	outline:0;
 }
 
 .modal-backdrop{
@@ -6470,6 +6467,7 @@ button.close{
 	position:relative;
 	padding:20px;
 	text-align: center;
+	line-height: 24px;
 }
 
 .modal-footer{
@@ -8931,15 +8929,49 @@ td.manage .glyphicon-pencil{
 
 .course-controls{
 	position:absolute;
-	left:40px;
+	left: 30px;
 	width: 240px;
-	top: 25px;
+	top: 35px;
 	text-align:center;
+	opacity: 0.8;
+	/* padding:0 10px */
+	/* border: 1px solid rgba(44, 62, 80, 0.44); */
+	/* padding: 10px; */
+	/* border-radius: 20px 0; */
 }
 
-.line-through{
-	text-decoration: line-through;
-	/* padding: 0 0px; */
-	width: 0px;
-	color: red !important;
+.course-sheet .course-controls .green{
+	color: #006500;
+}
+
+.course-sheet .course-controls .green:hover{
+	color: #A50F0F;
+}
+
+.course-sheet .course-controls button{
+	margin:0 10px;
+}
+
+.course-sheet #modifications {
+    text-align: left;
+}
+
+.course-controls i{
+	font-size:14px;
+	display:block;
+	margin-left: 5px;
+	margin-top: -5px;
+	border: 2px solid rgba(119, 148, 177, 0.67);
+	padding: 5px;
+	box-shadow: 2px 3px 10px rgb(175, 191, 206);
+	border-radius: 10px;
+}
+
+.course-controls .glyphicon{
+	font-size:40px;
+}
+
+.glyph-disabled{
+	color: #A7A7A7 !important;
+	opacity:0.5 !important;
 }

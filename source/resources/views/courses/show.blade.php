@@ -8,16 +8,24 @@
 			@if(Auth::guest())
 				<span class="help-block"><i>Vous souhaitez vous inscrire à ce cours ? {!! printLink('auth/login', 'Connectez-vous') !!} ou {!! printLink('auth/register', 'Inscrivez-vous') !!} dès maintenant !</i></span>
 			@else
-				@if($course->teachers->contains(Auth::user()))
-					<span class="line-through"><button type="button" class="{{ glyph('education') }}"></button></span>
+				@if($course->users->contains(Auth::user()))
+					<button type="button" data-value="-1" title="Se désinscrire de ce cours" class="{{ glyph('education') }} green control-button"></button>
 				@else
-					<button type="button" class="{{ glyph('education') }}"></button>
+					@if($course->unvalidatedUsers->contains(Auth::user()))
+						<button disabled  title="Votre demande n'a pas encore été traitée." type="button" data-value="1" class="{{ glyph('education') }} control-button glyph-disabled"></button>
+					@else
+						<button type="button" data-value="1" title="S'inscrire à ce cours" class="{{ glyph('education') }} control-button"></button>
+					@endif
 				@endif
 
-				@if($course->users->contains(Auth::user()))
-					<strike> &nbsp;<p type="button" class="{{ glyph('blackboard') }}"></p>&nbsp; </strike>
+				@if($course->teachers->contains(Auth::user()))
+					<button type="button"  data-value="-2" title="Ne plus enseigner ce cours" class="{{ glyph('blackboard') }} green control-button"></button>
 				@else
-					<button type="button" class="{{ glyph('blackboard') }}"></button>
+					@if($course->unvalidatedTeachers->contains(Auth::user()))
+						<button disabled  title="Votre demande n'a pas encore été traitée." type="button" data-value="2" class="{{ glyph('blackboard') }} control-button glyph-disabled"></button>
+					@else
+						<button type="button" data-value="2" title="Demander à devenir professeur sur ce cours" class="{{ glyph('blackboard') }} control-button"></button>
+					@endif
 				@endif
 			@endif
 		</div>
@@ -55,27 +63,27 @@
 					</div>
 					
 					<div id="members" class="tab-pane fade in members" >
-						@foreach($course->users as $m)
+
+						@for ($i = 0; $i < ($course->users->count() > 10 ? 10 : $course->users->count()); $i++)
 							<div class="member">
-								<p align="center"><a href="{{ url('users/'.$m->slug) }}"><img class="profil-picture" src="{{ URL::asset('img/profil_pictures/'.$m->profil_picture) }}" /></a></p>
-								<p align="center"><a href="{{ url('users/'.$m->slug) }}">{{ $m->first_name }}</a> </p>
+								<p align="center"><a href="{{ url('users/'.$course->users[$i]->slug) }}"><img class="profil-picture" src="{{ URL::asset('img/profil_pictures/'.$course->users[$i]->profil_picture) }}" /></a></p>
+								<p align="center"><a href="{{ url('users/'.$course->users[$i]->slug) }}">{{ $course->users[$i]->first_name }}</a> </p>
 							</div>
-						@endforeach
+						@endfor
 					</div>
 					
 					<div id="teachers" class="tab-pane fade in teachers members" >
-							@foreach($course->teachers as $m)
-								<div class="member">
-									<p align="center"><a href="{{ url('users/'.$m->slug) }}"><img class="profil-picture" src="{{ URL::asset('img/profil_pictures/'.$m->profil_picture) }}" /></a></p>
-									<p align="center"><a href="{{ url('users/'.$m->slug) }}">{{ $m->first_name }}</a> </p>
-								</div>
-							@endforeach
+						@for ($i = 0; $i < ($course->teachers->count() > 10 ? 10 : $course->teachers->count()); $i++)
+							<div class="member">
+								<p align="center"><a href="{{ url('users/'.$course->teachers[$i]->slug) }}"><img class="profil-picture" src="{{ URL::asset('img/profil_pictures/'.$course->teachers[$i]->profil_picture) }}" /></a></p>
+								<p align="center"><a href="{{ url('users/'.$course->teachers[$i]->slug) }}">{{ $course->teachers[$i]->first_name }}</a> </p>
+							</div>
+						@endfor
 					</div>
 					
 					<div id="photos" class="tab-pane fade in photos" >
 						<div class="content">
 							@foreach ($course->article->images as $i)
-
 									<img title="{{ $i->description }}" data-title="{{ $i->title }}" class="article-picture" src="{{ URL::asset('img/article_pictures/'.$i->name) }}" onclick="modalPicture(this)" />
 							@endforeach
 						</div>
@@ -117,6 +125,7 @@
 												Date : {{ showDate($d->created_at, 'Y-m-d H:i:s', 'd/m/Y') }} <br />
 												Auteur : {{ $d->author->first_name }} {{ substr($d->author->last_name, 0, 1) }}
 											</span>
+											<span class="download {{ glyph('download-alt') }}"></span>
 										</a>
 									@empty
 									<br />
@@ -168,34 +177,119 @@
 	<!-- Modal -->
 	<div class="modal fade" id="modalPicture" role="dialog">
 		<div class="modal-picture">
-
-	  	<!-- Modal content-->
-	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
-
-		        <div class="modal-body">
-		        	<img id="picture" src="">
-        			<p id="description"></p>
-		        </div>
+	        <div class="modal-body">
+	        	<img id="picture" src="">
+    			<p id="description"></p>
+	        </div>
 		</div>
 	</div>
+
+	@if(Auth::check())
+	<!-- Modal -->
+	<div class="modal fade" id="modalControl" role="dialog">
+		<div class="modal-dialog">
+
+	  	<!-- Modal content-->
+	      	<div class="modal-content">
+	       	 	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h4 id="modal-title" class="modal-title"></h4>
+	        	</div>
+
+		        <form id="control-form" class="modal-form" method="post" action="{{ url('courses/user/management') }}">
+		        {!! csrf_field() !!}
+			        <div class="modal-body">
+		        		<b><p id="warning" class="text-warning">		</p></b>
+		        		<b><p id="danger" class="text-danger">		</p></b>
+			         	<input hidden value="{{ $course->id }}" name="course_id" id="course_id" />
+			         	<input hidden value="{{ Auth::user()->id }}" name="user_id" id="user_id" />
+			         	<input hidden value="" name="value" id="value" />
+
+			         	<div hidden id="control-textarea" class="form-group">
+			         		<div class="form-group">
+					         	<label class="control-label">Indiquez vos motivations et qualifications :</label>
+					         	<textarea rows="5" max-length="255" class="form-control" id="message" name="message" placeholder="Préciser vos qualifications et motivations peut augmenter vos chances d'être accepté..."></textarea>
+					         </div>
+			         	</div>
+
+			         	<div class="row">
+				         	<div id="control-pw" class="form-group col-lg-8 col-lg-offset-2">
+				         		<label>Entrez votre mot de passe :</label>
+								<input hidden type="password" name="fakepwfield"/>
+				         		<input class="form-control" type="password" id="password" name="password" />
+				         	</div>
+				         </div>
+			        </div>
+			        <div class="modal-footer">
+			          	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+			          	<button type="submit" class="btn btn-primary">Valider</button>
+			        </div>
+				</form>
+
+	   		</div>
+		</div>
+	</div>
+	@endif
 
 @stop
 
 @section('js')
+    <script src="{{ URL::asset('/js/ckeditor.js')  }}"></script>
 
-<script type="text/javascript">
-	function modalPicture(el)
-	{
-		var src = el.getAttribute('src');
+		<script type="text/javascript">
+			function modalPicture(el)
+			{
+				var src = el.getAttribute('src');
 
-		$('#modalPicture .modal-body #picture').attr('src', src);
-		$('#modalPicture').modal('show');
-	}
+				$('#modalPicture .modal-body #picture').attr('src', src);
+				$('#modalPicture').modal('show');
+			}
 
-	$('#modalPicture .modal-body #picture').click(function() {
-		$('#modalPicture').modal('hide');
-	});
+			$('#modalPicture .modal-body #picture').click(function() {
+				$('#modalPicture').modal('hide');
+			});
 
-</script>
+			// CONTROLS CLICK
+			$('.control-button').on('click', function(){
+				var value = $(this).data('value');
+				var title = value == -2 ? 'Ne plus enseigner ce cours' 
+						  : value == -1 ? 'Se désinscrire du cours' 
+						  : value == 1 ? 'S\'inscrire au cours' 
+						  : 'Demander à devenir un professeur de ce cours';
+
+				var text = value == -2 ? 'Souhaitez-vous vraiment vous retirer des professeurs ?' 
+						  : value == -1 ? 'Souhaitez-vous vraiment vous désinscrire de ce cours ? <br /> Attention ! Vous ne pourrez plus avoir accès aux documents mis en ligne par les professeurs !' 
+						  : value == 1 ? "Souhaitez-vous vraiment vous inscrire à ce cours ? <br /> Votre demande sera mise en attente jusqu'a ce qu'un professeur ou administrateur la traite. <br /> Cela ne devrait pas prendre beaucoup de temps, vous en serez informé immédiatement."
+						  : 'Vous souhaitez faire partie des professeurs de ce cours ? Indiquez nous compétences et motivations, votre demande sera analysée par le reponsable du cours en question, vous serez informé immédiatement lorsqu\'elle aura été traitée.';
+
+				if(value < 0)
+				{
+					$('#modalControl #danger').html(text);
+					$('#modalControl #warning').html('');
+					$('#modalControl #password').attr('required', true);
+					$('#modalControl #control-pw').attr('hidden', false);
+				}else
+				{
+					$('#modalControl #warning').html(text);
+					$('#modalControl #danger').html('');
+					$('#modalControl #password').attr('required', false);
+					$('#modalControl #control-pw').attr('hidden', true);
+				}
+
+				$('#modalControl #modal-title').text(title);
+
+
+				$('#control-textarea').attr('hidden', true);
+				if(value == 2)
+				{
+					$('#control-textarea').attr('hidden', false);
+				}
+
+				$('#modalControl form #value').attr('value', value);
+				$('#modalControl').modal('show');
+			});
+
+
+		</script>
 
 @stop

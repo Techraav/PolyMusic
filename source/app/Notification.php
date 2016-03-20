@@ -8,7 +8,7 @@ class Notification extends Model {
 
 	protected $table = 'notifications';
 	public $timestamps = true;
-	protected $fillable = array('message', 'user_id');
+	protected $fillable = array('message', 'user_id', 'link');
 
 	public function user()
 	{

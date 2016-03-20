@@ -42,17 +42,17 @@
 				<tr class="tr-modif-{{$m->value}} {{$m->course->user_id == Auth::user()->id ? 'bold' : '' }} ">
 					<td>{!! printUserLinkV2($m->author) !!}</td>
 					<td>{!! printUserLinkV2($m->user) !!}</td>
-					<td><a href="{{ url('course/'.App\Course::where('id', $m->course_id)->first()->slug) }}">{{ App\Course::where('id', $m->course_id)->first()->name }}</a></td>
+					<td><a href="{{ url('courses/show/'.$m->course->slug) }}">{{ $m->course->name }}</a></td>
 					<td>
 						<span class="modif-{{ $m->value}} ">
 		        				@if($m->value == 0)
-		        					{!! printUserLinkV2($m->author) !!} <i>asked</i> to join course &laquo; <a href="{{ url('admin/courses/'.App\Course::where('id', $m->course_id)->first()->slug.'/members') }}">{{ App\Course::where('id', $m->course_id)->first()->name }}</a> &raquo;
+		        					{!! printUserLinkV2($m->author) !!} <i>asked</i> to join course &laquo; <a href="{{ url('admin/courses/'.$m->course->slug.'/members') }}">{{  $m->course->name }}</a> &raquo;
 		        				@elseif($m->value == 1)
-		        					{!! printUserLinkV2($m->author) !!} <i>canceled</i> his demand to join course &laquo; <a href="{{ url('admin/courses/'.App\Course::where('id', $m->course_id)->first()->slug.'/members') }}">{{ App\Course::where('id', $m->course_id)->first()->name }}</a> &raquo;
+		        					{!! printUserLinkV2($m->author) !!} <i>canceled</i> his demand to join course &laquo; <a href="{{ url('admin/courses/'.$m->course->slug.'/members') }}">{{ $m->course->name }}</a> &raquo;
 		        				@elseif($m->value == 2)
-		        					{!! printUserLinkV2($m->author) !!} <i>removed</i> {!! printUserLinkV2($m->user) !!} from &laquo; <a href="{{ url('admin/courses/'.App\Course::where('id', $m->course_id)->first()->slug.'/members') }}">{{ App\Course::where('id', $m->course_id)->first()->name }}</a> &raquo;
+		        					{!! printUserLinkV2($m->author) !!} <i>removed</i> {!! printUserLinkV2($m->user) !!} from &laquo; <a href="{{ url('admin/courses/'.$m->course->slug.'/members') }}">{{ $m->course->name }}</a> &raquo;
 		        				@elseif($m->value == 3)
-		        					{!! printUserLinkV2($m->author) !!} <i>added</i> {!! printUserLinkV2($m->user) !!} to &laquo; <a href="{{ url('admin/courses/'.App\Course::where('id', $m->course_id)->first()->slug.'/members') }}">{{ App\Course::where('id', $m->course_id)->first()->name }}</a> &raquo;
+		        					{!! printUserLinkV2($m->author) !!} <i>added</i> {!! printUserLinkV2($m->user) !!} to &laquo; <a href="{{ url('admin/courses/'.$m->course->slug.'/members') }}">{{ $m->course->name }}</a> &raquo;
 		        				@endif
 						</span>
 

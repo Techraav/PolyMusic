@@ -96,9 +96,28 @@
 	function makeModification($table, $msg, $author=false)
 	{
 		return App\Modification::create([
-			'table'	=> $table,
+			'table'		=> $table,
 			'user_id'	=> $author == false ? Auth::user()->id : $author,
 			'message'	=> $msg
+			]);
+	}
+
+	/**
+	*	Store a course modification
+	*
+	* @param $user : string
+	* @param $author : user_id, default = Auth::user()->id
+	* @param $value : user_id, default = Auth::user()->id
+	*
+	* @return response
+	*/
+	function makeCourseModification($user, $course, $value, $author=false)
+	{
+		return App\CourseModification::create([
+			'user_id'	=> $user,
+			'author_id'	=> $author == false ? Auth::user()->id : $author,
+			'course_id'	=> $course,
+			'value'		=> $value,
 			]);
 	}
 

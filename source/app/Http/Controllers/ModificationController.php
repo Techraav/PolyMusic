@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Modification;
 use App\Course;
+use Laracasts\Flash\Flash;
 use App\CourseModification;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -38,6 +39,11 @@ class ModificationController extends Controller
     {
         $modifs = CourseModification::where('course_id', $id)->orderBy('id', 'desc')->with('course', 'author', 'user')->paginate(20);
         $course = Course::where('id', $id)->first();
+        if(empty($course))
+        {
+            Flash::error('Ce cours n\'existe pas.');
+            return abort(404);
+        }
         $url = url('admin/modifications/courses/'.$course->slug);
         $name = $course->name;
         $concerned = '<a href="'.$url.'">'.$name.'</a>';

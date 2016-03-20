@@ -4,10 +4,12 @@ use App\Course;
 use App\Document;
 use App\User;
 use App\Modification;
+use App\CourseModification;
 use App\Article;
 use App\CourseUser;
 use App\Announcement;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Support\Facades\Redirect;
@@ -114,8 +116,10 @@ class CourseController extends Controller {
 						->with(['manager', 
 								'instrument',
 								'article' => function($query){ $query->with(['images' => function($query){ $query->limit(6);}]); },
-								'users' => function($query){ $query->where('level', 0)->where('validated', 1)->orderBy('last_name')->limit(15); },	
-								'teachers'	=> function($query){ $query->where('level', 1)->where('validated', 1)->orderBy('last_name')->limit(15); },	
+								'users' => function($query){ $query->where('level', 0)->where('validated', 1)->orderBy('last_name'); },	
+								'teachers'	=> function($query){ $query->where('level', 1)->where('validated', 1)->orderBy('last_name'); },	
+								'unvalidatedUsers'	=> function($query){ $query->where('level', 0)->where('validated', 0); },	
+								'unvalidatedTeachers'	=> function($query){ $query->where('level', 1)->where('validated', 0); },	
 							])
 						->first();
 
@@ -131,7 +135,7 @@ class CourseController extends Controller {
 			if($course->users->contains(Auth::user()) || $course->teachers->contains(Auth::user()) || Auth::user()->level_id > 3)
 			{		
 				$course->load(['documents' => function($query){ $query->orderBy('created_at', 'desc')->limit(3); }]);
-				$course->load(['modifications' => function($query) { $query->with('user', 'author')->orderBy('created_at')->limit(10); }]);
+				$course->load(['modifications' => function($query) { $query->with('user', 'author')->orderBy('created_at', 'desc')->limit(10); }]);
 			}		
 		}				
 		
@@ -201,7 +205,7 @@ class CourseController extends Controller {
 	
 // ________________________________________________________________
 //
-//                          	HELPERS 
+//                          POST FUNCTIONS 
 // ________________________________________________________________  
 
 	/**
@@ -253,6 +257,69 @@ class CourseController extends Controller {
 
 		return redirect('admin/articles/edit/'.$slug);
 	}
+
+
+	public function userManagement(Request $request)
+	{
+		$course_id = $request->course_id;
+		$user_id = $request->user_id;
+		$value = $request->value;
+
+		$course = Course::find($course_id);
+		$user = User::find($user_id);
+
+		if($request->value < 0)
+		{
+			$level = $request->value*(-1)-1;
+
+			if(Hash::check($request->password, $user->password))
+			{
+				$userCourse = CourseUser::where('course_id', $course_id)->where('user_id', $user_id)->where('level', $level)->first();
+				if($userCourse->delete())
+				{
+					makeCourseModification($user_id, $course_id, 2);
+					Flash::success('Vous avez bien été retiré de ce cours.');
+					return Redirect::back();
+				}
+			}
+			Flash::error('Action impossible : mauvais mot de passe.');
+			return Redirect::back();	
+
+			$course->leaveNotification($level, $user);
+		}
+
+		$array = [ 'user_id'	=> 'required|integer', 
+				   'course_id'	=> 'required|integer',
+				   'message'	=> 'max:255',
+				   ];
+
+		$validator = Validator::make($request->all(), $array);
+
+		if($validator->fails())
+		{
+			Flash::error('Action impossible. Veuillez réessayer, si le problème persiste, contactez un administrateur.');
+			return Redirect::back();
+		}
+
+		$message = $request->message;
+		$level = $request->value-1;
+
+		CourseUser::create([
+			'user_id'	=> $user_id,
+			'course_id'	=> $course_id,
+			'level'		=> $level,
+			'message'	=> $message
+			]);
+
+		$course->joinNotification();
+
+		makeCourseModification($user_id, $course_id, 0);
+
+		Flash::success('Votre demande a bien été prise en compte.');
+		return Redirect::back();
+	}
+
+
 
 	/**
 	* Update the specified resource in storage.

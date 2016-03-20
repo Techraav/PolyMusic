@@ -10,12 +10,32 @@ class Course extends Model {
 	public $timestamps = true;
 	protected $fillable = array('timestamps', 'name', 'day', 'start', 'end', 'infos', 'slug', 'instrument_id', 'article_id', 'user_id');
 
+	public function joinNotification()
+	{
+		return $this->manager->sendNotification('Un membre a demandé à rejoindre le cours &laquo; '.ucfirst($this->name).' &raquo;.', 'admin/courses/'.$this->slug.'/members');
+	}
+
+	public function leaveNotification($level, User $user)
+	{
+		return $this->manager->sendNotification(printUserLinkV2($user)." s'est retiré des ". ($level == 1 ? 'professeurs' : 'élèves') . 'du cours &laquo; '.ucfirst($this->name).' &raquo;.', 'admin/courses/'.$this->slug.'/members');
+	}
+
 	public function users()
 	{
 		return $this->belongsToMany('App\User')->withPivot('level', 'validated');
 	}
 
 	public function teachers()
+	{
+		return $this->belongsToMany('App\User')->withPivot('level', 'validated');
+	}
+
+	public function unvalidatedUsers()
+	{
+		return $this->belongsToMany('App\User')->withPivot('level', 'validated');
+	}
+
+	public function unvalidatedTeachers()
 	{
 		return $this->belongsToMany('App\User')->withPivot('level', 'validated');
 	}

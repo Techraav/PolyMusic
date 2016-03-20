@@ -32,7 +32,7 @@
 		<tbody>
 		@forelse($waitingStudents as $w)
 			<tr>
-				<td align="center">Élève</td>
+				<td align="center"><p class="text-danger"><b>Élève</b></p></td>
 				<td align="center">{{ date_format($w->created_at, 'd/m/Y') }}</td>
 				<td align="center">{!! printUserLink($w->user_id) !!}</td>
 				<td align="center"><i>{{ $w->message }}</i></td>
@@ -44,7 +44,7 @@
 							<input hidden name="user_id" value="{{ $w->user_id }}" />
 							<button align="left" title="Accepter la demande ?" type="submit" class="glyphicon glyphicon-ok"></button>
 						</form>
-						<form method="post" action="{{ url('admin/courses/'.$course->id.'/student/remove') }}">
+						<form method="post" action="{{ url('admin/courses/'.$course->id.'/student/cancel') }}">
 						{{ csrf_field() }}
 							<input hidden name="user_id" value="{{ $w->user_id }}" />
 							<button align="right" title="Refuser la demande ?" type="submit" class="glyphicon glyphicon-remove"></button>
@@ -70,7 +70,7 @@
 
 		@forelse($waitingTeachers as $w)
 			<tr>
-				<td align="center">Professeur</td>
+				<td align="center"><p class="text-danger"><b>Professeur</b></p></td>
 				<td align="center">{{ date_format($w->created_at, 'd/m/Y') }}</td>
 				<td align="center">{!! printUserLink($w->user_id) !!}</td>
 				<td align="center"><i>{{ $w->message }}</i></td>
@@ -83,7 +83,7 @@
 							<button align="left" title="Accepter la demande ?" type="submit" class="glyphicon glyphicon-ok"></button>
 						</form>
 
-						<form method="post" action="{{ url('admin/courses/'.$course->id.'/teacher/remove') }}">
+						<form method="post" action="{{ url('admin/courses/'.$course->id.'/teacher/cancel') }}">
 						{{ csrf_field() }}
 							<input hidden name="user_id" value="{{ $w->user_id }}" />
 							<button align="right" title="Refuser la demande ?" type="submit" class="glyphicon glyphicon-remove"></button>
@@ -96,7 +96,7 @@
 			</tr>
 		@empty
 			<tr>
-				<td align="center">Professeurs</td>
+				<td align="center">Professeur</td>
 				<td align="center">-</td>
 				<td align="center">-</td>
 				<td align="center">-</td>
