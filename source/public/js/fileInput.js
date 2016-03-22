@@ -3,7 +3,7 @@ function fileInput(el)
 	var form = $(el).parents('form')[0].getAttribute('id');
 	var filename = $(el).val().replace(/C:\\fakepath\\/i, '');
 	$('#file-name').text(filename);
-	var fileExtension = filename.substr(filename.lastIndexOf('.')+1);
+	var fileExtension = filename.substr(filename.lastIndexOf('.')+1).toLowerCase();
 	var allowedExtension = $(el).data("extension");
 	allowedExtension = allowedExtension.replace(/'/g,"");
 	allowedExtension = allowedExtension.replace(/ /g,"");
@@ -13,11 +13,11 @@ function fileInput(el)
 	var check = allowedExtension.indexOf(fileExtension) != -1;
 	if(!check && fileExtension != ""){
 		$('.file-control').addClass('file-error');
-		$('#'+form+' #file-check').attr('checked', false);
+		$('#file-check').attr('checked', false);
 	}
 	else {
 		$('.file-control').removeClass('file-error');
-		$('#'+form+' #file-check').attr('checked', true);
+		$('#file-check').attr('checked', true);
 	}
 
 }
@@ -31,6 +31,6 @@ $('.file-control #exit').click(function(){
 	var form = $(this).parents('form')[0].getAttribute('id');
 	$('.file-control').removeClass('file-error');
 	$('#file-name').text('');
-	$('#'+form+' #file').value = '';
-	$('#'+form+' #file-check').attr('checked', false);
+	$('#file').value = '';
+	$('#file-check').attr('checked', false);
 });	

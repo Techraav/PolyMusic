@@ -14,7 +14,7 @@
 			</div>
 			<div>
 				
-				<form class="form-horizontal" role="form" method="post" action="{{ url('users/edit/'.$user->slug) }}">
+				<form enctype="multipart/form-data" class="form-horizontal" role="form" method="post" action="{{ url('users/edit/'.$user->slug) }}">
 	            {!! csrf_field() !!}
 	            	<fieldset>
 	            		<input name="id" value="{{ $user->id }}" hidden>

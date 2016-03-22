@@ -4,6 +4,11 @@
 @section('content')
 	
 	<div class="jumbotron course-sheet">
+		@if(Auth::check()	)
+			@if(Auth::user()->level_id > 2)
+				<a href="{{ url('admin/courses/'.$course->slug.'/members') }}" title="Gérer les cours" class="{{ glyph('cog') }}"></a>
+			@endif
+		@endif
 		<div class="course-controls">
 			@if(Auth::guest())
 				<span class="help-block"><i>Vous souhaitez vous inscrire à ce cours ? {!! printLink('auth/login', 'Connectez-vous') !!} ou {!! printLink('auth/register', 'Inscrivez-vous') !!} dès maintenant !</i></span>

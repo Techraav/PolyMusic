@@ -143,7 +143,7 @@ class TeacherController extends Controller {
 		$course = Course::find($course_id);
 		$user 	= User::find($request->user_id);
 
-		$pivot = CourseUser::where('user_id', $user->id)->where('course_id', $course_id)->where('level', 0)->first();
+		$pivot = CourseUser::where('user_id', $user->id)->where('course_id', $course_id)->where('level', 1)->first();
 		if(!empty($pivot))
 		{	
 			$pivot->delete();

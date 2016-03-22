@@ -20,41 +20,41 @@
                 @endif
 
             <div class="form-group">
-                <label class="col-md-4 control-label">Prénom</label>
+                <label class="col-lg-4 control-label">Prénom</label>
 
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <input type="text" class="form-control" name="first_name" value="">                                
                 </div>
             </div>                        
 
             <div class="form-group">
-                <label class="col-md-4 control-label">Nom</label>
+                <label class="col-lg-4 control-label">Nom</label>
 
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <input type="text" class="form-control" name="last_name" value="">                                
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-md-4 control-label">Adresse e-mail</label>
+                <label class="col-lg-4 control-label">Adresse e-mail</label>
 
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <input type="email" class="form-control" name="email" value="">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-md-4 control-label">Date de naissance</label>
+                <label class="col-lg-4 control-label">Date de naissance</label>
 
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <input type="date" class="form-control" name="birth_date" value="">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-md-4 control-label" for="school_year">Année d'étude</label>
+                <label class="col-lg-4 control-label" for="school_year">Année d'étude</label>
 
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <select class="form-control" name="school_year">
                         <option value="1">PeiP 1</option>
                         <option value="2">PeiP 2</option>
@@ -67,9 +67,9 @@
             </div>
 
             <div class="form-group">
-                <label class="col-md-4 control-label" for="department_id">Département</label>
+                <label class="col-lg-4 control-label" for="department_id">Département</label>
 
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <select class="form-control"  name="department_id">
                         @foreach ($departments as $d)
                             <option value="{{ $d['id'] }}"> {{ $d['name'] }} ({{$d['short_name']}})</option>
@@ -79,23 +79,28 @@
             </div>
 
             <div class="form-group">
-                <label class="col-md-4 control-label">Mot de passe</label>
+                <label class="col-lg-4 control-label">Mot de passe</label>
 
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <input type="password" class="form-control" name="password">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-md-4 control-label">Confirmation</label>
+                <label class="col-lg-4 control-label">Confirmation</label>
 
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <input type="password" class="form-control" name="password_confirmation">
                 </div>
             </div>
 
+            <div class="form-group" align="center ">
+                {!! captcha_img('inverse') !!}
+                <input type="text" name="captcha" class="form-control" placeholder="Attention à la casse" />    
+            </div>
+
             <div class="form-group buttons">
-                <div class="col-md-6 col-md-offset-4">
+                <div class="col-lg-6 col-lg-offset-4">
                     <button type="submit" class="btn btn-primary">S'enregister</button> &nbsp;&nbsp;
                     <a href="{{ url('auth/login') }}"><button type="button" class="btn btn-default">Déjà inscrit ?</button></a>
                 </div>

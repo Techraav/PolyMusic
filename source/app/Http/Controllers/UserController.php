@@ -5,6 +5,7 @@ use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Laracasts\Flash\Flash;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller {
@@ -82,29 +83,39 @@ class UserController extends Controller {
 			return Redirect::back();
 		}
 
-		$file = $request->file('profil_picture');
-		$ext = $file->getClientOriginalExtension();
-		$clientName = $file->getClientOriginalName();
-		$destPath = public_path().'/img/profil_pictures';
-		$fileName = $request->id.Auth::user()->first_name.Auth::user()->last_name;
-
-		if($file->move($destPath, $fileName))
+		$clientName = '';
+		if($request->file('profil_picture') != null)
 		{
-			$user->update([
+			$file = $request->file('profil_picture');
+			$clientName = $file->getClientOriginalName();
+		}
+
+		if($clientName != '' && isset($request->check))
+		{
+			$ext = $file->getClientOriginalExtension();
+			$destPath = public_path().'/img/profil_pictures';
+			$fileName = strtolower($user->slug.'.'.$ext);
+
+			File::delete($fileName);
+			if($file->move($destPath, $fileName))
+			{
+				$user->update(['profil_picture'=> $fileName]);
+			}
+			else{
+				Flash::error('Une erreur est survenue lors du chargement de votre photo de profil.');
+			}
+		}
+
+		$user->update([
 			'phone' 		=> $request->phone,
-			'profil_picture'=> $request->profil_picture,
 			'description'	=> $request->description,
 			'school_year'	=> $request->school_year,
 			'department_id'	=> $request->department_id,
 			]);
 
-			makeModification('users', ucfirst(Auth::user()->first_name).' '.ucfirst(Auth::user()->last_name).' updated his information');
+		Flash::success('Les informations ont bien été modifiées.');
 
-			Flash::success('Les informations ont bien été modifiées.');
-		}
-		else{
-			Flash::error('Une erreur est survenue.');
-		}
+		makeModification('users', ucfirst($user->first_name).' '.ucfirst($user->last_name).' updated his information');
 
 		return redirect('users/'.$user->slug);
 	}
@@ -127,7 +138,7 @@ class UserController extends Controller {
 		return Validator::make($data, [
 			'phone'	=> ["regex:/(\(\+33\)|0|\+33|0033)[1-9]([0-9]{8}|([0-9\- ]){12})/"],
 			'description'	=> 'max:1000',
-			'profil_picture' => 'mimes:jpg,png,jpeg'
+			'profil_picture' => 'mimes:png,jpeg'
 			]);
 	}
   

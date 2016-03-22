@@ -16,7 +16,10 @@ class TestController extends Controller
      */
     public function test(Request $request)
     {
-        dd($request->all());
+        dd($request->file('test'));
+        $file = $request->file('test');
+        $ext = $file->getClientOriginalExtension();
+        dd($ext);
     }
 
     /**

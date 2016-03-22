@@ -129,7 +129,7 @@ class DocumentController extends Controller
             Flash::success('Le document a bien été ajouté.');
         }
         else{
-            Flash::error('Une erreur est survenur. Veuillez réessayer. Si le problème persiste, contactez un administrateur.');
+            Flash::error('Une erreur est survenue. Veuillez réessayer. Si le problème persiste, contactez un administrateur.');
         }
 
         return Redirect::back();

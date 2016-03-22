@@ -27,10 +27,25 @@ class CourseController extends Controller {
 	*
 	* @return Response
 	*/
-	public function index()
+	public function index( $filter=false, $value=false )
 	{
-		$courses = Course::orderBy('day')->with('manager','instrument', 'article', 'documents')->paginate(20);
-		return view('courses.index', compact('courses'));
+		$query = Course::orderBy('day', 'asc');
+		if($filter != false && $value != false)
+		{	
+			$filter = $filter == 'manager' ? 'user_id' : $filter = 'isntrument' ? 'instrument_id' : $filter;
+			$query = $query->where($filter, $value);
+		}
+
+		$courses = $query->with(['manager',
+								'instrument', 
+								'documents', 
+								'users' => function($query){ $query->where('level', 0)->where('validated', 1)->orderBy('last_name'); },	
+								'teachers'	=> function($query){ $query->where('level', 1)->where('validated', 1)->orderBy('last_name'); },
+								])->paginate(20);	
+
+		$allCourses = Course::with('manager', 'instrument')->get();
+
+		return view('courses.index', compact('courses', 'allCourses', 'filter'));
 	}
 
 	/**
@@ -277,6 +292,7 @@ class CourseController extends Controller {
 				$userCourse = CourseUser::where('course_id', $course_id)->where('user_id', $user_id)->where('level', $level)->first();
 				if($userCourse->delete())
 				{
+					$course->leaveNotification($level, $user);
 					makeCourseModification($user_id, $course_id, 2);
 					Flash::success('Vous avez bien été retiré de ce cours.');
 					return Redirect::back();
@@ -285,7 +301,6 @@ class CourseController extends Controller {
 			Flash::error('Action impossible : mauvais mot de passe.');
 			return Redirect::back();	
 
-			$course->leaveNotification($level, $user);
 		}
 
 		$array = [ 'user_id'	=> 'required|integer', 

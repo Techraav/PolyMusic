@@ -8309,9 +8309,10 @@ ul.list-members li{
 }
 
 .profil-pict p img{
-    width: 250px;
+    max-width: 300px;
     display:block;
     margin:auto;
+    max-height: 300px;
     float: left;
 }
 
@@ -8974,4 +8975,23 @@ td.manage .glyphicon-pencil{
 .glyph-disabled{
 	color: #A7A7A7 !important;
 	opacity:0.5 !important;
+}
+
+.jumbotron>.glyphicon-cog{
+	position:absolute;
+	top: 12px;
+	right: 10px;
+	font-size: 21px;
+	opacity: 0.5;
+	color: grey !important;
+}
+
+.jumbotron>.glyphicon-cog:hover{
+	opacity: 0.9;
+	text-decoration: none;
+	color: #D83A3A !important;
+}
+
+td .text-danger{
+	margin:0;
 }

@@ -10,6 +10,7 @@
     {{-- <link href="https://bootswatch.com/flatly/bootstrap.min.css" rel="stylesheet"> --}}
     <link href="{{ URL::asset('/css/bootstrap.min.css')  }}" rel="stylesheet">
     <link href="{{ URL::asset('/css/style.css')  }}" rel="stylesheet">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
   </head>
   <body>
 

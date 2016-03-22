@@ -77,8 +77,12 @@ Route::post('comment/delete/{id}', 'CommentController@destroy')	->name('comments
 //
 //                         					COURSE ROUTES
 // ____________________________________________________________________________________________________
-
-Route::get('courses', 'CourseController@index')			->name('course.index');
+Route::get('courses', function()
+{
+	return redirect(route('course.index'));
+});
+Route::get('courses/list', 'CourseController@index')			->name('course.index');
+Route::get('courses/list/{filter}/{value}', 'CourseController@index')			->name('course.indexFiltered');
 Route::get('courses/show/{slug}', 'CourseController@show')	->name('course.show');
 
 Route::post('courses/{slug}', 'CourseController@toggleSignUp')	->name('course.togglesignup');
