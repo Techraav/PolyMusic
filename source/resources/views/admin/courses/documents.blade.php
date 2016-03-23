@@ -2,8 +2,9 @@
 
 @section('content')
 
-	<h1 align="center">{!! printLink('courses/'.$course->slug, ucfirst($course->name), ['title' => 'Voir la fiche du cours']) !!}</h1>
-	<h5 align="center" class="help-block"><i>Géré par : {!! printUserLinkV2($course->manager) !!}</i></h5>
+	<h1 align="center">{!! printLink('courses/show/'.$course->slug, ucfirst($course->name), ['title' => 'Voir la fiche du cours']) !!}</h1>
+	<h4 class="help-block" align="center">{!! printLink('admin/courses/'.$course->slug.'/members', 'Gérer les membres') !!}</h4>
+	<h5 align="center" class="help-block"><i>Responsable : {!! printUserLinkV2($course->manager) !!}</i></h5>
 	<br />
 	<h3 align="center">liste des documents {{ isset($filter) ? $filter : ''}} :</h3>
 	<h5 align="center" class="help-block"><i>Nombre total de documents : {{ App\Document::where('course_id', $course->id)->count() }}</i></h5>

@@ -2706,7 +2706,7 @@ pre code{
 }
 
 .col-lg-offset-2{
-	margin-left:16.66666667%
+	margin-left:16.66666667%;
 }
 
 .col-lg-offset-1{
@@ -7764,7 +7764,7 @@ table tr.danger{
 }
 
 form .buttons button{
-	width:32.9% !important;
+	width: 47.9% !important;
 	text-align:center;
 }
 
@@ -8867,9 +8867,9 @@ td.manage .glyphicon-pencil{
 	width: 150px;
 	margin: 15px 30px 0;
 	opacity: 0.7;
-	transition:all 0.15s ease-in-out !important;
-	-webkit-transition:all 0.15s ease-in-out !important;
-	-moz-transition:all 0.15s ease-in-out !important;
+	transition: all 0.3s ease-in-out !important;
+	-webkit-transition: all 0.3s ease-in-out !important;
+	-moz-transition: all 0.3s ease-in-out !important;
 	filter: contrast(0.75);
 	-webkit-filter: contrast(0.75);
 	-moz-filter: contrast(0.75);
@@ -8903,7 +8903,7 @@ td.manage .glyphicon-pencil{
 }
 
 .course-sheet .pdf:hover .doc-infos, .course-sheet .pdf:hover img{
-	opacity:1;
+	opacity: 0.6;
 }
 
 .course-sheet .infos{
@@ -8994,4 +8994,24 @@ td.manage .glyphicon-pencil{
 
 td .text-danger{
 	margin:0;
+}
+
+#documents .pdf .download{
+    position: absolute;
+    top: 115px;
+    opacity: 0;
+    box-shadow: 0px 3px 5px rgb(97, 97, 97);
+    border-radius: 10px 10px 0 0;
+    padding: 20px 55px;
+    background-color: rgb(58,58,58) !important;
+    color: #D4D4D4;
+    left: 54px;
+    transition:all 0.3s ease-in-out !important;
+    -webkit-transition:all 0.3s ease-in-out !important;
+    -moz-transition:all 0.3s ease-in-out !important;
+}
+
+#documents .pdf:hover .download {
+    top: 110px !important;
+    opacity: 0.95;
 }
