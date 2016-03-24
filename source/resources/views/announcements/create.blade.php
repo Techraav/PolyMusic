@@ -47,48 +47,48 @@
                 </div>
             </div>
             
-            <div class="form-group buttons">
+            <div class="form-group buttons" align="center">
                 <div class="col-md-10 col-md-offset-1">
                     <button type="reset" class="btn btn-default">Annuler</button>
-                    <button type="button" onclick="preview()" class="btn btn-default">Prévisualisation</button>
-                    <button type="submit" class="btn btn-primary">Publier</button>
+                    <button type="button" onclick="preview()" class="btn btn-primary">Prévisualiser</button>
                 </div>
             </div>
+
+              <!-- Modal -->
+            <div class="modal fade" id="previewModal" role="dialog">
+                <div class="modal-preview">
+            
+                <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Prévisualisation</h4>
+                        </div>
+                        <div class="jumbotron">
+                            <div id="view" class="post-content">
+                                <h1 align="center"></h1>
+                                <span class="announcement-content">
+                                    <h2 align="center">Sujet : <i></i></h3>
+                                    <br />
+                                    <p id="content" > </p>
+                                </span>
+                                <br />
+                                <p align="right" class="announcement-infos">Rédigé par {!! printUserLinkV2(Auth::user()) !!}, le {{ date('d/m/Y') }}</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                            <button type="submit" class="btn btn-primary">Valider et publier</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
         </form>        
     </div>   
 
 </div> 
-
-  <!-- Modal -->
-    <div class="modal fade" id="previewModal" role="dialog">
-        <div class="modal-preview">
-    
-        <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Prévisualisation</h4>
-                </div>
-                <div class="jumbotron">
-                    <div id="view" class="post-content">
-                        <h1 align="center"></h1>
-                        <span class="announcement-content">
-                            <h2 align="center">Sujet : <i></i></h3>
-                            <br />
-                            <p id="content" > </p>
-                        </span>
-                        <br />
-                        <p align="right" class="announcement-infos">Rédigé par {!! printUserLinkV2(Auth::user()) !!}, le {{ date('d/m/Y') }}</p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                    <button type="submit" class="btn btn-primary">Supprimer</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
 @endsection
 
 @section('js')

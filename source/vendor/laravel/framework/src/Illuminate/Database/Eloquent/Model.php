@@ -39,6 +39,8 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      */
     protected $connection;
 
+    protected $nameField='title';
+
     /**
      * The table associated with the model.
      *
@@ -545,6 +547,29 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
 
         $model->save();
 
+        return $model;
+    }
+
+
+    /**
+    * Create datas + update with slug
+    * @param array $data
+    * @return static
+    */
+    protected function createWithSlug(array $data = [])
+    {
+        $model = $this->create($data);
+        $nameField = $this->nameField;
+        
+        $name = $model->$nameField;
+        
+        $stringToSlug = $name.' '.$model->id;
+        
+        $slug = str_slug($stringToSlug);
+        
+        $model->update([
+            'slug'  => $slug,
+            ]);
         return $model;
     }
 

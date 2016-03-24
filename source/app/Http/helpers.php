@@ -369,4 +369,31 @@
 		return $date;
 	}
 
+
+	//  ===>  A c/c après une maj de Model.php
+
+	// protected $nameField = 'title';
+
+    // /**
+    // * Create datas + update with slug
+    // * @param array $data
+    // * @return static
+    // */
+    // protected function createWithSlug(array $data = [])
+    // {
+    //     $model = $this->create($data);
+    //     $nameField = $this->nameField;
+        
+    //     $name = $model->$nameField;
+        
+    //     $stringToSlug = $name.' '.$model->id;
+        
+    //     $slug = str_slug($stringToSlug);
+        
+    //     $model->update([
+    //         'slug'  => $slug,
+    //         ]);
+    //     return $model;
+    // }
+
 ?>
