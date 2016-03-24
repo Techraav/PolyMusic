@@ -51,7 +51,9 @@ Route::get('news/view/{slug}', 'NewsController@show')			->name('news.view');
 //                         					ANNOUCEMENT ROUTES
 // ____________________________________________________________________________________________________
 
-Route::get('announcements', 'AnnouncementController@index')					->name('announcements.index');
+Route::get('announcements/list', 'AnnouncementController@index')					->name('announcements.index');
+Route::get('announcements', function(){ return redirect('announcements/list');})->name('announcements.index');
+Route::get('announcements/list/category/{category}', 'AnnouncementController@index')->name('announcements.indexOfCategory');
 Route::get('announcements/create', 'AnnouncementController@create')			->name('announcements.create')		->middleware('auth');
 Route::get('announcements/edit/{slug}', 'AnnouncementController@edit')		->name('announcements.edit')		->middleware('auth');
 Route::get('announcements/view/{slug}', 'AnnouncementController@show')		->name('announcements.view');

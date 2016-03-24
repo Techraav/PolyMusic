@@ -55,13 +55,19 @@
 		return $div.$btn.$inp.$ebtn.$cb.$fname.$exit.$ediv.$msg;
 	}
 
-	function cut($str, $n)
+	function cut($str, $n, $link=false)
 	{
 		$string = $str;
 		if(strlen($str) > $n){
-			$string = substr($str, 0, $n).' <i>[...]</i>';
+			$substr = substr($str, 0, $n);
+			$left = ' <i>[...]</i>';
+			if($link != false)
+			{
+				$left = '<a title="Cliquez pour voir la suite" href="'.url($link).'">'.$left.'</a>';
+			}
+			$string = $substr.$left.'</p>';
 		}
-		return '<span title="'.$str.'">'.$string.'</span>';
+		return $string;
 	}
 
 	function glyph($str)

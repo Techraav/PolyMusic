@@ -1460,8 +1460,8 @@ h1 small,h2 small,h3 small,h4 small,h5 small,h6 small,.h1 small,.h2 small,.h3 sm
 }
 
 h1,.h1,h2,.h2,h3,.h3{
-	margin-top:21px;
-	margin-bottom:10.5px
+	margin-top: 21px;
+	margin-bottom:10.5px;
 }
 
 h1 small,.h1 small,h2 small,.h2 small,h3 small,.h3 small,h1 .small,.h1 .small,h2 .small,.h2 .small,h3 .small,.h3 .small{
@@ -7648,7 +7648,7 @@ blockquote.comment{
 	-moz-transition:all 0.1s ease-in-out;
 	filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=243, Strength=8);
 	position:relative;
- }
+	}
 
  .comment-content{
  	border-left:1px solid rgb(220,220,220) !important;
@@ -9014,4 +9014,36 @@ td .text-danger{
 #documents .pdf:hover .download {
     top: 110px !important;
     opacity: 0.95;
+}
+
+blockquote.comment.announcement{
+	padding: 1px 40px 20px;
+	text-align:center;
+}
+
+blockquote.comment.announcement h3{
+	margin: 0px 0px 5px
+}
+
+blockquote.comment.announcement p{
+	text-align:justify;
+	font-size:17px;
+}
+
+blockquote.comment.announcement .announcement-index-infos{
+	position:absolute;
+	text-align:right;
+	background:auto !important;
+	z-index:50;
+	right:15px;
+	bottom:5px
+}
+
+blockquote.comment.announcement .nb-comments{
+	position:absolute;
+	text-align:left;
+	background:auto !important;
+	z-index:50;
+	left:10px;
+	bottom:5px
 }
