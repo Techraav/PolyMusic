@@ -1,5 +1,17 @@
 @extends('layouts.admin')
 
+@section('title')
+    Documents de cours
+@stop
+
+@section('breadcrumb')
+    <li> <a href="{{ url('admin') }}">Administration</a></li>
+    <li> <a href="{{ url('admin/courses') }}">Cours</a></li>
+    <li> <a href="{{ url('admin/courses/'.$documents[0]->course->slug.'/members') }}">{{ ucfirst($documents[0]->course->name) }}</a></li>
+    <li class="active">Documents</li>
+@stop
+
+
 @section('content')
 
 	<h1 align="center">{!! printLink('courses/show/'.$course->slug, ucfirst($course->name), ['title' => 'Voir la fiche du cours']) !!}</h1>

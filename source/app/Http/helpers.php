@@ -60,7 +60,7 @@
 		$string = $str;
 		if(strlen($str) > $n){
 			$substr = substr($str, 0, $n);
-			$left = ' <i>[...]</i>';
+			$left = '<i>[...]</i>';
 			if($link != false)
 			{
 				$left = '<a title="Cliquez pour voir la suite" href="'.url($link).'">'.$left.'</a>';
@@ -395,5 +395,24 @@
     //         ]);
     //     return $model;
     // }
+
+    function createWithSlug($class, array $data=[])
+    {
+    	$model = $class::create($data);
+    	$nameField = $class::NAMEFIELD;
+
+    	$name = $model[$nameField];
+
+        $stringToSlug = $name.'-'.$model->id;
+        
+        $slug = str_slug($stringToSlug);
+        
+        $model->update([
+            'slug'  => $slug,
+            ]);
+
+        return $model;
+
+    }
 
 ?>

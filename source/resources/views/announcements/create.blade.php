@@ -13,8 +13,12 @@
     Créer une annonce
 @stop
 
+@section('breadcrumb')
+    <li> <a href="{{ url('announcements/list') }}">Annonces</a></li>
+    <li class="active">Créer une annonce</li>
+@stop
+
 @section('content')
-<div class="container">
     <div class="jumbotron">
         <h1 align="center">Créer une annonce</h1>
 
@@ -87,8 +91,6 @@
 
         </form>        
     </div>   
-
-</div> 
 @endsection
 
 @section('js')

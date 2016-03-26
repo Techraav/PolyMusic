@@ -238,7 +238,7 @@ class CourseController extends Controller {
 			return Redirect::back()->withErrors($validator->errors());
 		}
 
-		$article = Article::createWithSlug([
+		$article = createWithSlug(Article::class, [
 			'title'		=> $request->name,
 			'user_id'	=> Auth::user()->id,
 			'category_id'	=> 2
@@ -253,7 +253,7 @@ class CourseController extends Controller {
 		$slug = $article->slug;
 
 		$infos = $request->infos;
-		$course = Course::createWithSlug([
+		$course = createWithSlug(Course::class, [
 			'name'		=> $request->name,
 			'day'		=> $request->day,
 			'start'		=> $request->start,

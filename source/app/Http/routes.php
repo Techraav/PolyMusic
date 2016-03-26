@@ -198,7 +198,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:3'], function(){
 
 	// ARTICLES : GET
 	Route::get('articles',					'ArticleController@adminIndex')	->name('articles.adminindex');
-	Route::get('articles/{category}',		'ArticleController@adminIndex')	->name('articles.adminIndexCategory');
+	Route::get('articles/category/{category}',		'ArticleController@adminIndex')	->name('articles.adminIndexCategory');
 	Route::get('articles/validated/{value}','ArticleController@adminIndexValidated')->name('articles.adminIndexValidated');
 	Route::get('articles/create', 			'ArticleController@create')		->name('articles.create');
 	Route::get('articles/edit/{slug}', 		'ArticleController@edit')		->name('articles.edit');

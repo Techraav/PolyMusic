@@ -72,7 +72,7 @@
 				{{ csrf_field() }}
 					<td><input required class="form-control" type="text" name="name" id="name" placeholder="Nom complet" /></td>
 					<td><input required class="form-control" type="text" name="short_name" id="short_name" placeholder="Acronyme" /></td>
-					<td><button type="reset" class="btn btn-default">Annuler</button> <button type="submit" class="btn btn-primary">Valider</button></td>
+					<td class="td-buttons"><button type="reset" class="btn btn-default">Annuler</button> <button type="submit" class="btn btn-primary">Valider</button></td>
 				</tr>
 			</tbody>
 			</table>

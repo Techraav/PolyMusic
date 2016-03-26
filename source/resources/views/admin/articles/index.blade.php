@@ -1,10 +1,20 @@
 @extends('layouts.admin')
 
+@section('title')
+    Articles
+@stop
+
+@section('breadcrumb')
+    <li> <a href="{{ url('admin') }}">Administration</a></li>
+    <li class="active">Articles</li>
+@stop
+
 @section('content')
 
 	<div class="jumbotron">
 		<h1 align="center">Gestion des articles</h1>
-		<p>Voici une vue densemble des annonces.</p>
+		<p>Voici une vue d'ensemble des annonces.</p>
+		<p>Vous souhaitez créer un article ? {!! printLink('admin/articles/create', 'Cliquez ici') !!} !</p>
 		<hr />
 		<p>Nombre total d'articles créés : {{ App\Article::count() }}.</p>
 	</div>
@@ -33,7 +43,7 @@
 					<td align="center">{{ showDate($a->created_at, 'Y-m-d H:i:s', 'd/m/Y') }}</td>
 					<td>{!! printUserLinkV2($a->author) !!}</td>
 					<td><a href="{{ url('articles/view/'.$a->slug) }}">{{ ucfirst($a->title) }}</a></td>
-					<td align="center"><a href="{{ url('admin/articles/'.$a->category->id) }}">{{ ucfirst($a->category->name) }}</a></td>
+					<td align="center"><a href="{{ url('admin/articles/category/'.$a->category->id) }}">{{ ucfirst($a->category->name) }}</a></td>
 					<td align="center" class="manage">
 						<a href="{{ $a->validated == 1 ? url('admin/articles/validated/1') : url('admin/articles/validated/0') }}"
 						   class="icon-validated glyphicon glyphicon-{{ $a->validated == 1 ? 'ok' : 'remove' }}">

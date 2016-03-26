@@ -2,12 +2,20 @@
 
 @section('title')
 	Events
-@stop()
+@stop
+
+@section('breadcrumb')
+    <li> <a href="{{ url('admin') }}">Administration</a></li>
+    <li class="active">Événements</li>
+@stop
 
 @section('content')
 	<div class="jumbotron">
 		<h1>Gestion des événements</h1>
 		<p>Voici une vue d'ensemble des événements créé.</p>
+		<p>Vous souhaitez créer un événement ? {!! printLink('admin/events/create', 'Cliquez ici') !!} !</p>
+		<hr />
+		<p>Nombre total d'événements créés : {{ App\Event::count() }}.</p>
 	</div>
 
 	<h1 align="center">Liste des événements</h1>

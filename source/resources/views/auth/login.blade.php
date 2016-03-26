@@ -4,6 +4,10 @@
     Connexion
 @stop
 
+@section('breadcrumb')
+    <li class="active">Connexion </li>
+@stop
+
 @section('content')
     <div class="container">
 

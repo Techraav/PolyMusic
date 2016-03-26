@@ -4,11 +4,16 @@
 	Cours
 @stop
 
+@section('breadcrumb')
+    <li> <a href="{{ url('admin') }}">Administration</a></li>
+    <li class="active">Cours</li>
+@stop
+
 @section('content')
 
 	<div class="jumbotron">
 		<h1>Gestion des cours</h1>
-		<p>Les cours proposés par le Club Musique sont référencés ici.</p>
+		<p>Les cours proposés par la Team Musique sont référencés ici.</p>
 		<p>Vous pouvez cliquer sur le nom du cours pour voir la liste des élèves et des professeurs.</p>
 		<p>Un article est associé à chaque cours, vous pouvez cliquer sur le symbole à côté nom du cours pour le visionner.</p>
 		<p>Un <b>{{ ucfirst(App\Level::find(3)->name) }}</b> peut gérer les cours qu'il a lui-même créé uniquement, et peut créer un cours dont il sera le responsable.</p>

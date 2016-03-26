@@ -152,7 +152,7 @@ class AnnouncementController extends Controller {
 
         $content = $request->content;
 
-        $announcement = Announcement::createWithSlug([
+        $announcement = createWithSlug(Announcement::class, [
           'user_id'   => Auth::user()->id,
           'title'     => $request->title,
           'content'   => $content,

@@ -4,6 +4,10 @@
     S'enregistrer
 @stop
 
+@section('breadcrumb')
+    <li class="active"> Inscription </li>
+@stop
+
 @section('content')
 <div class="container">
     <div class="jumbotron">

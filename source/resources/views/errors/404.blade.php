@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+@section('title')
+    Page introuvable
+@stop
+
+@section('breadcrumb')
+    <li class="active"> Page introuvable </li>
+@stop
+
+
 @section('content')
 
 <div class="container">

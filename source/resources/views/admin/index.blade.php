@@ -1,5 +1,13 @@
 @extends('layouts.admin')
 
+@section('title')
+    Back office
+@stop
+
+@section('breadcrumb')
+    <li class="active">Administration</li>
+@stop
+
 @section('content')
 
 	<div class="jumbotron">

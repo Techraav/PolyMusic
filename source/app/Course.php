@@ -9,7 +9,7 @@ class Course extends Model {
 	protected $table = 'courses';
 	public $timestamps = true;
 	protected $fillable = array('timestamps', 'name', 'day', 'start', 'end', 'infos', 'slug', 'instrument_id', 'article_id', 'user_id');
-	protected $nameField = 'name';
+	const NAMEFIELD = 'name';
 
 	public function joinNotification()
 	{

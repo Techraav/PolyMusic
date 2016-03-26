@@ -170,7 +170,7 @@ class NewsController extends Controller {
 
     $content = $request->content;
 
-    $news = News::createWithSlug([
+    $news = createWithSlug(News::class, [
       'title'   => $request->title,
       'content' => $content,
       'user_id' => Auth::user()->id,
@@ -227,12 +227,12 @@ class NewsController extends Controller {
    * @param  int  $slug
    * @return Response
    */
-  public function destroy(Request $request, $slug)
+  public function destroy(Request $request, $id)
   {
-    $news = News::where('slug', $slug);
-    $news->update(['active' => 0]);
+    $news = News::find($id);
+    $news->delete();
 
-    Flash::success('La news a bien été désactivée.');
+    Flash::success('La news a bien été supprimée.');
     return Redirect::back() ;
   }
 

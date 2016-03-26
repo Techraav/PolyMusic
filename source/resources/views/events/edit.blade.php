@@ -1,5 +1,15 @@
 @extends('layouts.app')
 
+@section('title')
+	Modifier un événement
+@stop
+
+@section('breadcrumb')
+    <li> <a href="{{ url('events/list') }}">Événements</a></li>
+    <li class="active">{{ ucfirst($event->name) }} </li>
+@stop
+
+
 @section('content')
 
 	<div class="jumbotron jumbotron-form">

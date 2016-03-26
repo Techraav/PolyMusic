@@ -4,6 +4,13 @@
 	Membres du cours
 @stop
 
+@section('breadcrumb')
+    <li> <a href="{{ url('admin') }}">Administration</a></li>
+    <li> <a href="{{ url('admin/courses') }}">Cours</a></li>
+    <li> <a href="{{ url('courses/show/'.$course->slug) }}">ucfirst($course->name)</a></li>
+    <li class="active">Membres</li>
+@stop
+
 @section('content')
 	
 	<h1 align="center">{!! printLink('courses/show/'.$course->slug, ucfirst($course->name)) !!}</h1>

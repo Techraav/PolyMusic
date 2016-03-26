@@ -9,7 +9,7 @@ class Article extends Model {
 	protected $table = 'articles';
 	public $timestamps = true;
 	protected $fillable = array('timestamps', 'title', 'subtitle', 'content', 'user_id', 'slug', 'category_id', 'validated');
-	protected $nameField = 'title';
+	const NAMEFIELD = 'title';
 
 	public function validate()
 	{

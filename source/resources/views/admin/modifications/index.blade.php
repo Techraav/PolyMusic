@@ -1,5 +1,14 @@
 @extends('layouts.admin')
 
+@section('title')
+    Modifications
+@stop
+
+@section('breadcrumb')
+    <li> <a href="{{ url('admin') }}">Administration</a></li>
+    <li class="active">Modifications</li>
+@stop
+
 @section('content')
 
 	<div class="jumbotron">

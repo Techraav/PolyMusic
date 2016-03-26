@@ -4,6 +4,10 @@
 	{{ucfirst($article->title)}}
 @endsection
 
+@section('breadcrumb')
+    <li class="active"> Articles</li>
+@stop
+
 @section('content')
 <div class="jumbotron">
 	<div class="post-content">
@@ -19,7 +23,7 @@
 			{!! $article->content !!}
 		</span>
 		<br />
-		<p align="right" class="announcement-infos">Rédigé par {!! printUserLinkV2($article->author) !!}, le {{ date_format($article['created_at'], 'd/m/Y') }}</p>
+		<p align="right" class="post-infos">Rédigé par {!! printUserLinkV2($article->author) !!}, le {{ date_format($article['created_at'], 'd/m/Y') }}</p>
 	</div>	
 </div>
 @stop

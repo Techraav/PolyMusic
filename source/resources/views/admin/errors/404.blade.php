@@ -1,7 +1,12 @@
 @extends('layouts.admin')
 
 @section('title')
-    Erreur 404
+    Page introuvable
+@stop
+
+@section('breadcrumb')
+    <li> <a href="{{ url('admin') }}">Administration</a></li>
+    <li class="active">Page introuvable</li>
 @stop
 
 @section('content')

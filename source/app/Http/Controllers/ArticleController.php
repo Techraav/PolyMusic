@@ -144,7 +144,7 @@ class ArticleController extends Controller {
 		  return Redirect::back()->withErrors($validator->errors());
 		}
 
-		$article = Article::createWithSlug([
+		$article = createWithSlug(Article::class, [
 		  'user_id'   => Auth::user()->id,
 		  'title'     => $request->title,
 		  'subtitle'  => $request->subtitle,

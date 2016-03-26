@@ -4,6 +4,11 @@
 	Groupes
 @stop
 
+@section('breadcrumb')
+    <li> <a href="{{ url('admin') }}">Administration</a></li>
+    <li class="active">Groupes</li>
+@stop
+
 @section('content')
 
 	<div class="jumbotron">

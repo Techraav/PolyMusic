@@ -1,7 +1,12 @@
 @extends('layouts.admin')
 
 @section('title')
-	Niveaux
+	Levels
+@stop
+
+@section('breadcrumb')
+    <li> <a href="{{ url('admin') }}">Administration</a></li>
+    <li class="active">Levels</li>
 @stop
 
 @section('content')

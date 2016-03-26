@@ -17,6 +17,16 @@
   @include('layouts.app.nav')
 
     <br /> 
+<!-- <div class="row div-breadcrumb">
+  <div class="col-lg-12">
+    <div class="container">
+      <ul class="breadcrumb">
+        <li><a href=" {{ url('/') }} ">Accueil</a></li>
+        @yield('breadcrumb')
+      </ul>
+    </div>
+  </div>
+</div> -->
 <div class="row">
   <div class="col-lg-9">
    <div class="container">
@@ -29,7 +39,6 @@
     {{-- SIDEBAR --}}
     <div class="col-lg-3">
         <div class="panel panel-welcome">
-              <!-- <p>Bienvenue sur le site du Club Musique de Polytech Tours !</p> -->
               <p align="center"><img src="{{URL::asset('/img/logo.png')}}" /></p>
         </div>
 

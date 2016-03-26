@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+@section('title')
+	{{ ucfirst($band->name) }}
+@stop
+
+@section('breadcrumb')
+    <li> <a href="{{ url('bands') }}">Groupes</a></li>
+    <li class="active">{{ ucfirst($band->name) }} </li>
+@stop
+
 @section('content')
 
 	<div class="jumbotron band-sheet">

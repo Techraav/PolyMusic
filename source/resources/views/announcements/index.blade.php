@@ -10,9 +10,11 @@
 	Annonces
 @stop
 
-@section('content')
+@section('breadcrumb')
+    <li class="active">Annonces</li>
+@stop
 
-<div class="container">
+@section('content')
 	<div class="jumbotron">
 		@if(Auth::check()	)
 			@if(Auth::user()->level_id > 2)
@@ -64,6 +66,4 @@
 			{!! $announcements->render() !!}
 		</div>
 	</div>
-</div>
-
 @endsection 

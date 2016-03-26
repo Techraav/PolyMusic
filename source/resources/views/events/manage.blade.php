@@ -1,5 +1,15 @@
 @extends('layouts.app')
 
+@section('title')
+	Gestion d'un événement
+@stop
+
+@section('breadcrumb')
+    <li> <a href="{{ url('events') }}">Événements</a></li>
+    <li class="active">{{ ucfirst($event->name) }} </li>
+@stop
+
+
 @section('content')
 
 	<div class="col-lg-8 col-lg-offset-2">

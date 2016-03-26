@@ -1,5 +1,14 @@
 @extends('layouts.admin')
 
+@section('title')
+    Annonces
+@stop
+
+@section('breadcrumb')
+    <li> <a href="{{ url('admin') }}">Administration</a></li>
+    <li class="active">Annonces</li>
+@stop
+
 @section('content')
 
 	{{-- Infos --}}
@@ -10,6 +19,7 @@
 		<p>Vous pouvez cliquer sur le titre de l'annonce pour la consulter.</p>
 		<p>Vous pouvez cliquer sur la catégorie pour n'afficher que les annonces de cette catégorie.</p>
 		<p>Le bouton &laquo; supprimer &raquo; ne supprime pas définitivement une annonce, elle l'invalide seulement.</p>
+		<p>Vous souhaitez créer une annonce ? {!! printLink('admin/announcements/create', 'Cliquez ici') !!} !</p>
 		<hr />
 		<p>Nombre total d'annonces créées : {{ App\Announcement::count() }}.</p>
 

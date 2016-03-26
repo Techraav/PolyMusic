@@ -9,7 +9,7 @@ class Document extends Model
     protected $table = 'documents';
     protected $fillable = ['title', 'name', 'user_id', 'description', 'course_id', 'validated'];
     protected $timestamp = true;
-    protected $nameField = 'title';
+    const NAMEFIELD = 'title';
 
     public function course()
     {

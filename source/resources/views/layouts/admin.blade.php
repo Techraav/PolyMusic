@@ -16,6 +16,16 @@
   @include('layouts.admin.nav')
 
     <br /> 
+<!-- <div class="row div-breadcrumb">
+  <div class="col-lg-12">
+    <div class="container">
+      <ul class="breadcrumb">
+        <li><a href=" {{ url('/') }} ">Accueil</a></li>
+        @yield('breadcrumb')
+      </ul>
+    </div>
+  </div>
+</div> -->
 <div class="row">
   <div class="col-lg-9">
   <div class="container">

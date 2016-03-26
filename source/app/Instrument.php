@@ -10,7 +10,7 @@ class Instrument extends Model {
 	protected $table = 'instruments';
 	public $timestamps = false;
 	protected $fillable = array('name');
-	protected $nameField = 'name';
+	const NAMEFIELD = 'name';
 	public static $defaultValue = 1;
 
 	public function players()

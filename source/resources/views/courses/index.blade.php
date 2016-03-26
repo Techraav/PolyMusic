@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+@section('title')
+	{{ ucfirst($course->name) }}
+@stop
+
+@section('breadcrumb')
+    <li class="active">Cours</li>
+@stop
+
+
 @section('content')
 
 	<div class="jumbotron">

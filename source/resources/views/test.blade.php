@@ -2,6 +2,15 @@
 
 @section('content')
 
+@section('title')
+	Test
+@stop
+
+@section('breadcrumb')
+    <li class="active">Test</li>
+@stop
+
+
 <div class="container">
 
 	{!! Form::open(['files' => true]) !!}

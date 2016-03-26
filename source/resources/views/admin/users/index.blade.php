@@ -4,11 +4,16 @@
 	Utilisateurs
 @stop
 
+@section('breadcrumb')
+    <li> <a href="{{ url('admin') }}">Administration</a></li>
+    <li class="active">Utilisateurs</li>
+@stop
+
 @section('content')
 
 <div class="jumbotron">
 	<h1>Les membres</h1>
-	<p>Voici une liste des membres inscrits sur le site du Club Musique de Polytech Tours.</p>
+	<p>Voici une liste des membres inscrits sur le site de la Team Musique de Polytech Tours.</p>
 	<p>Vous pouvez cliquer sur un membre pour accéder à son profil et donc gérer ses données.</p>
 	<p>Seuls les administrateurs et autres membres ayant un level supérieur peuvent gérer le level des autres membres.</p>
 	<p>Ceux qui apparaissent en rouge sont les membres bannis du site.</p>

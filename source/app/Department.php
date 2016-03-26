@@ -9,7 +9,7 @@ class Department extends Model {
 	protected $table = 'departments';
 	public $timestamps = true;
 	protected $fillable = array('timestamps', 'name', 'short_name');
-	protected $nameField = 'name';
+	const NAMEFIELD = 'name';
 
 	public function users()
 	{
