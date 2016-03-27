@@ -8308,16 +8308,18 @@ ul.list-members li{
     color:inherit;
 }
 
-.profil-pict p img{
-    max-width: 300px;
+.profil-pict img{
+    max-width: 90%;
     display:block;
     margin:auto;
-    max-height: 300px;
-    float: left;
+    max-height: 400px;
+}
+
+.edit-infos-profile{
+	margin-bottom: 4%;
 }
 
 .infos-profile{
-    float: left;
     margin-left: 10%;
     font-size: 20px;
 }
@@ -8437,7 +8439,7 @@ button.glyphicon:hover{
 }
 
 .profile h1{
-	margin: -15px 0 -5px 0;
+	margin: -15px 0 15px 0;
 }
 
 .manage-user{

@@ -13,10 +13,13 @@
 				<a href="{{ url('users/edit/'.$user->slug) }}" class="btn-edit glyphicon glyphicon-pencil"></a>
 			</div>					
 		@endif
-		<div class="row">
-			<div class="profil-pict">
-				<p align="center" ><img src=" {{ URL::asset('/img/profil_pictures/'.$user -> profil_picture) }} " alt=" profile picture "/></p>
-			</div>
+
+		<div class="row col-md-5 profil-pict">	    
+			<img src=" {{ URL::asset('/img/profil_pictures/'.$user->profil_picture) }} " title="profile picture"/>
+		</div>
+
+		<div class="row col-md-7">
+			
 			<div class="infos-profile">
 				<table>
 					<tbody>
