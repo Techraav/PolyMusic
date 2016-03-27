@@ -1460,8 +1460,8 @@ h1 small,h2 small,h3 small,h4 small,h5 small,h6 small,.h1 small,.h2 small,.h3 sm
 }
 
 h1,.h1,h2,.h2,h3,.h3{
-	margin-top:21px;
-	margin-bottom:10.5px
+	margin-top: 21px;
+	margin-bottom:10.5px;
 }
 
 h1 small,.h1 small,h2 small,.h2 small,h3 small,.h3 small,h1 .small,.h1 .small,h2 .small,.h2 .small,h3 .small,.h3 .small{
@@ -1654,7 +1654,7 @@ a.bg-danger:hover,a.bg-danger:focus{
 
 ul,ol{
 	margin-top:0;
-	margin-bottom:10.5px
+	margin-bottom:10.5px;
 }
 
 ul ul,ol ul,ul ol,ol ol{
@@ -1830,7 +1830,6 @@ pre code{
 	margin-left:auto;
 	padding-left:15px;
 	padding-right:15px;
-	width:98%;
 }
 
 /*@media (min-width:768px){
@@ -2706,7 +2705,7 @@ pre code{
 }
 
 .col-lg-offset-2{
-	margin-left:16.66666667%
+	margin-left:16.66666667%;
 }
 
 .col-lg-offset-1{
@@ -5174,10 +5173,11 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 
 .breadcrumb{
 	padding:8px 15px;
-	margin-bottom:21px;
+	/* margin-bottom:21px; */
 	list-style:none;
 	background-color:#ecf0f1;
-	border-radius:4px
+	display: inline;
+	border-radius:4px;
 }
 
 .breadcrumb>li{
@@ -7608,7 +7608,7 @@ a.list-group-item-danger.active:hover,a.list-group-item-danger.active:focus{
 	text-align: justify;
 }
 
-.announcement-infos{
+.post-infos{
 	color:gray;
 	font-size: 16px !important;
 	font-style:italic;
@@ -7648,7 +7648,7 @@ blockquote.comment{
 	-moz-transition:all 0.1s ease-in-out;
 	filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=243, Strength=8);
 	position:relative;
- }
+	}
 
  .comment-content{
  	border-left:1px solid rgb(220,220,220) !important;
@@ -7764,7 +7764,7 @@ table tr.danger{
 }
 
 form .buttons button{
-	width:32.9% !important;
+	width: 47.9% !important;
 	text-align:center;
 }
 
@@ -7944,12 +7944,15 @@ tr.bold{
 }
 
 .news-infos{
-    height: 55px;
-    width: 50px;
-    text-align: center;
-    position: relative;
-    float: left;
-    vertical-align: middle;
+	height: 55px;
+	width: 50px;
+	text-align: center;
+	position: relative;
+	float: left;
+	vertical-align: middle;
+	color: gray; 
+	font-size: 12px; 
+	font-style: italic
 }
 
 .news-infos p{
@@ -8191,12 +8194,6 @@ form>.buttons button{
   	width:48.5%;
 }
 
-.news-infos{
-	color: gray; 
-	font-size: 12px; 
-	font-style: italic
-}
-
 .news-infos a{
   	color:inherit;
 }
@@ -8278,15 +8275,7 @@ ul.list-members li{
     opacity:1;
 }
 
-.frame-news{
-    border: 3px solid rgb(195,195,195);
-    padding-right: 15px;
-    padding-left: 15px;
-}
-
-.frame-news h2 a{
-    color: inherit;
-}
+.frame-news h2 a{text-decoration: none !important;}
 
 .frame-news h2 a:hover{
     text-decoration: underline;
@@ -8393,26 +8382,16 @@ nav a .glyphicon, nav li .glyphicon, .caret{
 	-moz-transition:none !important;
 }
 
-.frame-news a.glyphicon, .frame-news button.glyphicon{
-	border:none;
-	font-size:50%;
-	background:none;
-	color:gray !important;
-	opacity:0.7;
-}
-
 a.glyphicon:hover, button.glyphicon:hover{
 	opacity: 1;
 	color: inherit;
 }
 
 .frame-news a.glyphicon{
-	margin-left:10px;
 	text-decoration: none !important;
 }
 
 .frame-news button.glyphicon{
-	margin-left:-5px;
 }
 
 .category-name-input{
@@ -8869,9 +8848,9 @@ td.manage .glyphicon-pencil{
 	width: 150px;
 	margin: 15px 30px 0;
 	opacity: 0.7;
-	transition:all 0.15s ease-in-out !important;
-	-webkit-transition:all 0.15s ease-in-out !important;
-	-moz-transition:all 0.15s ease-in-out !important;
+	transition: all 0.3s ease-in-out !important;
+	-webkit-transition: all 0.3s ease-in-out !important;
+	-moz-transition: all 0.3s ease-in-out !important;
 	filter: contrast(0.75);
 	-webkit-filter: contrast(0.75);
 	-moz-filter: contrast(0.75);
@@ -8905,7 +8884,7 @@ td.manage .glyphicon-pencil{
 }
 
 .course-sheet .pdf:hover .doc-infos, .course-sheet .pdf:hover img{
-	opacity:1;
+	opacity: 0.6;
 }
 
 .course-sheet .infos{
@@ -8996,4 +8975,99 @@ td.manage .glyphicon-pencil{
 
 td .text-danger{
 	margin:0;
+}
+
+#documents .pdf .download{
+    position: absolute;
+    top: 115px;
+    opacity: 0;
+    box-shadow: 0px 3px 5px rgb(97, 97, 97);
+    border-radius: 10px 10px 0 0;
+    padding: 20px 55px;
+    background-color: rgb(58,58,58) !important;
+    color: #D4D4D4;
+    left: 54px;
+    transition:all 0.3s ease-in-out !important;
+    -webkit-transition:all 0.3s ease-in-out !important;
+    -moz-transition:all 0.3s ease-in-out !important;
+}
+
+#documents .pdf:hover .download {
+    top: 110px !important;
+    opacity: 0.95;
+}
+
+blockquote.comment.announcement{
+	padding: 1px 40px 20px;
+	text-align:center;
+}
+
+blockquote.comment.announcement h3{
+	margin: 0px 0px 5px
+}
+
+blockquote.comment.announcement p{
+	text-align:justify;
+	font-size:17px;
+}
+
+blockquote.comment.announcement .announcement-index-infos{
+	position:absolute;
+	text-align:right;
+	background:auto !important;
+	z-index:50;
+	right:15px;
+	bottom:5px
+}
+
+blockquote.comment.announcement .nb-comments{
+	position:absolute;
+	text-align:left;
+	background:auto !important;
+	z-index:50;
+	left:10px;
+	bottom:5px
+}
+
+.post-infos a {
+    color: inherit;
+    font-weight: bold;
+}
+
+.post-infos a:hover{
+	text-decoration:underline;
+}
+
+.post-infos.post-news-infos{
+	font-size:14px !important;
+	margin-right: -30px;
+}
+
+.frame-news{
+    border-radius: 3px;
+    padding: 1px 45px 5px 45px!important;
+    /* max-height: 250px; */
+    /* overflow: auto; */
+    text-align: justify;
+}
+
+.frame-news p{
+	text-indent:40px;
+	font-size: 17px;
+}
+
+
+.frame-news h2{
+	text-indent: 65px;
+	font-size: 30px;
+	margin-bottom: 20px;
+	margin-top: 25px;
+}
+
+.div-breadcrumb{
+	margin: -5px 0 15px!important;
+}
+
+.td-buttons button{
+	width: 49%;
 }

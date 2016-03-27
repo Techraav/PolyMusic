@@ -10,7 +10,7 @@ class News extends Model {
 	protected $table = 'news';
 	public $timestamps = true;
 	protected $fillable = array('published_at', 'title', 'content', 'user_id', 'active', 'slug');
-	protected $nameField = 'title';
+	const NAMEFIELD = 'title';
 
 
 	public function activate()

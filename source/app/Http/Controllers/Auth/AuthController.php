@@ -61,6 +61,7 @@ class AuthController extends Controller
             'birth_date' => 'required|date',
             'department_id' => 'required',
             'school_year'=> 'required',
+            'g-recaptcha-response'  => 'required'
         ]);
     }
 
@@ -101,7 +102,7 @@ class AuthController extends Controller
         if($validation->fails())
         {
             Flash::error('Inscription impossible. Veuillez vérifier les champs renseignés.');
-            return redirect('auth/register')->withErrors($validation->errors());
+            return Redirect::back()->withInput()->withErrors($validation->errors());
         }
 
         $user = $this->create(Input::all());
@@ -141,7 +142,13 @@ class AuthController extends Controller
 
     public function login()
     {
-        
+        $validator = Validator::make(Input::all(), ['g-recaptcha-response' => 'required']);
+        if($validator->fails())
+        {
+            Flash::error('Impossible de vous connecter : mauvais captcha.');
+            return redirect('auth/login');
+
+        }
         if (Auth::attempt(['email' => Input::get('email'), 'password' => Input::get('password')], true))
         {
             if(Auth::user()->banned == 0)
@@ -151,13 +158,17 @@ class AuthController extends Controller
             } else
             {
                 Auth::logout();
-                Flash::error('Impossible de vous conncter : votre compte a été bannis. Pour plus d\'informations ou pour des réclamations, contactez un administrateur.');
+                Flash::error('Impossible de vous connecter : votre compte a été bannis. Pour plus d\'informations ou pour des réclamations, contactez un administrateur.');
                 return redirect('/');
             }  
         }
+        else
+        {
+            $error = true;
+        }
 
         Flash::error('Impossible de vous connecter.');
-        return Redirect::back();
+        return redirect('auth/login');
     }
 
     public function logout()

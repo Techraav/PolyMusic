@@ -1,7 +1,12 @@
 @extends('layouts.app')
 
 @section('title')
-	Modification {{ $user->first_name }} {{ $user->last_name }}
+	Modifier son profil
+@stop
+
+@section('breadcrumb')
+    <li> <a href="{{ url('users') }}">Utilisateurs</a></li>
+    <li class="active">{{ $user->first_name}} {{ $user->last_name }}</li>
 @stop
 
 @section('content')

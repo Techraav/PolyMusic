@@ -1,8 +1,14 @@
 @extends('layouts.app')
 
 @section('title')
-	{{ $user -> first_name }} {{ $user -> last_name }}
+	{{ $user->first_name }} {{ $user->last_name }}
 @stop
+
+@section('breadcrumb')
+    <li> <a href="{{ url('users') }}">Utilisateurs</a></li>
+    <li class="active">{{ $user->first_name }} {{ $user->last_name }}</li>
+@stop
+
 
 @section('content')
 <div class="jumbotron">

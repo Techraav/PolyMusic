@@ -51,7 +51,9 @@ Route::get('news/view/{slug}', 'NewsController@show')			->name('news.view');
 //                         					ANNOUCEMENT ROUTES
 // ____________________________________________________________________________________________________
 
-Route::get('announcements', 'AnnouncementController@index')					->name('announcements.index');
+Route::get('announcements/list', 'AnnouncementController@index')					->name('announcements.index');
+Route::get('announcements', function(){ return redirect('announcements/list');})->name('announcements.index');
+Route::get('announcements/list/category/{category}', 'AnnouncementController@index')->name('announcements.indexOfCategory');
 Route::get('announcements/create', 'AnnouncementController@create')			->name('announcements.create')		->middleware('auth');
 Route::get('announcements/edit/{slug}', 'AnnouncementController@edit')		->name('announcements.edit')		->middleware('auth');
 Route::get('announcements/view/{slug}', 'AnnouncementController@show')		->name('announcements.view');
@@ -196,7 +198,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:3'], function(){
 
 	// ARTICLES : GET
 	Route::get('articles',					'ArticleController@adminIndex')	->name('articles.adminindex');
-	Route::get('articles/{category}',		'ArticleController@adminIndex')	->name('articles.adminIndexCategory');
+	Route::get('articles/category/{category}',		'ArticleController@adminIndex')	->name('articles.adminIndexCategory');
 	Route::get('articles/validated/{value}','ArticleController@adminIndexValidated')->name('articles.adminIndexValidated');
 	Route::get('articles/create', 			'ArticleController@create')		->name('articles.create');
 	Route::get('articles/edit/{slug}', 		'ArticleController@edit')		->name('articles.edit');

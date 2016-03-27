@@ -4,6 +4,11 @@
 	{{ ucfirst($announcement->title) }}
 @stop
 
+@section('breadcrumb')
+    <li> <a href="{{ url('announcements/list') }}">Annonces</a></li>
+    <li class="active">{{ ucfirst($announcement->title) }} </li>
+@stop
+
 @section('content')
 <div class="jumbotron">
 	<div class="post-content">
@@ -26,7 +31,7 @@
 				{!! $announcement->content !!}
 			</span>
 			<br />
-			<p align="right" class="announcement-infos">Rédigé par {!! printUserLinkV2($announcement->author) !!}, le {{ date_format($announcement['created_at'], 'd/m/Y') }}</p>
+			<p align="right" class="post-infos">Rédigé par {!! printUserLinkV2($announcement->author) !!}, le {{ date_format($announcement['created_at'], 'd/m/Y') }}</p>
 	</div>
 </div>
 <div class="announcement-comments">

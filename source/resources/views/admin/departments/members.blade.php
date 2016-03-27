@@ -4,6 +4,13 @@
 	Membres du département
 @stop
 
+@section('breadcrumb')
+    <li> <a href="{{ url('admin') }}">Administration</a></li>
+    <li> <a href="{{ url('admin/departments') }}">Départements</a></li>
+    <li class="active">{{ ucfirst($department->name) }}</li>
+@stop
+
+
 @section('content')
 	
 	<h1 align="center">{{ ucfirst($department->name) }}</h1>

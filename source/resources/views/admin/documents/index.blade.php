@@ -1,12 +1,24 @@
 @extends('layouts.admin')
 
+@section('title')
+    Documents
+@stop
+
+@section('breadcrumb')
+    <li> <a href="{{ url('admin') }}">Administration</a></li>
+    <li class="active">Documents</li>
+@stop
+
 @section('content')
 
 	<div class="jumbotron">
 		<h1>Gestion des documents</h1>
-		<p></p>
+		<p>Voici une vue d'ensemble des documents mis en ligne pour les cours.</p>
+		<p>Vous pouvez activer ou désactiver un document. Un document non validé n'est visible que pas les {{ ucfirst(App\Level::find(3)->name).'s' }} ou plus.</p>
+		<p>Vous pouvez également supprimer un document. Attention, cette action est définitive.</p>
+		<p>Le bouton &laquo; Modifier &raquo; vous permettra de mofifier le titre du document ainsi que sa description.</p>
 		<hr />
-		<p>Nombre total de documents mis en ligne : {{ App\Document::count() }}</p>
+		<p>Nombre total de documents en ligne : {{ App\Document::count() }}</p>
 	</div>
 
 	<h2 align="center">Liste des documents</h2>

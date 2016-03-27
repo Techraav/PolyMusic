@@ -55,13 +55,19 @@
 		return $div.$btn.$inp.$ebtn.$cb.$fname.$exit.$ediv.$msg;
 	}
 
-	function cut($str, $n)
+	function cut($str, $n, $link=false)
 	{
 		$string = $str;
 		if(strlen($str) > $n){
-			$string = substr($str, 0, $n).' <i>[...]</i>';
+			$substr = substr($str, 0, $n);
+			$left = '<i>[...]</i>';
+			if($link != false)
+			{
+				$left = '<a title="Cliquez pour voir la suite" href="'.url($link).'">'.$left.'</a>';
+			}
+			$string = $substr.$left.'</p>';
 		}
-		return '<span title="'.$str.'">'.$string.'</span>';
+		return $string;
 	}
 
 	function glyph($str)
@@ -362,5 +368,51 @@
 
 		return $date;
 	}
+
+
+	//  ===>  A c/c après une maj de Model.php
+
+	// protected $nameField = 'title';
+
+    // /**
+    // * Create datas + update with slug
+    // * @param array $data
+    // * @return static
+    // */
+    // protected function createWithSlug(array $data = [])
+    // {
+    //     $model = $this->create($data);
+    //     $nameField = $this->nameField;
+        
+    //     $name = $model->$nameField;
+        
+    //     $stringToSlug = $name.' '.$model->id;
+        
+    //     $slug = str_slug($stringToSlug);
+        
+    //     $model->update([
+    //         'slug'  => $slug,
+    //         ]);
+    //     return $model;
+    // }
+
+    function createWithSlug($class, array $data=[])
+    {
+    	$model = $class::create($data);
+    	$nameField = $class::NAMEFIELD;
+
+    	$name = $model[$nameField];
+
+        $stringToSlug = $name.'-'.$model->id;
+        
+        $slug = str_slug($stringToSlug);
+        
+        $model->update([
+            'slug'  => $slug,
+            ]);
+
+        return $model;
+
+    }
 
 ?>

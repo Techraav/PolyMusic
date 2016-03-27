@@ -4,6 +4,10 @@
     Connexion
 @stop
 
+@section('breadcrumb')
+    <li class="active">Connexion </li>
+@stop
+
 @section('content')
     <div class="container">
 
@@ -21,7 +25,11 @@
                         <div class="form-group">
                             <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Mot de passe">
                         </div>
-                        <hr class="colorgraph">
+
+                        <div class="form-group" align="center">
+                            <div class="g-recaptcha" data-sitekey="{{ env('NOCAPTCHA_SITEKEY') }}"></div>
+                        </div> 
+
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <button type="submit" class="btn btn-primary btn-block" >Connexion</button>

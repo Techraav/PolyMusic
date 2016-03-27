@@ -1,7 +1,13 @@
 @extends('layouts.admin')
 
 @section('title')
-	Membres du niveau
+	{{ ucfirst($name).'s' }}
+@stop
+
+@section('breadcrumb')
+    <li> <a href="{{ url('admin') }}">Administration</a></li>
+    <li> <a href="{{ url('admin/levels') }}">Levels</a></li>
+    <li class="active">Membres</li>
 @stop
 
 @section('content')

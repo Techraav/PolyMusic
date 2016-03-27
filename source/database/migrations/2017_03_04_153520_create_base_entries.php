@@ -366,7 +366,7 @@ class CreateBaseEntries extends Migration
 
         // Create Event 'concert de The Band'
         Event::create([
-            'location'  => '23 avenue du club musique',
+            'location'  => '23 avenue de la Team Musique',
             'day'       => 6,
             'start'     => '18:00:00',
             'end'       => '00:00:00',
@@ -380,7 +380,7 @@ class CreateBaseEntries extends Migration
 
         // Create Event 'concert de ouf'
         Event::create([
-            'location'  => '186 avenue du club musique',
+            'location'  => '186 avenue de la Team Musique',
             'day'       => 5,
             'start'     => '17:00:00',
             'end'       => '23:00:00',

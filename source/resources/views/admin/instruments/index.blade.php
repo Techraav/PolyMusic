@@ -4,6 +4,11 @@
 	Instruments
 @stop
 
+@section('breadcrumb')
+    <li> <a href="{{ url('admin') }}">Administration</a></li>
+    <li class="active">Intruments</li>
+@stop
+
 @section('content')
 
 <div class="jumbotron">
@@ -11,6 +16,8 @@
 	<p>Les instruments sont nécessaires à la création de cours et de membres de groupes, pour les classer par instrument.</p>
 	<p>Il ne s'agit que d'une simple liste de noms d'instruments référencés sur votre site.</p>
 	<p>Il est nécessaire d'être au minimum <b>{{ ucfirst(App\Level::where('level', 3)->first()->name) }}</b> supprimer un instrument qui est &laquo; utilisé &raquo; par au moins un cours ou un membre d'un groupe</p>
+	<hr />
+	<p>Nombre total d'instruments créés : {{ App\Instrument::count() }}.</p>
 </div>
 
 	<h2 align="center">Liste des instruments :</h2>

@@ -1,10 +1,22 @@
 @extends('layouts.admin')
 
+@section('title')
+    News
+@stop
+
+@section('breadcrumb')
+    <li> <a href="{{ url('admin') }}">Administration</a></li>
+    <li class="active">News</li>
+@stop
+
 @section('content')
 
 	<div class="jumbotron">
 		<h1 align="center">Gestion des news</h1>
 		<p>Voici une vue densemble des news créées, validées ou non.</p>
+		<p>Vous souhaitez créer une news ? {!! printLink('admin/news/create', 'Cliquez ici') !!} !</p>
+		<hr />
+		<p>Nombre total de news créées : {{ App\News::count() }}.</p>
 	</div>
 
 	<table class="table table-hover table-striped">

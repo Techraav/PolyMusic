@@ -61,13 +61,13 @@ class BandController extends Controller {
 		$infos = $request->infos;
 		$manager = Auth::user()->id;
 
-		$band = Band::createWithSlug([
+		$band = createWithSlug(Band::class, [
 			'name'	=> $name,
 			'infos'	=> $infos,
 			'manager' => $manager,
 			]);
 		
-		$article = Article::createWithSlug([
+		$article = createWithSlug(Article::class, [
 			'title'	=> $name,
 			'user_id'	=> $manager,
 			'category_id'	=> 2

@@ -4,6 +4,11 @@
 	Départements
 @stop
 
+@section('breadcrumb')
+    <li> <a href="{{ url('admin') }}">Administration</a></li>
+    <li class="active">Départements</li>
+@stop
+
 @section('content')
 
 	@include('admin.departments.infos')

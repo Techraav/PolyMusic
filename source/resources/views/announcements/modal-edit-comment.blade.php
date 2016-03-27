@@ -1,5 +1,5 @@
 <div class="modal fade" id="modalEditComment" role="dialog">
-	<div class="modal-dialog">
+	<div class="modal-preview">
 
   	<!-- Modal content-->
       	<div class="modal-content">

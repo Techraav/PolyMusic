@@ -1,24 +1,28 @@
 @extends('layouts.app')
 
 @section('title')
-	{{ ucfirst($news['title']) }}
+	{{ ucfirst($news->title) }}
+@stop
+
+@section('breadcrumb')
+    <li> <a href="{{ url('news') }}">News</a></li>
+    <li class="active">{{ ucfirst($news->title) }}</li>
 @stop
 
 @section('content')
-<h1 style="text-align: center">News</h1>
-		<div class="frame-news">
-			<h2><a href="{{ url('news/view/'.$news['slug'])}}">{{$news['title']}}</a>
-				@if(Auth::check() && Auth::user()->level->level >= 1)
-					<a class="glyphicon glyphicon-pencil" href="{{ url('admin/news/edit/'.$news['slug']) }}"></a>				
-					<button onclick="dialog(this)" news-id="{{ $news->id }}" link="{{ url('admin/news/delete/'.$news->id) }}" class="glyphicon glyphicon-trash" ></button>
+		<blockquote class="comment frame-news col-lg-10 col-lg-offset-1">
+			<h2><a title="Cliquez pour voir la news en entier" href="{{ url('news/view/'.$news['slug'])}}">{{ucfirst($news->title}}</a></h2>
+				@if(Auth::check() && Auth::user()->level_id >= 3)
+					<div class="manage">
+						<a class="glyphicon glyphicon-pencil" href="{{ url('admin/news/edit/'.$news['slug']) }}"></a>				
+						<button onclick="dialog(this)" news-id="{{ $news->id }}" link="{{ url('admin/news/delete/'.$news->id) }}" class="glyphicon glyphicon-trash" ></button>
+					</div>
 				@endif
-			</h2>
-			<p>{!! $news['content'] !!} <br/>
-				<div class="news-datas" align="right">Créée par 
-					<b>{!! printUserLinkV2($news->author) !!}</b> le {{date_format($news['created_at'], 'd/m/Y')}}
+			{!! $news['content'] !!} <br/>
+				<div class="post-infos post-news-infos" align="right">Rédigée par 
+					{!! printUserLinkV2($news->author) !!} le {{date_format($news['created_at'], 'd/m/Y \à H:i')}}.
 				</div>
-			</p>
-		</div>
+		</blockquote>
 		<br/>
 
 	  <!-- Modal -->

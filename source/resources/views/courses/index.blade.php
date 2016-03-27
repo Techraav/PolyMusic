@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+@section('title')
+	{{ ucfirst($course->name) }}
+@stop
+
+@section('breadcrumb')
+    <li class="active">Cours</li>
+@stop
+
+
 @section('content')
 
 	<div class="jumbotron">
@@ -54,7 +63,7 @@
 		@endif
 		<br />
 		<div align="center" class="col-lg-4">
-			<label class="control-label">Trier par jour :</label>
+			<label class="control-label">Filtrer par jour :</label>
 			<select class="form-control" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
 				<option disabled selected>Sélectionnez un jour...</option>
 				<option value="{{ url('courses/list/day/0') }}">Lundi</option>
@@ -67,7 +76,7 @@
 			</select>
 		</div>
 		<div align="center" class="col-lg-4">
-			<label class="control-label">Trier par responsable :</label>
+			<label class="control-label">Filtrer par responsable :</label>
 			<select class="form-control" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
 					<option disabled selected>Sélectionnez un responsable...</option>
 				@forelse($allCourses as $c)
@@ -78,7 +87,7 @@
 			</select>
 		</div>
 		<div align="center" class="col-lg-4">
-			<label class="control-label">Trier par instrument :</label>
+			<label class="control-label">Filtrer par instrument :</label>
 			<select class="form-control" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
 					<option disabled selected>Sélectionnez un instrument...</option>
 				@forelse($allCourses as $c)

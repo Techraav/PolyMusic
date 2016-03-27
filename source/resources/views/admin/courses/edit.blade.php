@@ -4,6 +4,12 @@
 	Modifier un cours
 @stop
 
+@section('breadcrumb')
+    <li> <a href="{{ url('admin') }}">Administration</a></li>
+    <li> <a href="{{ url('admin/courses') }}">Cours</a></li>
+    <li class="active">{{ ucfirst($course->name) }}</li>
+@stop
+
 @section('content')
 		<div class="col-md-10 col-md-offset-1">
 

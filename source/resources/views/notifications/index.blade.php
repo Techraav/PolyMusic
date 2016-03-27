@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
 @section('title')
+	Notifications
+@stop
 
-Notifications
-
+@section('breadcrumb')
+    <li class="active">Notifications</li>
 @stop
 
 

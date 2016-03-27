@@ -23,16 +23,31 @@ class AnnouncementController extends Controller {
     *
     * @return Response
     */
-    public function index()
+    public function index($category=false)
     {
-        $announcements = Announcement::where('validated', 1)->with('author', 'category')->paginate(20);
-        return view('announcements.index', compact('announcements'));
+        if($category !== false)
+        {
+            if($category == 0)
+            {
+                return redirect('announcements/list');
+            }        
+            $announcements = Announcement::where('validated', 1)->ofCategory($category)->with('author', 'category', 'comments')->paginate(5);
+        }
+        else{
+            $announcements = Announcement::where('validated', 1)->with('author', 'category', 'comments')->paginate(5);
+        }
+            
+        return view('announcements.index', compact('announcements', 'category'));
     }
 
     public function adminIndex($category = false)
     {
-        if($category != false)
+        if($category !== false)
         {
+            if($category == 0)
+            {
+                return redirect('admin/announcements');
+            } 
             $announcements = Announcement::where('category_id', $category)->with('author', 'category')->orderBy('id', 'desc')->paginate(15);
         }
         else
@@ -137,7 +152,7 @@ class AnnouncementController extends Controller {
 
         $content = $request->content;
 
-        $announcement = Announcement::createWithSlug([
+        $announcement = createWithSlug(Announcement::class, [
           'user_id'   => Auth::user()->id,
           'title'     => $request->title,
           'content'   => $content,

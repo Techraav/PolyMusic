@@ -1,5 +1,14 @@
-
 @extends('layouts.app')
+
+@section('title')
+	{{ ucfirst($course->name) }}
+@stop
+
+@section('breadcrumb')
+    <li> <a href="{{ url('courses/list') }}">Cours</a></li>
+    <li class="active">{{ ucfirst($course->name) }} </li>
+@stop
+
 
 @section('content')
 	

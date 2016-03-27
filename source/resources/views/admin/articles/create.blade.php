@@ -4,6 +4,13 @@
 	Créer un article
 @stop
 
+@section('breadcrumb')
+    <li> <a href="{{ url('admin') }}">Administration</a></li>
+    <li> <a href="{{ url('admin/articles') }}">Articles</a></li>
+    <li class="active">Créer un article</li>
+@stop
+
+
 @section('content')
 
 	<div class="jumbotron">
