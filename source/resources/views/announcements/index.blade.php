@@ -1,9 +1,3 @@
-{{-- 
-	Index des news
-	Tu listes toutes les news avec un @forelse (regarde la doc, le forelse est super pratique). Variable : $news. tu récuperes les infos avec $news->title, $news->content (a la place de $news c'est la variable du foreach biensur) etc...
-	Si l'utilisateur a un level > 0 ( @if(Auth::user()->level > 0) ) , tu rajoutes qqch pour modifier, qui link vers events/edit/slug avec slug qui est le slug de l'événement
- --}}
-
 @extends('layouts.app')
 
 @section('title')
@@ -33,7 +27,7 @@
 			<h3 class="control-label">Fitlrer par catégorie :</h3>
 			<select class="form-control" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
 				<option disabled selected>Sélectionnez une catégorie...</option>
-				<option value="0">Tout voir</option>
+				<option value="{{ url('announcements/list/category/0') }}">Tout voir</option>
 				@foreach(App\Category::with(['announcements' => function($query) { $query->validated(); }])->get() as $c)
 					<option value="{{ url('announcements/list/category/'.$c->id) }}">{{ ucfirst($c->name) }} ({{ $c->announcements->count() }})</option>
 				@endforeach
@@ -41,18 +35,31 @@
 			<br />
 		</div>
 	</div>
+
 	<div class="row">
 		@if(isset($announcements))
 			<div class="announcement-list">
 				@foreach($announcements as $a)
 					<blockquote class="comment announcement col-lg-10 col-lg-offset-1">	
 				    	<h2><a href="{{ url('announcements/view/'.$a->slug)}}">{{ucfirst($a->title)}}</a></h2>
-<!-- 				    	<h3>{{$a->subject}}</h3>
- -->				    	<span class="help-block"><i>Catégorie : <a title="N'afficher que les annonces de cette catégorie" href="{{ url('announcements/list/category/'.$a->category->id) }}">{{ucfirst($a->category->name)}}</a></i></span>
-				    	<p>{!! cut($a->content, 520, 'announcements/view/'.$a->slug) !!}</p>
+						@if(Auth::check() && Auth::user()->level_id >= 3)
+							<div class="manage">
+								<button
+										onclick='modalDelete(this)'
+										link="{{ url('announcements/delete') }}"
+										id="{{ $a->id }}"
+										title="Supprimer l'annonce"
+										class="{{ glyph('trash') }}">
+								</button>
+								<a class="glyphicon glyphicon-pencil" href="{{ url('announcements/edit/'.$a->slug) }}"></a>
+							</div>
+						@endif
+{{-- 				    	<h3>{{$a->subject}}</h3>
+--}}			    	<span class="help-block"><i>Catégorie : <a title="N'afficher que les annonces de cette catégorie" href="{{ url('announcements/list/category/'.$a->category->id) }}">{{ucfirst($a->category->name)}}</a></i></span>
+				    	<p>{!! cut($a->content, 540, 'announcements/view/'.$a->slug) !!}</p>
 				    	<hr class="colorgraph"/>
-				    	<span class="announcement-infos announcement-index-infos">Rédigé le {{date_format($a['created_at'], 'd/m/Y \à H:i')}} Par {!! printUserLinkV2($a->author) !!} </span>
-				    	<span class="nb-comments announcement-infos">
+				    	<span class="post-infos announcement-index-infos">Rédigé le {{date_format($a['created_at'], 'd/m/Y \à H:i')}} Par {!! printUserLinkV2($a->author) !!} </span>
+				    	<span class="nb-comments post-infos">
 				    		Commentaires : {{ $a->comments->count() }}
 				    	</span>
 				    </blockquote>
@@ -64,6 +71,33 @@
 
 		<div align="right">
 			{!! $announcements->render() !!}
+		</div>
+	</div>
+
+		<!-- Modal -->
+	<div class="modal fade" id="modalDelete" role="dialog">
+		<div class="modal-dialog">
+
+	  	<!-- Modal content-->
+	      	<div class="modal-content">
+	       	 	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h4 id="modal-title" class="modal-title">Supprimer une annonce</h4>
+	        	</div>
+
+		        <form id="delete-form" class="modal-form" method="post" action="">
+		        	{!! csrf_field() !!}
+			        <div class="modal-body">
+	        		<p class="text-danger"><b>Attention ! Cette action est irréversible !</b></p>
+			         	<input hidden value="" name="id" id="id" />
+			        </div>
+			        <div class="modal-footer">
+			          	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+			          	<button type="submit" class="btn btn-primary">Supprimer</button>
+			        </div>
+				</form>
+
+	   		</div>
 		</div>
 	</div>
 @endsection 

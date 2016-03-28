@@ -7,7 +7,7 @@
 @section('breadcrumb')
     <li> <a href="{{ url('admin') }}">Administration</a></li>
     <li> <a href="{{ url('admin/courses') }}">Cours</a></li>
-    <li> <a href="{{ url('admin/courses/'.$documents[0]->course->slug.'/members') }}">{{ ucfirst($documents[0]->course->name) }}</a></li>
+    <li> <a href="{{ url('admin/courses/'.$course->slug.'/members') }}">{{ ucfirst($course->name) }}</a></li>
     <li class="active">Documents</li>
 @stop
 
@@ -45,25 +45,27 @@
 					@if(Auth::user()->level_id > 3 || $course->users->contains(Auth::user()))
 						@if($d->validated == 1)
 							<button 
-									onclick="validaton(this)"
-									link="{{ url('admin/documents/unvalidate') }}"
+									onclick="modalToggle(this)"
+									link="{{ url('admin/documents/validate/0') }}"
 									id="{{ $d->id }}"
 									action="invalider"
 									title="Invalider le document"
+									msg="Souhaitez-vous vraiment invalider ce document ?"
 									class="{{ glyph('remove') }}">
 							</button>
 						@else
 							<button 
-									onclick="validaton(this)"
-									link="{{ url('admin/documents/validate') }}"
+									onclick="modalToggle(this)"
+									link="{{ url('admin/documents/validate/1') }}"
 									id="{{ $d->id }}"
 									action="valider"
+									msg="Souhaitez-vous vraiment valider ce document ?"
 									title="Valider le document"
 									class="{{ glyph('ok') }}">
 							</button>
 							<button
-									onclick="delete(this)"
-									link="{{ url('admin/documents/delete/'.$d->id) }}"
+									onclick="modalDelete(this)"
+									link="{{ url('admin/documents/delete') }}"
 									id="{{ $d->id }}"
 									title="Supprimer le document"
 									class="{{ glyph('trash') }}"
@@ -73,6 +75,7 @@
 								onclick="edit(this)"
 								link="{{ url('admin/documents/edit/'.$d->id) }}"
 								id="{{ $d->id }}"
+								action="valider"
 								title="Modifier le document"
 								class="{{ glyph('pencil') }}">
 						</button>
@@ -98,6 +101,7 @@
 	<h3 align="center">Ajouter un document</h3>
 	<br />
 	<form class="col-lg-8 col-lg-offset-2" method="post" action="{{ url('admin/documents/store') }}" files="true" id="add-document" accept-charset="UTF-8" enctype="multipart/form-data">
+
 	{{ csrf_field() }}
 		<div class="form-group">
 			<label class="label-control">Cours :</label>
@@ -112,7 +116,7 @@
 
 		<div class="form-group">
 			<label class="label-control">Document :</label>
-			{!! printFileInput('file', ['pdf'], true, ['application/pdf'], 'Seuls les fichiers au format PDF sont acceptés.') !!}
+			{!! printFileInput('file', ['pdf'], true, ['accept' => 'application/pdf'], 'Seuls les fichiers au format PDF sont acceptés.') !!}
 		</div>
 
 		<div class="form-group">
@@ -126,7 +130,34 @@
 	</form>
 
 	<!-- Modal -->
-	<div class="modal fade" id="modalValidation" role="dialog">
+	<div class="modal fade" id="modalToggle" role="dialog">
+		<div class="modal-dialog">
+
+	  	<!-- Modal content-->
+	      	<div class="modal-content">
+	       	 	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h4 id="modal-title" class="modal-title">Valider/Invalider un document</h4>
+	        	</div>
+
+		        <form id="delete-form" class="modal-form" method="post" action="">
+		        	{!! csrf_field() !!}
+			        <div class="modal-body">
+	        		<p class="text-warning"><b></b></p>
+			         	<input hidden value="" name="id" id="id" />
+			        </div>
+			        <div class="modal-footer">
+			          	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+			          	<button type="submit" class="btn btn-primary">Supprimer</button>
+			        </div>
+				</form>
+
+	   		</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="modalDelete" role="dialog">
 		<div class="modal-dialog">
 
 	  	<!-- Modal content-->
@@ -139,7 +170,7 @@
 		        <form id="delete-form" class="modal-form" method="post" action="">
 		        	{!! csrf_field() !!}
 			        <div class="modal-body">
-	        		<p class="text-warning"><b>Attention ! Cette action est irréversible !</b></p>
+	        		<p class="text-danger"><b>Attention ! Cette action est irréversible !</b></p>
 			         	<input hidden value="" name="id" id="id" />
 			        </div>
 			        <div class="modal-footer">
@@ -156,16 +187,9 @@
 @section('js')
 
 <script type="text/javascript">
-	function validation(el)
+	function edit(el)
 	{
-		var id = el.getAttribute('id');
-		var link = el.getAttribute('link');
-		var action = el.getAttribute('action');
 
-		$("#modalValidation form .text-warning b").text('Voulez-s vraiment '+action+' ce document ?');
-		$('#modalValidation #id').attr('value', id);
-		$('#modalValidation form').attr('action', link);
-		$('#modalValidation').modal('show');
 	}
 
 </script>

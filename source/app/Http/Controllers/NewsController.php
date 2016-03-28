@@ -57,14 +57,14 @@ class NewsController extends Controller {
     return view('admin.news.index', compact('news'));
   }
 
-  public function activate($id)
-  {
-    $news = News::find($id);
-    $news->activate();
-
-    Flash::success("La news a bien été activée.");
-    return Redirect::back();
-  }
+    public function toggle(Request $request)   
+    {
+        $model = News::find($request->id);
+        $model->active = $model->active == 0 ? 1 : 0;
+        $model->save();
+        Flash::success('La news a bien été '.( $model->active == 1 ? 'activée' : 'suspendue').'.');
+        return Redirect::back();
+    }
 
   /**
    * Show the form for creating a new resource.
@@ -227,13 +227,21 @@ class NewsController extends Controller {
    * @param  int  $slug
    * @return Response
    */
-  public function destroy(Request $request, $id)
+  public function destroy(Request $request)
   {
-    $news = News::find($id);
-    $news->delete();
+    $model = News::find($request->id);
+    if(empty($model))
+    {
+      Flash::error('Impossible de supprimer cette news.');
+      return Redirect::back();
+    }
 
-    Flash::success('La news a bien été supprimée.');
-    return Redirect::back() ;
+    $title = $model->title;
+    $model->delete();
+
+    makeModification('news', 'The news &laquo; '.$title.' &raquo; has been removed.');
+    Flash::success('La news a bien été supprimé.');
+    return Redirect::back();
   }
 
 }

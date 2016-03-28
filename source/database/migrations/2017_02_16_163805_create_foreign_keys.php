@@ -10,52 +10,52 @@ class CreateForeignKeys extends Migration {
 	{
 		Schema::table('users', function(Blueprint $table) {
 			$table->foreign('department_id')->references('id')->on('departments')
-						->onDelete('cascade')
+						->onDelete('restrict')
 						->onUpdate('cascade');
 		});
 		Schema::table('users', function(Blueprint $table) {
 			$table->foreign('level_id')->references('id')->on('levels')
-						->onDelete('cascade')
+						->onDelete('restrict')
 						->onUpdate('cascade');
 		});
 		Schema::table('courses', function(Blueprint $table) {
 			$table->foreign('instrument_id')->references('id')->on('instruments')
-						->onDelete('cascade')
+						->onDelete('restrict')
 						->onUpdate('cascade');
 		});
 		Schema::table('courses', function(Blueprint $table) {
 			$table->foreign('article_id')->references('id')->on('articles')
-						->onDelete('cascade')
+						->onDelete('restrict')
 						->onUpdate('cascade');
 		});
 		Schema::table('courses', function(Blueprint $table) {
 			$table->foreign('user_id')->references('id')->on('users')
-						->onDelete('cascade')
+						->onDelete('restrict')
 						->onUpdate('cascade');
 		});
 		Schema::table('events', function(Blueprint $table) {
 			$table->foreign('article_id')->references('id')->on('articles')
-						->onDelete('cascade')
+						->onDelete('restrict')
 						->onUpdate('cascade');
 		});
 		Schema::table('events', function(Blueprint $table) {
 			$table->foreign('user_id')->references('id')->on('users')
-						->onDelete('cascade')
+						->onDelete('restrict')
 						->onUpdate('cascade');
 		});
 		Schema::table('bands', function(Blueprint $table) {
 			$table->foreign('user_id')->references('id')->on('users')
-						->onDelete('cascade')
+						->onDelete('restrict')
 						->onUpdate('cascade');
 		});
 		Schema::table('bands', function(Blueprint $table) {
 			$table->foreign('article_id')->references('id')->on('articles')
-						->onDelete('cascade')
+						->onDelete('restrict')
 						->onUpdate('cascade');
 		});
 		Schema::table('news', function(Blueprint $table) {
 			$table->foreign('user_id')->references('id')->on('users')
-						->onDelete('cascade')
+						->onDelete('restrict')
 						->onUpdate('cascade');
 		});
 		Schema::table('articles', function(Blueprint $table) {
@@ -90,8 +90,8 @@ class CreateForeignKeys extends Migration {
 		});
 		Schema::table('band_user', function(Blueprint $table) {
 			$table->foreign('instrument_id')->references('id')->on('instruments')
-						->onDelete('cascade')
-						->onUpdate('no action');
+						->onDelete('restrict')
+						->onUpdate('cascade');
 		});
 		Schema::table('band_event', function(Blueprint $table) {
 			$table->foreign('band_id')->references('id')->on('bands')
@@ -110,7 +110,7 @@ class CreateForeignKeys extends Migration {
 		});
 		Schema::table('announcements', function(Blueprint $table) {
 			$table->foreign('category_id')->references('id')->on('categories')
-						->onDelete('cascade')
+						->onDelete('restrict')
 						->onUpdate('cascade');
 		});
 		Schema::table('comments', function(Blueprint $table) {
@@ -135,7 +135,7 @@ class CreateForeignKeys extends Migration {
 		});
 		Schema::table('documents', function(Blueprint $table) {
 			$table->foreign('user_id')->references('id')->on('users')
-						->onDelete('cascade')
+						->onDelete('restrict')
 						->onUpdate('cascade');
 		});
 		Schema::table('documents', function(Blueprint $table) {

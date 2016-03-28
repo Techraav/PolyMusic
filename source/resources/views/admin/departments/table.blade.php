@@ -19,35 +19,29 @@
 						<a href="{{ url('admin/departments/'.$d->id.'/members') }}">{{ $d->name }}</a>
 					</td>
 					<td align="center">{{ $d->users->count() }}</td>
-					<td align="center">
-					@if($d->id != 1)
-						@if(Auth::user()->level->level > 3)
-						<button 
-							onclick="dialogDelete(this)"
-							name="{{ $d->name}}"
-							id="{{ $d->id }}"
-							link="{{ url('admin/departments/delete/'.$d->id) }}"
-							align="right" 
-							title="Supprimer le départment {{ $d->name }} ?" 
-							type="submit" 
-							class="glyphicon glyphicon-trash">
-						</button>
-						@endif
-							
-						<button 
-							onclick="dialogEdit(this)"
-							name="{{ $d->name}}"
-							short-name="{{ $d->short_name }}"
-							id="{{ $d->id }}"
-							link="{{ url('admin/departments/edit/'.$d->id) }}" 
-							title="Modifier le département {{ $d->name }} ?"
-							class="glyphicon glyphicon-pencil">
-						</button>
+					@if($d->id != 1 && Auth::user()->level_id > 3)
+						<td class="manage" align="center">
+							<button
+									onclick='modalDelete(this)'
+									link="{{ url('admin/departments/delete') }}"
+									id="{{ $d->id }}"
+									title="Supprimer ce département"
+									class="{{ glyph('trash') }}">
+							</button>
+							<button 
+									onclick="dialogEdit(this)"
+									name="{{ $d->name}}"
+									short-name="{{ $d->short_name }}"
+									id="{{ $d->id }}"
+									link="{{ url('admin/departments/edit/'.$d->id) }}" 
+									title="Modifier le département {{ $d->name }} ?"
+									class="glyphicon glyphicon-pencil">
+							</button>
+						</td>
 					@else
-						-
+					<td align="center">-</td>
 					@endif
-					</td>
-				</tr>
+					</tr>
 			@empty
 				<tr>
 					<td>-</td>

@@ -31,13 +31,15 @@
 				<td align="center" width="180"><b>Horaires</b></td>
 				<td><b>Location</b></td>
 				<td align="center"><b>Groupes</b></td>
-				<td width="80" align="center"><b>Gérer</b></td>
+				<td width="20" align="right"> </td>
+				<td width="20" align="center"><b>Gérer</b></td>
+				<td width="20" align="left"></td>
 			</tr>
 		</thead>
 		<tbody>
 			@forelse($events as $e)
 				<tr>
-					<td align="center">{{ printDay($e->day, true) }} {{ showDate($e->date, 'Y-m-d', 'd/m/Y') }}</td>
+					<td align="center">{{ ucfirst(printDay($e->day, true)) }} {{ showDate($e->date, 'Y-m-d', 'd/m/Y') }}</td>
 					<td>{!! printUserLinkV2($e->manager) !!}</td>
 					<td><a href="{{ url('events/manage/'.$e->id) }}">{{ $e->name }}</a>
 						&nbsp;
@@ -45,21 +47,45 @@
 					<td align="center">{{ showDate($e->start, 'H:i:s', 'H:i') }} - {{ showDate($e->end, 'H:i:s', 'H:i')}} </td>
 					<td>{{ $e->location }}</td>
 					<td align="center"> {{ $e->bands->count() }} </td>
-					<td class="manage" align="center">
-					@if(Auth::user()->level->level > 3 || Auth::user()->id == $e->user_id)							
-						<button onclick="dialogDelete(this)"
-								id="{{ $e->id }}"
-								link="{{ url('events/delete/'.$e->id) }}"
-								align="right" 
-								title="Supprimer l'évenement {{ $e->name }} ?" 
-								class="glyphicon glyphicon-trash">
-						</button>
-
-						<a href="{{ url('events/edit/'.$e->id) }}"  title="Modifier l'événement {{ $e->name }} ?" class="glyphicon glyphicon-pencil">	</a>
-					@else
-						-
-					@endif
-				</td>
+					@if(Auth::user()->level_id > 3 || $e->user_id == Auth::user()->id)
+						<td class="manage manage-left" align="right">
+							@if($e->active == 1)
+								<button 
+										onclick="modalToggle(this)"
+										link="{{ url('admin/events/validate/0') }}"
+										id="{{ $e->id }}"
+										action="invalider"
+										title="Invalider l'événement"
+										msg="Voulez-vous vraiment invalider cet événement ?"
+										class="{{ glyph('remove') }}">
+								</button>
+							@else
+								<button 
+										onclick="modalToggle(this)"
+										link="{{ url('admin/events/validate/1') }}"
+										id="{{ $e->id }}"
+										action="valider"
+										msg="Voulez-vous vraiment valider cet événement ?"
+										title="Valider l'événement"
+										class="{{ glyph('ok') }}">
+								</button>
+							@endif
+						</td>
+						<td class="manage" align="center">
+							<button
+									onclick='modalDelete(this)'
+									link="{{ url('admin/events/delete') }}"
+									id="{{ $e->id }}"
+									title="Supprimer l'événement"
+									class="{{ glyph('trash') }}">
+							</button>
+						</td>
+						<td class="manage manage-right" align="left">
+							<a href="{{ url('admin/documents/edit/'.$e->id) }}" title="Modifier le document" class="{{ glyph('pencil') }}"> </a>
+						</td>
+				@else
+				<td></td><td align="center">-</td><td></td>
+				@endif
 				</tr>
 			@empty
 				<tr>
@@ -74,7 +100,35 @@
 		</tbody>
 	</table>
 
-	{{-- MODALS --}}
+	
+	<!-- Modal -->
+	<div class="modal fade" id="modalToggle" role="dialog">
+		<div class="modal-dialog">
+
+	  	<!-- Modal content-->
+	      	<div class="modal-content">
+	       	 	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h4 id="modal-title" class="modal-title">Valider/Invalider un document</h4>
+	        	</div>
+
+		        <form id="delete-form" class="modal-form" method="post" action="">
+		        	{!! csrf_field() !!}
+			        <div class="modal-body">
+	        		<p class="text-warning"><b></b></p>
+			         	<input hidden value="" name="id" id="id" />
+			        </div>
+			        <div class="modal-footer">
+			          	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+			          	<button type="submit" id="button-toggle" class="btn btn-primary"></button>
+			        </div>
+				</form>
+
+	   		</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
 	<div class="modal fade" id="modalDelete" role="dialog">
 		<div class="modal-dialog">
 
@@ -82,11 +136,11 @@
 	      	<div class="modal-content">
 	       	 	<div class="modal-header">
 	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
-	          		<h4 id="modal-title" class="modal-title">Supprimer un événement</h4>
+	          		<h4 id="modal-title" class="modal-title">Supprimer un document</h4>
 	        	</div>
 
 		        <form id="delete-form" class="modal-form" method="post" action="">
-		        {!! csrf_field() !!}
+		        	{!! csrf_field() !!}
 			        <div class="modal-body">
 	        		<p class="text-danger"><b>Attention ! Cette action est irréversible !</b></p>
 			         	<input hidden value="" name="id" id="id" />
@@ -100,20 +154,5 @@
 	   		</div>
 		</div>
 	</div>
-
-@stop
-
-@section('js')
-
-	<script type="text/javascript">
-		function dialogDelete(el) {
-			var id = el.getAttribute('id');
-			var link = el.getAttribute('link');
-
-			$('#modalDelete #id').attr('value', id);
-			$('#modalDelete form').attr('action', link);
-			$('#modalDelete').modal('show');
-		}
-	</script>
 
 @stop

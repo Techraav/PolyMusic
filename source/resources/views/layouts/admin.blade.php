@@ -61,6 +61,7 @@
     <script src="{{ URL::asset('/js/bootbox.min.js')  }}"></script>
     <script src="{{ URL::asset('/js/fileInput.js')  }}"></script>
     <script src="{{ URL::asset('/js/addons.js')  }}"></script>
+    <script src="{{ URL::asset('/js/modals.js')  }}"></script>
     @yield('js') 
 
     <script>

@@ -37,10 +37,10 @@ class DocumentController extends Controller
 
     public function toggle(Request $request)   
     {
-        $doc = Document::find($request->id);
-        $doc->validated = $doc->validated == 0 ? 1 : 0;
-        $doc->save();
-        Flash::success('Le document a bien été '.( $doc->validated == 1 ? 'validé' : 'invalidé').'.');
+        $model = Document::find($request->id);
+        $model->validated = $model->validated == 0 ? 1 : 0;
+        $model->save();
+        Flash::success('Le document a bien été '.( $model->validated == 1 ? 'validé' : 'invalidé').'.');
         return Redirect::back();
     }
 
@@ -138,7 +138,7 @@ class DocumentController extends Controller
     protected function validator($data)
     {
         return Validator::make($data, [
-            'title'         => 'required|min:5|max:100',
+            'title'         => 'required|min:3|max:100',
             'description'   => 'max:255',
             'file'          => 'required|mimes:pdf'
             ]);

@@ -34,7 +34,9 @@
 				<td width="300"><b>Créateur</b></td>
 				<td width="100" align="center"><b>Membres</b></td>
 				<td width="100" align="center"><b>Validé</b></td>
-				<td width="100" align="center"><b>Gérer</b></td>
+				<td width="20" align="right"> </td>
+				<td width="20" align="center"><b>Gérer</b></td>
+				<td width="20" align="left"></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -45,32 +47,45 @@
 				<td>{!! printUserLinkV2($b->manager) !!}</td>
 				<td align="center">{{ $b->members()->count() }}</td>
 				<td align="center"><span class="icon-validated glyphicon glyphicon-{{ $b->validated == 1 ? 'ok' : 'remove' }}"></span></td>
-				<td align="center">
-					@if(Auth::user()->level->level > 2)							
-						<button onclick="dialogDelete(this)" 
-								id="{{ $b->id }}" 
-								name="{{ $b->name }}" 
-								link="{{ url('admin/bands/delete/'.$b->id) }}" 
-								align="right" 
-								title="Supprimer le groupe {{ $b->name }} ?" 
-								class="glyphicon glyphicon-trash">
+				@if(Auth::user()->level_id > 3 || $b->user_id == Auth::user()->id)
+					<td class="manage manage-left" align="right">
+						@if($b->validated == 1)
+							<button 
+									onclick="modalToggle(this)"
+									link="{{ url('bands/validate/0') }}"
+									id="{{ $b->id }}"
+									action="invalider"
+									title="Invalider le document"
+									msg="Voulez-vous vraiment invalider ce groupe ?"
+									class="{{ glyph('remove') }}">
+							</button>
+						@else
+							<button 
+									onclick="modalToggle(this)"
+									link="{{ url('bands/validate/1') }}"
+									id="{{ $b->id }}"
+									action="valider"
+									msg="Voulez-vous vraiment valider ce groupe ?"
+									title="Valider le document"
+									class="{{ glyph('ok') }}">
+							</button>
+						@endif
+					</td>
+					<td class="manage" align="center">
+						<button
+								onclick='modalDelete(this)'
+								link="{{ url('bands/delete') }}"
+								id="{{ $b->id }}"
+								title="Supprimer le groupe"
+								class="{{ glyph('trash') }}">
 						</button>
-
-						<button onclick="dialogEdit(this)" 
-								id="{{ $b->id }}" 
-								name="{{ $b->name }}" 
-								infos="{{ $b->infos }}"
-								manager-id="{{ $b->user_id }}"
-								manager="{{ $b->manager->first_name.' '.$b->manager->last_name }}"
-								validated="{{ $b->validated }}"
-								link="{{ url('admin/bands/edit/'.$b->id) }}" 
-								title="Modifier le groupe {{ $b->name }} ?"
-								class="glyphicon glyphicon-pencil">
-						</button>
-					@else
-						-
-					@endif
-				</td>			
+					</td>
+					<td class="manage manage-right" align="left">
+						<a href="{{ url('admin/documents/edit/'.$b->id) }}" title="Modifier le document" class="{{ glyph('pencil') }}"> </a>
+					</td>
+				@else
+				<td></td><td align="center">-</td><td></td>
+				@endif		
 			</tr>
 			@empty
 			<tr>
@@ -85,9 +100,59 @@
 
 	<div align="right"> {!! $bands->render() !!} </div>
 
-	@include('admin.bands.modal-delete')
+	<!-- Modal -->
+	<div class="modal fade" id="modalToggle" role="dialog">
+		<div class="modal-dialog">
 
-	@include('admin.bands.modal-edit')
+	  	<!-- Modal content-->
+	      	<div class="modal-content">
+	       	 	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h4 id="modal-title" class="modal-title">Valider/Invalider un groupe</h4>
+	        	</div>
+
+		        <form id="delete-form" class="modal-form" method="post" action="">
+		        	{!! csrf_field() !!}
+			        <div class="modal-body">
+	        		<p class="text-warning"><b></b></p>
+			         	<input hidden value="" name="id" id="id" />
+			        </div>
+			        <div class="modal-footer">
+			          	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+			          	<button type="submit" id="button-toggle" class="btn btn-primary"></button>
+			        </div>
+				</form>
+
+	   		</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="modalDelete" role="dialog">
+		<div class="modal-dialog">
+
+	  	<!-- Modal content-->
+	      	<div class="modal-content">
+	       	 	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h4 id="modal-title" class="modal-title">Supprimer un grope</h4>
+	        	</div>
+
+		        <form id="delete-form" class="modal-form" method="post" action="">
+		        	{!! csrf_field() !!}
+			        <div class="modal-body">
+	        		<p class="text-danger"><b>Attention ! Cette action est irréversible !</b></p>
+			         	<input hidden value="" name="id" id="id" />
+			        </div>
+			        <div class="modal-footer">
+			          	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+			          	<button type="submit" class="btn btn-primary">Supprimer</button>
+			        </div>
+				</form>
+
+	   		</div>
+		</div>
+	</div>
 
 @stop
 
@@ -96,45 +161,4 @@
     <script type="text/javascript">
         CKEDITOR.replace( 'infos' );
     </script>
-
-<script type="text/javascript">
-		function dialogDelete(el)
-		{
-			var id = el.getAttribute('id');
-			var name = el.getAttribute('name');
-			var link = el.getAttribute('link');
-
-			$('#modalDelete form').attr('action', link);
-			$('#modalDelete h4').html("Supprimer le groupe &laquo; " + name + " &raquo; ?");
-			$('#modalDelete #band_id').attr('value', id);
-			$('#modalDelete').modal('toggle');
-		}
-
-		function dialogEdit(el)
-		{
-			var id = el.getAttribute('id');
-			var name = el.getAttribute('name');
-			var link = el.getAttribute('link');
-			var infos = el.getAttribute('infos');
-			var manager_id = el.getAttribute('manager-id');
-			var manager = el.getAttribute('manager');
-			var validated = el.getAttribute('validated');
-
-			var html = '<option selected value="' + manager_id + '">' + manager + '</option>';
-
-			console.log(html);
-
-
-
-			$('#modalEdit form').attr('action', link);
-			$('#modalEdit #name').attr('value', name);
-			$('#modalEdit #band_id').attr('value', id);
-			$('#modalEdit #manager').attr('value', manager);
-			$('#modalEdit #user_id').attr('value', manager_id);
-			$('#modalEdit #validated').attr('checked', validated == 1);
-			CKEDITOR.instances.infos.setData(infos);
-			$('#modalEdit').modal('toggle');
-		}	
-</script>
-
 @stop

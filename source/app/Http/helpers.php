@@ -142,7 +142,7 @@
 
 		if($three)
 		{
-			$day = substr($day, 3);
+			$day = substr($day, 0, 3);
 		}
 
 		return $day;

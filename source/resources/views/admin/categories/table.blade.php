@@ -7,7 +7,7 @@
 					<td align="center"><b>Catégorie</b></td>
 					<td align="center" width="200"><b>Articles</b></td>
 					<td align="center" width="200"><b>Annonces</b></td>
-					<td align="center" width="200"><b>Gérer</b></td>
+					<td width="90" align="center"><b>Gérer</b></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -17,14 +17,32 @@
 					<td align="center"><a href="{{ url('categories/list/'.$c->id) }}">{{ $c->name }}</a></td>
 					<td align="center">{{ $c->articles()->count() }}</td>
 					<td align="center">{{ $c->announcements()->count() }}</td>
-					<td align="center">
-						@if($c->id != 1 && $c->id != 2)
-							<button onclick="dialogEdit(this)" category-name="{{ $c->name }}" category-id="{{ $c->id }}" link="{{ url('admin/categories/edit') }}" title="Modifier la catégorie {{ $c->name }} ?" class="glyphicon glyphicon-pencil"></button>
-							<button onclick="dialogDelete(this)"  category-name="{{ $c->name }}"  category-id="{{ $c->id }}" link="{{ url('admin/categories/delete/'.$c->id) }}" align="right" title="Supprimer la catégorie {{ $c->name }} ?" type="submit" class="glyphicon glyphicon-trash"></button>
-						@else
-							-
-						@endif
+					@if(Auth::user()->level_id > 3)
+						<td class="manage" align="center">
+							&nbsp; 
+							@if($c->id != 1 && $c->ic != 2)
+								<button
+										onclick='modalDelete(this)'
+										link="{{ url('admin/categories/delete') }}"
+										id="{{ $c->id }}"
+										title="Supprimer cette catégorie"
+										class="{{ glyph('trash') }}">
+								</button>
+								@else
+								&nbsp; -&nbsp;
+								@endif
+							<button 
+									onclick="dialogEdit(this)" 
+									category-name="{{ $c->name }}" 
+									category-id="{{ $c->id }}" 
+									link="{{ url('admin/categories/edit') }}" 
+									title="Modifier la catégorie {{ $c->name }} ?" 
+									class="glyphicon glyphicon-pencil">
+							</button>						
 					</td>
+				@else
+				<td align="center">-</td>
+				@endif
 				</tr>
 			@empty
 				<tr>

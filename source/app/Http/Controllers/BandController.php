@@ -178,19 +178,37 @@ class BandController extends Controller {
 		Flash::success('Le membre a bien été retiré du groupe ! ');
 		return Redirect::back();
 	}
+
+    public function toggle(Request $request)   
+    {
+        $model = Band::find($request->id);
+        $model->validated = $model->validated == 0 ? 1 : 0;
+        $model->save();
+        Flash::success('Le groupe a bien été '.( $model->validated == 1 ? 'validée' : 'invalidée').'.');
+        return Redirect::back();
+    }
+
 	/**
 	* Remove the specified resource from storage.
 	*
 	* @param  int  $id
 	* @return Response
 	*/
-	public function destroy($id)
+	public function destroy(Request $request)
 	{
-		$band = Band::find($id);
-		$band->delete();
+		$model = Band::find($request->id);
+		if(empty($model))
+		{
+			Flash::error('Impossible de supprimer ce groupe.');
+			return Redirect::back();
+		}
 
+		$name = $model->name;
+		$model->delete();
+
+		makeModification('bands', 'The band &laquo '.$name.' &raquo has been removed.');
 		Flash::success('Le groupe a bien été supprimé.');
-		return redirect('bands');
+		return Redirect::back();
 	}
 
 	protected function validator($data)

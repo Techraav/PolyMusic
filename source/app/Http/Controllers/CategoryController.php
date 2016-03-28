@@ -77,16 +77,35 @@ class CategoryController extends Controller
         return redirect('admin/categories');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        Category::find($id)->delete();
-        Flash::success('La catégorie a bien été supprimée !');
-        return redirect('admin/categories');
+        $model = Category::with('articles', 'announcements')->find($request->id);
+        if(empty($model))
+        {
+            Flash::error('Impossible de supprimer cette catégorie.');
+            return Redirect::back();
+        }
+
+        $announcements = $model->announcements();
+        $article = $model->article();
+        if(!empty($announcements))
+        {
+            foreach ($announcements as $a) {
+                $a->update(['category_id' => 1]);
+            }
+        } 
+        if(!empty($article))
+        {
+            foreach ($article as $a) {
+                $a->update(['category_id' => 1]);
+            }
+        } 
+
+        $name = $model->name;
+        $model->delete();
+
+        makeModification('categories', 'The category &laquo; '.$name.' &raquo; has been removed.');
+        Flash::success('La catégorie a bien été supprimé.');
+        return Redirect::back();
     }
 }

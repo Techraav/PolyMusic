@@ -129,51 +129,82 @@ class InstrumentController extends Controller
     * @param  int  $id
     * @return Response
     */
-    public function destroy($id)
+    // public function destroy($id)
+    // {
+    //     $instrument = Instrument::where('id', $id)->first();
+    //     if(empty($instrument))
+    //     {
+    //         Flash::error('Cet instrument n\'a pas l\'air d\'exister. Si vous pensez qu\' s\'agit d\'un bug, merci de contacter le webmaster');
+    //         return Redirect::back();
+    //     }
+    //     $name = $instrument->name;
+
+    //     // Suppression des membres de groupes + cours de cet instrument
+    //     $bms = BandUser::where('instrument_id', $id)->get();
+    //     $cs = Course::where('instrument_id', $id)->get();
+    //     if(!empty($bms))
+    //     {
+    //         foreach ($bms as $bm) {
+    //             $bm->setDefaultInstrument();
+    //         }      
+    //     }
+    //     if(!empty($cs))
+    //     {
+    //         foreach ($cs as $c) {
+    //             $c->setDefaultInstrument();
+    //         }
+    //     }  
+
+
+    //     $instrument->delete();
+
+    //     $test = Instrument::where('id', $id)->first();
+    //     if(empty($test))
+    //     {
+    //         Flash::success('Instrument supprimé avec succès.');
+
+    //         Modification::create([
+    //             'table'     => 'instruments',
+    //             'user_id'   => Auth::user()->id,
+    //             'message'   => 'removed instrument "'.$name.'".']);
+    //     }
+    //     else
+    //         Flash::error('Impossible de supprimer cet instrument.');
+
+    //     return redirect('admin/instruments');
+    // }
+
+    public function destroy(Request $request)
     {
-        $instrument = Instrument::where('id', $id)->first();
-        if(empty($instrument))
+        $model = Instrument::with('courses', 'players')->find($request->id);
+        if(empty($model))
         {
-            Flash::error('Cet instrument n\'a pas l\'air d\'exister. Si vous pensez qu\' s\'agit d\'un bug, merci de contacter le webmaster');
+            Flash::error('Impossible de supprimer cet instrument.');
             return Redirect::back();
         }
-        $name = $instrument->name;
 
-        // Suppression des membres de groupes + cours de cet instrument
-        $bms = BandUser::where('instrument_id', $id)->get();
-        $cs = Course::where('instrument_id', $id)->get();
-        if(!empty($bms))
+        $players = $model->players();
+        $courses = $model->courses();
+        if(!empty($players))
         {
-            foreach ($bms as $bm) {
-                $bm->setDefaultInstrument();
-            }      
-        }
-        if(!empty($cs))
-        {
-            foreach ($cs as $c) {
-                $c->setDefaultInstrument();
+            foreach ($players as $p) {
+                $p->update(['instrument_id' => 1]);
             }
-        }  
-
-
-        $instrument->delete();
-
-        $test = Instrument::where('id', $id)->first();
-        if(empty($test))
-        {
-            Flash::success('Instrument supprimé avec succès.');
-
-            Modification::create([
-                'table'     => 'instruments',
-                'user_id'   => Auth::user()->id,
-                'message'   => 'removed instrument "'.$name.'".']);
         }
-        else
-            Flash::error('Impossible de supprimer cet instrument.');
+        if(!empty($courses))
+        {
+            foreach ($courses as $c) {
+                $c->update(['instrument_id' => 1]);
+            }
+        }
 
-        return redirect('admin/instruments');
+        $name = $model->name;
+        $model->delete();
+
+        makeModification('instruments', 'The instrument &laquo; '.$name.' &raquo; has been removed.');
+        Flash::success('L\'instrument a bien été supprimé.');
+        return Redirect::back();
     }
-
 // ________________________________________________________________
 //
 //                            HELPERS 

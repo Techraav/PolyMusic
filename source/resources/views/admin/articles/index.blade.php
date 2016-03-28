@@ -14,6 +14,12 @@
 	<div class="jumbotron">
 		<h1 align="center">Gestion des articles</h1>
 		<p>Voici une vue d'ensemble des annonces.</p>
+		<p>Vous pouvez valider ou invalider un article en cliquant sur les boutons <span class="{{ glyph('ok') }} glyph-text"></span> ou <span class="{{ glyph('remove') }} glyph-text"></span>. Seuls les articles validés seront visibles par les membres.</p>
+		@if(Auth::user()->level_id == 3)
+			<p>En tant que {{ ucfirst(Auth::user()->level->name) }}, vous pouvez modifier ou supprimer les articles que vous avez postés. Attention, la suppression est définitive !</p>
+		@else
+			<p>En tant que {{ ucfirst(Auth::user()->level->name) }}, vous pouvez modifier ou supprimer tous les articles mis en ligne. Attention, la suppression est définitive !</p>
+		@endif
 		<p>Vous souhaitez créer un article ? {!! printLink('admin/articles/create', 'Cliquez ici') !!} !</p>
 		<hr />
 		<p>Nombre total d'articles créés : {{ App\Article::count() }}.</p>
@@ -34,7 +40,9 @@
 				<td><b>Titre</b></td>
 				<td align="center" width="100"><b>Categorie</b></td>	
 				<td align="center" width="80"><b>Validé</b></td>			
-				<td align="center" width="100"><b>Gérer</b></td>
+				<td width="20"></td>
+				<td align="center" width="20"><b>Gérer</b></td>
+				<td width="20"></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -49,25 +57,45 @@
 						   class="icon-validated glyphicon glyphicon-{{ $a->validated == 1 ? 'ok' : 'remove' }}">
 						</a>
 					</td>
-					<td align="center" class="manage">
-
-					@if(Auth::user()->level->level > 2)	
-						@if($a->validated == 1)
-							<button onclick="dialogDelete(this)" 
-									slug="{{ $a->slug }}" 
-									align="right" 
-									link="{{ url('admin/articles/delete/'.$a->slug) }}" 
-									title="Supprimer l'article ?" 
-									class="glyphicon glyphicon-trash">
+					@if(Auth::user()->level_id > 3 || $a->user_id == Auth::user()->id)
+						<td class="manage manage-left" align="right">
+							@if($a->validated == 1)
+								<button 
+										onclick="modalToggle(this)"
+										link="{{ url('admin/articles/validate/0') }}"
+										id="{{ $a->id }}"
+										action="invalider"
+										title="Invalider l'article"
+										msg="Voulez-vous vraiment invalider cet article ?"
+										class="{{ glyph('remove') }}">
+								</button>
+							@else
+								<button 
+										onclick="modalToggle(this)"
+										link="{{ url('admin/articles/validate/1') }}"
+										id="{{ $a->id }}"
+										action="valider"
+										msg="Voulez-vous vraiment valider cet article ?"
+										title="Valider l'article"
+										class="{{ glyph('ok') }}">
+								</button>
+							@endif
+						</td>
+						<td class="manage" align="center">
+							<button
+									onclick='modalDelete(this)'
+									link="{{ url('admin/articles/delete') }}"
+									id="{{ $a->id }}"
+									title="Supprimer l'annonce"
+									class="{{ glyph('trash') }}">
 							</button>
-						@else
-							&nbsp; <a title="Valider l'article ?" class="glyphicon glyphicon-ok" href="{{ url('admin/articles/validate/'.$a->id) }}"></a>&nbsp;						
-						@endif						
-						<a class="glyphicon glyphicon-pencil" href="{{ url('admin/articles/edit/'.$a['slug']) }}"></a>	
-					@else
-						-
-					@endif
-				</td>			
+						</td>
+						<td class="manage manage-right" align="left">
+							<a href="{{ url('announcements/edit/'.$a->slug) }}" title="Modifier l'annonce" class="{{ glyph('pencil') }}"> </a>
+						</td>
+				@else
+				<td></td><td align="center">-</td><td></td>
+				@endif	
 				</tr>
 			@empty
 
@@ -77,20 +105,48 @@
 
 	<div align="right"> {!! $articles->render() !!} </div>
 
-	<div class="modal fade" id="myModal" role="dialog">
-    	<div class="modal-dialog">
-    
+	<div class="modal fade" id="modalToggle" role="dialog">
+		<div class="modal-dialog">
+
+	  	<!-- Modal content-->
 	      	<div class="modal-content">
 	       	 	<div class="modal-header">
 	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
-	          		<h4 class="modal-title">Voulez-vous vraiment supprimer cet article ?</h4>
+	          		<h4 id="modal-title" class="modal-title">Valider/Invalider un article</h4>
 	        	</div>
 
-		        <form id="modal-form" class="modal-form" method="post" action="">
-		        {!! csrf_field() !!}
+		        <form id="delete-form" class="modal-form" method="post" action="">
+		        	{!! csrf_field() !!}
+			        <div class="modal-body">
+	        		<p class="text-warning"><b></b></p>
+			         	<input hidden value="" name="id" id="id" />
+			        </div>
+			        <div class="modal-footer">
+			          	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+			          	<button type="submit" id="button-toggle" class="btn btn-primary"></button>
+			        </div>
+				</form>
+
+	   		</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="modalDelete" role="dialog">
+		<div class="modal-dialog">
+
+	  	<!-- Modal content-->
+	      	<div class="modal-content">
+	       	 	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h4 id="modal-title" class="modal-title">Supprimer un article</h4>
+	        	</div>
+
+		        <form id="delete-form" class="modal-form" method="post" action="">
+		        	{!! csrf_field() !!}
 			        <div class="modal-body">
 	        		<p class="text-danger"><b>Attention ! Cette action est irréversible !</b></p>
-			         	<input hidden value="" name="user_id" id="user_id" />
+			         	<input hidden value="" name="id" id="id" />
 			        </div>
 			        <div class="modal-footer">
 			          	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
@@ -99,23 +155,7 @@
 				</form>
 
 	   		</div>
-    	</div>
-  	</div>
-
-@stop
-
-@section('js')
-
-<script type="text/javascript">
-		function dialogDelete(el)
-		{
-			var slug = el.getAttribute('news-slug');
-			var link = el.getAttribute('link');
-
-			$('#modal-form').attr('action', link);
-			$('#articles_slug').attr('value', slug);
-			$('#myModal').modal('toggle');
-		}
-</script>
+		</div>
+	</div>
 
 @stop

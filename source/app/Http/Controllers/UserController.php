@@ -126,9 +126,9 @@ class UserController extends Controller {
 	* @param  int  $id
 	* @return Response
 	*/
-	public function destroy($id)
+	public function destroy(Request $request)
 	{
-		$user = User::find($id)->first();
+		$user = User::find($request->id);
 		$user->banish();
 		return redirect('admin.users');
 	}

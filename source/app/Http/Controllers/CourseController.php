@@ -334,7 +334,14 @@ class CourseController extends Controller {
 		return Redirect::back();
 	}
 
-
+    public function toggle(Request $request)   
+    {
+        $model = Course::find($request->id);
+        $model->active = $model->active == 0 ? 1 : 0;
+        $model->save();
+        Flash::success('Le cours a bien été '.( $model->active == 1 ? 'activé' : 'suspendu').'.');
+        return Redirect::back();
+    }
 
 	/**
 	* Update the specified resource in storage.
@@ -387,12 +394,24 @@ class CourseController extends Controller {
 	/**
 	* Remove the specified resource from storage.
 	*
-	* @param  str $slug
+	* @param  Request $request
 	* @return Response
 	*/
-	public function destroy($slug)
+	public function destroy(Request $request)
 	{
+		$model = Course::find($request->id);
+		if(empty($model))
+		{
+			Flash::error('Impossible de supprimer ce cours.');
+			return Redirect::back();
+		}
 
+		$name = $model->name;
+		$model->delete();
+
+		makeModification('courses', 'The course &laquo; '.$name.' &raquo; has been removed.');
+		Flash::success('Le cours a bien été supprimé.');
+		return Redirect::back();
 	}
 
 // ________________________________________________________________

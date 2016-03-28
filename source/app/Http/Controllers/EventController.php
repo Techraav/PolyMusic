@@ -117,6 +117,15 @@ class EventController extends Controller {
         return view('events.edit', compact('event'));
     }
 
+    public function toggle(Request $request)   
+    {
+        $model = Event::find($request->id);
+        $model->active = $model->active == 0 ? 1 : 0;
+        $model->save();
+        Flash::success('L\'événement a bien été '.( $model->active == 1 ? 'activé' : 'suspendu').'.');
+        return Redirect::back();
+    }
+
     /**
     * Update the specified resource in storage.
     *
@@ -162,18 +171,20 @@ class EventController extends Controller {
         return redirect('events/show/'.$event->slug);
     }
 
-    /**
-    * Remove the specified resource from storage.
-    *
-    * @param  int  $id
-    * @return Response
-    */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $event = Event::find($id);
-        $event->delete();
+        $model = Event::find($request->id);
+        if(empty($model))
+        {
+            Flash::error('Impossible de supprimer cet événement.');
+            return Redirect::back();
+        }
 
-        Flash::success("L'événement a bien été supprimé.");
+        $name = $model->name;
+        $model->delete();
+
+        makeModification('events', 'The event &laquo; '.$name.' &raquo; has been removed.');
+        Flash::success('L\'événement a bien été supprimé.');
         return Redirect::back();
     }
 

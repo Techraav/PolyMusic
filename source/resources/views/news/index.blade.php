@@ -33,11 +33,17 @@
 			<h2><a title="Cliquez pour voir la news en entier" href="{{ url('news/view/'.$n['slug'])}}">{{$n['title']}}</a></h2>
 				@if(Auth::check() && Auth::user()->level_id >= 3)
 					<div class="manage">
-						<a class="glyphicon glyphicon-pencil" href="{{ url('admin/news/edit/'.$n['slug']) }}"></a>				
-						<button onclick="dialog(this)" news-id="{{ $n->id }}" link="{{ url('admin/news/delete/'.$n->id) }}" class="glyphicon glyphicon-trash" ></button>
+						<button
+								onclick='modalDelete(this)'
+								link="{{ url('admin/news/delete') }}"
+								id="{{ $n->id }}"
+								title="Supprimer la news"
+								class="{{ glyph('trash') }}">
+						</button>
+						<a class="glyphicon glyphicon-pencil" href="{{ url('admin/news/edit/'.$n['slug']) }}"></a>
 					</div>
 				@endif
-			{!! cut($n['content'], 530, 'news/view/'.$n->slug) !!} <br/>
+			{!! cut($n['content'], 540, 'news/view/'.$n->slug) !!} <br/>
 				<div class="post-infos post-news-infos" align="right">Rédigée par 
 					{!! printUserLinkV2($n->author) !!} le {{date_format($n['created_at'], 'd/m/Y \à H:i')}}.
 				</div>
@@ -51,22 +57,22 @@
 		{!! $news->render() !!}
 	</div>
 
-	  <!-- Modal -->
-  	<div class="modal fade" id="myModal" role="dialog">
-    	<div class="modal-dialog">
-    
-      	<!-- Modal content-->
+	<!-- Modal -->
+	<div class="modal fade" id="modalDelete" role="dialog">
+		<div class="modal-dialog">
+
+	  	<!-- Modal content-->
 	      	<div class="modal-content">
 	       	 	<div class="modal-header">
 	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
-	          		<h4 class="modal-title">Voulez-vous vraiment supprimer cette news ?</h4>
+	          		<h4 id="modal-title" class="modal-title">Supprimer une news</h4>
 	        	</div>
 
-		        <form id="modal-form" class="modal-form" method="post" action="">
-		        {!! csrf_field() !!}
+		        <form id="delete-form" class="modal-form" method="post" action="">
+		        	{!! csrf_field() !!}
 			        <div class="modal-body">
 	        		<p class="text-danger"><b>Attention ! Cette action est irréversible !</b></p>
-			         	<input hidden value="" name="user_id" id="user_id" />
+			         	<input hidden value="" name="id" id="id" />
 			        </div>
 			        <div class="modal-footer">
 			          	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
@@ -75,8 +81,8 @@
 				</form>
 
 	   		</div>
-    	</div>
-  	</div>
+		</div>
+	</div>
 
 @stop
 

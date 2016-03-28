@@ -19,6 +19,7 @@ class CreateCoursesTable extends Migration {
 			$table->integer('instrument_id')->unsigned()->index();
 			$table->integer('article_id')->unsigned()->index();
 			$table->integer('user_id')->unsigned()->index();
+			$table->tinyInteger('active')->index()->default(1);
 		});
 	}
 

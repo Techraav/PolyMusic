@@ -196,27 +196,27 @@ class AnnouncementController extends Controller {
         return redirect('announcements/view/' . $slug);  
     }
 
-    public function validatePost($id)
+    public function toggle(Request $request)   
     {
-        $announcement = Announcement::find($id);
-        $announcement->validate();
-        Flash::success("L'annonce a bien été validée.");
+        $model = Announcement::find($request->id);
+        $model->validated = $model->validated == 0 ? 1 : 0;
+        $model->save();
+        Flash::success('L\'annonce a bien été '.( $model->validated == 1 ? 'validée' : 'invalidée').'.');
         return Redirect::back();
     }
 
-    /**
-    * Remove the specified resource from storage.
-    *
-    * @param  int  $id
-    * @return Response
-    */
-    public function destroy($slug)
+    public function destroy(Request $request)
     {
-        $announcement = Announcement::where('slug', $slug)->first();
-        $announcement->update(['validated' => 0]);
-        makeModification('announcements', 'Announcement "'.$announcement->title.'" has been unvalidated');
-        Flash::success('L\'annonce a bien été invalidée.');
-        return Auth::user()->level_id > 2 ? redirect('admin/announcements') : redirect('announcements');
+        $model = Announcement::find($request->id);
+        if(empty($model))
+        {
+            Flash::error('Impossible de supprimer cette annonce.');
+            return Redirect::back();
+        }
+
+        $model->delete();
+        Flash::success('L\'annonce a bien été supprimée.');
+        return Redirect::back();
     }
 
     // ____________________________________________________________________________________________________

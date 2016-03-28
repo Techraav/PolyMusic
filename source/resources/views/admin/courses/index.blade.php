@@ -40,7 +40,9 @@
 					<td align="center"><b>Profs</b></td>
 					<td align="center"><b>Documents</b></td>
 					<td align="center"><b>Demande(s)</b></td>
-					<td align="center"><b>Gérer</b></td>
+					<td width="20" align="right"> </td>
+					<td width="20" align="center"><b>Gérer</b></td>
+					<td width="20" align="left"></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -65,23 +67,45 @@
 						<p>{{ App\CourseUser::where('course_id', $c->id)->where('validated', 0)->count() }}</p>
 					 @endif
 					</td>
-					<td align="center">
-						@if( Auth::user()->level->level >= 3 || $c->user_id == Auth::user()->id )
-							<button onclick="dialogDelete(this)"
-									name="{{ ucfirst($c->name) }}"
+					@if(Auth::user()->level_id > 3 || $course->user_id == Auth::user()->id)
+						<td class="manage manage-left" align="right">
+							@if($c->active == 1)
+								<button 
+										onclick="modalToggle(this)"
+										link="{{ url('admin/courses/validate/0') }}"
+										id="{{ $c->id }}"
+										action="invalider"
+										title="Suspendre le cours"
+										msg="Voulez-vous vraiment suspendre ce cours ?"
+										class="{{ glyph('remove') }}">
+								</button>
+							@else
+								<button 
+										onclick="modalToggle(this)"
+										link="{{ url('admin/courses/validate/1') }}"
+										id="{{ $c->id }}"
+										action="valider"
+										msg="Voulez-vous vraiment remettre ce cours en place ?"
+										title="Remettre le cours en place "
+										class="{{ glyph('ok') }}">
+								</button>
+							@endif
+						</td>
+						<td class="manage" align="center">
+							<button
+									onclick='modalDelete(this)'
+									link="{{ url('admin/courses/delete') }}"
 									id="{{ $c->id }}"
-									link="{{ url('admin/courses/delete/'.$c->id) }}" 
-									align="right" 
-									title="Supprimer le cours {{ $c->name }} ? (définitif)" 
-									type="submit"
-						 			class="glyphicon glyphicon-trash">
+									title="Supprimer le cours"
+									class="{{ glyph('trash') }}">
 							</button>
-
-							<a href="{{ url('admin/courses/edit/'.$c->id) }}" title="Modifier le cours {{ $c->name }} ?"class="glyphicon glyphicon-pencil"></a>
-						@else
-							&nbsp;&nbsp; - &nbsp;
-						@endif
-					</td>
+						</td>
+						<td class="manage manage-right" align="left">
+							<a href="{{ url('admin/documents/edit/'.$c->id) }}" title="Modifier le document" class="{{ glyph('pencil') }}"> </a>
+						</td>
+				@else
+				<td></td><td align="center">-</td><td></td>
+				@endif
 				</tr>
 			@empty
 				<tr>
@@ -190,6 +214,61 @@
 			</form>
 	    </div>
 	    </div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="modalToggle" role="dialog">
+		<div class="modal-dialog">
+
+	  	<!-- Modal content-->
+	      	<div class="modal-content">
+	       	 	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h4 id="modal-title" class="modal-title">Suspendre/Reprendre un cours</h4>
+	        	</div>
+
+		        <form id="delete-form" class="modal-form" method="post" action="">
+		        	{!! csrf_field() !!}
+			        <div class="modal-body">
+	        		<p class="text-warning"><b></b></p>
+			         	<input hidden value="" name="id" id="id" />
+			        </div>
+			        <div class="modal-footer">
+			          	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+			          	<button type="submit" id="button-toggle" class="btn btn-primary"></button>
+			        </div>
+				</form>
+
+	   		</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="modalDelete" role="dialog">
+		<div class="modal-dialog">
+
+	  	<!-- Modal content-->
+	      	<div class="modal-content">
+	       	 	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h4 id="modal-title" class="modal-title">Supprimer un cours</h4>
+	        	</div>
+
+		        <form id="delete-form" class="modal-form" method="post" action="">
+		        	{!! csrf_field() !!}
+			        <div class="modal-body">
+	        		<p class="text-danger"><b>Attention ! Cette action est irréversible !</b></p>
+			         	<input hidden value="" name="id" id="id" />
+			        </div>
+			        <div class="modal-footer">
+			          	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+			          	<button type="submit" class="btn btn-primary">Supprimer</button>
+			        </div>
+				</form>
+
+	   		</div>
+		</div>
+	</div>
+
 @stop
 
 
@@ -198,19 +277,4 @@
 	<script type="text/javascript">
 		CKEDITOR.replace( 'infos' );
 	</script>
-
-	<script type="text/javascript">
-		function dialogDelete(el)
-		{
-			var id = el.getAttribute('id');
-			var name = el.getAttribute('name');
-			var link = el.getAttribute('link');
-
-			$('#modalDelete form').attr('action', link);
-			$('#modalDelete h4').html("Supprimer le groupe &laquo; " + name + " &raquo; ?");
-			$('#modalDelete #band_id').attr('value', id);
-			$('#modalDelete').modal('toggle');
-		}
-	</script>
-
 @stop

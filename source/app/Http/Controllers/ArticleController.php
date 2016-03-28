@@ -198,27 +198,30 @@ class ArticleController extends Controller {
 		  ]);
 	}
 
-    public function validatePost($id)
+    public function toggle(Request $request)   
     {
-        $article = Article::find($id);
-        $article->validate();
-        Flash::success("L'article a bien été validé.");
+        $model = Article::find($request->id);
+        $model->validated = $model->validated == 0 ? 1 : 0;
+        $model->save();
+        Flash::success('L\'article a bien été '.( $model->validated == 1 ? 'validé' : 'invalidé').'.');
         return Redirect::back();
     }
 
-	/**
-	* Remove the specified resource from storage.
-	*
-	* @param  int  $id
-	* @return Response
-	*/
-	public function destroy($slug)
+	public function destroy(Request $request)
 	{
-		$article = Article::where('slug', $slug)->first();
-		$article->update(['validated'	=> 0]);
-		Flash::success("L'article a bien été invalidée.");
-		return Redirect::back();
+		$model = Article::find($request->id);
+		if(empty($model))
+		{
+			Flash::error('Impossible de supprimer cet article.');
+			return Redirect::back();
+		}
 
+		$title = $model->title;
+		$model->delete();
+
+		makeModification('articles', 'The article &laquo '.$title.' &raquo has been removed.');
+		Flash::success('L\'article a bien été supprimé.');
+		return Redirect::back();
 	}
 
 	/** 

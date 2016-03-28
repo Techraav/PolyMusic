@@ -27,8 +27,8 @@
 				<tr>
 					<td align="center" width="50"><b>Instrument</b></td>
 					<td align="center" width="250"><b>Cours</b></td>
-					<td align="center" width="120"><b>Groupes</b></td>
-					<td align="center" width="100"><b>Gérer</b></td>
+					<td align="center" width="120"><b>Groupes</b></td>					
+					<td width="50" align="center"><b>Gérer</b></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -37,16 +37,20 @@
 					<td align="center">{{ ucfirst($i->name) }}</td>
 					<td align="center">{{ $i->courses->count() == 0 ? '-' : $i->courses->count() }}</td>
 					<td align="center">{{ $i->bands->count() == 0 ? '-' : $i->players->count() }}</td>
-					<td align="center">
-					@if($i->id != 1)
-						@if( ($i->courses->count() == 0 && $i->players->count() == 0) || Auth::user()->level->level >= 3 )
-							<button onclick="dialogDelete(this)" name="{{ $i->name }}" id="{{ $i->id }}" link="{{ url('admin/instruments/delete/'.$i->id) }}" align="right" title="Supprimer l'instrument {{ $i->name }} ?" type="submit" class="glyphicon glyphicon-trash"></button>
-						@else
-							&nbsp;&nbsp; - &nbsp;
-						@endif
-							<button onclick="dialogEdit(this)" name="{{ $i->name }}" id="{{ $i->id }}"  link="{{ url('admin/instruments/edit/'.$i->id) }}" title="Modifier l'instrument {{ $i->name }} ?"class="glyphicon glyphicon-pencil"></button>
-					@else - @endif
-					</td>
+					@if(Auth::user()->level_id > 3 && $i->id != 1)
+						<td class="manage" align="center">
+							<button
+									onclick='modalDelete(this)'
+									link="{{ url('admin/instruments/delete') }}"
+									id="{{ $i->id }}"
+									title="Supprimer cet instrument"
+									class="{{ glyph('trash') }}">
+							</button>
+							<a href="{{ url('admin/documents/edit/'.$i->id) }}" title="Modifier le document" class="{{ glyph('pencil') }}"> </a>
+						</td>
+					@else
+					<td align="center">-</td>
+					@endif
 				</tr>
 			@empty
 
@@ -80,38 +84,35 @@
 			</form>
 	    </div>
 
-	@include('admin.instruments.modal-delete')
 
 	@include('admin.instruments.modal-edit')
 
-@stop
 
-@section('js')
+	<!-- Modal -->
+	<div class="modal fade" id="modalDelete" role="dialog">
+		<div class="modal-dialog">
 
-<script type="text/javascript">
-		function dialogDelete(el)
-		{
-			var id = el.getAttribute('id');
-			var name = el.getAttribute('name');
-			var link = el.getAttribute('link');
+	  	<!-- Modal content-->
+	      	<div class="modal-content">
+	       	 	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h4 id="modal-title" class="modal-title">Supprimer un instrument</h4>
+	        	</div>
 
-			$('#modalDelete form').attr('action', link);
-			$('#modalDelete h4').html("Supprimer l'instrument &laquo; " + name + " &raquo; ?");
-			$('#modalDelete #instrument_id').attr('value', id);
-			$('#modalDelete').modal('toggle');
-		}
+		        <form id="delete-form" class="modal-form" method="post" action="">
+		        	{!! csrf_field() !!}
+			        <div class="modal-body">
+	        		<p class="text-danger"><b>Attention ! Cette action est irréversible !</b></p>
+			         	<input hidden value="" name="id" id="id" />
+			        </div>
+			        <div class="modal-footer">
+			          	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+			          	<button type="submit" class="btn btn-primary">Supprimer</button>
+			        </div>
+				</form>
 
-		function dialogEdit(el)
-		{
-			var id = el.getAttribute('id');
-			var name = el.getAttribute('name');
-			var link = el.getAttribute('link');
+	   		</div>
+		</div>
+	</div>
 
-			$('#modalEdit form').attr('action', link);
-			$('#modalEdit #name').attr('value', name);
-			$('#modalEdit #intrument_id').attr('value', id);
-			$('#modalEdit').modal('toggle');
-		}	
-</script>
-
-@stop
+	@stop 

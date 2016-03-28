@@ -20,6 +20,7 @@ class CreateEventsTable extends Migration {
 			$table->integer('article_id')->unsigned()->index();
 			$table->date('date')->index();
 			$table->integer('user_id')->unsigned()->index();
+			$table->tinyInteger('active')->index()->default(1);
 		});
 	}
 

@@ -11,11 +11,16 @@
 
 @section('content')
 		<blockquote class="comment frame-news col-lg-10 col-lg-offset-1">
-			<h2><a title="Cliquez pour voir la news en entier" href="{{ url('news/view/'.$news['slug'])}}">{{ucfirst($news->title}}</a></h2>
+			<h2><a title="Cliquez pour voir la news en entier" href="{{ url('news/view/'.$news['slug']) }}">{{ucfirst($news->title)}}</a></h2>
 				@if(Auth::check() && Auth::user()->level_id >= 3)
 					<div class="manage">
 						<a class="glyphicon glyphicon-pencil" href="{{ url('admin/news/edit/'.$news['slug']) }}"></a>				
-						<button onclick="dialog(this)" news-id="{{ $news->id }}" link="{{ url('admin/news/delete/'.$news->id) }}" class="glyphicon glyphicon-trash" ></button>
+						<button 
+								onclick="dialog(this)" 
+								id="{{ $news->id }}" 
+								link="{{ url('admin/news/delete') }}" 
+								class="glyphicon glyphicon-trash" >
+						</button>
 					</div>
 				@endif
 			{!! $news['content'] !!} <br/>

@@ -36,7 +36,9 @@
 				<td><b>Titre</b></td>
 				<td align="center" width="100"><b>Categorie</b></td>
 				<td width="100" align="center"><b>Validée</b></td>
-				<td align="center" width="100"><b>Gérer</b></td>
+				<td width="20"></td>
+				<td width="20" align="center"><b>Gérer</b></td>
+				<td width="20"></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -51,31 +53,55 @@
 						   class="icon-validated glyphicon glyphicon-{{ $a->validated == 1 ? 'ok' : 'remove' }}">
 						</a>
 					</td>
-					<td align="center" class="manage">
-					@if(Auth::user()->level->level > 2)							
-						@if($a->validated == 1)
-						<button onclick="dialogDelete(this)" 
-								id="{{ $a->id }}" 
-								align="right" 
-								link="{{ url('announcements/delete/'.$a->slug) }}"
-								title="Supprimer l'annonce {{ $a->name }} ?" 
-								class="glyphicon glyphicon-trash">
-						</button>
-						@else
-							&nbsp; <a title="Valider l'annonce ?" class="glyphicon glyphicon-ok" href="{{ url('admin/announcements/validate/'.$a->id) }}"></a>&nbsp;
-						@endif
+					@if(Auth::user()->level_id > 3 || $a->user_id == Auth::user()->id)
+						<td class="manage manage-left" align="right">
+							@if($a->validated == 1)
+								<button 
+										onclick="modalToggle(this)"
+										link="{{ url('announcements/validate/0') }}"
+										id="{{ $a->id }}"
+										action="invalider"
+										title="Invalider l'annonce"
+										msg="Voulez-vous vraiment invalider cette annonce ?"
+										class="{{ glyph('remove') }}">
+								</button>
+							@else
+								<button 
+										onclick="modalToggle(this)"
+										link="{{ url('announcements/validate/1') }}"
+										id="{{ $a->id }}"
+										action="valider"
+										msg="Voulez-vous vraiment valider cette annonce ?"
+										title="Valider l'annonce"
+										class="{{ glyph('ok') }}">
+								</button>
+							@endif
+						</td>
+						<td class="manage" align="center">
+							<button
+									onclick='modalDelete(this)'
+									link="{{ url('announcements/delete') }}"
+									id="{{ $a->id }}"
+									title="Supprimer l'annonce"
+									class="{{ glyph('trash') }}">
+							</button>
+						</td>
+						<td class="manage manage-right" align="left">
+							<a href="{{ url('announcements/edit/'.$a->slug) }}" title="Modifier l'annonce" class="{{ glyph('pencil') }}"> </a>
+						</td>
+				@else
+				<td></td><td align="center">-</td><td></td>
+				@endif
 
-						<a href="{{ url('announcements/edit/'.$a->slug) }}"
-								title="Modifier l'annonce {{ $a->name }} ?"
-								class="glyphicon glyphicon-pencil">
-						</a>
-					@else
-						-
-					@endif
-				</td>			
 				</tr>
 			@empty
-
+			<td align="center">-</td>
+			<td>-</td>
+			<td>-</td>
+			<td align="center">-</td>
+			<td align="center">-</td>
+			<td></td>
+			<td align="center">-</td>
 			@endforelse
 		</tbody>
 	</table>
@@ -84,6 +110,33 @@
 
 	{{-- Modals --}}
 	<!-- Modal -->
+	<div class="modal fade" id="modalToggle" role="dialog">
+		<div class="modal-dialog">
+
+	  	<!-- Modal content-->
+	      	<div class="modal-content">
+	       	 	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h4 id="modal-title" class="modal-title">Valider/Invalider une annonce</h4>
+	        	</div>
+
+		        <form id="delete-form" class="modal-form" method="post" action="">
+		        	{!! csrf_field() !!}
+			        <div class="modal-body">
+	        		<p class="text-warning"><b></b></p>
+			         	<input hidden value="" name="id" id="id" />
+			        </div>
+			        <div class="modal-footer">
+			          	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+			          	<button type="submit" id="button-toggle" class="btn btn-primary"></button>
+			        </div>
+				</form>
+
+	   		</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
 	<div class="modal fade" id="modalDelete" role="dialog">
 		<div class="modal-dialog">
 
@@ -91,11 +144,11 @@
 	      	<div class="modal-content">
 	       	 	<div class="modal-header">
 	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
-	          		<h4 id="modal-title" class="modal-title">Modifier une annonce</h4>
+	          		<h4 id="modal-title" class="modal-title">Supprimer une annonce</h4>
 	        	</div>
 
 		        <form id="delete-form" class="modal-form" method="post" action="">
-		        {!! csrf_field() !!}
+		        	{!! csrf_field() !!}
 			        <div class="modal-body">
 	        		<p class="text-danger"><b>Attention ! Cette action est irréversible !</b></p>
 			         	<input hidden value="" name="id" id="id" />
@@ -105,25 +158,9 @@
 			          	<button type="submit" class="btn btn-primary">Supprimer</button>
 			        </div>
 				</form>
+
 	   		</div>
 		</div>
 	</div>
-
-
-
-@stop
-
-@section('js')
-
-	<script type="text/javascript">
-		function dialogDelete(el) {
-			var id = el.getAttribute('id');
-			var link = el.getAttribute('link');
-
-			$('#modalDelete form').attr('action', link);
-			$('#modalDelete #id').attr('value', id);
-			$('#modalDelete').modal('show');
-		}
-	</script>
 
 @stop

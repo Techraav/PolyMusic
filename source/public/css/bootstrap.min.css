@@ -7711,30 +7711,18 @@ blockquote.comment{
 	display:block;
 }
 
-.comment-manage a{
-	text-decoration: none;
-	color:gray;
-	opacity:0;
-	transition: all 0.1s ease-in-out;
-	-webkit-transition: all 0.1s ease-in-out;
-	-moz-transition: all 0.1s ease-in-out;
-	position:absolute;
-	right:9px;
-	top:7px;
-	font-size:20px;
+.comment-manage .glyphicon{
+	opacity:0 !important;
+	color:grey
 }
 
-.comment-manage a.glyphicon-pencil{
-	right:33px;
+.comment:hover .comment-manage .glyphicon{
+	opacity:0.6 !important;
 }
 
-.comment:hover .comment-manage a{
-	opacity:0.6;
-}
-
-.comment-manage a.glyphicon-remove:hover{
-	opacity:1 !important;
-	color:rgb(200,50,50);
+.comment:hover .comment-manage .glyphicon:hover{
+	opacity:0.9 !important;
+	color:#2C3E50;
 }
 
 .comment-manage a.glyphicon-pencil:hover{
@@ -8002,7 +7990,8 @@ tr.bold{
     line-height: 18px;
     text-indent: 10px;
     font-weight: bold;
-    margin-left:10px;
+    margin-left: 70px;
+    margin-right: 30px;
     text-transform: capitalize;
 }	
 
@@ -9070,4 +9059,16 @@ blockquote.comment.announcement .nb-comments{
 
 .td-buttons button{
 	width: 49%;
+}
+
+.manage.manage-left button, .manage.manage-left a{
+	margin-right: -25px;
+}
+
+.manage.manage-right button, .manage.manage-right a{
+	margin-left:-19px;
+}
+
+#button-toggle:first-letter{
+	text-transform:uppercase;
 }

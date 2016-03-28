@@ -78,7 +78,8 @@ class CommentController extends Controller {
 	*/
 	public function edit($id)
 	{
-
+		$comment = Comment::find($id);
+		return view('announcements.comment-edit', compact('comment'));
 	}
 
 	/**
@@ -89,7 +90,7 @@ class CommentController extends Controller {
 	*/
 	public function update(Request $request, $id)
 	{
-		$comment = Comment::find($id);
+		$comment = Comment::with('announcement')->find($request->id);
 		if($comment->user_id != Auth::user()->id && Auth::user()->level->level < 4)
 		{
 			Flash::error("Vous ne disposez pas des droits suffisants pour effectuer ceci !");
@@ -102,31 +103,23 @@ class CommentController extends Controller {
 
 		Flash::success('Votre commentaire a bien été modifié !');
 
-		return Redirect::back();
+		return redirect('announcements/view/'.$comment->announcement->slug);
 	}
 
-	/**
-	* Remove the specified resource from storage.
-	*
-	* @param  int  $id
-	* @return Response
-	*/
-	public function destroy(Request $request, $id)
+	public function destroy(Request $request)
 	{
-		$comment = Comment::find($id);
-		if($comment->user_id != Auth::user()->id && Auth::user()->level->level < 4)
+		$model = Comment::find($request->id);
+		if(empty($model) || ($comment->user_id != Auth::user()->id && Auth::user()->level->level < 4))
 		{
-			Flash::error("Vous ne disposez pas des droits suffisants pour effectuer ceci !");
+			Flash::error('Impossible de supprimer ce commentaire.');
 			return Redirect::back();
 		}
 
-		$comment->delete();
+		$model->delete();
 
-		Flash::success('Commentaire supprimé avec succès !');
-
+		Flash::success('Votre commentaire a bien été supprimé.');
 		return Redirect::back();
 	}
-
 // ____________________________________________________________________________________________________
 //
 //                                             HELPERS

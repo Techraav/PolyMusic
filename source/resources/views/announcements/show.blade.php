@@ -16,12 +16,12 @@
 			@if($announcement->user_id == Auth::user()->id || Auth::user()->level->level > 3)
 				<div class="manage">
 					<a href="{{ url('announcements/edit/'.$announcement->slug) }}" class="btn-edit glyphicon glyphicon-pencil"></a>
-
-					<button onclick="dialogDeleteAnnouncement(this)"
-							link="{{ url('announcements/delete/'.$announcement->slug) }}"
+					<button
+							onclick='modalDelete(this)'
+							link="{{ url('announcements/delete') }}"
 							id="{{ $announcement->id }}"
-							title="{{ $announcement->title }}"
-							class="btn-edit glyphicon glyphicon-trash">
+							title="Supprimer l'annonce"
+							class="{{ glyph('trash') }}">
 					</button>
 				</div>
 			@endif
@@ -58,18 +58,13 @@
 			  		<div class="comment-manage">
 			  			@if(Auth::user()->id == $c->user_id)
 
-				  			<button onclick="dialogEditComment(this)"
-				  					id="{{ $c->id }}"
-				  					content="{{ $c->content }}"
-						  			link="{{ url('comment/edit/'.$c->id) }}" 
-						  			class="btn-edit glyphicon glyphicon-pencil">
-				  			</button>
+				  			<a title="Modifier ce commentaire" target="_BLANK" href="{{ url('comment/edit/'.$c->id) }}" class="btn-edit glyphicon glyphicon-pencil"></a>
 
 			  			@endif
 
 				  			<button onclick="dialogDeleteComment(this)" 
-						  			comment-id="$c->id" 
-						  			link="{{ url('comment/delete/'.$c->id) }}" 
+						  			id="{{$c->id}}" 
+						  			link="{{ url('comment/delete') }}" 
 						  			class="btn-delete glyphicon glyphicon-trash">
 				  			</button>
 			  		</div>
@@ -104,7 +99,8 @@
 			<div class="form-group">
 				<input type="submit" role="button" value="Valider" class="btn btn-primary btn-submit"/>
 			</div>
-		</form>	</div>
+		</form>	
+	</div>
 	@endif
 </div>
 
@@ -114,7 +110,6 @@
   @include('announcements.modal-delete-announcement')
 
   @include('announcements.modal-delete-comment')
-  @include('announcements.modal-edit-comment')
 
 
 

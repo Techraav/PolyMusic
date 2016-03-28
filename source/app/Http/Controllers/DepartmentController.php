@@ -146,39 +146,63 @@ class DepartmentController extends Controller {
 	* @param  int  $id
 	* @return Response
 	*/
-	public function destroy($id)
-	{
-		$dep = Department::where('id', $id)->first();
-		$name = $dep->name;
-		$short_name = $dep->short_name;
+	// public function destroy($id)
+	// {
+	// 	$dep = Department::where('id', $id)->first();
+	// 	$name = $dep->name;
+	// 	$short_name = $dep->short_name;
 
-		$users = User::where('department_id', $id)->get();
+	// 	$users = User::where('department_id', $id)->get();
+	// 	if(!empty($users))
+	// 	{
+	// 		foreach($users as $u)
+	// 		{
+	// 			$u->update(['department_id' => 1]);
+	// 		}
+	// 	}
+
+	// 	Department::where('id', $id)->delete();
+	// 	$test = Department::where('id', $id)->first();
+	// 	if(empty($test))
+	// 	{
+	// 		Flash::success('Département supprimé avec succès.');
+
+	// 		Modification::create([
+	// 			'table'		=> 'departments',
+	// 			'user_id'	=> Auth::user()->id,
+	// 			'message'	=> 'removed department '.$name.' ('.$short_name.')']);
+	// 	}
+	// 	else
+	// 		Flash::error('Impossible de supprimer ce département.');
+
+	// 	return redirect('admin/departments'); 
+	// }
+
+	public function destroy(Request $request)
+	{
+		$model = Department::with('users')->find($request->id);
+		if(empty($model))
+		{
+			Flash::error('Impossible de supprimer ce département.');
+			return Redirect::back();
+		}
+
+		$users = $model->users();
 		if(!empty($users))
 		{
-			foreach($users as $u)
-			{
+			foreach ($users as $u) {
 				$u->update(['department_id' => 1]);
 			}
 		}
 
-		Department::where('id', $id)->delete();
-		$test = Department::where('id', $id)->first();
-		if(empty($test))
-		{
-			Flash::success('Département supprimé avec succès.');
+		$name = $model->name;
+		$sn = $model->short_name;
+		$model->delete();
 
-			Modification::create([
-				'table'		=> 'departments',
-				'user_id'	=> Auth::user()->id,
-				'message'	=> 'removed department '.$name.' ('.$short_name.')']);
-		}
-		else
-			Flash::error('Impossible de supprimer ce département.');
-
-		return redirect('admin/departments'); 
-
+		makeModification('departments', 'The department &laquo; '.$name.' ('.$sn.') &raquo; has been removed.');
+		Flash::success('Le département a bien été supprimé.');
+		return Redirect::back();
 	}
-
 // ________________________________________________________________
 //
 //                          	HELPERS 

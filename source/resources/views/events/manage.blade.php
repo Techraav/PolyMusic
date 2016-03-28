@@ -37,7 +37,7 @@
 							@if($b->user_id == Auth::user()->id || Auth::user()->level_id > 2)
 								<button 
 										onclick="dialogDelete(this)"
-										link="{{ url('admin/events/'.$event->id.'/removeband/'.$b->id) }}"
+										link="{{ url('admin/events/'.$event->id.'/removeband') }}"
 										id="{{ $b->id }}"
 										title="Retirer ce groupe de l'événement ?"
 										class="glyphicon glyphicon-trash">
