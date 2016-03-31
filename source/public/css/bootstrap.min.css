@@ -8286,6 +8286,10 @@ ul.list-members li{
     color:inherit;
 }
 
+.profil-pict{
+	position: relative;
+}
+
 .profil-pict img{
     max-width: 90%;
     display:block;
@@ -8293,13 +8297,27 @@ ul.list-members li{
     max-height: 400px;
 }
 
+.profil-pict-remove{
+	position:absolute;
+	top:10px;
+	right:30px;
+	color:gray;
+	opacity:0.6;
+	text-decoration: none;
+}
+
+.profile-pict-remove:hover{
+	color:#2C3E50;
+	opacity:1;
+	text-decoration: none;
+}
+
 .edit-infos-profile{
 	margin-bottom: 4%;
 }
 
-.infos-profile{
-    margin-left: 10%;
-    font-size: 20px;
+.infos-profile table tbody tr td{
+    margin-bottom: 10%;
 }
 
 .footer {
@@ -8403,7 +8421,7 @@ button.glyphicon:hover{
 }
 
 .profile{
-	position: relative;;
+	position: relative;
 }
 
 .profile h1{

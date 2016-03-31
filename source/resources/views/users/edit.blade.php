@@ -22,6 +22,7 @@
 	            		<div class="row col-md-5">	    
 	            			<div class="profil-pict">
 	            				<img src=" {{ URL::asset('/img/profil_pictures/'.$user->profil_picture) }} " title="profile picture"/>
+	            				<a class="btn-edit glyphicon glyphicon-remove profil-pict-remove"></a>
 	            			</div>
             				<div class="form-group">            					
             					<br/>            					
