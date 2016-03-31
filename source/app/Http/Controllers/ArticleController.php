@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Article;
+use App\Image;
 use App\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -79,14 +80,16 @@ class ArticleController extends Controller {
 	*/
 	public function show($slug)
 	{
-		$article = Article::where('slug', $slug)->with('author', 'category')->first();
+		$article = Article::where('slug', $slug)->with('author', 'category', 'images')->first();
 		if(empty($article) || ($article->validated == 0 && (Auth::guest() || Auth::user()->level_id < 3)))
 		{
 		  Flash::error('Cet article n\'existe pas.');
 		  return view('errors.404');
 		}
 
-		return view('articles.show', compact('article'));
+		$images = Image::where('article_id', $article->id)->orderBy('created_at', 'desc')->paginate(3);
+
+		return view('articles.show', compact('article', 'images'));
 	}
 
 	/**
@@ -125,12 +128,10 @@ class ArticleController extends Controller {
 
 	public function gallery($slug)
 	{
-		$article = Article::where('slug', $slug)
-							->with(['author',
-									'images' => function($query) { $query->orderBy('created_at', 'desc')->paginate(3); } ])
-							->first();
+		$article = Article::where('slug', $slug)->with('author')->first();
+		$images = Image::where('article_id', $article->id)->orderBy('created_at', 'desc')->paginate(15);
 
-		return view('articles.gallery', compact('article'));
+		return view('articles.gallery', compact('article', 'images'));
 	}
 
 

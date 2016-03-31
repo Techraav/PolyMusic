@@ -2735,7 +2735,7 @@ th{
 }
 
 .table{
-	width:100%;
+	width: 100%;
 	max-width:100%;
 	margin-bottom:21px;
 }
@@ -5466,7 +5466,7 @@ a.badge:hover,a.badge:focus{
 	font-weight:200
 }
 
-.jumbotron>hr{
+.jumbotron hr{
 	border-top-color:#cfd9db
 }
 
@@ -9118,6 +9118,29 @@ blockquote.comment.announcement .nb-comments{
 }
 
 #gallery img{
-	max-width:400px;
+	max-width: 30%;
+	max-height: 300px;
 	margin:10px;
+	cursor: pointer;
+}
+
+#gallery table td{
+	width: 33%;
+}
+
+#gallery .all{
+	position: absolute;
+	bottom: -10px;
+	right: 5px;
+	font-size: 14px;
+	font-style: italic;
+	color: #838380;
+}
+
+#gallery{
+	position:relative;
+}
+
+#gallery table img {
+    max-width: 100%;
 }

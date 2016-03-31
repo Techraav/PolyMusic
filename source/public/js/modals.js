@@ -32,3 +32,15 @@ function dialogEditCategory(el)
 	$('#modalEdit #category_id').attr('value', id);
 	$('#modalEdit').modal('toggle');
 }	
+
+function modalPicture(el)
+{
+	var src = el.getAttribute('src');
+
+	$('#modalPicture .modal-body #picture').attr('src', src);
+	$('#modalPicture').modal('show');
+}
+
+$('#modalPicture .modal-body #picture').click(function() {
+	$('#modalPicture').modal('hide');
+});
