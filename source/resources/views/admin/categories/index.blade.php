@@ -46,21 +46,3 @@
 	</div>
 
 @stop
-
-@section('js')
-
-<script type="text/javascript">
-		function dialogEdit(el)
-		{
-			var id = el.getAttribute('category-id');
-			var name = el.getAttribute('category-name');
-			var link = el.getAttribute('link');
-
-			$('#modalEdit form').attr('action', link);
-			$('#modalEdit #name').attr('value', name);
-			$('#modalEdit #category_id').attr('value', id);
-			$('#modalEdit').modal('toggle');
-		}	
-</script>
-
-@stop

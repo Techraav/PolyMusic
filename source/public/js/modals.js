@@ -20,3 +20,15 @@ function modalDelete(el) {
 	$('#modalDelete form').attr('action', link);
 	$('#modalDelete').modal('show');
 }
+
+function dialogEditCategory(el)
+{
+	var id = el.getAttribute('category-id');
+	var name = el.getAttribute('category-name');
+	var link = el.getAttribute('link');
+
+	$('#modalEdit form').attr('action', link);
+	$('#modalEdit #name').attr('value', name);
+	$('#modalEdit #category_id').attr('value', id);
+	$('#modalEdit').modal('toggle');
+}	

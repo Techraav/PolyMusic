@@ -91,7 +91,7 @@
 							</button>
 						</td>
 						<td class="manage manage-right" align="left">
-							<a href="{{ url('announcements/edit/'.$a->slug) }}" title="Modifier l'annonce" class="{{ glyph('pencil') }}"> </a>
+							<a href="{{ url('articles/edit/'.$a->slug) }}" title="Modifier l'annonce" class="{{ glyph('pencil') }}"> </a>
 						</td>
 				@else
 				<td></td><td align="center">-</td><td></td>

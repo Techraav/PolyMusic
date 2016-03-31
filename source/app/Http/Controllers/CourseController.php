@@ -55,7 +55,16 @@ class CourseController extends Controller {
 	*/
 	public function adminIndex()
 	{
-		$courses = Course::orderBy('day')->with('manager', 'users', 'instrument', 'article', 'documents')->paginate(20);
+		$courses = Course::orderBy('day')
+						->with(['manager',
+							'instrument', 
+							'article', 
+							'documents', 
+							'users' => function($query){ $query->where('level', 0)->where('validated', 1)->orderBy('last_name'); },	
+							'teachers'	=> function($query){ $query->where('level', 1)->where('validated', 1)->orderBy('last_name'); }
+							])
+						->paginate(20);
+
 		return view('admin.courses.index', compact('courses'));
 	}
 
@@ -165,7 +174,17 @@ class CourseController extends Controller {
 	*/
 	public function members($slug)
 	{
-		$course = Course::where('slug', $slug)->with('manager', 'instrument', 'article', 'documents')->first();
+		$course = Course::where('slug', $slug)
+						->with([ 'manager',
+								 'instrument',
+								 'article',
+								 'documents',
+								 'users' => function($query){ $query->where('level', 0)->where('validated', 1)->orderBy('last_name'); },
+								 'teachers' => function($query){ $query->where('level', 1)->where('validated', 1)->orderBy('last_name'); },
+								 'waitingStudents' => function($query){ $query->where('level', 0)->where('validated', 0)->orderBy('created_at', 'desc'); },
+								 'waitingTeachers' => function($query){ $query->where('level', 1)->where('validated', 0)->orderBy('created_at', 'desc'); },
+							 ])
+						->first();
 
 		if(empty($course))
 		{
@@ -173,15 +192,7 @@ class CourseController extends Controller {
 			return abort(404);
 		}
 
-		$id 	= $course->id;
-
-		$students = CourseUser::where('course_id', $id)->where('validated', 1)->where('level', 0)->paginate(30);
-		$teachers = CourseUser::where('course_id', $id)->where('validated', 1)->where('level', 1)->get();
-
-		$waitingStudents = CourseUser::where('validated', 0)->where('course_id', $id)->where('level', 0)->orderBy('created_at')->get();
-		$waitingTeachers = CourseUser::where('validated', 0)->where('course_id', $id)->where('level', 1)->orderBy('created_at')->get();
-
-		return view('admin.courses.members', compact('course', 'students', 'teachers', 'waitingTeachers', 'waitingStudents'));
+		return view('admin.courses.members', compact('course'));
 	}
 
 	/**
@@ -202,7 +213,7 @@ class CourseController extends Controller {
 	*/
 	public function edit($id)
 	{
-		$course = Course::where('id', $id)->with('manager', 'users', 'instrument', 'article', 'documents')->first();
+		$course = Course::where('id', $id)->with('manager', 'instrument', 'article', 'documents')->first();
 
 		if(empty($course))
 		{

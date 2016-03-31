@@ -67,6 +67,40 @@ class TeacherController extends Controller {
 		return redirect('admin/courses/'.$course->slug.'/members');
 	}
 
+	public function downgrade(Request $request, $course_id)
+	{
+		$course = Course::find($course_id);
+		$user = User::find($request->user_id);
+		$user_id = $request->user_id;
+
+		$user->courses()->updateExistingPivot($course_id, ['level' => 0]);
+		$test = CourseUser::where('user_id', $user_id)->where('level', 1)->count();
+		if($test == 0 && $user->level->level == 2)
+		{
+			if(!empty(Band::where('user_id', $user_id)->first()))
+			{
+				$user->level_id = 2;
+			}
+			else
+			{
+				$user->level_id = 1;
+			}
+
+			makeModification('users', printUserLinkV2($user).' is no longer a teacher.');
+			$user->save();
+		}
+
+		CourseModification::create([
+			'author_id'	=> Auth::user()->id,
+			'user_id'	=> $user_id,
+			'course_id'	=> $id,
+			'value'		=> 5,
+			]);
+
+		Flash::success("$user->first_name $user->last_name est maintenant un élève du cours ucfirst($course->name)");
+		return redirect('admin/courses/'.$course->slug.'/members');
+	}
+
 	public function accept(Request $request, $id)
 	{
 		$course = Course::find($id);
@@ -116,7 +150,7 @@ class TeacherController extends Controller {
 			return Redirect::back();
 		}
 
-		$user_id = $request->user_id;
+		$user_id = $request->id;
 		$pivot = CourseUser::where('user_id', $user_id)->where('course_id', $id)->where('level', 1)->first();
 		if(!empty($pivot))
 		{	
@@ -141,7 +175,7 @@ class TeacherController extends Controller {
 	public function cancel(Request $request, $course_id)
 	{
 		$course = Course::find($course_id);
-		$user 	= User::find($request->user_id);
+		$user 	= User::find($request->id);
 
 		$pivot = CourseUser::where('user_id', $user->id)->where('course_id', $course_id)->where('level', 1)->first();
 		if(!empty($pivot))

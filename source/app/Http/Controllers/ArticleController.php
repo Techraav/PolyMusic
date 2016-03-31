@@ -123,6 +123,16 @@ class ArticleController extends Controller {
 		return view('admin.articles.delete', compact('article'));
 	}
 
+	public function gallery($slug)
+	{
+		$article = Article::where('slug', $slug)
+							->with(['author',
+									'images' => function($query) { $query->orderBy('created_at', 'desc')->paginate(3); } ])
+							->first();
+
+		return view('articles.gallery', compact('article'));
+	}
+
 
 	// ________________________________________________________________
 	//

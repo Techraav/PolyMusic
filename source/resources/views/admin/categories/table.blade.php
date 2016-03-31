@@ -32,7 +32,7 @@
 								&nbsp; -&nbsp;
 								@endif
 							<button 
-									onclick="dialogEdit(this)" 
+									onclick="dialogEditCategory(this)" 
 									category-name="{{ $c->name }}" 
 									category-id="{{ $c->id }}" 
 									link="{{ url('admin/categories/edit') }}" 

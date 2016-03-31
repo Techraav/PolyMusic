@@ -112,6 +112,7 @@ Route::post('users/edit/{slug}', 'UserController@update')	->name('user.update');
 // ____________________________________________________________________________________________________
 
 Route::get('articles/view/{slug}', 'ArticleController@show') ->name('article.show');
+Route::get('articles/view/{slug}/gallery', 'ArticleController@gallery') ->name('article.gallery');
 
 
 
