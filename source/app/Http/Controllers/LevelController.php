@@ -98,7 +98,7 @@ class LevelController extends Controller {
 
 	public function removeMember(Request $request, $id)
 	{	
-		$user = User::where('id', $request->user_id)->first();
+		$user = User::find($request->id);
 		$user->update([	'level_id'	=> 1 ]);
 		$user->sendNotification('Vous êtes maintenant <b>Membre</b>.');
 

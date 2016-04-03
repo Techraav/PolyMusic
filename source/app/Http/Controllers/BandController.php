@@ -89,7 +89,18 @@ class BandController extends Controller {
 	*/
 	public function show($slug)
 	{
-		$band = Band::where('slug', $slug)->with('members', 'events', 'manager', 'article')->first();
+		$band = Band::where('slug', $slug)
+					->with(['members', 
+							'events', 
+							'manager', 
+							'article' => function($query){
+										 $query->with(['images' => function($query) {
+																	  $query->limit(5); 
+																	}
+										]) ;
+										}
+								])
+					->first();
 		return view('bands.show', compact('band'));
 	}
 

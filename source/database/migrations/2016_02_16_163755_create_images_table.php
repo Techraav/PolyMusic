@@ -8,6 +8,7 @@ class CreateImagesTable extends Migration {
 	public function up()
 	{
 		Schema::create('images', function(Blueprint $table) {
+			$table->timestamps();
 			$table->increments('id');
 			$table->string('title', 255);
 			$table->string('name', 255)->unique();

@@ -9,7 +9,7 @@
 @stop
 
 @section('content')
-<div class="jumbotron">
+<div class="jumbotron article">
 	<div class="post-content">
 		<h1 align="center">{{ ucfirst($article->title) }}</h1>
 		@if($article->user_id == Auth::user()->id || Auth::user()->level->level > 3)
@@ -29,10 +29,30 @@
 		<br />
 			{!! $article->content !!}
 		</span>
+	<hr class="colorgraph" />
+		<h2 align="center">Galerie</h2>
+		<span align="center" class="help-block"><i>Nombre total d'images : {{ $article->images->count() }}</i></span>
+
+	@if($article->images->count() > 0)
+	<div id="gallery">
+		<table class="table">
+			<tr>
+				@foreach($images as $i)
+					<td align="center"><img onclick="modalPicture(this)" title="{{ $i->description }}" src="{{ URL::asset('img/article_pictures/'.$i->name) }}" /></td>
+				@endforeach
+			</tr>
+			<br />
+			<a href="{{ url('articles/view/'.$article->slug.'/gallery') }}" class="all">Tout voir</a>
+		</table>
+	</div>
+	@else
+		<span class="help-block" align="center">Pas d'image pour le momemt.</span>
+	@endif
+
 		<br />
-		<p align="right" class="post-infos">Rédigé par {!! printUserLinkV2($article->author) !!}, le {{ date_format($article['created_at'], 'd/m/Y') }}</p>
-	</div>	
-</div>
+			<p align="right" class="post-infos">Rédigé par {!! printUserLinkV2($article->author) !!}, le {{ date_format($article['created_at'], 'd/m/Y') }}</p>
+	</div>
+</div>	
 
 
 	<!-- Modal -->
@@ -61,4 +81,5 @@
 	   		</div>
 		</div>
 	</div>
+
 @stop

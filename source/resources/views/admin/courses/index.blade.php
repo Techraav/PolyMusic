@@ -57,8 +57,8 @@
 					<td align="center" >{{ date_format(date_create_from_format('H:i:s', $c->start), 'H:i') }} - {{ date_format(date_create_from_format('H:i:s', $c->end), 'H:i') }}</td>
 					</td>
 					<td align="center">{!! printUserLinkV2($c->manager) !!}</td>
-					<td align="center">{{ App\CourseUser::where('course_id', $c->id)->where('level', 0)->count() }}</td>
-					<td align="center">{{ App\CourseUser::where('course_id', $c->id)->where('level', 1)->count() }}</td>
+					<td align="center">{{ $c->users->count() }}</td>
+					<td align="center">{{ $c->teachers->count() }}</td>
 					<td align="center">{!! printLink('admin/courses/'.$c->id.'/documents', $c->documents->count()) !!}</td>
 					<td align="center">
 					 @if(App\CourseUser::where('course_id', $c->id)->where('validated', 0)->count() > 0)
@@ -101,7 +101,7 @@
 							</button>
 						</td>
 						<td class="manage manage-right" align="left">
-							<a href="{{ url('admin/documents/edit/'.$c->id) }}" title="Modifier le document" class="{{ glyph('pencil') }}"> </a>
+							<a href="{{ url('admin/courses/edit/'.$c->id) }}" title="Modifier le document" class="{{ glyph('pencil') }}"> </a>
 						</td>
 				@else
 				<td></td><td align="center">-</td><td></td>

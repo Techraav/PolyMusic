@@ -70,7 +70,7 @@ class DepartmentController extends Controller {
 	{	
 		$dep = Department::where('id', $id)->first();
 
-		$user = User::where('id', $request->user_id)->first();
+		$user = User::find($request->id);
 		$user->update([	'department_id'	=> 1 ]);
 
 		Modification::create([

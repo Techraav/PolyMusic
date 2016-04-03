@@ -1872,7 +1872,7 @@ pre code{
 	/* position:relative; */
 	min-height:1px;
 	padding-left:15px;
-	padding-right:15px
+	padding-right:15px;
 }
 
 .col-xs-1,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9,.col-xs-10,.col-xs-11,.col-xs-12{
@@ -2735,7 +2735,7 @@ th{
 }
 
 .table{
-	width:100%;
+	width: 100%;
 	max-width:100%;
 	margin-bottom:21px;
 }
@@ -5466,7 +5466,7 @@ a.badge:hover,a.badge:focus{
 	font-weight:200
 }
 
-.jumbotron>hr{
+.jumbotron hr{
 	border-top-color:#cfd9db
 }
 
@@ -8240,11 +8240,11 @@ ul.list-members li:hover button{
     display:inline;
 }
 
-ul.list-members form{
+ul.list-members button{
     position:absolute;
     font-size:16px;
     right:5px;
-    top:10px;
+    top: 14px;
 }
 
 ul.list-members li{
@@ -8528,9 +8528,7 @@ span.time {
 	margin: -15px 0 -5px 0;
 }
 
-.band-sheet .left {
-    border-right: 2px solid rgba(44, 62, 80, 0.4);
-}
+.band-sheet .left {border-right: 2px solid rgba(44, 62, 80, 0.4);}
 
 .band-sheet .help-block {
     margin-bottom: 20px;
@@ -8825,7 +8823,7 @@ td.manage .glyphicon-pencil{
     max-height: 250px;
 }
 
-.course-sheet .photos .content{
+.course-sheet .photos .content, .band-sheet .images{
 	max-height: 400px;
 	overflow-y: auto;
 	border: 2px solid rgba(44, 62, 80, 0.53);
@@ -8865,7 +8863,7 @@ td.manage .glyphicon-pencil{
 	-ms-filter: contrast(0.75);
 }
 
-.course-sheet .all {
+.course-sheet .all, .band-sheet .images .all {
     font-size: 14px;
     opacity: 0.6;
     position: relative;
@@ -9089,4 +9087,60 @@ blockquote.comment.announcement .nb-comments{
 
 #button-toggle:first-letter{
 	text-transform:uppercase;
+}
+
+.band-sheet #infos p {
+    font-size: 17px;
+    text-align: justify;
+    padding: 0 15px;
+    text-indent: 31px;
+}
+
+.band-sheet #infos h2 {
+    margin-top: 30px;
+}
+
+.band-sheet #infos h2 a:hover {
+    margin-top: 30px;
+    text-decoration:none;
+    color:#a051a0;
+}
+
+.band-sheet .images{
+	background-color:white;
+	padding: 10px 5px;
+}
+
+.band-sheet .images img{
+	max-height:200px;
+	max-width:280px;
+	margin:5px
+}
+
+#gallery img{
+	max-width: 30%;
+	max-height: 300px;
+	margin:10px;
+	cursor: pointer;
+}
+
+#gallery table td{
+	width: 33%;
+}
+
+#gallery .all{
+	position: absolute;
+	bottom: -10px;
+	right: 5px;
+	font-size: 14px;
+	font-style: italic;
+	color: #838380;
+}
+
+#gallery{
+	position:relative;
+}
+
+#gallery table img {
+    max-width: 100%;
 }

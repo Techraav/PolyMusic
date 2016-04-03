@@ -120,7 +120,7 @@ class StudentController extends Controller {
 			return Redirect::back();
 		}
 
-		$user_id = $request->user_id;
+		$user_id = $request->id;
 		$pivot = CourseUser::where('user_id', $user_id)->where('course_id', $id)->where('level', 0)->first();
 
 		if(!empty($pivot))
@@ -144,7 +144,7 @@ class StudentController extends Controller {
 	public function cancel(Request $request, $course_id)
 	{
 		$course = Course::find($course_id);
-		$user 	= User::find($request->user_id);
+		$user 	= User::find($request->id);
 
 		$pivot = CourseUser::where('user_id', $user->id)->where('course_id', $course_id)->where('level', 0)->first();
 		if(!empty($pivot))

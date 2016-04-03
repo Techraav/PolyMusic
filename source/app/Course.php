@@ -21,6 +21,16 @@ class Course extends Model {
 		return $this->manager->sendNotification(printUserLinkV2($user)." s'est retiré des ". ($level == 1 ? 'professeurs' : 'élèves') . 'du cours &laquo; '.ucfirst($this->name).' &raquo;.', 'admin/courses/'.$this->slug.'/members');
 	}
 
+	public function waitingStudents()
+	{
+		return $this->hasMany('App\CourseUser');
+	}
+
+	public function waitingTeachers()
+	{
+		return $this->hasMany('App\CourseUser');
+	}
+
 	public function users()
 	{
 		return $this->belongsToMany('App\User')->withPivot('level', 'validated');

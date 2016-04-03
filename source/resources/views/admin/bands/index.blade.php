@@ -34,9 +34,7 @@
 				<td width="300"><b>Créateur</b></td>
 				<td width="100" align="center"><b>Membres</b></td>
 				<td width="100" align="center"><b>Validé</b></td>
-				<td width="20" align="right"> </td>
-				<td width="20" align="center"><b>Gérer</b></td>
-				<td width="20" align="left"></td>
+				<td width="80" align="center"><b>Gérer</b></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -47,8 +45,8 @@
 				<td>{!! printUserLinkV2($b->manager) !!}</td>
 				<td align="center">{{ $b->members()->count() }}</td>
 				<td align="center"><span class="icon-validated glyphicon glyphicon-{{ $b->validated == 1 ? 'ok' : 'remove' }}"></span></td>
+				<td class="manage" align="center">
 				@if(Auth::user()->level_id > 3 || $b->user_id == Auth::user()->id)
-					<td class="manage manage-left" align="right">
 						@if($b->validated == 1)
 							<button 
 									onclick="modalToggle(this)"
@@ -70,8 +68,6 @@
 									class="{{ glyph('ok') }}">
 							</button>
 						@endif
-					</td>
-					<td class="manage" align="center">
 						<button
 								onclick='modalDelete(this)'
 								link="{{ url('bands/delete') }}"
@@ -80,11 +76,8 @@
 								class="{{ glyph('trash') }}">
 						</button>
 					</td>
-					<td class="manage manage-right" align="left">
-						<a href="{{ url('admin/documents/edit/'.$b->id) }}" title="Modifier le document" class="{{ glyph('pencil') }}"> </a>
-					</td>
 				@else
-				<td></td><td align="center">-</td><td></td>
+				<td></td><td align="center">-</td>
 				@endif		
 			</tr>
 			@empty
@@ -135,7 +128,7 @@
 	      	<div class="modal-content">
 	       	 	<div class="modal-header">
 	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
-	          		<h4 id="modal-title" class="modal-title">Supprimer un grope</h4>
+	          		<h4 id="modal-title" class="modal-title">Supprimer un groupe</h4>
 	        	</div>
 
 		        <form id="delete-form" class="modal-form" method="post" action="">

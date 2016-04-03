@@ -251,17 +251,6 @@
     <script src="{{ URL::asset('/js/ckeditor.js')  }}"></script>
 
 		<script type="text/javascript">
-			function modalPicture(el)
-			{
-				var src = el.getAttribute('src');
-
-				$('#modalPicture .modal-body #picture').attr('src', src);
-				$('#modalPicture').modal('show');
-			}
-
-			$('#modalPicture .modal-body #picture').click(function() {
-				$('#modalPicture').modal('hide');
-			});
 
 			// CONTROLS CLICK
 			$('.control-button').on('click', function(){
