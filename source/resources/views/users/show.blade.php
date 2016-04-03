@@ -26,7 +26,7 @@
 			<div class="row col-md-5">
 				<div class="profil-pict">
 					<img src=" {{ URL::asset('/img/profil_pictures/'.$user->profil_picture) }} " title="profile picture"/>
-					@if($user->id == Auth::user()->id && $user->profil_picture != "base_profil_picture.png")
+					@if(($user->id == Auth::user()->id || Auth::user()->level->level > 3) && $user->profil_picture != "base_profil_picture.png")
 						<button class="glyphicon glyphicon-trash profil-pict-remove" type="button" onclick="modalDelete(this)" id="{{ $user->id }}" link="{{url("users/image/remove")}}"></button>
 					@endif
 				</div>
