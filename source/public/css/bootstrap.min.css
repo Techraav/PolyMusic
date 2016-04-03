@@ -8291,7 +8291,7 @@ ul.list-members li{
 }
 
 .profil-pict img{
-    max-width: 90%;
+    max-width: 70%;
     display:block;
     margin:auto;
     max-height: 400px;
@@ -8317,7 +8317,7 @@ ul.list-members li{
 }
 
 .infos-profile table tbody tr td{
-    margin-bottom: 10%;
+    height: 40px;
 }
 
 .footer {

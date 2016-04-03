@@ -16,7 +16,7 @@
 			<div class="manage">
 				<button
 						onclick='modalDelete(this)'
-						link="{{ url('admin/article/delete') }}"
+						link="{{ url('admin/articles/delete') }}"
 						id="{{ $article->id }}"
 						title="Supprimer l'article"
 						class="{{ glyph('trash') }}">

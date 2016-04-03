@@ -120,6 +120,34 @@ class UserController extends Controller {
 		return redirect('users/'.$user->slug);
 	}
 
+	public function removeImage(Request $request)
+	{
+		$user = User::find($request->id);
+
+        if(empty($user->profil_picture))
+        {
+            Flash::error('Cette image n\'existe pas.');
+            return Redirect::back();
+        }
+
+        $name = $user->profil_picture;
+        $path = public_path().'/img/profil_pictures/'.$name;
+
+        if(!File::delete($path))
+        {
+            Flash::error('Cette image n\'a pas été supprimée.');
+            return Redirect::back();
+        }
+
+        $image = User::$defaultImage;
+        $user->update(['profil_picture'=> $image]);
+
+        Flash::success('La photo de profil a bien été supprimée.');
+        return Redirect::back();
+
+
+	}
+
 	/**
 	* Remove the specified resource from storage.
 	*
