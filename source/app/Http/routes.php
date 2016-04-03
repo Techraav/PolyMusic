@@ -102,8 +102,9 @@ Route::get('notifications', 'NotificationController@index')->name('notification.
 // ____________________________________________________________________________________________________
 
 Route::get('users/{slug}', 'UserController@show')	->name('user.show');
-Route::get('users/edit/{slug}', 'UserController@edit')		->name('user.edit');	
+Route::get('users/edit/{slug}', 'UserController@edit')		->name('user.edit')->middleware('auth');
 Route::post('users/edit/{slug}', 'UserController@update')	->name('user.update');
+Route::post('users/image/remove', 'UserController@removeImage')->name('user.removeImage');
 
 
 // ____________________________________________________________________________________________________

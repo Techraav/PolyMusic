@@ -18,11 +18,13 @@
 				<form enctype="multipart/form-data" class="form-horizontal" role="form" method="post" action="{{ url('users/edit/'.$user->slug) }}">
 	            {!! csrf_field() !!}
 	            	<fieldset>
-
+	            	
 	            		<div class="row col-md-5">	    
 	            			<div class="profil-pict">
 	            				<img src=" {{ URL::asset('/img/profil_pictures/'.$user->profil_picture) }} " title="profile picture"/>
-	            				<a class="btn-edit glyphicon glyphicon-remove profil-pict-remove"></a>
+	            				@if($user->id == Auth::user()->id && $user->profil_picture != "base_profil_picture.png")
+									<button class="glyphicon glyphicon-trash profil-pict-remove" type="button" onclick="modalDelete(this)" id="{{ $user->id }}" link="{{url("users/image/remove")}}"></button>
+								@endif
 	            			</div>
             				<div class="form-group">            					
             					<br/>            					
@@ -99,6 +101,32 @@
 			</div>	
 	</div>
 </div>
+
+<div class="modal fade" id="modalDelete" role="dialog">
+		<div class="modal-dialog">
+
+	  	<!-- Modal content-->
+	      	<div class="modal-content">
+	       	 	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h4 id="modal-title" class="modal-title">Supprimer votre photo de profil</h4>
+	        	</div>
+
+		        <form id="delete-form" class="modal-form" method="post" action="">
+		        	{!! csrf_field() !!}
+			        <div class="modal-body">
+	        		<p class="text-danger"><b>Attention ! Cette action est irréversible !</b></p>
+			         	<input hidden value="" name="id" id="id" />
+			        </div>
+			        <div class="modal-footer">
+			          	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+			          	<button type="submit" class="btn btn-primary">Supprimer</button>
+			        </div>
+				</form>
+
+	   		</div>
+		</div>
+	</div>
 @stop
 
 @section('js')

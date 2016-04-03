@@ -56,6 +56,7 @@ class DocumentController extends Controller
 
         $name = $doc->name;
         $path = public_path().'/files/documents/'.$name;
+        
         if($doc->delete())
         {
             File::delete($path);
