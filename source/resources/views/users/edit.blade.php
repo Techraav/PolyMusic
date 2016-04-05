@@ -26,10 +26,12 @@
 									<button class="glyphicon glyphicon-trash profil-pict-remove delete-button" type="button" data-id="{{ $user->id }}" data-link="{{url("users/image/remove")}}"></button>
 								@endif
 	            			</div>
-            				<div class="form-group">            					
-            					<br/>            					
-            						{!! printFileInput('profil_picture', ['png','jpeg','jpg'], false, ['accept' => 'image/png, image/jpeg'], 'Formats acceptés: PNG et JPEG', []) !!}							
-            				</div>
+	            			@if($user->id == Auth::user()->id)
+	            				<div class="form-group">            					
+	            					<br/>            					
+	            						{!! printFileInput('profil_picture', ['png','jpeg','jpg'], false, ['accept' => 'image/png, image/jpeg'], 'Formats acceptés: PNG et JPEG', []) !!}							
+	            				</div>
+            				@endif
 
 	            		</div>
 
