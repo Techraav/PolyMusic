@@ -34,11 +34,10 @@
 				@if(Auth::check() && Auth::user()->level_id >= 3)
 					<div class="manage">
 						<button
-								onclick='modalDelete(this)'
-								link="{{ url('admin/news/delete') }}"
-								id="{{ $n->id }}"
+								data-link="{{ url('admin/news/delete') }}"
+								data-id="{{ $n->id }}"
 								title="Supprimer la news"
-								class="{{ glyph('trash') }}">
+								class="{{ glyph('trash') }} delete-button">
 						</button>
 						<a class="glyphicon glyphicon-pencil" href="{{ url('admin/news/edit/'.$n['slug']) }}"></a>
 					</div>
@@ -83,22 +82,5 @@
 	   		</div>
 		</div>
 	</div>
-
-@stop
-
-
-@section('js')
-
-<script type="text/javascript">
-		function dialog(el)
-		{
-			var id = el.getAttribute('news-id');
-			var link = el.getAttribute('link');
-
-			$('#modal-form').attr('action', link);
-			$('#news_id').attr('value', id);
-			$('#myModal').modal('toggle');
-		}
-</script>
 
 @stop

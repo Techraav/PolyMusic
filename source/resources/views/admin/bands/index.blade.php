@@ -69,11 +69,10 @@
 							</button>
 						@endif
 						<button
-								onclick='modalDelete(this)'
-								link="{{ url('bands/delete') }}"
-								id="{{ $b->id }}"
+								data-link="{{ url('bands/delete') }}"
+								data-id="{{ $b->id }}"
 								title="Supprimer le groupe"
-								class="{{ glyph('trash') }}">
+								class="{{ glyph('trash') }} delete-button">
 						</button>
 					</td>
 				@else

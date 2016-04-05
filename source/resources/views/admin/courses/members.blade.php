@@ -51,12 +51,12 @@
 								<input hidden name="user_id" value="{{ $w->user->id }}" />
 								<button align="left" title="Accepter la demande ?" type="submit" class="glyphicon glyphicon-ok"></button>
 							</form>
-							<button onclick="modalDelete(this)"
-									id="{{$w->user->id}}" 
+							<button 
+									data-id="{{$w->user->id}}" 
 									align="right" 
-									link="{{ url('admin/courses/'.$course->id.'/student/cancel') }}"
+									data-link="{{ url('admin/courses/'.$course->id.'/student/cancel') }}"
 									title="Refuser la demande ?" 
-									class="glyphicon glyphicon-remove">
+									class="{{ glyph('remove') }} delete-button">
 							</button>
 						@else
 							-
@@ -90,12 +90,12 @@
 								<input hidden name="user_id" value="{{ $w->user->id }}" />
 								<button align="left" title="Accepter la demande ?" type="submit" class="glyphicon glyphicon-ok"></button>
 							</form>
-							<button onclick="modalDelete(this)"
-									id="{{$w->user->id}}" 
+							<button
+									data-id="{{$w->user->id}}" 
 									align="right" 
-									link="{{ url('admin/courses/'.$course->id.'/teacher/cancel') }}"
+									data-link="{{ url('admin/courses/'.$course->id.'/teacher/cancel') }}"
 									title="Refuser la demande ?" 
-									class="glyphicon glyphicon-remove">
+									class="{{ glyph('remove') }} delete-button">
 							</button>
 						@else
 						-
@@ -125,12 +125,12 @@
 			<li class="list-group-item">
 				{!! printUserLinkV2($t) !!}
 				@if($course->user_id == Auth::user()->id || Auth::user()->level_id > 3)
-					<button onclick="modalDelete(this)"
+					<button
 							align="right" 
-							id="{{ $t->id }}"
-							link="{{ url('admin/courses/'.$course->id.'/teacher/remove') }}"
+							data-id="{{ $t->id }}"
+							data-link="{{ url('admin/courses/'.$course->id.'/teacher/remove') }}"
 							title="Retirer ce professeur du cours {{ '"'.$course->name.'"' }} ?" 
-							class="glyphicon glyphicon-trash">
+							class="{{ glyph('remove') }} delete-button">
 					</button>
 				@endif
 			</li>
@@ -149,12 +149,12 @@
 			<li class="list-group-item">
 				{!! printUserLinkV2($t) !!}
 				@if($course->user_id == Auth::user()->id || Auth::user()->level_id > 3)
-					<button onclick="modalDelete(this)"
+					<button
 							align="right" 
-							id="{{ $t->id }}"
-							link="{{ url('admin/courses/'.$course->id.'/student/remove') }}"
+							data-id="{{ $t->id }}"
+							data-link="{{ url('admin/courses/'.$course->id.'/student/remove') }}"
 							title="Retirer cet élève du cours {{ '"'.$course->name.'"' }} ?" 
-							class="glyphicon glyphicon-trash">
+							class="{{ glyph('remove') }} delete-button">
 					</button>
 				@endif
 			</li>

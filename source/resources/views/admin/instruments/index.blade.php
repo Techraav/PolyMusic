@@ -40,13 +40,18 @@
 					@if(Auth::user()->level_id > 3 && $i->id != 1)
 						<td class="manage" align="center">
 							<button
-									onclick='modalDelete(this)'
-									link="{{ url('admin/instruments/delete') }}"
-									id="{{ $i->id }}"
+									data-link="{{ url('admin/instruments/delete') }}"
+									data-id="{{ $i->id }}"
 									title="Supprimer cet instrument"
-									class="{{ glyph('trash') }}">
+									class="{{ glyph('trash') }} delete-button">
 							</button>
-							<a href="{{ url('admin/documents/edit/'.$i->id) }}" title="Modifier le document" class="{{ glyph('pencil') }}"> </a>
+							<button 
+									data-id="{{ $i->id }}"
+									data-link="{{ url('admin/instruments/edit') }}"
+									data-name="{{ $i->name }}"
+									title="Modifier la catégorie" 
+									class="{{ glyph('pencil') }} edit-instrument-button"> 
+							</button>
 						</td>
 					@else
 					<td align="center">-</td>
@@ -115,4 +120,4 @@
 		</div>
 	</div>
 
-	@stop 
+@stop 

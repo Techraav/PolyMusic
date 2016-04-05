@@ -20,7 +20,7 @@
 					<td>{{ $l->infos ? $l->infos : '-' }}</td>
 					<td align="center">{{ $l->users()->count() }}</td>
 					<td align="center">
-						<button onclick="dialogEdit(this)" level-name="{{ $l->name }}" level-id="{{ $l->id }}" level-infos="{{ $l->infos }}" link="{{ url('admin/levels/edit/'.$l->level) }}" title="Modifier le level {{ $l->name }} ?"class="glyphicon glyphicon-pencil"></button>
+						<button onclick="dialogLevelEdit(this)" level-name="{{ $l->name }}" level-id="{{ $l->id }}" level-infos="{{ $l->infos }}" link="{{ url('admin/levels/edit/'.$l->level) }}" title="Modifier le level {{ $l->name }} ?"class="glyphicon glyphicon-pencil"></button>
 					</td>
 				</tr>
 			@empty

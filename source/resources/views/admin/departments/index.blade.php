@@ -49,7 +49,7 @@
 @section('js')
 
 <script type="text/javascript">
-		function dialogEdit(el)
+		function dialogDepartmentEdit(el)
 		{
 			var id = el.getAttribute('id');
 			var name = el.getAttribute('name');

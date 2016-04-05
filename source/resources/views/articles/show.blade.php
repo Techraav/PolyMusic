@@ -15,11 +15,10 @@
 		@if($article->user_id == Auth::user()->id || Auth::user()->level->level > 3)
 			<div class="manage">
 				<button
-						onclick='modalDelete(this)'
-						link="{{ url('admin/articles/delete') }}"
-						id="{{ $article->id }}"
+						data-link="{{ url('admin/articles/delete') }}"
+						data-id="{{ $article->id }}"
 						title="Supprimer l'article"
-						class="{{ glyph('trash') }}">
+						class="{{ glyph('trash') }} delete-button">
 				</button>
 				<a href="{{ url('admin/articles/edit/'.$article->slug) }}" class="btn-edit glyphicon glyphicon-pencil"></a>
 			</div>
@@ -31,20 +30,20 @@
 		</span>
 	<hr class="colorgraph" />
 		<h2 align="center">Galerie</h2>
-		<span align="center" class="help-block"><i>Nombre total d'images : {{ $article->images->count() }}</i></span>
 
 	@if($article->images->count() > 0)
+		<span align="center" class="help-block"><i>Nombre total d'images : {{ $article->images->count() }}</i></span>
 	<div id="gallery">
-		<table class="table">
-			<tr>
+		<div class="scroll">
+			<ul class="nav nav-pills">
 				@foreach($images as $i)
-					<td align="center"><img onclick="modalPicture(this)" title="{{ $i->description }}" src="{{ URL::asset('img/article_pictures/'.$i->name) }}" /></td>
+					 <li><img onclick="modalPicture(this)" title="{{ $i->description }}" src="{{ URL::asset('img/article_pictures/'.$i->name) }}" /></li>
 				@endforeach
-			</tr>
-			<br />
-			<a href="{{ url('articles/view/'.$article->slug.'/gallery') }}" class="all">Tout voir</a>
-		</table>
+				<br />
+			</ul>
+		</div>
 	</div>
+		<a href="{{ url('articles/view/'.$article->slug.'/gallery') }}" class="all">Tout voir</a>
 	@else
 		<span class="help-block" align="center">Pas d'image pour le momemt.</span>
 	@endif
@@ -79,6 +78,15 @@
 				</form>
 
 	   		</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="modalPicture" role="dialog">
+		<div class="modal-picture">
+	        <div class="modal-body">
+	        	<img id="picture" src="">
+    			<p id="description"></p>
+	        </div>
 		</div>
 	</div>
 

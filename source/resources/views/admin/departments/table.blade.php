@@ -22,14 +22,13 @@
 					@if($d->id != 1 && Auth::user()->level_id > 3)
 						<td class="manage" align="center">
 							<button
-									onclick='modalDelete(this)'
-									link="{{ url('admin/departments/delete') }}"
-									id="{{ $d->id }}"
+									data-link="{{ url('admin/departments/delete') }}"
+									data-id="{{ $d->id }}"
 									title="Supprimer ce département"
-									class="{{ glyph('trash') }}">
+									class="{{ glyph('trash') }} delete-button">
 							</button>
 							<button 
-									onclick="dialogEdit(this)"
+									onclick="dialogDepartmentEdit(this)"
 									name="{{ $d->name}}"
 									short-name="{{ $d->short_name }}"
 									id="{{ $d->id }}"

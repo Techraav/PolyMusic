@@ -59,7 +59,7 @@
 							@else
 								<button 
 										onclick="modalToggle(this)"
-										link="{{ url('admin/documents/validate/1') }}"
+										link="{{ url('admin/news/validate/1') }}"
 										id="{{ $n->id }}"
 										action="activer"
 										msg="Voulez-vous vraiment activer cette news ?"
@@ -70,11 +70,10 @@
 						</td>
 						<td class="manage" align="center">
 							<button
-									onclick='modalDelete(this)'
-									link="{{ url('admin/news/delete') }}"
-									id="{{ $n->id }}"
+									data-link="{{ url('admin/news/delete') }}"
+									data-id="{{ $n->id }}"
 									title="Supprimer la news"
-									class="{{ glyph('trash') }}">
+									class="{{ glyph('trash') }} delete-button">
 							</button>
 						</td>
 						<td class="manage manage-right" align="left">

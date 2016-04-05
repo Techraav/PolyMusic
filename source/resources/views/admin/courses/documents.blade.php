@@ -41,7 +41,7 @@
 					<td>{!! printLink('files/documents/'.$d->name, ucfirst($d->title), ['target'	=> '_blank']) !!}</td>
 					<td>{!! cut($d->description, 40) !!}</td>
 					<td class="manage" align="center">{!! printLink('admin/courses/'.$course->id.'/documents/validation/'.$d->validated, '', ['title' => 'N\'afficher que les documents '.($d->validated == 0 ? 'non validés' : 'validés').'.'], ['glyphicon', 'glyphicon-'.($d->validated == 0 ? 'remove' : 'ok')]) !!}</td>
-					<td align="center">
+					<td align="center" class="manage">
 					@if(Auth::user()->level_id > 3 || $course->users->contains(Auth::user()))
 						@if($d->validated == 1)
 							<button 
@@ -63,22 +63,15 @@
 									title="Valider le document"
 									class="{{ glyph('ok') }}">
 							</button>
-							<button
-									onclick="modalDelete(this)"
-									link="{{ url('admin/documents/delete') }}"
-									id="{{ $d->id }}"
-									title="Supprimer le document"
-									class="{{ glyph('trash') }}"
-							</button>
 						@endif
-						<button 
-								onclick="edit(this)"
-								link="{{ url('admin/documents/edit/'.$d->id) }}"
-								id="{{ $d->id }}"
-								action="valider"
-								title="Modifier le document"
-								class="{{ glyph('pencil') }}">
+						<button
+								data-link="{{ url('admin/documents/delete') }}"
+								data-id="{{ $d->id }}"
+								title="Supprimer le document"
+								class="{{ glyph('trash') }} delete-button">
 						</button>
+
+						<a href="{{ url('admin/documents/edit/'.$d->id) }}" title="Modifier le document" class="{{ glyph('pencil') }}"></a>
 					@else
 					-
 					@endif
@@ -148,7 +141,7 @@
 			        </div>
 			        <div class="modal-footer">
 			          	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-			          	<button type="submit" class="btn btn-primary">Supprimer</button>
+			          	<button type="submit" id="button-toggle" class="btn btn-primary"></button>
 			        </div>
 				</form>
 
@@ -182,16 +175,6 @@
 	   		</div>
 		</div>
 	</div>
-@stop
 
-@section('js')
-
-<script type="text/javascript">
-	function edit(el)
-	{
-
-	}
-
-</script>
 
 @stop

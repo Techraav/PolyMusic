@@ -17,11 +17,10 @@
 				<div class="manage">
 					<a href="{{ url('announcements/edit/'.$announcement->slug) }}" class="btn-edit glyphicon glyphicon-pencil"></a>
 					<button
-							onclick='modalDelete(this)'
-							link="{{ url('announcements/delete') }}"
-							id="{{ $announcement->id }}"
+							data-link="{{ url('announcements/delete') }}"
+							data-id="{{ $announcement->id }}"
 							title="Supprimer l'annonce"
-							class="{{ glyph('trash') }}">
+							class="{{ glyph('trash') }} delete-button">
 					</button>
 				</div>
 			@endif
@@ -133,6 +132,7 @@
 			$('#formDeleteComment #comment_id').attr('value', id);
 			$('#modalDeleteComment').modal('toggle');
 		}
+		
 		function dialogEditComment(el)
 		{
 			var id = el.getAttribute('id');
@@ -143,6 +143,7 @@
 			CKEDITOR.instances.content.setData(content);
 			$('#modalEditComment').modal('toggle');
 		}
+
 		function dialogDeleteAnnouncement(el)
 		{
 			var id = el.getAttribute('id');

@@ -106,9 +106,9 @@ class InstrumentController extends Controller
     * @param  int  $id
     * @return Response
     */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $instrument = Instrument::where('id', $id)->first();
+        $instrument = Instrument::where('id', $request->id)->first();
         $name = $instrument->name;
         $instrument->update(['name' => $request->name]);
 

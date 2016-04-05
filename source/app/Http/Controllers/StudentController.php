@@ -52,7 +52,7 @@ class StudentController extends Controller {
 		$user_id = $request->user_id;
 
 		$user->courses()->updateExistingPivot($course_id, ['level' => 0]);
-		$test = CourseUser::where('user_id', $user_id)->where('level', 1)->count();
+		$test = CourseUser::where('user_id', $user_id)->where('level', 1)->where('validated', 1)->count();
 		if($test == 0 && $user->level->level == 2)
 		{
 			if(!empty(Band::where('user_id', $user_id)->first()))

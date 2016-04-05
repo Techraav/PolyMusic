@@ -24,12 +24,12 @@
 			<li class="list-group-item">
 				<a href=" {{ url('admin/users/'.$u->slug) }}">{{ ucfirst($u->last_name) }} {{ ucfirst($u->first_name) }}</a>
 				@if($level->id > 1)
-					<button onclick="modalDelete(this)"
+					<button
 							align="right" 
-							id="{{ $u->id }}"
-							link="{{ url('admin/levels/'.$level->id.'/members/remove') }}"
+							data-id="{{ $u->id }}"
+							data-link="{{ url('admin/levels/'.$level->id.'/members/remove') }}"
 							title="Retirer ce membre des {{ $level->name }}s ?" 
-							class="glyphicon glyphicon-trash">
+							class="{{ glyph('trash') }} delete-button">
 					</button>
 				@endif
 			</li>

@@ -73,11 +73,10 @@
 						</td>
 						<td class="manage" align="center">
 							<button
-									onclick='modalDelete(this)'
-									link="{{ url('admin/events/delete') }}"
-									id="{{ $e->id }}"
+									data-link="{{ url('events/delete') }}"
+									data-id="{{ $e->id }}"
 									title="Supprimer l'événement"
-									class="{{ glyph('trash') }}">
+									class="{{ glyph('trash') }} delete-button">
 							</button>
 						</td>
 						<td class="manage manage-right" align="left">

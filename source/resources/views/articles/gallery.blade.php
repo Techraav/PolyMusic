@@ -17,7 +17,7 @@
 
 	<div align="right">{!! $images->render() !!}</div>
 
-		<div class="modal fade" id="modalPicture" role="dialog">
+	<div class="modal fade" id="modalPicture" role="dialog">
 		<div class="modal-picture">
 	        <div class="modal-body">
 	        	<img id="picture" src="">

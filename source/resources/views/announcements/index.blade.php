@@ -18,7 +18,7 @@
 		<h1 >Les annonces !</h1>
 		<p>Voici les annonces postées par les membres.</p>
 		<p>Cliquez sur le titre d'une annonce pour la voir en entier.</p>
-		<p>Vous souhaitez vendre ou acheter du matériel de musique ? Vous cherchez un groupes, ou des membres pour en monter un ? Publiez une annonce, les autres utilisateurs pourront y répondre en commentaire !</p>
+		<p>Vous souhaitez vendre ou acheter du matériel de musique ? Vous cherchez un groupe, ou des membres pour en monter un ? Publiez une annonce, les autres utilisateurs pourront y répondre en commentaire !</p>
 		<hr class="colorgraph" />
 		<p>Pour créer une annonce : <a href="{{url('announcements/create')}}" title="Créer une annonce">Cliquez ici !</a></p>		
 	</div>
@@ -45,11 +45,10 @@
 						@if(Auth::check() && Auth::user()->level_id >= 3)
 							<div class="manage">
 								<button
-										onclick='modalDelete(this)'
-										link="{{ url('announcements/delete') }}"
-										id="{{ $a->id }}"
+										data-link="{{ url('announcements/delete') }}"
+										data-id="{{ $a->id }}"
 										title="Supprimer l'annonce"
-										class="{{ glyph('trash') }}">
+										class="{{ glyph('trash') }} delete-button">
 								</button>
 								<a class="glyphicon glyphicon-pencil" href="{{ url('announcements/edit/'.$a->slug) }}"></a>
 							</div>
@@ -58,7 +57,7 @@
 --}}			    	<span class="help-block"><i>Catégorie : <a title="N'afficher que les annonces de cette catégorie" href="{{ url('announcements/list/category/'.$a->category->id) }}">{{ucfirst($a->category->name)}}</a></i></span>
 				    	<p>{!! cut($a->content, 540, 'announcements/view/'.$a->slug) !!}</p>
 				    	<hr class="colorgraph"/>
-				    	<span class="post-infos announcement-index-infos">Rédigé le {{date_format($a['created_at'], 'd/m/Y \à H:i')}} Par {!! printUserLinkV2($a->author) !!} </span>
+				    	<span class="post-infos announcement-index-infos">Rédigé le {{date_format($a['created_at'], 'd/m/Y \à H:i')}} par {!! printUserLinkV2($a->author) !!} </span>
 				    	<span class="nb-comments post-infos">
 				    		Commentaires : {{ $a->comments->count() }}
 				    	</span>

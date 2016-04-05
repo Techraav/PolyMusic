@@ -23,7 +23,7 @@
 
 <script type="text/javascript">
 
-		function dialogEdit(el)
+		function dialogLevelEdit(el)
 		{
 			var id = el.getAttribute('level-id');
 			var name = el.getAttribute('level-name');

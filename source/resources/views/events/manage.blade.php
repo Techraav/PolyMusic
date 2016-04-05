@@ -36,11 +36,10 @@
 						<td align="center" class="manage">
 							@if($b->user_id == Auth::user()->id || Auth::user()->level_id > 2)
 								<button 
-										onclick="dialogDelete(this)"
-										link="{{ url('admin/events/'.$event->id.'/removeband') }}"
-										id="{{ $b->id }}"
+										data-link="{{ url('admin/events/'.$event->id.'/removeband') }}"
+										data-id="{{ $b->id }}"
 										title="Retirer ce groupe de l'événement ?"
-										class="glyphicon glyphicon-trash">
+										class="{{ glyph('trash') }} delete-button">
 								</button>
 							@else
 								-
@@ -132,20 +131,5 @@
 	   		</div>
 		</div>
 	</div>
-
-@stop
-
-@section('js')
-
-	<script type="text/javascript">
-		function dialogDelete(el) {
-			var id = el.getAttribute('id');
-			var link = el.getAttribute('link');
-
-			$('#modalDelete form').attr('action', link);
-			$('#modalDelete #id').attr('value', id);
-			$('#modalDelete').modal('show');
-		}
-	</script>
 
 @stop

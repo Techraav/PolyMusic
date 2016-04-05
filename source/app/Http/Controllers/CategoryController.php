@@ -87,16 +87,16 @@ class CategoryController extends Controller
         }
 
         $announcements = $model->announcements();
-        $article = $model->article();
+        $articles = $model->articles();
         if(!empty($announcements))
         {
             foreach ($announcements as $a) {
                 $a->update(['category_id' => 1]);
             }
         } 
-        if(!empty($article))
+        if(!empty($articles))
         {
-            foreach ($article as $a) {
+            foreach ($articles as $a) {
                 $a->update(['category_id' => 1]);
             }
         } 

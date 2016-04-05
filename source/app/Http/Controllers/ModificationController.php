@@ -44,7 +44,7 @@ class ModificationController extends Controller
             Flash::error('Ce cours n\'existe pas.');
             return abort(404);
         }
-        $url = url('admin/modifications/courses/'.$course->slug);
+        $url = url('courses/show/'.$course->slug);
         $name = $course->name;
         $concerned = '<a href="'.$url.'">'.$name.'</a>';
         return view('admin.modifications.courses', compact('modifs', 'concerned'));

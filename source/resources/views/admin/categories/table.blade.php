@@ -22,11 +22,10 @@
 							&nbsp; 
 							@if($c->id != 1 && $c->ic != 2)
 								<button
-										onclick='modalDelete(this)'
-										link="{{ url('admin/categories/delete') }}"
-										id="{{ $c->id }}"
+										data-link="{{ url('admin/categories/delete') }}"
+										data-id="{{ $c->id }}"
 										title="Supprimer cette catégorie"
-										class="{{ glyph('trash') }}">
+										class="{{ glyph('trash') }} delete-button">
 								</button>
 								@else
 								&nbsp; -&nbsp;

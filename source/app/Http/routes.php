@@ -114,6 +114,11 @@ Route::post('users/image/remove', 'UserController@removeImage')->name('user.remo
 
 Route::get('articles/view/{slug}', 'ArticleController@show') ->name('article.show');
 Route::get('articles/view/{slug}/gallery', 'ArticleController@gallery') ->name('article.gallery');
+Route::get('articles/list', 'ArticleController@index')->name('article.index');
+Route::get('articles/list/category/{value}', 'ArticleController@index')->name('article.index');
+Route::get('articles', function(){
+	return redirect('articles/list');
+});
 
 
 
@@ -123,12 +128,21 @@ Route::get('articles/view/{slug}/gallery', 'ArticleController@gallery') ->name('
 // ____________________________________________________________________________________________________
 
 Route::get('bands/show/{slug}', 'BandController@show')	->name('bands.show');
+Route::get('bands', function()
+{
+	return view('errors.incoming');
+});
 
 
 // ____________________________________________________________________________________________________
 //
 //                         					EVENT ROUTES
 // ____________________________________________________________________________________________________
+
+Route::get('events', function()
+{
+	return view('errors.incoming');
+});
 
 Route::get('events/edit/{id}', 'EventController@edit')->name('events.edit')->middleware('level:2');
 // Route::get('events/show/{slug}')
@@ -181,12 +195,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:3'], function(){
 	Route::get('news/create', 			'NewsController@create')	->name('news.create');
 	Route::get('news/delete/{slug}', 	'NewsController@delete')	->name('news.delete');
 	Route::get('news/validated/{value}','NewsController@validated')	->name('news.validated');
-	Route::get('news/activate/{id}', 	'NewsController@activate')->name('news.active');
 	
 	// NEWS : POST
 	Route::post('news/create', 		'NewsController@store')		->name('news.store');
 	Route::post('news/edit/{slug}', 'NewsController@update')	->name('news.update');
 	Route::post('news/delete', 		'NewsController@destroy')	->name('news.destroy');
+	Route::post('news/activate/{value}', 	'NewsController@toggle')	->name('news.active');
 
 // _____________________________________________________________________________________________________________
 
@@ -224,7 +238,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:3'], function(){
 
 	// INSTRUMENTS : POST
 	Route::post('instruments/create', 'InstrumentController@store') 		->name('instruments.store');
-	Route::post('instruments/edit/{id}', 'InstrumentController@update')		->name('instruments.update');
+	Route::post('instruments/edit', 'InstrumentController@update')		->name('instruments.update');
 	Route::post('instruments/delete', 'InstrumentController@destroy')	->name('instruments.destroy');
 
 

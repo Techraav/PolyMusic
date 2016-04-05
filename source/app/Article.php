@@ -41,4 +41,9 @@ class Article extends Model {
 		return $query->where('category_id', $category_id);
 	}
 
+	public function scopeValidated($query)
+	{
+		return $query->where('validated', 1);
+	}
+
 }

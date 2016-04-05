@@ -101,19 +101,22 @@ class NewsController extends Controller {
    */
   public function show($slug)
   {
-    $news = News::published()->where('slug', $slug)->with('author')->first();
+    $news = News::where('slug', $slug)->with('author')->first();
+    $active = true;
     if(empty($news))
     {
-      if(Auth::check() && Auth::user()->level_id > 2)
-      {
-        $news = News::where('slug', $slug)->first();
-        return view('news.show', compact('news'));
-      }
       Flash::error('Cette news n\'existe pas.');
       return redirect('news');
     }
-
-    return view('news.show', compact('news'));
+    else
+    {
+      if(Auth::check() && Auth::user()->level_id > 2 && $news->active == 0)
+      {
+        $active = false;
+        return view('news.show', compact('news', 'active'));
+      }  
+    }
+    return view('news.show', compact('news', 'active'));
   }
 
   /**

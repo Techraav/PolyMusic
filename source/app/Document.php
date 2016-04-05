@@ -16,6 +16,16 @@ class Document extends Model
     	return $this->belongsTo('App\Course');
     }
 
+    public function scopeValidated($query)
+    {
+        return $query->where('validated', 1);
+    }
+
+    public function scopeInvalidated($query)
+    {
+        return $query->where('validated', 0);
+    }
+
     public function author()
     {
     	return $this->belongsTo('App\User', 'user_id');

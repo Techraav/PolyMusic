@@ -21,11 +21,22 @@ class ArticleController extends Controller {
 	*
 	* @return Response
 	*/
-	public function index()
-	{
-		$articles = Article::orderBy('id', 'desc')->with('author', 'category')->paginate(20);
-		return view('articles.index', compact('articles'));    
-	}
+	public function index($category=false)
+    {
+        if($category !== false)
+        {
+            if($category == 0)
+            {
+                return redirect('articles/list');
+            }        
+            $articles = Article::where('validated', 1)->ofCategory($category)->with('author', 'category')->paginate(5);
+        }
+        else{
+            $articles = Article::where('validated', 1)->with('author', 'category')->paginate(5);
+        }
+            
+        return view('articles.index', compact('articles', 'category'));
+    }
 
 	/**
 	* Display a listing of the resource.
@@ -87,7 +98,7 @@ class ArticleController extends Controller {
 		  return view('errors.404');
 		}
 
-		$images = Image::where('article_id', $article->id)->orderBy('created_at', 'desc')->paginate(3);
+		$images = Image::where('article_id', $article->id)->orderBy('created_at', 'desc')->limit(5)->get();
 
 		return view('articles.show', compact('article', 'images'));
 	}
