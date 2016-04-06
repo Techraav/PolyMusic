@@ -16,7 +16,7 @@
 <div class="jumbotron">
 	<h1 align="center">Modifier un article</h1>
 
-	<form class="form-horizontal" role="form" method="post" action="{{ url('admin/articles/edit'.$article->slug) }}">
+	<form class="form-horizontal" role="form" method="post" action="{{ url('admin/articles/edit/'.$article->slug) }}">
 		{!! csrf_field() !!}
 
 		<div class="form-group">

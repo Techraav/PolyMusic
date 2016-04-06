@@ -42,6 +42,59 @@
               <p align="center"><img src="{{URL::asset('/img/logo.png')}}" /></p>
         </div>
 
+        @section('search')
+        <div class="search-fieldset">
+          <!-- <h1 class="search-title">Rechercher un cours</h1> -->
+          <form action="{{ url('courses/search') }}" method="get">
+            <div class="form-group">
+              <div class="input-group"> 
+                <input class="form-control input-sm" name="instrument" type="text" placeholder="Rechercher un cours par instrument" />
+                <span class="input-group-btn">
+                  <button class="btn btn-primary btn-sm" type="submit"><span class="{{ glyph('search') }}"></span></button>
+                </span>       
+              </div>
+            </div>
+          </form>
+
+          <form action="{{ url('courses/search') }}" method="get">
+            <div class="form-group">
+              <div class="input-group"> 
+                <input class="form-control input-sm" name="teacherfn" type="text" placeholder="Rechercher un cours par professeur (prénom)" />
+                <span class="input-group-btn">
+                  <button class="btn btn-primary btn-sm" type="submit"><span class="{{ glyph('search') }}"></span></button>
+                </span>       
+              </div>
+            </div>
+          </form>
+
+          <form action="{{ url('courses/search') }}" method="get">
+            <div class="form-group">
+              <div class="input-group"> 
+                <input class="form-control input-sm" name="teacherln" type="text" placeholder="Rechercher un cours par professeur (nom de famille)" />
+                <span class="input-group-btn">
+                  <button class="btn btn-primary btn-sm" type="submit"><span class="{{ glyph('search') }}"></span></button>
+                </span>
+              </div>
+            </div>
+          </form>
+
+          <form action="{{ url('courses/search') }}" method="get">
+            <div class="form-group">
+              <select class="form-control input-sm" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                <option disabled selected>Rechercher un cours selon le jour</option>
+                <option value="{{ url('courses/search?day=0')}}">Lundi</option>
+                <option value="{{ url('courses/search?day=1')}}">Mardi</option>
+                <option value="{{ url('courses/search?day=2')}}">Mercredi</option>
+                <option value="{{ url('courses/search?day=3')}}">Jeudi</option>
+                <option value="{{ url('courses/search?day=4')}}">Vendredi</option>
+                <option value="{{ url('courses/search?day=5')}}">Samedi</option>
+                <option value="{{ url('courses/search?day=6')}}">Dimanche</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        @show
+
         @include('layouts.app.news')
 
     </div>

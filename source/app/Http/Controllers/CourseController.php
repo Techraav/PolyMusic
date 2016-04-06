@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Course;
+use App\Instrument;
 use App\Document;
 use App\User;
 use App\Modification;
@@ -46,6 +47,53 @@ class CourseController extends Controller {
 		$allCourses = Course::with('manager', 'instrument')->get();
 
 		return view('courses.index', compact('courses', 'allCourses', 'filter'));
+	}
+
+	public function search(Request $request)
+	{
+		if($request->has('day'))
+		{
+			$search = 'day';
+			$value = $request->day;
+			$courses = Course::where('day', $request->day)->get();
+			return view('courses.search', compact('courses', 'search', 'value'));
+		}
+		elseif($request->has('teacherfn'))
+		{
+			$search = 'teacherfn';
+			$value = $request->teacherfn;
+			$str = str_search($value);
+
+			$result = User::where('first_name', 'LIKE', "%$str%")
+							->with(['courses' => function($query) { $query->where('validated', 1)->where('level', 1); }])
+							->get();
+			
+			return view('courses.search', compact('result', 'search', 'value'));
+		}
+		elseif($request->has('teacherln'))
+		{
+			$search = 'teacherln';
+			$value = $request->teacherln;
+			$str = str_search($value);
+
+			$result = User::where('last_name', 'LIKE', "%$str%")
+							->with(['courses' => function($query) { $query->where('validated', 1)->where('level', 1); }])
+							->get();
+			
+			return view('courses.search', compact('result', 'search', 'value'));
+		}
+		elseif($request->has('instrument'))
+		{
+			$search = 'instrument';
+			$value = $request->instrument;
+			$str = str_search($value);
+
+			$result = Instrument::where('name', 'LIKE', "%$str%")->with('courses')->get();
+			
+			return view('courses.search', compact('result', 'search', 'value'));
+		}
+
+		return view('courses.search', ['error' => true]);
 	}
 
 	/**

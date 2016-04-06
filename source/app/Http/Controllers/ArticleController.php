@@ -2,6 +2,7 @@
 
 use App\Article;
 use App\Image;
+use App\Modification;
 use App\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -183,7 +184,7 @@ class ArticleController extends Controller {
 	* @param  int  $id
 	* @return Response
 	*/
-	public function update($slug)
+	public function update(Request $request, $slug)
 	{
 		$validation = $this->validator($request->all());
 
@@ -203,11 +204,9 @@ class ArticleController extends Controller {
 
 		$oldName = $article->name;
 
-		$slug = str_slug($request->name).'-'.$article->id;
 
 		$article->update([
 		  'user_id'   => Auth::user()->id,
-		  'slug'      => $slug,
 		  'title'     => $request->title,
 		  'subtitle'  => $request->subtitle,
 		  'content'   => $request->content,
@@ -218,6 +217,9 @@ class ArticleController extends Controller {
 		  'user_id' => Auth::user()->id,
 		  'message' => 'Created article "'.$request->name.'".',
 		  ]);
+
+		Flash::success('Votre article a bien été modifié !');
+		return redirect('articles/view/'.$article->slug);
 	}
 
     public function toggle(Request $request)   
@@ -255,7 +257,7 @@ class ArticleController extends Controller {
 	{
 		return Validator::make($data, [
 		  'title'     => 'required|min:6|max:255',
-		  'subtitle'  => 'required|min:6|max:255',
+		  'subtitle'  => 'max:255',
 		  'content'   => 'required|min:15',
 		  ]);
 	}

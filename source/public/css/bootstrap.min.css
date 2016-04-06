@@ -162,7 +162,7 @@ input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit
 fieldset{
 	border:1px solid #c0c0c0;
 	margin:0 2px;
-	padding:0.35em 0.625em 0.75em
+	padding:0.35em 0.625em 0.75em;
 }
 
 legend{
@@ -2885,7 +2885,7 @@ fieldset{
 	padding:0;
 	margin:0;
 	border:0;
-	min-width:0
+	min-width:0;
 }
 
 legend{
@@ -2897,7 +2897,7 @@ legend{
 	line-height:inherit;
 	color:#2c3e50;
 	border:0;
-	border-bottom:1px solid transparent
+	border-bottom:1px solid transparent;
 }
 
 label{
@@ -9165,4 +9165,14 @@ p.text-danger.inactive {
     top: 8px;
     left: 8px;
     text-indent: 0;
+}
+
+.search-title{
+	font-size:20px;
+	text-align:center;
+	display:inline;
+}
+
+.search-fieldset{
+	/* padding: 0px 10px; */
 }

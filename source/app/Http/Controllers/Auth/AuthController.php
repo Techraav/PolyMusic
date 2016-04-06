@@ -114,24 +114,12 @@ class AuthController extends Controller
             Flash::error('Connexion impossible.');
             return redirect('auth/login');
         }
- 
-        $slug = str_slug(Auth::user()->first_name.'-'.Auth::user()->last_name).'-'.Auth::user()->id;
-        // $slug = str_slug($stringToSlug);
-        // $replacement = ['é' => 'e',
-        //                 'è' => 'e',
-        //                 'ê' => 'e', 
-        //                 'ë' => 'e', 
-        //                 'ù' => 'u', 
-        //                 'à' => 'a', 
-        //                 'ç' => 'c', 
-        //                 'â' => 'a', 
-        //                 'û' => 'u', 
-        //                 'î' => 'i', 
-        //                 'ô' => 'o', ];
-        // foreach ($replacement as $k => $v) {
-        //     $stringToSlug = str_replace($k, $v, $stringToSlug);
-        // }
 
+        $fn = normalizeChars(Auth::user()->first_name);
+        $ln = normalizeChars(Auth::user()->last_name);
+
+        $slug = str_slug($fn .'-'. $ln .'-'. Auth::user()->id);
+        
         $user->update([
             'slug' => $slug,
             ]);

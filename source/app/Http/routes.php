@@ -334,6 +334,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:3'], function(){
 
 // ____________________________________________________________________________________________________
 //
-//                         				ADMIN BACKOFFICE ROUTES
+//                         				SEARCH ROUTES
 // ____________________________________________________________________________________________________
 
+Route::get('courses/search', 'CourseController@search')->name('course.search');
