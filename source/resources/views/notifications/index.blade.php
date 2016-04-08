@@ -19,16 +19,10 @@
 			
 			<ul class="list-group notifications list-hover">
 				@forelse($notifications as $n)
-					<li class="list-group-item {{ $n->new == 1 ? 'new' : '' }}">
+					<a href="{{ url($n->link) }}" class="list-group-item {{ $n->new == 1 ? 'new' : '' }}">
 						<span class="time help-block">{{ date_format(date_create_from_format('Y-m-d H:i:s', $n->created_at), '\- \L\e d/m/Y\, \à H:i') }}</span>
-						@if($n->link != '')
-							<a href="{{ url($n->link) }}">
-						@endif
-								<p>{!! ucfirst($n->message) !!}</p>
-						@if($n->link != '')
-							</a>
-						@endif
-					</li>
+						<p>{!! ucfirst($n->message) !!}</p>
+					</a>
 
 				@empty
 					<li class="list-group-item">Aucune notification.</li>
