@@ -9176,3 +9176,15 @@ p.text-danger.inactive {
 .search-fieldset{
 	/* padding: 0px 10px; */
 }
+
+.search-fieldset .btn-sm{
+	background: #3A3A3A;
+	border-color: #3A3A3A;
+	padding-top: 7px;
+	padding-bottom: 5px;
+}
+
+.list-head{
+	background-color: hsl(0, 0%, 85%);
+	color: #303030;
+}

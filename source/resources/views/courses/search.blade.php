@@ -1,125 +1,114 @@
 @extends('layouts.app')
 
 @section('content')
-	
-		
-	<h1 align="center">Rechercher un cours </h1>
-	<div class="col-lg-6 col-lg-offset-3 search-result">
-	
-	@if(isset($error) && $error === true)
-		<p align="center">Aucun résultat n'a été trouvé. Veuillez recommencer.</p>
 
-	@else
-		@if(isset($courses))
+	<div class="row">
+		<h1 align="center">Rechercher un cours </h1>
+	    <div class="search-fieldset col-lg-6 col-lg-offset-3">
+	      <!-- <h1 class="search-title">Rechercher un cours</h1> -->
+	      <form action="{{ url('courses/search') }}" method="get">
+	        <div class="form-group">
+	          <div class="input-group"> 
+	            <input class="form-control input-sm" name="search" type="text" placeholder="Rechercher un cours..." value="{{$search}}" />
+	            <span class="input-group-btn">
+	              <button class="btn btn-primary btn-sm" type="submit"><span class="{{ glyph('search') }}"></span></button>
+	            </span>       
+	          </div>
+	        </div>
+	      </form>
+	    </div>
+	</div>	
 
-		<h4 class="help-block" align="center">Rechecher selon le jour </h4>
-		<h4 class="help-block" align="center">Jour : {{ ucfirst(day($value)) }}</h4>
-		<br />
-
-		@if($courses->count() > 0)
-			<ul class="list-group">
-				<li align="center" class="list-group-item active">{{ ucfirst(day($value)) }} :</li>
-				<ul class="list-group">
-					@foreach($courses as $c)
-
-						<a title="{{ $c->name }}" align="center" href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{!! cut($c->name, 60) !!}</a>
-
-					@endforeach
-				</ul>
-			</ul>
-		@else
-			<p align="center">Aucun cours ne correspond à votre recherche.</p>
-		@endif
-
-		@elseif(isset($result))
-			@if($search == 'instrument')
-
-				<h4 class="help-block" align="center">Rechecher selon l'instrument </h4>
-				<h4 class="help-block" align="center">Mot(s) clé(s) : {{ $value }}</h4>
-
-				<br />
-
-				<ul class="list-group">
-					<?php $n = 0 ?>
-					@foreach($result as $r)
-						@if($r->courses->count() > 0)
-						<?php $n++ ?>
-						<li align="center" class="list-group-item active">{{ ucfirst($r->name) }} :</li>
-						<ul class="list-group">
-							@foreach($r->courses as $c)
-
-								<a title="{{ $c->name }}" align="center" href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{!! cut($c->name, 60) !!}</a>
-
-							@endforeach
-						</ul>
-						@endif
-					@endforeach
-					@if($n == 0)
-						<p align="center">Aucun cours ne correspond à votre recherche.</p>
-					@endif
-				</ul>
-
-			@elseif($search == 'teacherfn')
-
-				<h4 class="help-block" align="center">Rechecher selon le prénom du professeur </h4>
-				<h4 class="help-block" align="center">Mot(s) clé(s) : {{ $value }}</h4>
-
-				<br />
-
-				<ul class="list-group">
-					<?php $n = 0 ?>
-					@forelse($result as $r)
-						@if($r->courseManaged->count() > 0)
-						<?php $n++ ?>
-						<li align="center" class="list-group-item active">{{ ucfirst($r->first_name).' '.ucfirst($r->last_name) }} :</li>
-						<ul class="list-group">
-							@foreach($r->courseManaged as $c)
-
-								<a title="{{ $c->name }}" align="center" href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{!! cut($c->name, 60) !!}</a>
-
-							@endforeach
-						</ul>
-						@endif
-					@endforeach
-					@if($n == 0)
-						<p align="center">Aucun cours ne correspond à votre recherche.</p>
-					@endif
-				</ul>
+    <div class="row">
+    	<h2 align="center"> Résultats pour &laquo; {{ $search }} &raquo; :</h2>
+    	<br />
 
 
-			@elseif($search == 'teacherln')
+    	<div class="row">
+    		<div class="col-lg-6">
+    			{{-- CoursesTitle --}}
+                <h4 align="center">Cours :</h4>
 
-				<h4 class="help-block" align="center">Rechecher selon le nom de famille du professeur </h4>
-				<h4 class="help-block" align="center">Mot(s) clé(s) : {{ $value }}</h4>
+    			<ul class="list-group">
+    				<!-- <a class="list-group-item"></a> -->
+    				<ul align="center" class="list-group">
+    					@forelse($coursesTitle as $c)
+    						<a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}</a>
+    					@empty
+    						<li class="list-group-item" align="center">-</li>
+    					@endforelse
+    				</ul>
+    			</ul>
+                <br />
 
-				<br />
+    		</div>
+    		<div class="col-lg-6">
+    			{{-- CoursesDay --}}
+                <h4 align="center">Jours : <i>{{ $day === -1 ? '-' : ucfirst(day($day)) }}</i></h4>
 
-				<ul class="list-group">
-					<?php $n = 0 ?>
-					@forelse($result as $r)
-						<?php $n++ ?>
-						@if($r->courseManaged->count() > 0)
-						<li align="center" class="list-group-item active">{{ ucfirst($r->first_name).' '.ucfirst($r->last_name) }} :</li>
-						<ul class="list-group">
-							@foreach($r->courseManaged as $c)
+    			<ul class="list-group">
+<!--     				<li class="list-group-item list-head"></li>
+ -->    				<ul align="center" class="list-group">
+    					@forelse($coursesDay as $c)
+    						<a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}</a>
+    					@empty
+    						<li class="list-group-item" align="center">-</li>
+    					@endforelse
+    				</ul>
+    			</ul>
+                <br />    		
+    		</div>
+    	</div>
 
-								<a title="{{ $c->name }}" align="center" href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{!! cut($c->name, 60) !!}</a>
+    	<div class="row">
+    		<div class="col-lg-6">
+    			{{-- Users --}}
+                <h4 align="center"> Professeurs :</h4>
+                
+    			<ul class="list-group">
+    			<?php $n = 0; ?>
+    				@foreach($users as $u)
+    					@if($u->courses->count() > 0)
+    					<?php $n++; ?>
+		    				<a class="list-group-item list-head" align="center" href="{{ url('users/show/'.$u->slug) }}">{{ $u->first_name.' '.$u->last_name }}</a>
+		    				<ul align="center" class="list-group">
+		    					@foreach($u->courses as $c)
+		    						<a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}</a>
+		    					@endforeach
+		    				</ul>
+		    			@endif
+    				@endforeach
+    				@if($n === 0)
+    					<li class="list-group-item" align="center">-</li>
+    				@endif
 
-							@endforeach
-						</ul>
-						@endif
-					@endforeach
-					@if($n == 0)
-						<p align="center">Aucun cours ne correspond à votre recherche.</p>
-					@endif
-				</ul>
+    			</ul> 
+                <br />
+    		</div>
+    		<div class="col-lg-6">
+    			{{-- Instruments --}}
+                <h4 align="center">Instruments :</h4>
+                
+    			<ul class="list-group">
+    			<?php $n = 0; ?>
+    				@foreach($instruments as $i)
+    					@if($i->courses->count() > 0)
+    					<?php $n++; ?>
+		    				<li align="center" class="list-group-item list-head">{{ ucfirst($i->name) }}</li>
+		    				<ul align="center" class="list-group">
+		    					@foreach($i->courses as $c)
+		    						<a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}</a>
+		    					@endforeach
+		    				</ul>
+		    			@endif
+    				@endforeach
+    				@if($n === 0)
+    					<li class="list-group-item" align="center">-</li>
+    				@endif
 
-
-			@endif
-		@endif
-
-	@endif
-
-	</div>
-
+    			</ul> 
+                <br />
+    		</div>
+    	</div>
+    </div>
 @stop

@@ -49,52 +49,97 @@ class CourseController extends Controller {
 		return view('courses.index', compact('courses', 'allCourses', 'filter'));
 	}
 
+	/**
+	*	Display the result of a search
+	*	
+	* @param $request Request
+	* @return $users 		: users (not banned + teacher or more) matching
+	* @return $instruments	: instrument matching
+	* @return $coursesDay	: courses matching if the query is a day (numeric or text)
+	* @return $coursesTitle : courses matching (title)
+	*/
 	public function search(Request $request)
 	{
-		if($request->has('day'))
+		$day = -1;
+		$search = $request->search;
+		$str = str_replace(' ', '_', $search);
+		$users = [];
+		if(!is_numeric($str))
 		{
-			$search = 'day';
-			$value = $request->day;
-			$courses = Course::where('day', $request->day)->get();
-			return view('courses.search', compact('courses', 'search', 'value'));
-		}
-		elseif($request->has('teacherfn'))
-		{
-			$search = 'teacherfn';
-			$value = $request->teacherfn;
-			$str = str_search($value);
-
-			$result = User::where('first_name', 'LIKE', "%$str%")
-							->with(['courses' => function($query) { $query->where('validated', 1)->where('level', 1); }])
+			$users = User::where('level_id', '>', 2)
+							->where('banned', 0)
+							->where('slug', 'LIKE', '%'.$str.'%')
+							->with(['courses' => function($query) { $query->where('level', 1)->where('validated', 1); }])
 							->get();
-			
-			return view('courses.search', compact('result', 'search', 'value'));
-		}
-		elseif($request->has('teacherln'))
+		}	
+		$instruments = Instrument::where('name', 'LIKE', '%'.$search.'%')->with('courses')->get();
+		if(is_numeric($str) && 0 < $str && $str < 7)
 		{
-			$search = 'teacherln';
-			$value = $request->teacherln;
-			$str = str_search($value);
-
-			$result = User::where('last_name', 'LIKE', "%$str%")
-							->with(['courses' => function($query) { $query->where('validated', 1)->where('level', 1); }])
-							->get();
-			
-			return view('courses.search', compact('result', 'search', 'value'));
+			$day = $str;
+			$coursesDay = Course::where('day', $str)->where('active', 1)->get();
 		}
-		elseif($request->has('instrument'))
+		else
 		{
-			$search = 'instrument';
-			$value = $request->instrument;
-			$str = str_search($value);
+			$days = ['lundi', 'mardin', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
+			for ($i=0; $i<7 ; $i++) { 
+				if(strtolower($str) == $days[$i])
+					$day = $i;
+			}
 
-			$result = Instrument::where('name', 'LIKE', "%$str%")->with('courses')->get();
-			
-			return view('courses.search', compact('result', 'search', 'value'));
+			$coursesDay = Course::where('day', $day)->where('active', 1)->get();
 		}
 
-		return view('courses.search', ['error' => true]);
+		$coursesTitle = Course::where('active', 1)->where('name', 'LIKE', '%'.$str.'%')->get();
+
+		return view('courses.search', compact('users', 'instruments', 'coursesDay', 'coursesTitle', 'search', 'day'));
 	}
+
+	// public function search(Request $request)
+	// {
+	// 	if($request->has('day'))
+	// 	{
+	// 		$search = 'day';
+	// 		$value = $request->day;
+	// 		$courses = Course::where('day', $request->day)->get();
+	// 		return view('courses.search', compact('courses', 'search', 'value'));
+	// 	}
+	// 	elseif($request->has('teacherfn'))
+	// 	{
+	// 		$search = 'teacherfn';
+	// 		$value = $request->teacherfn;
+	// 		$str = str_search($value);
+
+	// 		$result = User::where('first_name', 'LIKE', "%$str%")
+	// 						->with(['courses' => function($query) { $query->where('validated', 1)->where('level', 1); }])
+	// 						->get();
+			
+	// 		return view('courses.search', compact('result', 'search', 'value'));
+	// 	}
+	// 	elseif($request->has('teacherln'))
+	// 	{
+	// 		$search = 'teacherln';
+	// 		$value = $request->teacherln;
+	// 		$str = str_search($value);
+
+	// 		$result = User::where('last_name', 'LIKE', "%$str%")
+	// 						->with(['courses' => function($query) { $query->where('validated', 1)->where('level', 1); }])
+	// 						->get();
+			
+	// 		return view('courses.search', compact('result', 'search', 'value'));
+	// 	}
+	// 	elseif($request->has('instrument'))
+	// 	{
+	// 		$search = 'instrument';
+	// 		$value = $request->instrument;
+	// 		$str = str_search($value);
+
+	// 		$result = Instrument::where('name', 'LIKE', "%$str%")->with('courses')->get();
+			
+	// 		return view('courses.search', compact('result', 'search', 'value'));
+	// 	}
+
+	// 	return view('courses.search', ['error' => true]);
+	// }
 
 	/**
 	* Display a listing of the resource.
