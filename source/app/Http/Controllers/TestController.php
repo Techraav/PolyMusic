@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\User;
+use Mail;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -16,10 +17,14 @@ class TestController extends Controller
      */
     public function test(Request $request)
     {
-        dd($request->file('test'));
-        $file = $request->file('test');
-        $ext = $file->getClientOriginalExtension();
-        dd($ext);
+        $msg = $request->test;
+        $user = User::where('email', 'robin.marechal-2@etu.univ-tours.fr')->first();
+
+
+        Mail::raw($msg, function($m) use ($user){
+            $m->from('club@musi.que', 'Your Application');
+            $m->to($user->email, $user->first_name)->subject('Your Reminder!');
+        });
     }
 
     /**

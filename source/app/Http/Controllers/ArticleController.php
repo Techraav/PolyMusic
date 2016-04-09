@@ -92,7 +92,7 @@ class ArticleController extends Controller {
 	*/
 	public function show($slug)
 	{
-		$article = Article::where('slug', $slug)->with('author', 'category', 'images')->first();
+		$article = Article::where('slug', $slug)->with('author', 'category', 'images', 'course', 'band')->first();
 		if(empty($article) || ($article->validated == 0 && (Auth::guest() || Auth::user()->level_id < 3)))
 		{
 		  Flash::error('Cet article n\'existe pas.');

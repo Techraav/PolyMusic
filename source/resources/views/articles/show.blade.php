@@ -11,8 +11,17 @@
 @section('content')
 <div class="jumbotron article">
 	<div class="post-content">
+		@if(!empty($article->course) || !empty($article->band))
+			<div class="belongs-to">
+				@if(!empty($article->course))
+					<p class="text-danger">Cet article est une présentation du cours &laquo; {!! printLink('courses/show'.$article->course->slug, ucfirst($article->course->name)) !!} &raquo;</p>
+				@else
+					<p class="text-danger">Cet article est une présentation du groupe &laquo; {!! printLink('bands/show'.$article->band->slug, ucfirst($article->band->name)) !!} &raquo;</p>
+				@endif
+			</div>
+		@endif
 		<h1 align="center">{{ ucfirst($article->title) }}</h1>
-		@if($article->user_id == Auth::user()->id || Auth::user()->level->level > 3)
+		@if(Auth::check() && ($article->user_id == Auth::user()->id || Auth::user()->level->level > 3))
 			<div class="manage">
 				<button
 						data-link="{{ url('admin/articles/delete') }}"

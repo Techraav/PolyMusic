@@ -9185,6 +9185,15 @@ p.text-danger.inactive {
 }
 
 .list-head{
-	background-color: hsl(0, 0%, 85%);
+	background-color: hsl<(0, 0%, 85%);
 	color: #303030;
+}
+
+.belongs-to p{
+	font-size:14px;
+	font-style:italic;
+}
+
+.belongs-to{
+	margin-left: -45px;
 }
