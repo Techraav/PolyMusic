@@ -5185,7 +5185,7 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 }
 
 .breadcrumb>li+li:before{
-	content:"/\00a0";
+	content:"\203A\00a0";
 	padding:0 5px;
 	color:#cccccc
 }
@@ -9185,7 +9185,7 @@ p.text-danger.inactive {
 }
 
 .list-head{
-	background-color: hsl<(0, 0%, 85%);
+	background-color: hsl(0, 0%, 85%) !important;
 	color: #303030;
 }
 

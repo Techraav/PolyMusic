@@ -14,9 +14,9 @@
 		@if(!empty($article->course) || !empty($article->band))
 			<div class="belongs-to">
 				@if(!empty($article->course))
-					<p class="text-danger">Cet article est une présentation du cours &laquo; {!! printLink('courses/show'.$article->course->slug, ucfirst($article->course->name)) !!} &raquo;</p>
+					<p class="text-danger">Cet article est une présentation du cours &laquo; {!! printLink('courses/show/'.$article->course->slug, ucfirst($article->course->name)) !!} &raquo;</p>
 				@else
-					<p class="text-danger">Cet article est une présentation du groupe &laquo; {!! printLink('bands/show'.$article->band->slug, ucfirst($article->band->name)) !!} &raquo;</p>
+					<p class="text-danger">Cet article est une présentation du groupe &laquo; {!! printLink('bands/show/'.$article->band->slug, ucfirst($article->band->name)) !!} &raquo;</p>
 				@endif
 			</div>
 		@endif
