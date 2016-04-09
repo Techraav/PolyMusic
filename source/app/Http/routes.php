@@ -127,29 +127,25 @@ Route::get('articles', function(){
 //                         					BAND ROUTES
 // ____________________________________________________________________________________________________
 
-Route::get('bands/show/{slug}', 'BandController@show')	->name('bands.show');
-Route::get('bands', function()
-{
-	return view('errors.incoming');
+Route::group(['prefix' => 'bands', 'middleware' => 'incoming'], function(){
+	Route::get('/', 'BandController@index')->name('bands.index');
+	Route::get('show/{slug}', 'BandController@show')	->name('bands.show');
 });
-
 
 // ____________________________________________________________________________________________________
 //
 //                         					EVENT ROUTES
 // ____________________________________________________________________________________________________
 
-Route::get('events', function()
-{
-	return view('errors.incoming');
+Route::group(['prefix' => 'events', 'middleware' => 'incoming'], function(){
+	Route::get('/', 'EventController@index')->name('events.index');
+	Route::get('edit/{id}', 'EventController@edit')->name('events.edit')->middleware('level:2');
+	// Route::get('show/{slug}')
+	Route::get('manage/{id}', 'EventController@manage')->name('events.manage')->middleware('level:2');
+
+	Route::post('delete', 'EventController@destroy')->name('events.destroy')->middleware('level:2');
+	Route::post('edit/{id}', 'EventController@update')->name('events.update')->middleware('level:2');
 });
-
-Route::get('events/edit/{id}', 'EventController@edit')->name('events.edit')->middleware('level:2');
-// Route::get('events/show/{slug}')
-Route::get('events/manage/{id}', 'EventController@manage')->name('events.manage')->middleware('level:2');
-
-Route::post('events/delete', 'EventController@destroy')->name('events.destroy')->middleware('level:2');
-Route::post('events/edit/{id}', 'EventController@update')->name('events.update')->middleware('level:2');
 
 
 //====================================================================================================================================
