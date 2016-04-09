@@ -146,7 +146,7 @@
 										<i>Aucun document pour le moment.</i>
 									@endforelse
 									</div>
-								<div class="link-all" align="right"><a class="all" href="{{ url('articles/view/'.$course->slug.'/documents') }}">Voir plus de documents </a>	</div>				
+								<div class="link-all" align="right"><a class="all" href="{{ url('courses/'.$course->slug.'/documents') }}">Voir plus de documents </a>	</div>				
 							</div>
 						@endif
 					@endif

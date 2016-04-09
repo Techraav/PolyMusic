@@ -12,7 +12,7 @@
 @section('content')
 
 <div class="container">
-    <div class="content">
+    <div class="content404">
         <h1 class="title">404</h1>
         <h2 class="subtitle">Oops, Something's wrong...</h2>
     </div>
@@ -20,7 +20,7 @@
 <style>
 
 
-    .content {
+    .content404 {
         text-align: center;
         display: block;
     }

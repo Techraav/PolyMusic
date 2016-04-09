@@ -29,7 +29,7 @@
 	            			@if($user->id == Auth::user()->id)
 	            				<div class="form-group">            					
 	            					<br/>            					
-	            						{!! printFileInput('profil_picture', ['png','jpeg','jpg'], false, ['accept' => 'image/png, image/jpeg'], 'Formats acceptés: PNG et JPEG', []) !!}							
+	            						{!! printFileInput('profil_picture', ['png','jpeg','jpg'], false, ['accept' => 'image/png, image/jpeg'], 'Formats acceptés: PNG et JPEG') !!}							
 	            				</div>
             				@endif
 
@@ -137,3 +137,4 @@
 		CKEDITOR.replace( 'description' );
 	</script>
 @stop
+

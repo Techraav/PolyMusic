@@ -5185,7 +5185,7 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 }
 
 .breadcrumb>li+li:before{
-	content:"\203A\00a0";
+	content:"\203A";
 	padding:0 5px;
 	color:#cccccc
 }
@@ -6352,15 +6352,15 @@ a.list-group-item-danger.active,button.list-group-item-danger.active,a.list-grou
 	color:#000000;
 	text-shadow:none;
 	opacity:0.2;
-	filter:alpha(opacity=20)
+	filter:alpha(opacity=20);
 }
 
 .close:hover,.close:focus{
-	color:#000000;
+	color: #2C3E50;
 	text-decoration:none;
 	cursor:pointer;
 	opacity:0.5;
-	filter:alpha(opacity=50)
+	filter:alpha(opacity=50);
 }
 
 button.close{
@@ -7527,14 +7527,14 @@ table-bordered>thead>tr>th,.table-bordered>thead>tr>th,table-bordered>tbody>tr>t
 }
 
 .close{
-	color:#fff;
+	color: #2C3E50;
 	text-decoration:none;
-	opacity:0.4
+	opacity:0.4;
 }
 
 .close:hover,.close:focus{
-	color:#fff;
-	opacity:1
+	/* color: #2C3E50; */
+	opacity:1;
 }
 
 .alert .alert-link{
@@ -7832,7 +7832,6 @@ li.modif-0::before, li.modif-3::before, li.modif-4::before {
 	font-weight:bold;
 	margin-right:5px;
 	font-size:14px;
-	text-
 }
 
 li.modif-1::before, li.modif-2::before, li.modif-5::before{
@@ -8206,7 +8205,7 @@ form>.buttons button{
   color: gray;
 }
 
-.glyphicon:not(.btn-file){
+.glyphicon:not(.btn-file-custom){
     background:none;
     border:none;
 }
@@ -8405,7 +8404,7 @@ a.glyphicon:hover, button.glyphicon:hover{
 	width:400px !important;
 }
 
-button.glyphicon:not(.btn-file), table td.manage a{
+button.glyphicon:not(.btn-file-custom), table td.manage a{
 	color:gray;
 	opacity:0.6;
 	text-decoration: none;
@@ -8638,7 +8637,7 @@ iframe {
     overflow: hidden;
 }
 
-.btn-file{
+.btn-file-custom{
 	/* position:relative; */
 	background: #DCE4EC !important;
 }
@@ -8652,7 +8651,7 @@ iframe {
 	border-left-width: 50px;
 }
 
-.btn-file {
+.btn-file-custom {
     left: -64px;
     top: -11px;
     height: inherit;
@@ -9185,7 +9184,7 @@ p.text-danger.inactive {
 }
 
 .list-head{
-	background-color: hsl(0, 0%, 85%) !important;
+	background-color: hsl<(0, 0%, 85%);
 	color: #303030;
 }
 

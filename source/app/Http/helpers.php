@@ -16,7 +16,7 @@
 		return $data;
 	}
 
-	function printFileInput($name, array $ext, $required=false, array $addAttr=[], $msg=false, array $classes=[])
+	function printFileInputOld($name, array $ext, $required=false, array $addAttr=[], $msg=false, array $classes=[])
 	{
 		$str = "[";
 		foreach ($ext as $e) {
@@ -43,7 +43,7 @@
 		$class .= '"';
 
 		$div 	=	'<div class="form-control file-control">';
-		$btn 	=	'<button onclick="clickFile()" type="button" class="btn-file glyphicon glyphicon-folder-open">';
+		$btn 	=	'<button onclick="clickFile()" type="button" class="btn-file-custom glyphicon glyphicon-folder-open">';
 		$inp 	=	'<input '. ($required ? 'required' : '') .' onchange="fileInput(this)" data-extension="'.$str.'" '.$attr.' '.$class.' type="file" id="file" name="'.$name.'" />';
 		$ebtn 	=	'</button>';
 		$cb 	=	'<input type="checkbox" name="check" id="file-check" hidden />';
@@ -53,6 +53,35 @@
 		$msg 	= 	!$msg ? '' : '<span class="help-block help-file"><i>'.$msg.'</i></span>';
 
 		return $div.$btn.$inp.$ebtn.$cb.$fname.$exit.$ediv.$msg;
+	}
+
+	function printFileInput($name, array $ext, $required=false, array $addAttr=[], $msg=false, array $classes=[], $multiple=false)
+	{
+		$str = "[";
+		foreach ($ext as $e) {
+			$str .= "'$e', ";
+		}
+		$str = substr($str, 0, strlen($str)-2);	
+		$str .= ']';
+
+		$attr = '';
+		if(!empty($addAttr)) {
+			foreach ($addAttr as $k => $v) {
+				$attr .= $k.'="'.$v.'"  ';
+			}
+			$attr = substr($attr, 0, strlen($attr)-2);
+		}
+
+		$class = '';
+		if(!empty($classes)){
+			foreach($classes as $c)
+			{
+				$class .= ' '.$c;
+			}
+		}
+
+		return '<input id="input-id" data-extension="'.$str.'" '.$attr.' '.($required ? 'required' : '').' '.($multiple ? 'multiple data-max-files="'.$multiple.'"' : '').' type="file" name="'.$name.'" class="file '.$class.'" data-preview-file-type="text">';
+
 	}
 
 	function cut($str, $n, $link=false)

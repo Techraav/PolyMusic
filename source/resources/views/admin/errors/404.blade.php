@@ -12,7 +12,7 @@
 @section('content')
 
 <div class="container">
-    <div class="content">
+    <div class="content404">
         <div class="title">404</div>
     </div>
 </div>
@@ -37,7 +37,7 @@
         vertical-align: middle;
     }
 
-    .content {
+    .content404 {
         text-align: center;
         display: inline-block;
     }

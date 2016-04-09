@@ -13,12 +13,21 @@
 
 <div class="container">
 
-	{!! Form::open(['files' => true]) !!}
 		<div class="form-group col-lg-8 col-lg-offset-2">
-			<input name="test" />
-			{!! Form::submit() !!}
+	{!! printFileInput('profil_picture', ['png','jpeg','jpg'], false, ['accept' => 'image/png, image/jpeg'], 'Formats acceptés: PNG et JPEG', [], true) !!}
 		</div>		
-	{!! Form::close() !!} 
 </div>
+
+
+
 @stop
+
+@section('headerjs')
+<script type="text/javascript">
+	$("#input-id").fileinput();
+	$.fn.fileinput.defaults.showUpload = false;
+</script>
+@stop
+
+
 
