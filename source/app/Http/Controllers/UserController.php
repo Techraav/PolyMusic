@@ -90,7 +90,7 @@ class UserController extends Controller {
 			$clientName = $file->getClientOriginalName();
 		}
 
-		if($clientName != '' && isset($request->check))
+		if($clientName != '')
 		{
 			$ext = $file->getClientOriginalExtension();
 			$destPath = public_path().'/img/profil_pictures';
@@ -114,9 +114,6 @@ class UserController extends Controller {
 			]);
 
 		Flash::success('Les informations ont bien été modifiées.');
-
-		makeModification('users', ucfirst($user->first_name).' '.ucfirst($user->last_name).' updated his information');
-
 		return redirect('users/'.$user->slug);
 	}
 

@@ -22,12 +22,5 @@
 
 @stop
 
-@section('headerjs')
-<script type="text/javascript">
-	$("#input-id").fileinput();
-	$.fn.fileinput.defaults.showUpload = false;
-</script>
-@stop
-
 
 

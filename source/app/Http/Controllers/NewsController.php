@@ -2,6 +2,7 @@
 
 use DB;
 use App\News;
+use App\user;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -39,6 +40,32 @@ class NewsController extends Controller {
     $news = News::orderBy('published_at', 'desc')->with('author')->paginate(15);
     return view('admin.news.index', compact('news'));
   }
+
+  public function search(Request $request)
+  {
+      $search = $request->search;
+      $str = str_replace(' ', '_', $search);
+      $users = [];
+      if(!is_numeric($str))
+      {
+          $users = User::where('level_id', '>', 2)
+                          ->where('banned', 0)
+                          ->where('slug', 'LIKE', '%'.$str.'%')
+                          ->with('articles')
+                          ->get();
+      }   
+
+      if(Auth::user()->level_id > 3){
+          $news = News::where('title', 'LIKE', '%'.$str.'%')->get();
+      }
+      else
+      {
+          $news = News::where('active', 1)->where('title', 'LIKE', '%'.$str.'%')->get();
+      }
+
+      return view('news.search', compact('users', 'news', 'search'));
+  }
+
 
   public function validated($value)
   {
@@ -128,7 +155,7 @@ class NewsController extends Controller {
   public function edit($slug)
   {
     $news = News::where('slug', $slug)->with('author')->first();
-    if(empty($news) || $news->active == 0)
+    if(empty($news))
     {
       Flash::error('Cette news n\'existe pas.');
       return redirect('news/index');
@@ -178,6 +205,7 @@ class NewsController extends Controller {
       'content' => $content,
       'user_id' => Auth::user()->id,
       'published_at'  => $request->date,
+      'active'  => isset($request->active) ? 1 : 0,
       ]);
 
     $slug = $news->slug;
@@ -212,6 +240,7 @@ class NewsController extends Controller {
       'user_id' => Auth::user()->id,
       'slug' => $slug,
       'published_at'  => $request->date,
+      'active'  => isset($request->active) ? 1 : 0,
       ]);
 
     Flash::success('La news a bien été modifiée ! ');

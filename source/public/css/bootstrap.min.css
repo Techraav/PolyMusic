@@ -5815,7 +5815,8 @@ to{
 }
 
 a.list-group-item,button.list-group-item{
-	color:#555555
+	color:#555555;
+	position: relative;
 }
 
 a.list-group-item .list-group-item-heading,button.list-group-item .list-group-item-heading{
@@ -9161,8 +9162,8 @@ p.text-danger.inactive {
     font-style:italic;
     font-size:13px;
     position:absolute;
-    top: 8px;
-    left: 8px;
+    top: 4px;
+    left: 4px;
     text-indent: 0;
 }
 
@@ -9196,4 +9197,14 @@ p.text-danger.inactive {
 
 .belongs-to{
 	margin-left: -45px;
+}
+
+span.unvalidated{
+	color: #e74c3c;
+	font-size: 12px;
+	font-style: italic;
+	position: absolute;
+	top: 1px;
+	right: 4px;
+	text-align: right;
 }

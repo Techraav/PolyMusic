@@ -20,9 +20,9 @@
           @empty
             <li class="list-group-item"><p>Pas de news pour le moment.</p></li>                  
           @endforelse
-<!--                   @if(Auth::check() && Auth::user()->level->level >= 1)
+{{--      @if(Auth::check() && Auth::user()->level->level >= 1)
             <li class="list-group-item"></li>
-          @endif -->
+          @endif --}}
         </ul>
 
 

@@ -1,4 +1,4 @@
-function modalToggle(id, link, action, msg)
+function modalToggle(el)
 {
 	var id = el.getAttribute('id');
 	var link = el.getAttribute('link');

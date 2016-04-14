@@ -41,7 +41,7 @@
                 <div class="col-md-8 col-md-offset-2">
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" checked required>Active
+                        <input type="checkbox" checked>Active
                       </label>
                     </div>
                 </div>

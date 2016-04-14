@@ -5,7 +5,6 @@
 @stop
 
 @section('breadcrumb')
-    <li> <a href="{{ url('users') }}">Utilisateurs</a></li>
     <li class="active">{{ $user->first_name }} {{ $user->last_name }}</li>
 @stop
 

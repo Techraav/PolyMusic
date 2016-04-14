@@ -25,6 +25,25 @@
 		@endif
 	</div>
 		<br />
+
+	<div class="row">
+		<h1 align="center">Rechercher une news </h1>
+	    <div class="search-fieldset col-lg-6 col-lg-offset-3">
+	      <!-- <h1 class="search-title">Rechercher un cours</h1> -->
+	      <form action="{{ url('news/search') }}" method="get">
+	        <div class="form-group">
+	          <div class="input-group"> 
+	            <input class="form-control input-sm" name="search" type="text" placeholder="Titre, auteur..." />
+	            <span class="input-group-btn">
+	              <button class="btn btn-primary btn-sm" type="submit"><span class="{{ glyph('search') }}"></span></button>
+	            </span>       
+	          </div>
+	        </div>
+	      </form>
+	    </div>
+	</div>
+
+
 	<h1 align="center">Liste des news </h1>
 	<br />
 

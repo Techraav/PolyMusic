@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+@section('title')
+    Rechercher un cours
+@stop
+
+@section('breadcrumb')
+    <li> <a href="{{ url('courses/list') }}">Cours</a></li>
+    <li class="active">Recherche</li>
+@stop
+
 @section('content')
 
 	<div class="row">
@@ -33,7 +42,11 @@
     				<!-- <a class="list-group-item"></a> -->
     				<ul align="center" class="list-group">
     					@forelse($coursesTitle as $c)
-    						<a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}</a>
+    						<a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}
+                            @if ($c->active == 0)
+                                <span class="unvalidated">Non validé</span>
+                            @endif
+                            </a>
     					@empty
     						<li class="list-group-item" align="center">-</li>
     					@endforelse
@@ -50,7 +63,11 @@
 <!--     				<li class="list-group-item list-head"></li>
  -->    				<ul align="center" class="list-group">
     					@forelse($coursesDay as $c)
-    						<a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}</a>
+    						<a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}
+                            @if ($c->active == 0)
+                                <span class="unvalidated">Non validé</span>
+                            @endif
+                            </a>
     					@empty
     						<li class="list-group-item" align="center">-</li>
     					@endforelse
@@ -73,7 +90,11 @@
 		    				<a class="list-group-item list-head" align="center" href="{{ url('users/show/'.$u->slug) }}">{{ $u->first_name.' '.$u->last_name }}</a>
 		    				<ul align="center" class="list-group">
 		    					@foreach($u->courses as $c)
-		    						<a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}</a>
+		    						<a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}
+                                    @if ($c->active == 0)
+                                        <span class="unvalidated">Non validé</span>
+                                    @endif
+                                    </a>
 		    					@endforeach
 		    				</ul>
 		    			@endif
@@ -97,7 +118,11 @@
 		    				<li align="center" class="list-group-item list-head">{{ ucfirst($i->name) }}</li>
 		    				<ul align="center" class="list-group">
 		    					@foreach($i->courses as $c)
-		    						<a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}</a>
+		    						<a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}
+                                    @if ($c->active == 0)
+                                        <span class="unvalidated">Non validé</span>
+                                    @endif
+                                    </a>
 		    					@endforeach
 		    				</ul>
 		    			@endif

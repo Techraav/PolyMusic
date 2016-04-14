@@ -11,7 +11,18 @@
 
 @section('content')
 		<blockquote class="comment frame-news col-lg-10 col-lg-offset-1">
-			<h2><a title="Cliquez pour voir la news en entier" href="{{ url('news/view/'.$news['slug']) }}"> {{ucfirst($news->title)}}</a>{!! $active ? '' : '<p class="text-danger inactive" title="Cette news n\'est pas publique">(invalidée)</p>' !!}</h2>
+			<h2>{{$news->title}}</h2>                         
+			@if ($news->active == 0 || $news->published_at > date('Y-m-d'))
+                <p class="text-danger inactive">
+                    @if($news->published_at > date('Y-m-d'))
+                        Publiée le {{ showDate($news->published_at, 'Y-m-d', 'd/m/Y') }}<br />
+                    @endif
+                    @if ($news->active == 0)
+                        Inactive 
+                    @endif
+                </p>
+            @endif
+			
 				@if(Auth::check() && Auth::user()->level_id >= 3)
 					<div class="manage">
 						@if($news->active == 1)
@@ -35,7 +46,7 @@
 									class="{{ glyph('ok') }}">
 							</button>
 						@endif
-						<a class="glyphicon glyphicon-pencil" href="{{ url('admin/news/edit/'.$news['slug']) }}"></a>				
+						<a class="glyphicon glyphicon-pencil" href="{{ url('admin/news/edit/'.$news->slug) }}"></a>				
 						<button 
 								data-id="{{ $news->id }}" 
 								data-link="{{ url('admin/news/delete') }}" 

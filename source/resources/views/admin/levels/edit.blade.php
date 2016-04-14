@@ -4,6 +4,11 @@
 	modifier un niveau
 @stop
 
+@section('breadcrumb')
+    <li> <a href="{{ url('admin') }}">Administration</a></li>
+    <li class="active">Levels</li>
+@stop
+
 @section('content')
 
 	@include('admin.levels.infos')

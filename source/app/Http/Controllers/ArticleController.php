@@ -4,6 +4,7 @@ use App\Article;
 use App\Image;
 use App\Modification;
 use App\Category;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Validator;
@@ -38,6 +39,31 @@ class ArticleController extends Controller {
             
         return view('articles.index', compact('articles', 'category'));
     }
+
+	public function search(Request $request)
+	{
+		$search = $request->search;
+		$str = str_replace(' ', '_', $search);
+		$users = [];
+		if(!is_numeric($str))
+		{
+			$users = User::where('level_id', '>', 2)
+							->where('banned', 0)
+							->where('slug', 'LIKE', '%'.$str.'%')
+							->with('articles')
+							->get();
+		}	
+
+		if(Auth::user()->level_id > 3){
+			$articles = Article::where('title', 'LIKE', '%'.$str.'%')->get();
+		}
+		else
+		{
+			$articles = Article::where('validated', 1)->where('title', 'LIKE', '%'.$str.'%')->get();
+		}
+
+		return view('articles.search', compact('users', 'articles', 'search'));
+	}
 
 	/**
 	* Display a listing of the resource.

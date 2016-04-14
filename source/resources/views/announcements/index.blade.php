@@ -22,8 +22,26 @@
 		<hr class="colorgraph" />
 		<p>Pour créer une annonce : <a href="{{url('announcements/create')}}" title="Créer une annonce">Cliquez ici !</a></p>		
 	</div>
+
 	<div class="row">
-		<div align="center" class="col-lg-4 col-lg-offset-4">
+		<h3 align="center">Rechercher un article </h3>
+	    <div class="search-fieldset col-lg-6 col-lg-offset-3">
+	      <!-- <h1 class="search-title">Rechercher un cours</h1> -->
+	      <form action="{{ url('announcements/search') }}" method="get">
+	        <div class="form-group">
+	          <div class="input-group"> 
+	            <input class="form-control input-sm" name="search" type="text" placeholder="titre, auteur..."/>
+	            <span class="input-group-btn">
+	              <button class="btn btn-primary btn-sm" type="submit"><span class="{{ glyph('search') }}"></span></button>
+	            </span>       
+	          </div>
+	        </div>
+	      </form>
+	    </div>
+	</div>
+
+	<div class="row">
+		<div align="center" class="col-lg-6 col-lg-offset-3">
 			<h3 class="control-label">Fitlrer par catégorie :</h3>
 			<select class="form-control" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
 				<option disabled selected>Sélectionnez une catégorie...</option>

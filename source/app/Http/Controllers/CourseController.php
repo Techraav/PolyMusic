@@ -173,7 +173,40 @@ class CourseController extends Controller {
 		return view('admin.courses.index', compact('courses', 'instrument'));
 	}
 
-	public function documents($id)
+	public function documents($slug)
+	{
+		$course = Course::where('slug', $slug)
+						->with([
+							'users' => function($query){ $query->where('validated', 1)->where('level', 0); },
+							'teachers' => function($query){ $query->where('level', 1)->where('validated', 1); }
+								])
+						->first();
+		if(empty($course))
+		{
+			Flash::error('Ce cours n\'existe pas !');
+			abort(404);		
+		}
+			
+		$isTeacher = $course->teachers->contains(Auth::user());
+		if(Auth::user()->id != $course->user_id && !$isTeacher && $course->active == 0)
+		{
+			Flash::error('Vous n\'avez pas accès à ce contenu.');
+			return Redirect::back();
+		}
+
+		if(Auth::user()->id == $course->user_id || $isTeacher)
+		{
+			$documents = Document::where('course_id', $course->id)->with('author')->paginate(10);
+		}
+		else
+		{
+			$documents = Document::where('course_id', $course->id)->validated()->paginate(10);
+		}
+
+		return view('courses.documents', compact('course', 'documents'));
+	}
+
+	public function adminDocuments($id)
 	{
 		$course = Course::with(['users' => function($query){ $query->where('level', 1);}, 'manager'])->find($id);
 

@@ -35,7 +35,7 @@
                     <textarea class="form-control" rows="10" name="content" required>{{ $news['content'] }}</textarea>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" checked required>Active
+                            <input type="checkbox" name="active" {{ $news->active == 0 ? '' : 'checked' }}>Active
                         </label>
                     </div>
                 </div>

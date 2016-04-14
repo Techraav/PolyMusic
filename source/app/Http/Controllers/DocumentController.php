@@ -98,7 +98,7 @@ class DocumentController extends Controller
     public function store(Request $request)
     {
         $validator = $this->validator($request->all());
-        if($validator->fails() || !isset($request->check))
+        if($validator->fails())
         {
             Flash::error('Impossible d\'ajouter le document, veuillez vérifier les champs renseignés, ainsi que le format de votre document.');
             return Redirect::back()->withErrors($validator->errors());
@@ -116,7 +116,6 @@ class DocumentController extends Controller
             $description = $request->description;
             $user_id = Auth::user()->id;
             $course_id = $request->course_id;
-            $validated = isset($request->validated) ? 1 : 0;
 
             Document::create([
                 'title'         => $title,
@@ -124,7 +123,6 @@ class DocumentController extends Controller
                 'description'   => $description,
                 'course_id'     => $course_id,
                 'user_id'       => $user_id,
-                'validated'     => $validated
                 ]);
 
             Flash::success('Le document a bien été ajouté.');
@@ -141,7 +139,7 @@ class DocumentController extends Controller
         return Validator::make($data, [
             'title'         => 'required|min:3|max:100',
             'description'   => 'max:255',
-            'file'          => 'required|mimes:pdf'
+            'file'          => 'mimes:pdf'
             ]);
     }
 

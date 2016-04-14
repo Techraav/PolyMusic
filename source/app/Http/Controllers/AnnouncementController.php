@@ -2,6 +2,7 @@
 
 use App\Announcement;
 use App\Comment;
+use App\User;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -38,6 +39,31 @@ class AnnouncementController extends Controller {
         }
             
         return view('announcements.index', compact('announcements', 'category'));
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        $str = str_replace(' ', '_', $search);
+        $users = [];
+        if(!is_numeric($str))
+        {
+            $users = User::where('level_id', '>', 2)
+                            ->where('banned', 0)
+                            ->where('slug', 'LIKE', '%'.$str.'%')
+                            ->with('articles')
+                            ->get();
+        }   
+
+        if(Auth::user()->level_id > 3){
+            $announcements = Announcement::where('title', 'LIKE', '%'.$str.'%')->get();
+        }
+        else
+        {
+            $announcements = Announcement::where('validated', 1)->where('title', 'LIKE', '%'.$str.'%')->get();
+        }
+
+        return view('announcements.search', compact('users', 'announcements', 'search'));
     }
 
     public function adminIndex($category = false)

@@ -88,6 +88,7 @@ Route::get('courses', function()
 Route::get('courses/list', 'CourseController@index')			->name('course.index');
 Route::get('courses/list/{filter}/{value}', 'CourseController@index')			->name('course.indexFiltered');
 Route::get('courses/show/{slug}', 'CourseController@show')	->name('course.show');
+Route::get('courses/{slug}/documents', 'CourseController@documents')	->name('course.documents') ->middleware('auth');
 
 Route::post('courses/{slug}', 'CourseController@toggleSignUp')	->name('course.togglesignup');
 Route::post('courses/user/management', 'CourseController@userManagement')->name('course.userManagement');
@@ -247,7 +248,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:3'], function(){
 	Route::get('courses/delete/{slug}', 	'CourseController@delete')		->name('courses.delete');
 	Route::get('courses/{slug}/members',	'CourseController@members')		->name('courses.members');
 	Route::get('courses/instrument/{id}', 	'CourseController@instrument')	->name('courses.ofInstrument');
-	Route::get('courses/{id}/documents', 	'CourseController@documents')	->name('courses.documents');
+	Route::get('courses/{id}/documents', 	'CourseController@adminDocuments')	->name('courses.documents');
 	Route::get('courses/{id}/documents/validation/{value}', 	'CourseController@documentsValidated')	->name('courses.docsValidated');
 
 	// COURSES : POST
@@ -333,4 +334,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:3'], function(){
 //                         				SEARCH ROUTES
 // ____________________________________________________________________________________________________
 
-Route::get('courses/search', 'CourseController@search')->name('course.search');
+Route::get('courses/search', 'CourseController@search')				->name('course.search');
+Route::get('articles/search', 'ArticleController@search')			->name('articles.search');
+Route::get('announcements/search', 'AnnouncementController@search')	->name('announcements.search');
+Route::get('news/search', 'NewsController@search')					->name('news.search');
+Route::get('admin/users/search', 'UserController@search')			->name('users.search');
