@@ -39,7 +39,7 @@
 		<tbody>
 			@forelse($events as $e)
 				<tr>
-					<td align="center">{{ ucfirst(printDay($e->day, true)) }} {{ showDate($e->date, 'Y-m-d', 'd/m/Y') }}</td>
+					<td align="center">{{ ucfirst(printDay($e->day, true)) }} {{ $e->date->format('d/m/Y') }}</td>
 					<td>{!! printUserLinkV2($e->manager) !!}</td>
 					<td><a href="{{ url('events/manage/'.$e->id) }}">{{ $e->name }}</a>
 						&nbsp;

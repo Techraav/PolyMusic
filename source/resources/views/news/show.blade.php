@@ -15,7 +15,7 @@
 			@if ($news->active == 0 || $news->published_at > date('Y-m-d'))
                 <p class="text-danger inactive">
                     @if($news->published_at > date('Y-m-d'))
-                        Publiée le {{ showDate($news->published_at, 'Y-m-d', 'd/m/Y') }}<br />
+                        Publiée le {{ $news->published_at->format('d/m/Y') }}<br />
                     @endif
                     @if ($news->active == 0)
                         Inactive 

@@ -43,7 +43,7 @@
 		<tbody>
 			@forelse($documents as $d)
 				<tr>
-					<td align="center">{{ showDate($d->created_at, 'Y-m-d H:i:s', 'd/m/Y') }}</td>
+					<td align="center">{{ $d->created_at->format('d/m/Y') }}</td>
 					<td>{!! printUserLinkV2($d->author) !!}</td>
 					<td>{!! printLink('courses/show/'.$d->course->slug, ucfirst($d->course->name)) !!}</td>
 					<td>{!! printLink('files/documents/'.$d->name, ucfirst($d->title), ['target'	=> '_blank']) !!}</td>

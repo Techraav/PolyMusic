@@ -7,7 +7,7 @@
 @section('breadcrumb')
     <li> <a href="{{ url('admin') }}">Administration</a></li>
     <li> <a href="{{ url('admin/courses') }}">Cours</a></li>
-    <li> <a href="{{ url('courses/show/'.$course->slug) }}">ucfirst($course->name)</a></li>
+    <li> <a href="{{ url('courses/show/'.$course->slug) }}">{{ucfirst($course->name)}}</a></li>
     <li class="active">Membres</li>
 @stop
 

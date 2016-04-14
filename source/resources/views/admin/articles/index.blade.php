@@ -48,7 +48,7 @@
 		<tbody>
 			@forelse($articles as $a)
 				<tr>
-					<td align="center">{{ showDate($a->created_at, 'Y-m-d H:i:s', 'd/m/Y') }}</td>
+					<td align="center">{{ $a->created_at->format('d/m/Y') }}</td>
 					<td>{!! printUserLinkV2($a->author) !!}</td>
 					<td><a href="{{ url('articles/view/'.$a->slug) }}">{{ ucfirst($a->title) }}</a></td>
 					<td align="center"><a href="{{ url('admin/articles/category/'.$a->category->id) }}">{{ ucfirst($a->category->name) }}</a></td>

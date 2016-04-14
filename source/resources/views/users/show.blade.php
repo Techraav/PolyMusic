@@ -11,62 +11,83 @@
 
 @section('content')
 <div class="jumbotron">
-	<div class="row">
-		<div class="profile">
+	<div class="profile">
+		<div class="row">
 			<h1 align="center">{{ $user->first_name}} {{ $user->last_name }}</h1>
 			<br/>
 
-			@if($user->id == Auth::user()->id || Auth::user()->level->level > 3)
-				<div class="manage-user">
-					<a href="{{ url('users/edit/'.$user->slug) }}" class="btn-edit glyphicon glyphicon-pencil"></a>
+			@if(Auth::check() && ($user->id == Auth::user()->id || Auth::user()->level->level > 4))
+				<div class="manage-user manage">
+					<a title="{{ $user->id != Auth::user()->id ? 'Modifier ce profil' : 'Modifier votre profil' }}" href="{{ url('users/edit/'.$user->slug) }}" class="btn-edit glyphicon glyphicon-pencil"></a>
 				</div>					
 			@endif
 
-			<div class="row col-md-5">
+			<div class="col-lg-3 col-lg-offset-1">
 				<div class="profil-pict">
-					<img src=" {{ URL::asset('/img/profil_pictures/'.$user->profil_picture) }} " title="profile picture"/>
-					@if($user->id == Auth::user()->id && $user->profil_picture != "base_profil_picture.png")
-						<button class="glyphicon glyphicon-trash profil-pict-remove delete-button" type="button" data-id="{{ $user->id }}" data-link="{{url("users/image/remove")}}"></button>
+					<img onclick="modalPicture(this)" src=" {{ URL::asset('/img/profil_pictures/'.$user->profil_picture) }} " title="Cliquez pour voir l'image en grand"/>
+					@if(Auth::check() && ($user->id == Auth::user()->id && $user->profil_picture != App\User::$defaultImage))
+						<button title="Supprimer la photo de profile" class="glyphicon glyphicon-trash profil-pict-remove delete-button" type="button" data-id="{{ $user->id }}" data-link="{{url("users/image/remove")}}"></button>
 
 					@endif
 				</div>
 			</div>
 
-			<div class="row col-md-7 infos-profile">
+			<div class="col-lg-7 infos-profile">
 				<table>
 					<tbody>
 						<tr>
-							<td>Adresse e-mail :</td>
-							<td>{{ $user -> email }}</td>
-						</tr>
-						<tr>
 							<td width="250">Date de naissance :</td>
-							<td>{{ showDate($user -> birth_date, 'Y-m-j', 'j/m/Y') }}</td>
+							<td>{{ $user->birth_date->format('d/m/Y') }}</td>
 						</tr>						
 						<tr>
 							<td>Année d'étude :</td>
-							<td>{{ $user->school_year == 0 ? 'Autre' : ($user->school_year == 1 || $user->school_year == 2 ? 'PeiP '.$user->school_year : $user->school_year.'ème année')}}</td>
+							<td>{!! $user->school_year == 0 ? 'Non renseigné' : ($user->school_year == 1 || $user->school_year == 2 ? 'PeiP '.$user->school_year : $user->school_year.'<sup>ème</sup> année')!!}</td>
 						</tr>
 						<tr>
 							<td>Département :</td>
-							<td>{{ App\Department::where('id', $user -> department_id)->first()->name }}</td>
+							<td>{{ $user->department_id == 1 || $user->department_id == 2 ? 'Non renseigné' : ucfirst($user->department->name).' ('.$user->department->short_name.')' }}</td>
 						</tr>
-						@if(Auth::user()->id == $user->id)
+						@if(Auth::check() && Auth::user()->level_id > 2 && $user->phone != '')
 							<tr>
 								<td>Téléphone :</td>
 								<td>{{ $user->phone }}</td>
 							</tr>
-						@endif				
+						@endif
+
+						@if(Auth::check())
+						<tr>
+							<td>Adresse e-mail :</td>
+							<td>{{ $user->email }}</td>
+						</tr>
+						@endif
+
+						@if($user->level_id > 2)
+						<tr>
+							<td>Statut :</td>
+							<td>{{ ucfirst($user->level->name) }}</td>
+						</tr>
+						@endif
+
+						<tr>
+							<td>Membre depuis le :</td>
+							<td>{{ $user->created_at->format('d/m/Y') }}</td>
+						</tr>
+
+
+
 					</tbody>
 				</table>
 			</div>
+		</div>
 
-			<div class="row col-md-12">
-				<h2>Description :</h2>
-				<p>
-					{!! $user -> description !!}
-				</p>		
-			</div>
+		<div class="row">
+			<br />
+			<div class="col-lg-10 col-lg-offset-1">
+				<h3>Description :</h3>
+				<span class="description">
+					{!! $user->description == '' ? "<p>Aucune description pour le moment.</p>" : $user->description !!}
+				</span>		
+			</div>	
 		</div>
 	</div>
 </div>
@@ -94,6 +115,15 @@
 				</form>
 
 	   		</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="modalPicture" role="dialog">
+		<div class="modal-picture">
+	        <div class="modal-body">
+	        	<img id="picture" src="">
+    			<p id="description"></p>
+	        </div>
 		</div>
 	</div>
 

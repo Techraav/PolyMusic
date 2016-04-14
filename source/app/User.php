@@ -16,6 +16,7 @@ class User extends Model implements AuthenticatableContract,
     use Authenticatable, Authorizable, CanResetPassword;
 
 	protected $table = 'users';
+	protected $dates = ['birth_date'];
 	public $timestamps = true;
 	protected $fillable = array('email', 'password', 'first_name', 'last_name', 'birth_date', 'phone', 'profil_picture', 'description', 'school_year', 'slug', 'level_id', 'timestamps', 'department_id');
 	public static $defaultImage = 'base_profil_picture.png';

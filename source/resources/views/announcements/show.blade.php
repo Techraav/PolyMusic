@@ -13,7 +13,7 @@
 <div class="jumbotron">
 	<div class="post-content">
 			<h1 align="center">{{ ucfirst($announcement->title) }} </h1>
-			@if($announcement->user_id == Auth::user()->id || Auth::user()->level->level > 3)
+			@if(Auth::check() && ($announcement->user_id == Auth::user()->id || Auth::user()->level->level > 3))
 				<div class="manage">
 					<a href="{{ url('announcements/edit/'.$announcement->slug) }}" class="btn-edit glyphicon glyphicon-pencil"></a>
 					<button
@@ -53,7 +53,7 @@
 			  		</span>
 			  		<br />
 			  		<small class="date">Le {{ date_format($c->created_at, 'd/m/Y') }}, à {{date_format($c->created_at, 'H:i:s') }}</small>
-			  		@if(Auth::user()->id == $c->user_id || Auth::user()->level->level > 1)
+			  		@if(Auth::check() && (Auth::user()->id == $c->user_id || Auth::user()->level->level > 1))
 			  		<div class="comment-manage">
 			  			@if(Auth::user()->id == $c->user_id)
 

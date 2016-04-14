@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 class News extends Model {
 
 	protected $table = 'news';
+	protected $dates = ['published_at'];
 	public $timestamps = true;
 	protected $fillable = array('published_at', 'title', 'content', 'user_id', 'active', 'slug');
 	const NAMEFIELD = 'title';

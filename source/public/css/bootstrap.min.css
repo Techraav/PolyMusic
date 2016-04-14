@@ -8288,22 +8288,32 @@ ul.list-members li{
 
 .profil-pict{
 	position: relative;
+	display: inline-block;
+	width: 250px;
+	margin: auto;
 }
 
 .profil-pict img{
-    max-width: 70%;
+    max-width: 100%;
     display:block;
-    margin:auto;
-    max-height: 400px;
+    /* margin:auto; */
+    max-height: 500px;
+    -webkit-transition: all 0.3s ease-in-out !important;
+    -moz-transition:all 0.3s ease-in-out !important;
+    transition:all 0.3s ease-in-out !important;
 }
 
 .profil-pict-remove{
 	position:absolute;
-	top:10px;
-	right:30px;
+	top: 10px;
+	left: 5px;
 	color:gray;
-	opacity:0.6;
+	font-size:18px; 	
+	opacity: 0 !important;
 	text-decoration: none;
+    -webkit-transition: all 0.2s ease-in-out !important;
+    -moz-transition:all 0.2s ease-in-out !important;
+    transition:all 0.2s ease-in-out !important;
 }
 
 .profile-pict-remove:hover{
@@ -8421,7 +8431,7 @@ button.glyphicon:hover{
 }
 
 .profile{
-	position: relative;
+	/* position: relative; */
 }
 
 .profile h1{
@@ -8430,9 +8440,9 @@ button.glyphicon:hover{
 
 .manage-user{
 	position:absolute;
-	top:10px;
-	right:5px;
-	color:gray;
+	top: 10px !important;
+	right: 10px !important;
+	/* color:gray; */
 	opacity:0.6;
 	text-decoration: none;
 }
@@ -9207,4 +9217,36 @@ span.unvalidated{
 	top: 1px;
 	right: 4px;
 	text-align: right;
+}
+
+.description p{
+	text-indent: 20px;
+	font-size: 17px !important;
+	text-align:justify;
+}
+
+.profil-pict:hover button{
+	opacity:0.7 !important;
+}
+
+.profil-pict:hover img{
+	cursor:pointer;
+	-webkit-filter: contrast(0.8);
+ 	-moz-filter: contrast(0.8);
+	filter: contrast(0.8);
+}
+
+.profil-pict button:hover{
+	color: #2C3E50;
+	opacity: 0.8 !important;
+}
+
+.infos-profile table{
+	margin:auto;
+	position:relative;
+	font-size:16px;
+}
+
+.infos-profile table td:last-child{
+	font-style:italic;
 }

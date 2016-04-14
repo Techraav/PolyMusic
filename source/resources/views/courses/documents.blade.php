@@ -18,7 +18,7 @@
 				<a title="Cliquez pour voir le document" class="pdf" href="{{ url('files/documents/'.$d->name )}}" target="_blank">
 					<img class="article-picture" src="{{ URL::asset('img/pdf.png') }}"/>
 					<span class="doc-infos">
-						Date : {{ showDate($d->created_at, 'Y-m-d H:i:s', 'd/m/Y') }} <br />
+						Date : {{ $d->created_at->format('d/m/Y') }} <br />
 						Auteur : {{ $d->author->first_name }} {{ substr($d->author->last_name, 0, 1) }}
 					</span>
 					<span class="download {{ glyph('download-alt') }}"></span>

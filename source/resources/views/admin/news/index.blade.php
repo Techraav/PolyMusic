@@ -35,10 +35,10 @@
 		<tbody>
 			@forelse($news as $n)
 				<tr>
-					<td align="center">{{ showDate($n->created_at, 'Y-m-d H:i:s', 'd/m/Y') }}</td>
+					<td align="center">{{ $n->created_at->format('d/m/Y') }}</td>
 					<td>{!! printUserLinkV2($n->author) !!}</td>
 					<td><a href="{{ url('news/view/'.$n->slug) }}">{{ ucfirst($n->title) }}</a></td>
-					<td align="center">{{ showDate($n->published_at, 'Y-m-d', 'd/m/Y') }}</td>
+					<td align="center">{{ $n->published_at->format('d/m/Y') }}</td>
 					<td align="center" class="manage">
 						<a href="{{ $n->active == 1 ? url('admin/news/validated/1') : url('admin/news/validated/0') }}"
 						   class="icon-validated glyphicon glyphicon-{{ $n->active == 1 ? 'ok' : 'remove' }}">

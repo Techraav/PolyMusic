@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model {
 
 	protected $table = 'events';
+	protected $dates = ['date'];
 	public $timestamps = true;
 	protected $fillable = array('timestamps', 'location', 'day', 'start', 'end', 'infos', 'name', 'slug', 'article_id', 'date', 'user_id');
 	const NAMEFIELD = 'name';
