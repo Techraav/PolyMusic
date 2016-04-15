@@ -64,7 +64,7 @@ Route::get('comment/edit/{id}', 'CommentController@edit')->name('comment.edit')-
 Route::post('announcements/create', 'AnnouncementController@store')			->name('announcements.create')		->middleware('auth');
 Route::post('announcements/edit/{slug}', 'AnnouncementController@update')	->name('announcements.edit')		->middleware('auth');
 Route::post('announcements/delete', 'AnnouncementController@destroy')		->name('announcements.delete')		->middleware('auth');
-Route::post('announcements/validate/{value}', 'AnnouncementController@validate')	->name('announcements.validate')	->middleware('auth');
+Route::post('announcements/toggle', 'AnnouncementController@toggle')	->name('announcements.toggle')			->middleware('auth');
 
 
 // ____________________________________________________________________________________________________
@@ -224,6 +224,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:3'], function(){
 	Route::post('articles/create', 			'ArticleController@store')	->name('articles.store');
 	Route::post('articles/edit/{slug}', 	'ArticleController@update')	->name('articles.update');
 	Route::post('articles/delete', 			'ArticleController@destroy')->name('articles.destroy');
+	Route::post('articles/gallery/add', 	'ArticleController@addPictures')->name('articles.addPictures');
 
 
 // _____________________________________________________________________________________________________________

@@ -1,5 +1,15 @@
 @extends('layouts.app')
 
+@section('title')
+	{{ucfirst($article->title)}} | Gallerie
+@endsection
+
+@section('breadcrumb')
+    <li><a href="{{ url('articles/list') }}">Articles</a></li>
+    <li><a href="{{ url('articles/view/'.$article->slug) }}">{{ucfirst($article->title)}}</a></li>
+    <li class="active">Gallerie</li>
+@stop
+
 @section('content')
 	<h2 align="center">{!!printLink('articles/view/'.$article->slug, ucfirst($article->title))!!}</h2>
 	<span class="help-block" align="center">Auteur : {!! printUserLinkV2($article->author) !!}</span>

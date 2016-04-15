@@ -5,7 +5,8 @@
 @endsection
 
 @section('breadcrumb')
-    <li class="active"> Articles</li>
+    <li><a href="{{ url('articles/list') }}">Articles</a></li>
+    <li class="active">{{ucfirst($article->title)}}</li>
 @stop
 
 @section('content')
@@ -54,7 +55,26 @@
 	</div>
 		<a href="{{ url('articles/view/'.$article->slug.'/gallery') }}" class="all">Tout voir</a>
 	@else
-		<span class="help-block" align="center">Pas d'image pour le momemt.</span>
+		<span class="help-block" align="center">Pas d'image pour le moment.</span>
+		<br />
+	@endif
+
+
+	@if(Auth::check() && Auth::user()->id == $article->author->id)
+
+		<div class="row">
+			<h3 align="center">Ajouter des images :</h3>
+			<form enctype="multipart/form-data" class="col-lg-10 col-lg-offset-1" method="post" action="{{ url('admin/articles/gallery/add') }}">
+	            {!! csrf_field() !!}
+				<input name="id" value="{{$article->id}}" hidden />
+
+		         {!! printFileInput('pictures[]', ['png','jpeg','jpg'], true, ['accept' => 'image/png, image/jpeg'], false, [], true) !!}		
+		         <br />
+		         <div align="center" class="buttons">
+		         	<button type="submit" class="btn btn-primary">Valider</button>
+		         </div>
+			</form>
+		</div>
 	@endif
 
 		<br />

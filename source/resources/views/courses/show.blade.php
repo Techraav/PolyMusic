@@ -132,19 +132,27 @@
 						@if($course->users->contains(Auth::user()) || $course->teachers->contains(Auth::user()) || Auth::user()->level_id > 3)
 							<div id="documents" class="tab-pane fade in documents photos" >
 								<div class="content">
-									@forelse ($course->documents as $d)
-										<a title="Cliquez pour voir le document" class="pdf" href="{{ url('files/documents/'.$d->name )}}" target="_blank">
-											<img class="article-picture" src="{{ URL::asset('img/pdf.png') }}"/>
-											<span class="doc-infos">
-												Date : {{ $d->created_at->format('d/m/Y') }} <br />
-												Auteur : {{ $d->author->first_name }} {{ substr($d->author->last_name, 0, 1) }}
-											</span>
-											<span class="download {{ glyph('download-alt') }}"></span>
-										</a>
-									@empty
-									<br />
-										<i>Aucun document pour le moment.</i>
-									@endforelse
+									<table>
+										<tbody>
+											<tr>
+												@forelse ($course->documents as $d)
+													<td>
+														<a title="Cliquez pour voir le document" class="pdf" href="{{ url('files/documents/'.$d->name )}}" target="_blank">
+															<img class="article-picture" src="{{ URL::asset('img/pdf.png') }}"/>
+															<span class="doc-infos" title="Ajouté le {{$d->created_at->format('d/m/Y')}} par {{ $d->author->first_name.' '.$d->author->last_name }}">
+																{{ $d->created_at->format('d/m/Y') }} <br />
+																{{ $d->author->first_name }} 
+															</span>
+															<span class="download {{ glyph('download-alt') }}"></span>
+														</a>
+													</td>
+												@empty
+												<br />
+												<i>Aucun document pour le moment.</i>
+												@endforelse
+											</tr>
+										</tbody>
+									</table>
 									</div>
 								<div class="link-all" align="right"><a class="all" href="{{ url('courses/'.$course->slug.'/documents') }}">Voir plus de documents </a>	</div>				
 							</div>

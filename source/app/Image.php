@@ -8,7 +8,7 @@ class Image extends Model {
 
 	protected $table = 'images';
 	public $timestamps = false;
-	protected $fillable = array('title', 'description');
+	protected $fillable = array('title', 'description', 'name', 'article_id');
 
 	public function article()
 	{

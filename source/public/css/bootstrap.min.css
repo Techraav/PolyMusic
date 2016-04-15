@@ -8850,7 +8850,7 @@ td.manage .glyphicon-pencil {
     border: 2px solid rgba(44, 62, 80, 0.53);
     background: rgba(250,250,250,1);
     position: relative;
-    padding-bottom: 20px;
+    padding-bottom: 30px;
 }
 
 #modalPicture {
@@ -8866,13 +8866,13 @@ td.manage .glyphicon-pencil {
 
 .course-sheet .documents a.pdf {
     text-decoration: none;
-    height: 200px;
+    /* height: 200px; */
     display: inline-block;
 }
 
 .course-sheet .documents img {
-    width: 150px;
-    margin: 15px 30px 0;
+    width: 75px;
+    /* margin: 15px 30px 0; */
     opacity: 0.7;
     transition: all 0.3s ease-in-out !important;
     -webkit-transition: all 0.3s ease-in-out !important;
@@ -8897,20 +8897,22 @@ td.manage .glyphicon-pencil {
 
 .course-sheet .pdf .doc-infos {
     position: absolute;
-    bottom: -10px;
+    bottom: -26px;
     text-align: center;
-    left: 15px;
     width: 100%;
-    opacity: 0.6;
-    font-size: 14px;
+    opacity: 0.7;
+    right: -7px;
+    display: inline;
+    font-size: 12px;
+    font-style: italic;
 }
 
 .course-sheet .documents {
     padding-bottom: 35px;
 }
 
-.course-sheet .pdf:hover .doc-infos, .course-sheet .pdf:hover img {
-    opacity: 0.6;
+.course-sheet .pdf:hover img {
+    opacity: 0.5;
 }
 
 .course-sheet .infos {
@@ -9005,22 +9007,31 @@ td .text-danger {
 
 #documents .pdf .download {
     position: absolute;
-    top: 115px;
+    top: 84px;
     opacity: 0;
     box-shadow: 0px 3px 5px rgb(97, 97, 97);
-    border-radius: 10px 10px 0 0;
-    padding: 20px 55px;
+    border-radius: 40px 40px 0 0;
+    padding: 0 24px;
+    overflow: hidden;
     background-color: rgb(58,58,58) !important;
     color: #D4D4D4;
-    left: 54px;
+    left: 19px;
+    height: 0px;
+    opacity: 0.3;
+    font-size: 12px;
+    font-weight: normal;
     transition: all 0.3s ease-in-out !important;
     -webkit-transition: all 0.3s ease-in-out !important;
     -moz-transition: all 0.3s ease-in-out !important;
 }
 
 #documents .pdf:hover .download {
-    top: 110px !important;
-    opacity: 0.95;
+    /* top: 110px !important; */
+    padding-top: 8px;
+    padding-bottom: 8px;
+    height: 29px;
+    opacity: 0.9;
+    top: 54px;
 }
 
 blockquote.comment.announcement {
@@ -9323,4 +9334,8 @@ form .infos-profile table td {
     right: 9px;
     top: 9px;
     position: absolute;
+}
+
+.course-content .documents table{
+    width:100%
 }

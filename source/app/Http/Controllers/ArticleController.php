@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Validator;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Laracasts\Flash\Flash;
 
@@ -177,6 +178,57 @@ class ArticleController extends Controller {
 		$images = Image::where('article_id', $article->id)->orderBy('created_at', 'desc')->paginate(15);
 
 		return view('articles.gallery', compact('article', 'images'));
+	}
+
+	public function addPictures(Request $request)
+	{
+		$article = Article::with('images')->find($request->id);
+
+		$array = ['pictures'	=>  'mimes:png,jpeg'];
+
+		$validator = Validator::make($request->all(), $array);
+
+		foreach ($request->pictures as $picture) {
+
+			$clientName = '';
+			if($picture != null)
+			{
+				$clientName = $picture->getClientOriginalName();
+			}
+
+
+			if($clientName != '')
+			{
+				$ext = $picture->getClientOriginalExtension();
+				$destPath = public_path().'/img/article_pictures';
+
+				$list = $article->images;
+				$ok = true;
+				do{
+					$fileName = $article->id.Auth::user()->id.date('dmyHis').rand(1111,9999).'.'.$ext;
+					foreach($article->images as $image)
+					{
+						if($image->name == $fileName)
+						{
+							$ok = false;
+							break;
+						}
+					}
+				}while($ok == false);
+
+				File::delete($fileName);
+				if($picture->move($destPath, $fileName))
+				{
+					Image::create(['name' => $fileName, 'article_id' => $article->id]);
+				}
+				else{
+					Flash::error('Une erreur est survenue lors du chargement d\'une image.');
+				}
+			}
+		}
+
+		return redirect('articles/view/'.$article->slug.'/gallery');
+
 	}
 
 

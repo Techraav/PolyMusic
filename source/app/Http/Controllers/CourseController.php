@@ -284,7 +284,7 @@ class CourseController extends Controller {
 		{
 			if($course->users->contains(Auth::user()) || $course->teachers->contains(Auth::user()) || Auth::user()->level_id > 3)
 			{		
-				$course->load(['documents' => function($query){ $query->validated()->orderBy('created_at', 'desc')->limit(3); }]);
+				$course->load(['documents' => function($query){ $query->validated()->orderBy('created_at', 'desc')->limit(5); }]);
 				$course->load(['modifications' => function($query) { $query->with('user', 'author')->orderBy('created_at', 'desc')->limit(10); }]);
 			}		
 		}				

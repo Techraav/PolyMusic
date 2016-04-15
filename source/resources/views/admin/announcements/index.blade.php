@@ -58,7 +58,7 @@
 							@if($a->validated == 1)
 								<button 
 										onclick="modalToggle(this)"
-										link="{{ url('announcements/validate/0') }}"
+										link="{{ url('announcements/toggle') }}"
 										id="{{ $a->id }}"
 										action="invalider"
 										title="Invalider l'annonce"
@@ -68,7 +68,7 @@
 							@else
 								<button 
 										onclick="modalToggle(this)"
-										link="{{ url('announcements/validate/1') }}"
+										link="{{ url('announcements/toggle') }}"
 										id="{{ $a->id }}"
 										action="valider"
 										msg="Voulez-vous vraiment valider cette annonce ?"
