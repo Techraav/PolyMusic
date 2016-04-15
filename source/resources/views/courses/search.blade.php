@@ -42,11 +42,15 @@
     				<!-- <a class="list-group-item"></a> -->
     				<ul align="center" class="list-group">
     					@forelse($coursesTitle as $c)
-    						<a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}
                             @if ($c->active == 0)
-                                <span class="unvalidated">Non validé</span>
+                                @if(Auth::check() && Auth::user()->level_id > 2)
+                                    <a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}
+                                        <span class="unvalidated">Non validé</span>
+                                    </a>
+                                @endif
+                            @else
+                                <a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}</a>
                             @endif
-                            </a>
     					@empty
     						<li class="list-group-item" align="center">-</li>
     					@endforelse
@@ -63,11 +67,15 @@
 <!--     				<li class="list-group-item list-head"></li>
  -->    				<ul align="center" class="list-group">
     					@forelse($coursesDay as $c)
-    						<a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}
                             @if ($c->active == 0)
-                                <span class="unvalidated">Non validé</span>
+                                @if(Auth::check() && Auth::user()->level_id > 2)
+                                    <a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}
+                                        <span class="unvalidated">Non validé</span>
+                                    </a>
+                                @endif
+                            @else
+                                <a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}</a>
                             @endif
-                            </a>
     					@empty
     						<li class="list-group-item" align="center">-</li>
     					@endforelse
@@ -83,25 +91,24 @@
                 <h4 align="center"> Professeurs :</h4>
                 
     			<ul class="list-group">
-    			<?php $n = 0; ?>
     				@foreach($users as $u)
     					@if($u->courses->count() > 0)
-    					<?php $n++; ?>
-		    				<a class="list-group-item list-head" align="center" href="{{ url('users/show/'.$u->slug) }}">{{ $u->first_name.' '.$u->last_name }}</a>
+		    				<a class="list-group-item list-head" align="center" href="{{ url('users/'.$u->slug) }}">{{ $u->first_name.' '.$u->last_name }}</a>
 		    				<ul align="center" class="list-group">
 		    					@foreach($u->courses as $c)
-		    						<a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}
                                     @if ($c->active == 0)
-                                        <span class="unvalidated">Non validé</span>
+                                        @if(Auth::check() && Auth::user()->level_id > 2)
+                                            <a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}
+                                                <span class="unvalidated">Non validé</span>
+                                            </a>
+                                        @endif
+                                    @else
+                                        <a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}</a>
                                     @endif
-                                    </a>
 		    					@endforeach
 		    				</ul>
 		    			@endif
     				@endforeach
-    				@if($n === 0)
-    					<li class="list-group-item" align="center">-</li>
-    				@endif
 
     			</ul> 
                 <br />
@@ -111,25 +118,24 @@
                 <h4 align="center">Instruments :</h4>
                 
     			<ul class="list-group">
-    			<?php $n = 0; ?>
     				@foreach($instruments as $i)
     					@if($i->courses->count() > 0)
-    					<?php $n++; ?>
 		    				<li align="center" class="list-group-item list-head">{{ ucfirst($i->name) }}</li>
 		    				<ul align="center" class="list-group">
 		    					@foreach($i->courses as $c)
-		    						<a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}
                                     @if ($c->active == 0)
-                                        <span class="unvalidated">Non validé</span>
+                                        @if(Auth::check() && Auth::user()->level_id > 2)
+                                            <a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}
+                                                <span class="unvalidated">Non validé</span>
+                                            </a>
+                                        @endif
+                                    @else
+                                        <a href="{{ url('courses/show/'.$c->slug) }}" class="list-group-item">{{ ucfirst($c->name) }}</a>
                                     @endif
-                                    </a>
 		    					@endforeach
 		    				</ul>
 		    			@endif
     				@endforeach
-    				@if($n === 0)
-    					<li class="list-group-item" align="center">-</li>
-    				@endif
 
     			</ul> 
                 <br />

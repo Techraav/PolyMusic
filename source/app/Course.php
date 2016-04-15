@@ -18,7 +18,7 @@ class Course extends Model {
 
 	public function leaveNotification($level, User $user)
 	{
-		return $this->manager->sendNotification(printUserLinkV2($user)." s'est retiré des ". ($level == 1 ? 'professeurs' : 'élèves') . 'du cours &laquo; '.ucfirst($this->name).' &raquo;.', 'admin/courses/'.$this->slug.'/members');
+		return $this->manager->sendNotification(ucfirst($user->first_name).' '.ucfirst($user->last_name)." s'est retiré des ". ($level == 1 ? 'professeurs' : 'élèves') . 'du cours &laquo; '.ucfirst($this->name).' &raquo;.', 'admin/courses/'.$this->slug.'/members');
 	}
 
 	public function waitingStudents()

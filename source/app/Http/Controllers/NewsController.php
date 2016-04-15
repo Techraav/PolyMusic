@@ -26,7 +26,13 @@ class NewsController extends Controller {
    */
   public function index()
   {
-    $news = News::published()->orderBy('id', 'desc')->with('author')->paginate(10);
+    if(Auth::check() && Auth::user()->level_id > 2){
+      $news = News::orderBy('published_at', 'desc')->with('author')->paginate(10);
+    }
+    else
+    {
+      $news = News::published()->orderBy('published_at', 'desc')->with('author')->paginate(10);
+    }
     return view('news.index', compact('news'));
   }
 
@@ -55,12 +61,12 @@ class NewsController extends Controller {
                           ->get();
       }   
 
-      if(Auth::user()->level_id > 3){
+      if(Auth::check() && Auth::user()->level_id > 3){
           $news = News::where('title', 'LIKE', '%'.$str.'%')->get();
       }
       else
       {
-          $news = News::where('active', 1)->where('title', 'LIKE', '%'.$str.'%')->get();
+          $news = News::published()->where('title', 'LIKE', '%'.$str.'%')->get();
       }
 
       return view('news.search', compact('users', 'news', 'search'));

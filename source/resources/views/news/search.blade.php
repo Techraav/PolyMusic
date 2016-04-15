@@ -45,8 +45,8 @@
     						<a href="{{ url('news/view/'.$n->slug) }}" class="list-group-item">{{ ucfirst($n->title) }}
                             @if ($n->active == 0 || $n->published_at > date('Y-m-d'))
                                 <span class="unvalidated">
-                                    @if($n->published_at > date('Y-m-d'))
-                                        Publiée le {{ showDate($n->published_at, 'Y-m-d', 'd/m/Y') }}<br />
+                                    @if($n->published_at->gt(new Carbon\Carbon))
+                                        Publiée le {{ $n->published_at->format('d/m/Y') }}<br />
                                     @endif
                                     @if ($n->active == 0)
                                         Inactive 
@@ -68,32 +68,31 @@
                 <h4 align="center"> Auteurs :</h4>
                 
     			<ul class="list-group">
-    			<?php $n = 0; ?>
     				@foreach($users as $u)
     					@if($u->news->count() > 0)
-    					<?php $n++; ?>
-		    				<a class="list-group-item list-head" align="center" href="{{ url('users/show/'.$u->slug) }}">{{ $u->first_name.' '.$u->last_name }}</a>
+		    				<a class="list-group-item list-head" align="center" href="{{ url('users/'.$u->slug) }}">{{ $u->first_name.' '.$u->last_name }}</a>
 		    				<ul align="center" class="list-group">
 		    					@foreach($u->news as $n)
-		    						<a href="{{ url('news/view/'.$n->slug) }}" class="list-group-item">{{ ucfirst($n->title) }}
-                                    @if ($n->active == 0 || $n->published_at > date('Y-m-d'))
+                                    @if(Auth::check() && Auth::user()->level_id > 2)
+                                        <a href="{{ url('news/view/'.$n->slug) }}" class="list-group-item">{{ ucfirst($n->title) }}
                                         <span class="unvalidated">
                                             @if($n->published_at > date('Y-m-d'))
-                                                Publiée le {{ showDate($n->published_at, 'Y-m-d', 'd/m/Y') }}<br />
+                                                Publiée le {{ $n->published_at->format('d/m/Y') }}<br />
                                             @endif
                                             @if ($n->active == 0)
                                                 Inactive 
                                             @endif
                                         </span>
+                                    @else
+                                        @if ($n->active == 0 || $n->published_at->lt(new Carbon\Carbon))
+                                            <a href="{{ url('news/view/'.$n->slug) }}" class="list-group-item">{{ ucfirst($n->title) }}
+                                        @endif
                                     @endif
                                     </a>
 		    					@endforeach
 		    				</ul>
 		    			@endif
     				@endforeach
-    				@if($n === 0)
-    					<li class="list-group-item" align="center">-</li>
-    				@endif
 
     			</ul> 
                 <br />

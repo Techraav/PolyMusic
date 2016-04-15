@@ -20,53 +20,91 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Créer/Ajouter <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="{{ url('admin/articles/create') }} ">Article</a></li>
-            <li><a href="{{ url('admin/courses/create') }} ">Cours</a></li>
-            <li><a href="{{ url('admin/documents/create') }} ">Document de cours</a></li>
-            <li><a href="{{ url('admin/events/create') }} ">Événement</a></li>
-            <li><a href="{{ url('admin/news/create') }} ">News</a></li>
+      
+{{--    SUBSUBMENU EXAMPLE
+        
+        <li class="dropdown" style="position:relative">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Click Here <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="trigger right-caret">Level 1</a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="#">Level 2</a></li>
+                <li><a href="#">Level 2</a></li>
+                <li><a href="#">Level 2</a></li>
+              </ul>
+            </li>
+            <li><a href="#">Level 1</a></li>
+            <li><a href="#">Level 1</a></li>
           </ul>
         </li>
-        {{-- SUBSUBMENU EXAMPLE
+
+--}}
+
 
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Gérer <span class="caret"></span></a>
-      	<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-			<li class="dropdown-submenu">
-              	<a href="#">Annonces</a>
-              	<ul class="dropdown-menu">
-					<li><a href="#">Liste</a></li>
-                  	<li><a href="#">Second level</a></li>
-                  	<li><a href="#">Second level</a></li>
-                </ul>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Publications <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <a class="trigger right-caret">Annonces</a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="{{ url('admin/announcements') }} ">Gérer</a></li>
+                <li><a href="{{ url('announcements/create') }} ">nouvelle annonce</a></li>
+              </ul>
+            </li>
+            <li>
+              <a class="trigger right-caret">Articles</a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="{{ url('admin/articles') }} ">Gérer</a></li>
+                <li><a href="{{ url('admin/articles/create') }} ">nouvel article</a></li>
+              </ul>
+            </li>
+            <li>
+              <a class="trigger right-caret">News</a>
+              <ul class="dropdown-menu sub-menu">
+                <li><a href="{{ url('admin/news') }} ">Gérer</a></li>
+                <li><a href="{{ url('admin/news/create') }} ">nouvelle news</a></li>
+              </ul>
             </li>
           </ul>
-      </li> 
+        </li>
 
-      --}}
-<!--         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Gérer <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu"> -->
-            <li><a href="{{ url('admin/announcements') }} ">Annonces</a></li>
-            <li><a href="{{ url('admin/articles') }}">Articles</a></li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Données <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
             <li><a href="{{ url('admin/categories') }}">Catégories</a></li>
+            <li><a href="{{ url('admin/instruments') }}">Instruments</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Groupes &amp; Events <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="{{ url('admin/bands') }}">Groupes</a></li>
+            <li><a href="{{ url('admin/events') }}">Événements</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Cours &amp; Docs<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
             <li><a href="{{ url('admin/courses') }}">Cours</a></li>
             <li><a href="{{ url('admin/documents') }}">Document de cours</a></li>
-            <li><a href="{{ url('admin/events') }}">Événements</a></li>
-            <li><a href="{{ url('admin/bands') }}">Groupes</a></li>
-            <li><a href="{{ url('admin/instruments') }}">Instruments</a></li>
-            <li><a href="{{ url('admin/users') }}">Membres</a></li>
-            <li><a href="{{ url('admin/news') }}">News</a></li>
-            @if(Auth::user()->level->level > 1)
-            <li class="divider"></li>
-            <li><a href="{{ url('admin/departments') }}">Départements</a></li>
-            <li><a href="{{ url('admin/levels') }}">Levels</a></li>
-            @endif
-<!--           </ul>
-        </li> -->
+          </ul>
+        </li>
+
+        <li><a href="{{ url('admin/users') }}">Membres</a></li>
+        @if(Auth::user()->level_id > 3)
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Masteradmin <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="{{ url('admin/departments') }}">Départements</a></li>
+              <li><a href="{{ url('admin/levels') }}">Levels</a></li>
+            </ul>
+          </li>
+        @endif
+
       </ul>
       <ul class="nav navbar-nav navbar-right">
       @if(Auth::guest())
@@ -103,3 +141,4 @@
     </div>
   </div>
 </nav>  
+

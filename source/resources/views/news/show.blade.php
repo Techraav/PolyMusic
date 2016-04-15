@@ -11,10 +11,10 @@
 
 @section('content')
 		<blockquote class="comment frame-news col-lg-10 col-lg-offset-1">
-			<h2>{{$news->title}}</h2>                         
+			<h2>{{$news->title}}</h2>  
 			@if ($news->active == 0 || $news->published_at > date('Y-m-d'))
                 <p class="text-danger inactive">
-                    @if($news->published_at > date('Y-m-d'))
+                    @if($news->published_at->gt(new Carbon\Carbon))
                         Publiée le {{ $news->published_at->format('d/m/Y') }}<br />
                     @endif
                     @if ($news->active == 0)

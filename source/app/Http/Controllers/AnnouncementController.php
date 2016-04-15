@@ -31,11 +31,18 @@ class AnnouncementController extends Controller {
             if($category == 0)
             {
                 return redirect('announcements/list');
-            }        
-            $announcements = Announcement::where('validated', 1)->ofCategory($category)->with('author', 'category', 'comments')->paginate(5);
+            }
+            if(Auth::check() && Auth::user()->level_id > 2)        
+                $announcements = Announcement::ofCategory($category)->with('author', 'category', 'comments')->paginate(5);
+            else
+                $announcements = Announcement::where('validated', 1)->ofCategory($category)->with('author', 'category', 'comments')->paginate(5);
+
         }
         else{
-            $announcements = Announcement::where('validated', 1)->with('author', 'category', 'comments')->paginate(5);
+            if(Auth::check() && Auth::user()->level_id > 2) 
+                $announcements = Announcement::with('author', 'category', 'comments')->paginate(5);
+            else
+                $announcements = Announcement::where('validated', 1)->with('author', 'category', 'comments')->paginate(5);
         }
             
         return view('announcements.index', compact('announcements', 'category'));
@@ -55,7 +62,7 @@ class AnnouncementController extends Controller {
                             ->get();
         }   
 
-        if(Auth::user()->level_id > 3){
+        if(Auth::check() && Auth::user()->level_id > 3){
             $announcements = Announcement::where('title', 'LIKE', '%'.$str.'%')->get();
         }
         else

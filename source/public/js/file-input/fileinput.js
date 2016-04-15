@@ -2716,8 +2716,8 @@
     $.fn.fileinputLocales.en = {
         fileSingle: 'file',
         filePlural: 'files',
-        browseLabel: 'Browse &hellip;',
-        removeLabel: 'Remove',
+        browseLabel: '',
+        removeLabel: '',
         removeTitle: 'Clear selected files',
         cancelLabel: 'Cancel',
         cancelTitle: 'Abort ongoing upload',

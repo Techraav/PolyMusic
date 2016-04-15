@@ -30,11 +30,18 @@ class ArticleController extends Controller {
             if($category == 0)
             {
                 return redirect('articles/list');
-            }        
-            $articles = Article::where('validated', 1)->ofCategory($category)->with('author', 'category')->paginate(5);
+            }
+            if(Auth::check() && Auth::user()->level_id > 2)        
+            	$articles = Article::ofCategory($category)->with('author', 'category')->paginate(5);
+            else
+            	$articles = Article::where('validated', 1)->ofCategory($category)->with('author', 'category')->paginate(5);
+
         }
         else{
-            $articles = Article::where('validated', 1)->with('author', 'category')->paginate(5);
+            if(Auth::check() && Auth::user()->level_id > 2) 
+            	$articles = Article::with('author', 'category')->paginate(5);
+            else
+            	$articles = Article::where('validated', 1)->with('author', 'category')->paginate(5);
         }
             
         return view('articles.index', compact('articles', 'category'));
@@ -54,7 +61,7 @@ class ArticleController extends Controller {
 							->get();
 		}	
 
-		if(Auth::user()->level_id > 3){
+		if(Auth::check() && Auth::user()->level_id > 3){
 			$articles = Article::where('title', 'LIKE', '%'.$str.'%')->get();
 		}
 		else

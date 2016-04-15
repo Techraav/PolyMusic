@@ -42,11 +42,15 @@
     				<!-- <a class="list-group-item"></a> -->
     				<ul align="center" class="list-group">
     					@forelse($announcements as $a)
-    						<a href="{{ url('announcements/view/'.$a->slug) }}" class="list-group-item">{{ ucfirst($a->title) }}
                             @if ($a->validated == 0)
-                                <span class="unvalidated">Non validée</span>
+                                @if(Auth::check() && Auth::user()->level_id > 2)
+                                <a href="{{ url('announcements/view/'.$a->slug) }}" class="list-group-item">{{ ucfirst($a->title) }}
+                                    <span class="unvalidated">Non validée</span>
+                                </a>
+                                @endif
+                            @else
+                                <a href="{{ url('announcements/view/'.$a->slug) }}" class="list-group-item">{{ ucfirst($a->title) }}</a>
                             @endif
-                            </a>
     					@empty
     						<li class="list-group-item" align="center">-</li>
     					@endforelse
@@ -61,25 +65,25 @@
                 <h4 align="center"> Auteurs :</h4>
                 
     			<ul class="list-group">
-    			<?php $n = 0; ?>
     				@foreach($users as $u)
     					@if($u->announcements->count() > 0)
-    					<?php $n++; ?>
-		    				<a class="list-group-item list-head" align="center" href="{{ url('users/show/'.$u->slug) }}">{{ $u->first_name.' '.$u->last_name }}</a>
+		    				<a class="list-group-item list-head" align="center" href="{{ url('users/'.$u->slug) }}">{{ $u->first_name.' '.$u->last_name }}</a>
 		    				<ul align="center" class="list-group">
 		    					@foreach($u->announcements as $a)
-		    						<a href="{{ url('announcements/view/'.$a->slug) }}" class="list-group-item">{{ ucfirst($a->title) }}
+
                                     @if ($a->validated == 0)
-                                        <span class="unvalidated">Non validée</span>
+                                        @if(Auth::check() && Auth::user()->level_id > 2)
+                                        <a href="{{ url('announcements/view/'.$a->slug) }}" class="list-group-item">{{ ucfirst($a->title) }}
+                                            <span class="unvalidated">Non validée</span>
+                                        </a>
+                                        @endif
+                                    @else
+                                        <a href="{{ url('announcements/view/'.$a->slug) }}" class="list-group-item">{{ ucfirst($a->title) }}</a>
                                     @endif
-                                    </a>
 		    					@endforeach
 		    				</ul>
 		    			@endif
     				@endforeach
-    				@if($n === 0)
-    					<li class="list-group-item" align="center">-</li>
-    				@endif
 
     			</ul> 
                 <br />

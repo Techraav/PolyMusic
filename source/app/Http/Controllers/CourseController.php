@@ -420,6 +420,8 @@ class CourseController extends Controller {
 		$course = Course::find($course_id);
 		$user = User::find($user_id);
 
+		// dd($request->all());
+
 		if($request->value < 0)
 		{
 			$level = $request->value*(-1)-1;

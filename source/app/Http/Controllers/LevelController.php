@@ -34,16 +34,16 @@ class LevelController extends Controller {
 	* @param $name of the level
 	* @return list of members
 	*/
-	public function members($id)
+	public function members($name)
 	{	
-		$level = Level::where('id', $id)->with('users')->first();
+		$level = Level::where('name', $name)->first();
 		$name = $level->name;
 		if(!isset($level))
 		{
 			Flash::error('Ce level n\'existe pas.');
 			return view('admin.errors.404');
 		}
-		$users = User::where('level_id', $id)->orderBy('last_name')->paginate(30);
+		$users = User::where('level_id', $level->id)->orderBy('last_name')->paginate(20);
 		return view('admin.levels.members', compact('level', 'name', 'users'));
 	}
 

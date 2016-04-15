@@ -7,7 +7,7 @@
 @section('breadcrumb')
     <li> <a href="{{ url('admin') }}">Administration</a></li>
     <li> <a href="{{ url('admin/news') }}">News</a></li>
-    <li class="active">Créer un e news</li>
+    <li class="active">Créer une news</li>
 @stop
 
 @section('content')

@@ -20,7 +20,7 @@
 		<p>Cliquez sur son titre pour lire un article en entier.</p>
 		<p>Vous pouvez filtrer les articles selon la catégorie, pour affiner votre recherche.</p>
 		<hr class="colorgraph" />
-		<p>Pour rédiger un article : <a href="{{url('articles/create')}}" title="Créer un article">Cliquez ici !</a></p>		
+		<p>Pour rédiger un article : <a href="{{url('admin/articles/create')}}" title="Créer un article">Cliquez ici !</a></p>		
 	</div>
 
 	<div class="row">
@@ -60,7 +60,10 @@
 				@foreach($articles as $a)
 					<blockquote class="comment announcement col-lg-10 col-lg-offset-1">	
 				    	<h2><a href="{{ url('articles/view/'.$a->slug)}}">{{ucfirst($a->title)}}</a></h2>
-						@if(Auth::check() && Auth::user()->level_id >= 3)
+							@if(Auth::check() && Auth::user()->level_id >= 3)
+								@if ($a->validated == 0)
+					                <p class="text-danger inactive">Non publié </p>
+					            @endif
 							<div class="manage">
 								<button
 										data-link="{{ url('admin/articles/delete') }}"

@@ -19,7 +19,7 @@
 	            {!! csrf_field() !!}
 	            	<fieldset>
 	            	
-	            		<div class="row col-md-5">	    
+	            		<div class="col-lg-4 col-lg-offset-1">	    
 	            			<div class="profil-pict">
 	            				<img src=" {{ URL::asset('/img/profil_pictures/'.$user->profil_picture) }} " title="profile picture"/>
 	            				@if($user->id == Auth::user()->id && $user->profil_picture != "base_profil_picture.png")
@@ -37,64 +37,65 @@
 
 	            		<input name="id" value="{{ $user->id }}" hidden>
 
-	            		<div class="row col-md-7">
-	            			<div class="form-group edit-infos-profile">
-				                <label class="col-md-4 control-label" for="school_year">Année d'étude</label>
+	            		<div class="col-lg-7 infos-profile">
+							<table>
+								<tbody>					
+									<tr>
+										<td>Année d'étude :</td>
+										<td>
+											<select class="form-control input-sm" name="school_year">
+						                        <option value="1" {{$user->school_year == 1 ? 'selected' : ''}}>PeiP 1</option>
+						                        <option value="2" {{$user->school_year == 2 ? 'selected' : ''}}>PeiP 2</option>
+						                        <option value="3" {{$user->school_year == 3 ? 'selected' : ''}}>3ème année</option>
+						                        <option value="4" {{$user->school_year == 4 ? 'selected' : ''}}>4ème année</option>
+						                        <option value="5" {{$user->school_year == 5 ? 'selected' : ''}}>5ème année</option>
+						                        <option value="0" {{$user->school_year == 0 ? 'selected' : ''}}>Autre...</option>
+						                    </select>
+					                    </td>
+									</tr>
+									<tr>
+										<td>Département :</td>
+										<td>
+						                    <select class="form-control input-sm"  name="department_id">
+						                         @foreach (App\Department::all()  as $d)
+							                        @if($user->department_id == $d->id)
+							                            <option value="{{ $d['id'] }}" selected> {{ $d['name'] }} ({{$d['short_name']}})</option>
+							                        @else
+							                            <option value="{{ $d['id'] }}"> {{ $d['name'] }} ({{$d['short_name']}})</option>
+							                        @endif
+							                     @endforeach
+						                    </select>
+										</td>
+									</tr>
+									<tr>
+										<td>Téléphone :</td>
+										<td><input type="tel" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" class="form-control input-sm" name="phone" value="{{ $user->phone }}"></td>
+									</tr>
 
-				                <div class="col-md-6">
-				                    <select class="form-control input-sm" name="school_year">
-				                        <option value="1" {{$user->school_year == 1 ? 'selected' : ''}}>PeiP 1</option>
-				                        <option value="2" {{$user->school_year == 2 ? 'selected' : ''}}>PeiP 2</option>
-				                        <option value="3" {{$user->school_year == 3 ? 'selected' : ''}}>3ème année</option>
-				                        <option value="4" {{$user->school_year == 4 ? 'selected' : ''}}>4ème année</option>
-				                        <option value="5" {{$user->school_year == 5 ? 'selected' : ''}}>5ème année</option>
-				                        <option value="0" {{$user->school_year == 0 ? 'selected' : ''}}>Autre...</option>
-				                    </select>
-				                </div>
-				            </div>
 
-				            <div class="form-group edit-infos-profile">
-				                <label class="col-md-4 control-label" for="department_id">Département</label>
 
-				                <div class="col-md-6">
-				                    <select class="form-control input-sm"  name="department_id">
-				                         @foreach (App\Department::all()  as $d)
-					                        @if($user->department_id == $d->id)
-					                            <option value="{{ $d['id'] }}" selected> {{ $d['name'] }} ({{$d['short_name']}})</option>
-					                        @else
-					                            <option value="{{ $d['id'] }}"> {{ $d['name'] }} ({{$d['short_name']}})</option>
-					                        @endif
-					                     @endforeach
-				                    </select>
-				                </div>
-				            </div>
+								</tbody>
+							</table>
+						</div>
 
-				            @if(Auth::user()->id == $user->id)
-				            	<div class="form-group edit-infos-profile">
-				            		<label class="col-md-4 control-label" for="phone">Téléphone</label>
+	            		                
 
-					            	<div class="col-md-6">
-					                    <input type="text" class="form-control input-sm" name="phone" value="{{ $user->phone }}">
-					                </div>
-					            </div>
-							@endif
-	            		</div>                      
+	            		<div class="row">
+	            			<div class="col-lg-10 col-lg-offset-1">
+		            			<div class="form-group">
+									<h3> Description :</h3>
 
-	            		<div class="row col-md-12">
-	            			<div class="form-group">
-								<label class="control-label col-md-offset-1" for="description">Description</label>
-
-								<div >
-									<textarea rows="4" name="description" class="form-control input-sm">{{ $user->description }}</textarea>
+									<div >
+										<textarea rows="4" name="description" class="form-control input-sm">{{ $user->description }}</textarea>
+									</div>
 								</div>
 							</div>
-
 	            		</div>
 						
-						<div class="form-group">
-					    	<div class="col-md-10 col-md-offset-5">
+						<div class="form-group buttons">
+					    	<div class="col-lg-8 col-lg-offset-2">
 					    		<button type="reset" class="btn btn-default">Annuler</button>
-					    		<button type="submit" class="btn btn-primary">Modifier</button>
+					    		<button type="submit" class="btn btn-primary">Valider</button>
 					    	</div>
 					    </div>
 

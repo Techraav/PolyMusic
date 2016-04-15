@@ -38,8 +38,9 @@
 				<td width="150" align="center"><b>Créé le</b></td>
 				<td><b>Auteur</b></td>
 				<td><b>Titre</b></td>
-				<td align="center" width="100"><b>Categorie</b></td>	
-				<td align="center" width="80"><b>Validé</b></td>			
+				<td align="center" width="50"><b>Images</b></td>
+				<td align="center"><b>Categorie</b></td>	
+				<td align="center" width="50"><b>Validé</b></td>			
 				<td width="20"></td>
 				<td align="center" width="20"><b>Gérer</b></td>
 				<td width="20"></td>
@@ -51,6 +52,7 @@
 					<td align="center">{{ $a->created_at->format('d/m/Y') }}</td>
 					<td>{!! printUserLinkV2($a->author) !!}</td>
 					<td><a href="{{ url('articles/view/'.$a->slug) }}">{{ ucfirst($a->title) }}</a></td>
+					<td align="center">{{ $a->images->count() }}</td>
 					<td align="center"><a href="{{ url('admin/articles/category/'.$a->category->id) }}">{{ ucfirst($a->category->name) }}</a></td>
 					<td align="center" class="manage">
 						<a href="{{ $a->validated == 1 ? url('admin/articles/validated/1') : url('admin/articles/validated/0') }}"

@@ -23,7 +23,6 @@
         locale file as mentioned below -->
     <script src="{{ URL::asset('/js/file-input/fileinput_locale_fr.js') }}"></script>
     <script src="{{ URL::asset('/js/jquery.js')  }}"></script>
-      <script src="{{ URL::asset('/js/bootstrap.min.js')  }}"></script>
     @yield('headerjs')
   </head>
   <body>

@@ -51,6 +51,16 @@
 		<blockquote class="comment frame-news col-lg-10 col-lg-offset-1">
 			<h2><a title="Cliquez pour voir la news en entier" href="{{ url('news/view/'.$n['slug'])}}">{{$n['title']}}</a></h2>
 				@if(Auth::check() && Auth::user()->level_id >= 3)
+					@if ($n->active == 0 || $n->published_at > date('Y-m-d'))
+		                <p class="text-danger inactive">
+		                    @if($n->published_at->gt(new Carbon\Carbon))
+		                        Publiée le {{ $n->published_at->format('d/m/Y') }}<br />
+		                    @endif
+		                    @if ($n->active == 0)
+		                        Inactive 
+		                    @endif
+		                </p>
+		            @endif
 					<div class="manage">
 						<button
 								data-link="{{ url('admin/news/delete') }}"
@@ -63,7 +73,7 @@
 				@endif
 			{!! cut($n['content'], 540, 'news/view/'.$n->slug) !!} <br/>
 				<div class="post-infos post-news-infos" align="right">Rédigée par 
-					{!! printUserLinkV2($n->author) !!} le {{date_format($n['created_at'], 'd/m/Y \à H:i')}}.
+					{!! printUserLinkV2($n->author) !!} le {{$n->created_at->format('d/m/Y \à H:i')}}.
 				</div>
 		</blockquote>
 		<br/>	
