@@ -1,9 +1,9 @@
 {
     "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
-    "license": "MIT",
-    "type": "project",
+    "description": "Site web du Club Musique",
+    "keywords": ["framework", "laravel", "site", "web", "club", "musique", "Polytech", "Tours"],
+    "license": "Pierre Vendé, Robin Maréchal",
+    "type": "projet PeiP2",
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",

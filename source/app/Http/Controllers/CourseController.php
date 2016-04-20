@@ -80,7 +80,7 @@ class CourseController extends Controller {
 		}
 		else
 		{
-			$days = ['lundi', 'mardin', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
+			$days = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
 			for ($i=0; $i<7 ; $i++) { 
 				if(strtolower($str) == $days[$i])
 					$day = $i;
