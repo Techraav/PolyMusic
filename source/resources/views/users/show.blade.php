@@ -47,10 +47,10 @@
 							<td>Département :</td>
 							<td>{{ $user->department_id == 1 || $user->department_id == 2 ? 'Non renseigné' : ucfirst($user->department->name).' ('.$user->department->short_name.')' }}</td>
 						</tr>
-						@if(Auth::check() && Auth::user()->level_id > 2 && $user->phone != '')
+						@if(Auth::check() && Auth::user()->level_id > 2)
 							<tr>
 								<td>Téléphone :</td>
-								<td>{{ $user->phone }}</td>
+								<td>{{ $user->phone == '' ? 'Non renseigné' : $user->phone}}</td>
 							</tr>
 						@endif
 
@@ -73,8 +73,6 @@
 							<td>{{ $user->created_at->format('d/m/Y') }}</td>
 						</tr>
 
-
-
 					</tbody>
 				</table>
 			</div>
@@ -89,6 +87,38 @@
 				</span>		
 			</div>	
 		</div>
+
+		@if(Auth::check())
+			@if(Auth::user()->id != $user->id)
+				@if(Auth::user()->level_id == 5 || (Auth::user()->level_id == 4 && $user->level_id < 4 ))
+
+				<hr class="colorgraph" />
+				<div class="row">
+					<h3 align="center">Modifier le level de cet utilisateur :</h3>
+					<form method="post" action=" {{ url('users/updatelevel') }} ">
+					{!! csrf_field() !!}
+						<div class="col-lg-4 col-lg-offset-3">
+							<input hidden name="id" value="{{ $user->id }}" />
+
+							<select class="form-control" name="level">
+								@foreach(App\Level::where('id', '!=', '2')->orderBy('id', 'asc')->get() as $level)
+									<option value="{{ $level->id }}" {{ $level->id == $user->level_id ? 'selected' : '' }}>{{ ucfirst($level->name) }}</option>
+								@endforeach
+							</select>
+						</div>
+
+						<div class="buttons col-lg-3">
+							<button type="submit" class="btn btn-primary">Valider</button>
+						</div>	
+
+					</form>
+				</div>
+
+				@endif 
+			@endif
+		@endif
+
+
 	</div>
 </div>
 

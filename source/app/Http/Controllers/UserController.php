@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\User;
+use App\Level;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -20,6 +21,38 @@ class UserController extends Controller {
 		
 		$users = User::orderBy('last_name')->with('department', 'level', 'courses')->paginate(20);
 	 	return view('admin.users.index', compact('users'));
+	}
+
+	public function updateLevel(Request $request)
+	{
+		$user = User::with(['level', 'courses' => function($query){ $query->where('level', '1')->where('validated', 1); }])->where('id', $request->id)->first();
+		$oldLevel = ucfirst($user->level->name);
+
+		if(Auth::check())
+		{	
+			if(Auth::user()->id != $user->id)
+			{
+				if(Auth::user()->level_id == 5 || (Auth::user()->level_id == 4 && $user->level_id < 4 ))
+				{
+					if($request->level < 3 && $user->courses->count() > 0)
+					{
+						Flash::error('Impossible de rétrograder cet utilisateur à ce level car il est professeur de '. $user->courses->count() .' cours.');
+						return Redirect::back();
+					}
+
+					$newLevel = ucfirst(Level::find($request->level)->name);
+					$modif = $user->level_id > $request->level ? 'downgraded' : 'upgraded';
+					$user->level_id = $request->level;
+					$user->save();
+					Flash::success('Le changement a été effectué avec succès.');
+					makeModification('users', printUserLinkV2($user).' as been '.$modif.' from '.$oldLevel.' to '.$newLevel.'.');
+					return Redirect::back();
+				}
+			}
+		}
+
+		Flash::error('Vous n\'avez pas les droits nécéssaires pour cela.');
+		return Redirect::back();
 	}
 
 	/**

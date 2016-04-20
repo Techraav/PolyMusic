@@ -106,6 +106,7 @@ Route::get('users/{slug}', 'UserController@show')	->name('user.show');
 Route::get('users/edit/{slug}', 'UserController@edit')		->name('user.edit')->middleware('auth');
 Route::post('users/edit/{slug}', 'UserController@update')	->name('user.update');
 Route::post('users/image/remove', 'UserController@removeImage')->name('user.removeImage');
+Route::post('users/updatelevel', 'UserController@updateLevel')->name('user.updatelevel')->middleware('level:4');
 
 
 // ____________________________________________________________________________________________________
