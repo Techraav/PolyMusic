@@ -62,7 +62,7 @@
 			  			@endif
 
 				  			<button onclick="dialogDeleteComment(this)" 
-						  			id="{{$c->id}}" 
+						  			comment-id="{{$c->id}}" 
 						  			link="{{ url('comment/delete') }}" 
 						  			class="btn-delete glyphicon glyphicon-trash">
 				  			</button>

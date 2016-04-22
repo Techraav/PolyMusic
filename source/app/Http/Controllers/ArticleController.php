@@ -82,12 +82,12 @@ class ArticleController extends Controller {
 	{
 		if($category != false)
 		{
-		    $articles = Article::where('category_id', $category)->with('author', 'category')->orderBy('id', 'desc')->paginate(15);
+		    $articles = Article::where('category_id', $category)->with('author', 'category')->orderBy('id', 'desc')->paginate(5);
 		    $category = Category::find($category)->name;
 		}
 		else
 		{
-		    $articles = Article::orderBy('id', 'desc')->with('author', 'category')->paginate(15);
+		    $articles = Article::orderBy('id', 'desc')->with('author', 'category')->paginate(5);
 		}
 		return view('admin.articles.index', compact('articles', 'category'));    
 	}
@@ -126,16 +126,23 @@ class ArticleController extends Controller {
 	*/
 	public function show($slug)
 	{
-		$article = Article::where('slug', $slug)->with('author', 'category', 'images', 'course', 'band')->first();
+		$article = Article::where('slug', $slug)
+						  ->with(['author', 
+						  		  'category', 
+						  		  'images' => function($query) { $query->orderBy('created_at', 'desc')->limit(5)->get(); }, 
+						  		  'course', 
+						  		  'band'])
+						  ->first();
+
 		if(empty($article) || ($article->validated == 0 && (Auth::guest() || Auth::user()->level_id < 3)))
 		{
 		  Flash::error('Cet article n\'existe pas.');
 		  return view('errors.404');
 		}
 
-		$images = Image::where('article_id', $article->id)->orderBy('created_at', 'desc')->limit(5)->get();
+		$nbImages = Image::where('article_id', $article->id)->count();
 
-		return view('articles.show', compact('article', 'images'));
+		return view('articles.show', compact('article', 'nbImages'));
 	}
 
 	/**

@@ -314,17 +314,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'level:3'], function(){
 // _____________________________________________________________________________________________________________
 
 	// DEPARTEMENTS : GET
-	Route::get('departments', 'DepartmentController@index')					->name('departments.index')		->middleware('level:4');
-	Route::get('departments/create', 'DepartmentController@create')			->name('departments.create')	->middleware('level:4');
-	Route::get('departments/edit/{id}', 'DepartmentController@edit')		->name('departments.edit')		->middleware('level:4');
-	Route::get('departments/delete/{id}', 'DepartmentController@delete')	->name('departments.delete')	->middleware('level:4');
-	Route::get('departments/{id}/members', 'DepartmentController@members')	->name('departments.members')	->middleware('level:4');
+	Route::get('departments', 'DepartmentController@index')					->name('departments.index');
+	Route::get('departments/create', 'DepartmentController@create')			->name('departments.create');
+	Route::get('departments/edit/{id}', 'DepartmentController@edit')		->name('departments.edit');
+	Route::get('departments/delete/{id}', 'DepartmentController@delete')	->name('departments.delete');
+	Route::get('departments/{id}/members', 'DepartmentController@members')	->name('departments.members');
 
 	// DEPARTEMENTS : POST
-	Route::post('departments/create', 'DepartmentController@store')			->name('departments.store')		->middleware('level:4');
-	Route::post('departments/edit/{id}', 'DepartmentController@update')		->name('departments.update')	->middleware('level:4');
-	Route::post('departments/delete', 'DepartmentController@destroy')		->name('departments.destroy')	->middleware('level:4');
-	Route::post('departments/{id}/members/remove', 'DepartmentController@removemember')->name('departments.removemember')->middleware('level:4');
+	Route::post('departments/create', 'DepartmentController@store')			->name('departments.store');
+	Route::post('departments/edit/{id}', 'DepartmentController@update')		->name('departments.update');
+	Route::post('departments/delete', 'DepartmentController@destroy')		->name('departments.destroy');
+	Route::post('departments/{id}/members/remove', 'DepartmentController@removemember')->name('departments.removemember');
 
 
 	// BLACKLIST : GET

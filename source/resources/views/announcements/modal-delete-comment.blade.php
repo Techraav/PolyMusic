@@ -12,7 +12,7 @@
 	        {!! csrf_field() !!}
 		        <div class="modal-body">
         		<p class="text-danger"><b>Attention ! Cette action est irréversible !</b></p>
-		         	<input hidden value="" name="comment_id" id="comment_id" />
+		         	<input hidden value="" name="id" id="comment_id" />
 		        </div>
 		        <div class="modal-footer">
 		          	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>

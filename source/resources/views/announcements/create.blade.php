@@ -39,7 +39,7 @@
               </div>
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
 
                 <div class="col-md-10 col-md-offset-1">
                     <textarea class="form-control" rows="10" name="content" id="content" required placeholder="Contenu de votre annonce..."></textarea>
@@ -49,7 +49,7 @@
                       </label>
                     </div>
                 </div>
-            </div>
+            </div> -->
             
             <div class="form-group buttons" align="center">
                 <div class="col-md-10 col-md-offset-1">

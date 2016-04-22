@@ -41,12 +41,12 @@
 	<hr class="colorgraph" />
 		<h2 align="center">Galerie</h2>
 
-	@if($article->images->count() > 0)
-		<span align="center" class="help-block"><i>Nombre total d'images : {{ $article->images->count() }}</i></span>
+	@if($nbImages > 0)
+		<span align="center" class="help-block"><i>Nombre total d'images : {{ $nbImages }}</i></span>
 	<div id="gallery">
 		<div class="scroll">
 			<ul class="nav nav-pills">
-				@foreach($images as $i)
+				@foreach($article->images as $i)
 					 <li><img onclick="modalPicture(this)" title="{{ $i->description }}" src="{{ URL::asset('img/article_pictures/'.$i->name) }}" /></li>
 				@endforeach
 				<br />

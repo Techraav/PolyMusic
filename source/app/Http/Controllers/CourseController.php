@@ -279,7 +279,7 @@ class CourseController extends Controller {
 			return abort(404);
 		}
 
-						
+		//Si l'utilisateur est connecte et qu'il fait partie des professeurs de ce cours				
 		if(Auth::check())
 		{
 			if($course->users->contains(Auth::user()) || $course->teachers->contains(Auth::user()) || Auth::user()->level_id > 3)

@@ -19,8 +19,10 @@
 		<p>Voici les derniers articles publiés.</p>
 		<p>Cliquez sur son titre pour lire un article en entier.</p>
 		<p>Vous pouvez filtrer les articles selon la catégorie, pour affiner votre recherche.</p>
-		<hr class="colorgraph" />
-		<p>Pour rédiger un article : <a href="{{url('admin/articles/create')}}" title="Créer un article">Cliquez ici !</a></p>		
+		@if(Auth::check() && Auth::user()->level_id > 2)
+			<hr class="colorgraph" />
+			<p>Pour rédiger un article : <a href="{{url('admin/articles/create')}}" title="Créer un article">Cliquez ici !</a></p>	
+		@endif	
 	</div>
 
 	<div class="row">

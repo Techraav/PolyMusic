@@ -11,25 +11,6 @@ class Course extends Model {
 	protected $fillable = array('timestamps', 'name', 'day', 'start', 'end', 'infos', 'slug', 'instrument_id', 'article_id', 'user_id', 'active');
 	const NAMEFIELD = 'name';
 
-	public function joinNotification()
-	{
-		return $this->manager->sendNotification('Un membre a demandé à rejoindre le cours &laquo; '.ucfirst($this->name).' &raquo;.', 'admin/courses/'.$this->slug.'/members');
-	}
-
-	public function leaveNotification($level, User $user)
-	{
-		return $this->manager->sendNotification(ucfirst($user->first_name).' '.ucfirst($user->last_name)." s'est retiré des ". ($level == 1 ? 'professeurs' : 'élèves') . 'du cours &laquo; '.ucfirst($this->name).' &raquo;.', 'admin/courses/'.$this->slug.'/members');
-	}
-
-	public function waitingStudents()
-	{
-		return $this->hasMany('App\CourseUser');
-	}
-
-	public function waitingTeachers()
-	{
-		return $this->hasMany('App\CourseUser');
-	}
 
 	public function users()
 	{
@@ -96,4 +77,23 @@ class Course extends Model {
 		return $this->belongsToMany('App\User');
 	}
 
+	public function joinNotification()
+	{
+		return $this->manager->sendNotification('Un membre a demandé à rejoindre le cours &laquo; '.ucfirst($this->name).' &raquo;.', 'admin/courses/'.$this->slug.'/members');
+	}
+
+	public function leaveNotification($level, User $user)
+	{
+		return $this->manager->sendNotification(ucfirst($user->first_name).' '.ucfirst($user->last_name)." s'est retiré des ". ($level == 1 ? 'professeurs' : 'élèves') . 'du cours &laquo; '.ucfirst($this->name).' &raquo;.', 'admin/courses/'.$this->slug.'/members');
+	}
+
+	public function waitingStudents()
+	{
+		return $this->hasMany('App\CourseUser');
+	}
+
+	public function waitingTeachers()
+	{
+		return $this->hasMany('App\CourseUser');
+	}
 }

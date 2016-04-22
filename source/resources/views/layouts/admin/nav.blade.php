@@ -74,6 +74,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Données <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="{{ url('admin/categories') }}">Catégories</a></li>
+            <li><a href="{{ url('admin/departments') }}">Départements</a></li>
             <li><a href="{{ url('admin/instruments') }}">Instruments</a></li>
           </ul>
         </li>
@@ -99,7 +100,6 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Masteradmin <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="{{ url('admin/departments') }}">Départements</a></li>
               <li><a href="{{ url('admin/levels') }}">Levels</a></li>
             </ul>
           </li>

@@ -109,7 +109,7 @@ class CommentController extends Controller {
 	public function destroy(Request $request)
 	{
 		$model = Comment::find($request->id);
-		if(empty($model) || ($comment->user_id != Auth::user()->id && Auth::user()->level->level < 4))
+		if(empty($model) || ($model->user_id != Auth::user()->id && Auth::user()->level_id < 3))
 		{
 			Flash::error('Impossible de supprimer ce commentaire.');
 			return Redirect::back();

@@ -127,7 +127,7 @@ class AnnouncementController extends Controller {
           return view('errors.404');
         }
 
-        $comments = Comment::where('announcement_id', $announcement->id)->with('author')->paginate(10);
+        $comments = Comment::where('announcement_id', $announcement->id)->orderBy('created_at', 'desc')->with('author')->paginate(10);
         return view('announcements.show', compact('announcement', 'comments'));
     }
 
@@ -213,16 +213,16 @@ class AnnouncementController extends Controller {
         }
         $annonce = Announcement::where('slug', $slug)->first();
 
-        $slug = str_slug($request->title . '-' . $news->id);
+        $slug = str_slug($request->title . '-' . $annonce->id);
 
         $content = $request->content;
 
         $annonce->update([
           'title'   => $request->title,
           'content' => $content,
-          'subject'   => $Request->subject,
+          'subject' => $request->subject,
           'user_id' => Auth::user()->id,
-          'slug' => $slug,
+          'slug'    => $slug,
           ]);
 
         Flash::success('L\'annonce a bien été modifiée ! ');

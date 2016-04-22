@@ -43,7 +43,7 @@ class NewsController extends Controller {
    */
   public function adminIndex()
   {
-    $news = News::orderBy('published_at', 'desc')->with('author')->paginate(15);
+    $news = News::orderBy('published_at', 'desc')->with('author')->paginate(5);
     return view('admin.news.index', compact('news'));
   }
 

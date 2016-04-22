@@ -35,16 +35,13 @@ class RedirectIfLowerLevel
      * @param   $level_min : continue only if the user has a higher level than $level_min
      * @return mixed
      */
-    public function handle($request, Closure $next, $level_min=2)
+    public function handle($request, Closure $next, $level_min=3)
     {
-        if ($this->auth->check()) 
-        {
-            if($this->auth->user()->level_id >= $level_min)
-            {
+        if ($this->auth->check()) {
+            if($this->auth->user()->level_id >= $level_min) {
                 return $next($request);
             }
         }
-
         Flash::error('Vous n\'avez pas les droits suffisants pour ceci.');
         return redirect('/');
     }
