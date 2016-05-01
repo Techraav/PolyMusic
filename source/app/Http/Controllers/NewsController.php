@@ -279,7 +279,7 @@ class NewsController extends Controller {
 
     makeModification('news', 'The news &laquo; '.$title.' &raquo; has been removed.');
     Flash::success('La news a bien été supprimé.');
-    return Redirect::back();
+    return redirect('news');
   }
 
 }

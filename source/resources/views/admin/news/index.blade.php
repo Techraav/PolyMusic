@@ -59,7 +59,7 @@
 							@else
 								<button 
 										onclick="modalToggle(this)"
-										link="{{ url('admin/news/validate/1') }}"
+										link="{{ url('admin/news/activate/1') }}"
 										id="{{ $n->id }}"
 										action="activer"
 										msg="Voulez-vous vraiment activer cette news ?"

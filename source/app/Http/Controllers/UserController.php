@@ -63,7 +63,7 @@ class UserController extends Controller {
 	*/
 	public function show($slug)
 	{
-		$user = User::where('slug', $slug)->with('level', 'department', 'courses')->first();
+		$user = User::where('slug', $slug)->with('level', 'department', 'courses', 'coursesTeacher', 'coursesStudent')->first();
 		if(empty($user))
 		{
 			Flash::error('Cet utilisateur n\'existe pas.');

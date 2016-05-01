@@ -33,6 +33,16 @@ class User extends Model implements AuthenticatableContract,
 		return $this->belongsTo('App\Level');
 	}
 
+	public function coursesTeacher()
+	{
+		return $this->belongsToMany('App\Course')->withPivot('level', 'validated')->where('level', '1')->where('validated', '1');
+	}
+
+	public function coursesStudent()
+	{
+		return $this->belongsToMany('App\Course')->withPivot('level', 'validated')->where('level', '0')->where('validated', '1');
+	}
+
 	public function notifications()
 	{
 		return $this->hasMany('App\Notification');

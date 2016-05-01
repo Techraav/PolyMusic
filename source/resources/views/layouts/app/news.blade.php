@@ -14,7 +14,7 @@
           <li class="list-group-item news-item">
               <div class="news-infos"><p><span>{{ $n->published_at->format('j M Y') }}</span></p></div> 
               <!-- <span class="trait"></span> -->
-              <div class="content"><p><a href="{{ url('news/view/'.$n->slug)}}">{{ strlen($n->title) > 40 ? substr($n->title, 0, 40).'...' :  $n->title }}</a></p></div>
+              <div class="content"><p><a title="{{ $n->title }}" href="{{ url('news/view/'.$n->slug)}}">{{ strlen($n->title) > 40 ? substr($n->title, 0, 40).'...' :  $n->title }}</a></p></div>
               <span class="glyphicon glyphicon-menu-right"></span>
           </li>
           @empty

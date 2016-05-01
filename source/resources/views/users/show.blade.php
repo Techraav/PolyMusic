@@ -76,6 +76,49 @@
 					</tbody>
 				</table>
 			</div>
+			<br />
+		</div>
+		
+		<div class="row">
+		<br />
+			<div class="col-lg-8 col-lg-offset-2 courses-table">
+				<div class="table table-hidden" id="table">
+					<table class="courses">
+						<thead>
+							<tr>
+								<td align="center">Cours suivis</td>
+								<td align="center">Cours enseignés</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td align="center">
+									@forelse($user->coursesStudent as $c)
+										{!! printLink('courses/show/'.$c->slug, ucfirst($c->name)) !!} <br />
+									@empty
+									-
+									@endforelse
+								</td>
+								<td align="center">
+									@forelse($user->coursesteacher as $c)
+										{!! printLink('courses/show/'.$c->slug, ucfirst($c->name)) !!} <br />
+									@empty
+									-
+									@endforelse	
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div align="center" class="open-tab" id="open-tab">
+					<p align="center">Voir les cours auxquels {{ucfirst($user->first_name)}} est inscrit.</p>
+					<span class="{{ glyph('menu-down')}}"></span>
+				</div>
+				<div align="center" class="close-tab table-hidden" id="close-tab">
+					<p align="center">Masquer les cours auxquels {{ucfirst($user->first_name)}} est inscrit.</p>
+					<span class="{{ glyph('menu-up')}}"></span>
+				</div>
+			</div>			
 		</div>
 
 		<div class="row">
@@ -159,3 +202,7 @@
 
 
 @endsection
+
+@section('js')
+	<script type="text/javascript" src="{{ URL::asset('addons.js') }}"></script>
+@stop

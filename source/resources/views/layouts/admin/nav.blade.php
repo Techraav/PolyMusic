@@ -71,15 +71,6 @@
 
 
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Données <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="{{ url('admin/categories') }}">Catégories</a></li>
-            <li><a href="{{ url('admin/departments') }}">Départements</a></li>
-            <li><a href="{{ url('admin/instruments') }}">Instruments</a></li>
-          </ul>
-        </li>
-
-        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Groupes &amp; Events <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="{{ url('admin/bands') }}">Groupes</a></li>
@@ -95,22 +86,23 @@
           </ul>
         </li>
 
+	    <li><a href="{{ url('admin/instruments') }}">Instruments</a></li>
         <li><a href="{{ url('admin/users') }}">Membres</a></li>
-        @if(Auth::user()->level_id > 3)
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Masteradmin <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="{{ url('admin/levels') }}">Levels</a></li>
-            </ul>
-          </li>
-        @endif
 
+	    @if(Auth::user()->level_id > 3)
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Données <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="{{ url('admin/categories') }}">Catégories</a></li>
+            <li><a href="{{ url('admin/departments') }}">Départements</a></li>
+            <li><a href="{{ url('admin/levels') }}">Levels</a></li>
+          </ul>
+        </li>
+        @endif
+        
       </ul>
       <ul class="nav navbar-nav navbar-right">
-      @if(Auth::guest())
-        <li><a href="{{url('auth/register')}}">Inscription </a></li>
-        <li><a href="{{url('auth/login')}}">Connexion </a></li>
-      @else
+
         <li class="dropdown">
           <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-expanded="false">  <span class="glyphicon glyphicon-user">
                 @if($notifications > 0)
@@ -121,9 +113,7 @@
           </span><span class="caret"></span></a>
           <ul class="dropdown-menu user-menu" role="menu">
             <li> <a href="{{ url('users/'.Auth::user()->slug) }}"><span class="glyphicon glyphicon-user"></span> {{ Auth::user()->first_name.' '.Auth::user()->last_name }}</a></li>
-      @if(Auth::user()->level->level > 0)
             <li><a href=" {{ url('/') }} " class="admin-link"> <span class="glyphicon glyphicon-home"></span> Quitter le back office</a></li>
-            @endif
             <li><a href="{{ url('notifications') }}"> 
               <span class="glyphicon glyphicon-bell">
                 @if($notifications > 0)
@@ -136,7 +126,6 @@
             <li><a href="{{ url('auth/logout') }}"> <span class="glyphicon glyphicon-log-out"></span> Déconnexion</a></li>
           </ul>
         </li>
-      @endif
       </ul>
     </div>
   </div>

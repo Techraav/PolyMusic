@@ -23,3 +23,15 @@ $(function(){
     root.find('.sub-menu:visible').hide();
   });
 });
+
+$('#open-tab').on('click', function(){
+  $('#table').toggleClass('table-hidden');
+  $('#open-tab').toggleClass('table-hidden');
+  $('#close-tab').toggleClass('table-hidden');
+});
+
+$('#close-tab').on('click', function(){
+  $('#table').toggleClass('table-hidden');
+  $('#open-tab').toggleClass('table-hidden');
+  $('#close-tab').toggleClass('table-hidden');
+});
