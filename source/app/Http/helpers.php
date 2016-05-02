@@ -357,10 +357,10 @@
 		{
 			$date = str_replace('Feb', 'Fév', $date);
 			$date = str_replace('Apr', 'Avr', $date);
-			$date = str_replace('May', 'Fév', $date);
-			$date = str_replace('Jun', 'Fév', $date);
-			$date = str_replace('Jul', 'Fév', $date);
-			$date = str_replace('Aug', 'Fév', $date);
+			$date = str_replace('May', 'Mai', $date);
+			$date = str_replace('Jun', 'Juin', $date);
+			$date = str_replace('Jul', 'Juil', $date);
+			$date = str_replace('Aug', 'Aoû', $date);
 		}
 		if(strpos($format, 'F') > -1)
 		{

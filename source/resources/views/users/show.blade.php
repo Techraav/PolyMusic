@@ -16,8 +16,26 @@
 			<h1 align="center">{{ $user->first_name}} {{ $user->last_name }}</h1>
 			<br/>
 
-			@if(Auth::check() && ($user->id == Auth::user()->id || Auth::user()->level->level > 4))
+			@if($user->banned == 1)
+				<span class="text-danger user-banned">Cet utilisateur a été banni.</span>
+			@endif
+
+			@if(Auth::check() && ($user->id == Auth::user()->id || Auth::user()->level_id > 3))
 				<div class="manage-user manage">
+					@if($user->banned == 0)
+						<button 
+								id="bannish"
+								title="Bannir {{ ucfirst($user->first_name) }} {{ ucfirst($user->last_name) }}" 
+								class="{{ glyph('ban-circle') }} ban-control">
+						</button>
+					@else
+						<button 
+								id="unbannish"
+								title="Débannir {{ ucfirst($user->first_name) }} {{ ucfirst($user->last_name) }}" 
+								class="{{ glyph('ok-circle') }} ban-control">
+						</button>
+
+					@endif
 					<a title="{{ $user->id != Auth::user()->id ? 'Modifier ce profil' : 'Modifier votre profil' }}" href="{{ url('users/edit/'.$user->slug) }}" class="btn-edit glyphicon glyphicon-pencil"></a>
 				</div>					
 			@endif
@@ -81,44 +99,49 @@
 		
 		<div class="row">
 		<br />
-			<div class="col-lg-8 col-lg-offset-2 courses-table">
-				<div class="table table-hidden" id="table">
-					<table class="courses">
-						<thead>
-							<tr>
-								<td align="center">Cours suivis</td>
-								<td align="center">Cours enseignés</td>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td align="center">
-									@forelse($user->coursesStudent as $c)
-										{!! printLink('courses/show/'.$c->slug, ucfirst($c->name)) !!} <br />
-									@empty
-									-
-									@endforelse
-								</td>
-								<td align="center">
-									@forelse($user->coursesteacher as $c)
-										{!! printLink('courses/show/'.$c->slug, ucfirst($c->name)) !!} <br />
-									@empty
-									-
-									@endforelse	
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div align="center" class="open-tab" id="open-tab">
-					<p align="center">Voir les cours auxquels {{ucfirst($user->first_name)}} est inscrit.</p>
-					<span class="{{ glyph('menu-down')}}"></span>
-				</div>
-				<div align="center" class="close-tab table-hidden" id="close-tab">
-					<p align="center">Masquer les cours auxquels {{ucfirst($user->first_name)}} est inscrit.</p>
-					<span class="{{ glyph('menu-up')}}"></span>
-				</div>
-			</div>			
+			<div class="col-lg-10 col-lg-offset-1">
+			<h3 align="left">Cours suivis et enseignés : </h3>
+				<div class="courses-table">
+					<div class="table table-hidden" id="table">
+						<table class="courses">
+							<thead>
+								<tr>
+									<td align="center">Cours suivis</td>
+									<td align="center">Cours enseignés</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td align="center">
+										@forelse($user->coursesStudent as $c)
+											{!! printLink('courses/show/'.$c->slug, ucfirst($c->name)) !!} <br />
+										@empty
+										-
+										@endforelse
+									</td>
+									<td align="center">
+										@forelse($user->coursesteacher as $c)
+											{!! printLink('courses/show/'.$c->slug, ucfirst($c->name)) !!} <br />
+										@empty
+										-
+										@endforelse	
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+
+					<div align="center" class="open-tab" id="open-tab" title="Voir les cours auxquels {{ucfirst($user->first_name)}} est inscrit.">
+	<!-- 					<p align="center">Voir les cours auxquels {{ucfirst($user->first_name)}} est inscrit.</p>
+	 -->					<span class="{{ glyph('menu-down')}}"></span>
+					</div>
+					<div align="center" class="close-tab table-hidden" id="close-tab" title="Masquer les cours auxquels {{ucfirst($user->first_name)}} est inscrit.">
+	<!-- 					<p align="center">Masquer les cours auxquels {{ucfirst($user->first_name)}} est inscrit.</p>
+	 -->					<span class="{{ glyph('menu-up')}}"></span>
+					</div>
+				</div>	
+			</div>		
 		</div>
 
 		<div class="row">
@@ -201,8 +224,58 @@
 	</div>
 
 
-@endsection
+	<div class="modal fade" id="modalBannish" role="dialog">
+		<div class="modal-dialog">
 
-@section('js')
-	<script type="text/javascript" src="{{ URL::asset('addons.js') }}"></script>
-@stop
+	  	<!-- Modal content-->
+	      	<div class="modal-content">
+	       	 	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h4 id="modal-title" class="modal-title">Bannir {{ ucfirst($user->first_name).' '.ucfirst($user->last_name) }}</h4>
+	        	</div>
+
+		        <form id="delete-form" class="modal-form" method="post" action="{{ url('admin/users/bannish') }}">
+		        	{!! csrf_field() !!}
+			        <div class="modal-body">
+	        		<p class="text-danger"><b>Cet utilisateur ne pourra plus se connecter à son compte.</b></p>
+			         	<input hidden value="{{ $user->id }}" name="id" id="id" />
+			        </div>
+			        <div class="modal-footer">
+			          	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+			          	<button type="submit" class="btn btn-primary">Bannir</button>
+			        </div>
+				</form>
+
+	   		</div>
+		</div>
+	</div>
+
+
+	<div class="modal fade" id="modalUnbannish" role="dialog">
+		<div class="modal-dialog">
+
+	  	<!-- Modal content-->
+	      	<div class="modal-content">
+	       	 	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h4 id="modal-title" class="modal-title">Débannir {{ ucfirst($user->first_name).' '.ucfirst($user->last_name) }}</h4>
+	        	</div>
+
+		        <form id="delete-form" class="modal-form" method="post" action="{{ url('admin/users/unbannish') }}">
+		        	{!! csrf_field() !!}
+			        <div class="modal-body">
+	        		<p class="text-warning"><b>Cet utilisateur pourra de nouveau se connecter à son compte.</b></p>
+			         	<input hidden value="{{ $user->id }}" name="id" id="id" />
+			        </div>
+			        <div class="modal-footer">
+			          	<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+			          	<button type="submit" class="btn btn-primary">Débannir</button>
+			        </div>
+				</form>
+
+	   		</div>
+		</div>
+	</div>
+
+
+@endsection

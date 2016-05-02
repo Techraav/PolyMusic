@@ -70,6 +70,14 @@ class UserController extends Controller {
 			return view('error.404');
 		}
 
+		if($user->banned == 1)
+		{
+			if(Auth::guest() || Auth::user()->level_id < 4){
+				Flash::error('Cet utilisateur a été banni, impossible de consulter son profil.');
+				return redirect('/');
+			}
+		}
+
 		return view('users.show', compact('user'));
 	}
 
@@ -187,8 +195,43 @@ class UserController extends Controller {
 	public function destroy(Request $request)
 	{
 		$user = User::find($request->id);
-		$user->banish();
-		return redirect('admin.users');
+		if(empty($user)){
+			Flash::error('Cet utilisateur n\'existe pas.');
+			return Redirect::back();
+		}
+		if($user->banned == 1){
+			Flash::error('Cet utilisateur est déjà banni.');
+			return Redirect::back();
+		}
+		$user->bannish();
+		Flash::success('Cet utilisateur a bien été banni.');
+		makeModification('users', $user->first_name.' '.$user->last_name.' a été <b>banni</b>.');
+		return Redirect::back();
+	}
+
+	/**
+	* Remove the specified resource from storage.
+	*
+	* @param  int  $id
+	* @return Response
+	*/
+	public function unbannish(Request $request)
+	{
+		$user = User::find($request->id);
+		if(empty($user)){
+			Flash::error('Cet utilisateur n\'existe pas.');
+			return Redirect::back();
+		}
+		if($user->banned == 0){
+			Flash::error('Cet utilisateur n\'est pas banni.');
+			return Redirect::back();
+		}
+
+		$user->banned = 0;
+		$user->save();
+		Flash::success('Cet utilisateur a bien été débanni.');
+		makeModification('users', $user->first_name.' '.$user->last_name.' a été <b>débanni</b>.');
+		return Redirect::back();
 	}
 
 	public function validator($data)

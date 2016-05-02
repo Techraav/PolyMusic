@@ -26,12 +26,16 @@ $(function(){
 
 $('#open-tab').on('click', function(){
   $('#table').toggleClass('table-hidden');
-  $('#open-tab').toggleClass('table-hidden');
-  $('#close-tab').toggleClass('table-hidden');
+  setTimeout(function(){
+    $('#open-tab').toggleClass('table-hidden');
+    $('#close-tab').toggleClass('table-hidden');
+  }, 100);
 });
 
 $('#close-tab').on('click', function(){
   $('#table').toggleClass('table-hidden');
-  $('#open-tab').toggleClass('table-hidden');
-  $('#close-tab').toggleClass('table-hidden');
+  setTimeout(function(){
+    $('#open-tab').toggleClass('table-hidden');
+    $('#close-tab').toggleClass('table-hidden');
+  }, 550);
 });

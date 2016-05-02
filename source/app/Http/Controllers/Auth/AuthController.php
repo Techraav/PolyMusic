@@ -146,7 +146,7 @@ class AuthController extends Controller
             } else
             {
                 Auth::logout();
-                Flash::error('Impossible de vous connecter : votre compte a été bannis. Pour plus d\'informations ou pour des réclamations, contactez un administrateur.');
+                Flash::error('Impossible de vous connecter : votre compte a été banni. Pour plus d\'informations ou pour des réclamations, contactez un administrateur.');
                 return redirect('/');
             }  
         }

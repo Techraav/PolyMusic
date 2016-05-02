@@ -104,3 +104,11 @@ $('.edit-instrument-button').on('click', function(){
 	var name = $(this).data('name');
 	modalEditInstrument(id, link, name);
 });
+
+$('#bannish').on('click', function(){
+	$('#modalBannish').modal('show');
+});
+
+$('#unbannish').on('click', function(){
+	$('#modalUnbannish').modal('show');
+});

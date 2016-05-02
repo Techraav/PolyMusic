@@ -8453,7 +8453,7 @@ button.glyphicon:hover {
 }
 
 .manage-user:hover {
-    color: #2C3E50;
+    /* color: #2C3E50; */
     opacity: 1;
     text-decoration: none;
 }
@@ -9372,6 +9372,7 @@ table.courses td{
 .courses thead td{
     font-size: 17px;
     font-weight: bold;
+    /* line-height: 40px; */
 }
 
 .courses tbody td a{
@@ -9419,4 +9420,22 @@ table.courses td{
     max-height: 0 !important;
     display:none;
     box-shadow: none;
+}
+
+.glyphicon-ban-circle:hover{
+    opacity: 0.9;
+    text-decoration: none;
+    color: #D83A3A !important;
+}
+
+.glyphicon-ok-circle:hover {
+    opacity: 0.9;
+    text-decoration: none;
+    color: #279827 !important;
+}
+
+.user-banned{
+    position:absolute;
+    top: 11px;
+    left: 14px;
 }
