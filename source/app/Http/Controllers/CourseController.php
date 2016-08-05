@@ -36,13 +36,17 @@ class CourseController extends Controller {
 			$filter = $filter == 'manager' ? 'user_id' : $filter = 'isntrument' ? 'instrument_id' : $filter;
 			$query = $query->where($filter, $value);
 		}
+		if(Auth::guest() || Auth::user()->level_id < 3)
+		{
+			$query = $query->where('active', 1);
+		}
 
 		$courses = $query->with(['manager',
 								'instrument', 
 								'documents', 
 								'users' => function($query){ $query->where('level', 0)->where('validated', 1)->orderBy('last_name'); },	
 								'teachers'	=> function($query){ $query->where('level', 1)->where('validated', 1)->orderBy('last_name'); },
-								])->paginate(20);	
+								])->paginate(10);	
 
 		$allCourses = Course::with('manager', 'instrument')->get();
 
@@ -187,20 +191,22 @@ class CourseController extends Controller {
 			abort(404);		
 		}
 			
-		$isTeacher = $course->teachers->contains(Auth::user());
-		if(Auth::user()->id != $course->user_id && !$isTeacher && $course->active == 0)
-		{
-			Flash::error('Vous n\'avez pas accès à ce contenu.');
-			return Redirect::back();
-		}
+		if(Auth::check()){
+			$isTeacher = $course->teachers->contains(Auth::user());
+			if(Auth::user()->id != $course->user_id && !$isTeacher && $course->active == 0)
+			{
+				Flash::error('Vous n\'avez pas accès à ce contenu.');
+				return Redirect::back();
+			}
 
-		if(Auth::user()->id == $course->user_id || $isTeacher)
-		{
-			$documents = Document::where('course_id', $course->id)->with('author')->paginate(10);
-		}
-		else
-		{
-			$documents = Document::where('course_id', $course->id)->validated()->paginate(10);
+			if(Auth::user()->id == $course->user_id || $isTeacher)
+			{
+				$documents = Document::where('course_id', $course->id)->with('author')->paginate(10);
+			}
+			else
+			{
+				$documents = Document::where('course_id', $course->id)->validated()->paginate(10);
+			}
 		}
 
 		return view('courses.documents', compact('course', 'documents'));
@@ -265,7 +271,7 @@ class CourseController extends Controller {
 		$course = Course::where('slug', $slug)
 						->with(['manager', 
 								'instrument',
-								'article' => function($query){ $query->with(['images' => function($query){ $query->limit(6);}]); },
+								'article' => function($query){ $query->with(['images' => function($query){ $query->limit(3);}]); },
 								'users' => function($query){ $query->where('level', 0)->where('validated', 1)->orderBy('last_name'); },	
 								'teachers'	=> function($query){ $query->where('level', 1)->where('validated', 1)->orderBy('last_name'); },	
 								'unvalidatedUsers'	=> function($query){ $query->where('level', 0)->where('validated', 0); },	

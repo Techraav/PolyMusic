@@ -28,6 +28,7 @@
                 <div class="col-md-8 col-md-offset-2">
                     <label for="date">Date de publication : </label>                      
                     <input required type="date" name="date" class="form-control" value="{{ date( 'Y-m-d') }}" >
+                    <span class="info"><i>Formats attendus : <b>jj/mm/aaaa</b> ou <b>aaaa-mm-jj</b>.</i></span>
                 </div>
             </div>
 

@@ -26,7 +26,7 @@
         <li><a href="{{ url('articles/list') }}">Articles </a></li>
         <li><a href="{{ url('announcements/list') }}">Annonces </a></li>
         <li class="disabled" title="Bientôt disponible..."><a href="#">Événements </a></li>
-        <li class="disabled" title="Bientôt disponible..."><a href="#">Les Groupes </a></li>
+        <li title="Bientôt disponible..."><a href="{{ url('bands/list') }}">Les Groupes </a></li>
         <!-- <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Nous rejoindre <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">

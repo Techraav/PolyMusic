@@ -38,29 +38,36 @@
 					<li><a href="#infos" data-toggle="tab">Informations</a></li>
 					<li><a href="#events" data-toggle="tab">Événements</a></li>
 				</ul>
-				<div class="tab-content" id="myTabContent">
+				<div class="tab-content">
 					<div id="members" class="tab-pane fade active in members" >
 						<!-- <h2 align="center">Membres :</h2> -->
-						<br />
-						<br />
 
 						@foreach($band->members as $m)
-							<div class="member">
+							<a href="{{ url('users/'.$m->slug) }}" class="member">
 								<p align="center"><img class="profil-picture" src="{{ URL::asset('img/profil_pictures/'.$m->profil_picture) }}" /></p>
-								<p align="center">{!! printUserLinkV2($m) !!} </p>
+								<p align="center" class="name"> {{ $m->first_name.' '.$m->last_name }} </p>
 								<p class="instrument" align="center"><i>{{ App\BandUser::where('user_id', $m->id)->where('band_id', $band->id)->first()->instrument->name }}</i></p>
 								@if ($m->id == $band->user_id)
 									<p align="center"<span class="help-block inline">(Manager)</span></p>
 								@endif
-							</div>
+							</a>
 						@endforeach
 					</div>
 					<div id="infos" class="tab-pane fade">
-						<h2 align="center">{!! printLink('articles/show/'.$band->article->slug, ucfirst($band->article->title)) !!}</h2>
 						{!! $band->article->content !!}
 					</div>
 					<div id="events" class="tab-pane fade">
-						<p>fzipefbziefbiez</p>
+						@forelse($band->events as $e)
+							<a href="{{ url('events/show/'.$e->slug) }}" class="band-event">
+								<p class="name">{{ucfirst($e->name)}}</p>
+								<p class="where">{{ $e->location }}</p>
+								<p class="when">{{ ucfirst(day($e->day))}} {{ $e->date->format('d/m/Y') }}, {{$e->start}} - {{$e->end}}</p>
+							</a>
+						@empty
+							Aucun événement enregistré pour ce groupe.
+						@endforelse
+
+						<div class="see-all" align="right"><a href="{{ url('bands/'.$band->id.'/events') }}"><span class="{{ glyph('arrow-right') }}"></span>Voir tous les événements</a></div>
 					</div>
 				</div>
 			</div>

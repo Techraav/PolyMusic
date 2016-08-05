@@ -134,6 +134,7 @@ Route::group(['prefix' => '/', 'middleware' => 'banned'], function(){
 
 	Route::group(['prefix' => 'bands', 'middleware' => 'incoming'], function(){
 		Route::get('/', 'BandController@index')->name('bands.index');
+		Route::get('list', 'BandController@index')->name('bands.index');
 		Route::get('show/{slug}', 'BandController@show')	->name('bands.show');
 	});
 

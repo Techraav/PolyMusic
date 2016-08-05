@@ -25,6 +25,7 @@
         <form class="form-horizontal" role="form" method="post" action="{{ url('announcements/create') }}">
             {!! csrf_field() !!}
 
+
             <div class="form-group">
 
               <div class="col-md-10 col-md-offset-1">
@@ -35,21 +36,35 @@
             <div class="form-group">
 
               <div class="col-md-10 col-md-offset-1">
+                <select class="form-control" name="category" id="category" required>
+                    <option disabled selected>Sélectionnez une catégorie...</option>
+                    @forelse(App\Category::all() as $c)
+                        <option value="{{ $c->id }}">{{ ucfirst($c->name) }}</option>
+                    @empty
+
+                    @endforelse
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-group">
+
+              <div class="col-md-10 col-md-offset-1">
                 <input type="text" class="form-control" name="subject" id="subject" required placeholder="Sujet" value="">
               </div>
             </div>
 
-            <!-- <div class="form-group">
+            <div class="form-group">
 
                 <div class="col-md-10 col-md-offset-1">
                     <textarea class="form-control" rows="10" name="content" id="content" required placeholder="Contenu de votre annonce..."></textarea>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" checked required>Active
+                        <input type="checkbox" checked>Active
                       </label>
                     </div>
                 </div>
-            </div> -->
+            </div>
             
             <div class="form-group buttons" align="center">
                 <div class="col-md-10 col-md-offset-1">

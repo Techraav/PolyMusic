@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 use Laracasts\Flash\Flash;
 use App\Department;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -58,12 +59,12 @@ class AuthController extends Controller
             'last_name'  => 'required|max:255',
             'email'      => 'required|email|max:255|unique:users,email',
             'password'   => 'required|confirmed|min:6',
-            'birth_date' => 'required|date',
+            'birth_date' => 'required',
             'department_id' => 'required',
             'school_year'=> 'required',
             'g-recaptcha-response'  => 'required'
         ]);
-    }
+    }  
 
     /**
      * Create a new user instance after a valid registration.
@@ -105,7 +106,25 @@ class AuthController extends Controller
             return Redirect::back()->withInput()->withErrors($validation->errors());
         }
 
-        $user = $this->create(Input::all());
+        $bdate = Input::get('birth_date');
+        if(strpos($bdate, '-'))
+        {
+            $bdate = Carbon::createFromFormat('Y-m-d', $bdate);
+        }else
+        {
+            $bdate = Carbon::createFromFormat('d/m/Y', $bdate);
+        }
+        $bdate = $bdate->format('Y-m-d');
+
+        $user = $this->create([
+            'first_name' => Input::get('first_name'),
+            'last_name' => Input::get('last_name'),
+            'email' => Input::get('email'),
+            'school_year' => Input::get('school_year'),
+            'department_id' => Input::get('department_id'),
+            'password' => Input::get('password'),
+            'birth_date' => $bdate
+            ]);
 
         Auth::login($user, true);
 

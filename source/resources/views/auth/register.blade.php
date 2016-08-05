@@ -38,7 +38,8 @@
                         <div class="form-group {{ $errors->has('birth_date') ? 'has-error' : ''}}">
                             <label class="control-label">&nbsp; Date de naissance : </label>
 
-                                <input type="date" class="form-control" name="birth_date" value="{{ old('birth_date') }}">
+                                <input type="date" class="form-control" name="birth_date" value="{{ old('birth_date') }}" placeholder="jj/mm/aaaa">
+                                <span class="info"><i>&nbsp; Formats attendus : <b>jj/mm/aaaa</b> ou <b>aaaa-mm-jj</b>.</i></span>
                         </div>
 
 
@@ -87,7 +88,7 @@
                         <br />
 
                         <div class="form-group {{ $errors->has('g-recaptcha-response') ? 'has-error' : ''}}" align="center">
-                            <div class="g-recaptcha" data-sitekey="{{ env('NOCAPTCHA_SITEKEY') }}"></div>
+                            <div class="g-recaptcha" data-sitekey="6LemUBsTAAAAAMytHw0RY9Y6VPtIUIG66yxUawyG"></div>
                         </div>
 
                         <br />

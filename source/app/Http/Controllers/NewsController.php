@@ -2,13 +2,14 @@
 
 use DB;
 use App\News;
-use App\user;
+use App\User;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 use Laracasts\Flash\Flash;
+use Carbon\Carbon;
 
 class NewsController extends Controller {
 
@@ -206,11 +207,21 @@ class NewsController extends Controller {
 
     $content = $request->content;
 
+	$date = $request->date;
+	if(strpos($date, '-'))
+	{
+	    $date = Carbon::createFromFormat('Y-m-d', $date);
+	}else
+	{
+	    $date = Carbon::createFromFormat('d/m/Y', $date);
+	}
+	$date = $date->format('Y-m-d');
+
     $news = createWithSlug(News::class, [
       'title'   => $request->title,
       'content' => $content,
       'user_id' => Auth::user()->id,
-      'published_at'  => $request->date,
+      'published_at'  => $date,
       'active'  => isset($request->active) ? 1 : 0,
       ]);
 

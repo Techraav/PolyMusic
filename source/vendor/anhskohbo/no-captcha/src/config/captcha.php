@@ -1,6 +1,7 @@
 <?php
 
 return [
-    'secret' => env('NOCAPTCHA_SECRET'),
-    'sitekey' => env('NOCAPTCHA_SITEKEY'),
+    'secret' => '6LemUBsTAAAAAH_lfEoYmKN6qJ66rax1JO',
+    'sitekey' => '6LemUBsTAAAAAMytHw0RY9Y6VPtIUIG66yxUawyG'
+,
 ];

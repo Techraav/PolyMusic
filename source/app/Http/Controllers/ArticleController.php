@@ -129,7 +129,7 @@ class ArticleController extends Controller {
 		$article = Article::where('slug', $slug)
 						  ->with(['author', 
 						  		  'category', 
-						  		  'images' => function($query) { $query->orderBy('created_at', 'desc')->limit(5)->get(); }, 
+						  		  'images' => function($query) { $query->orderBy('created_at', 'desc')->limit(4)->get(); }, 
 						  		  'course', 
 						  		  'band'])
 						  ->first();
@@ -234,7 +234,8 @@ class ArticleController extends Controller {
 			}
 		}
 
-		return redirect('articles/view/'.$article->slug.'/gallery');
+		// return redirect('articles/view/'.$article->slug.'/gallery');
+		return Redirect::back();
 
 	}
 

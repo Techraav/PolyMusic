@@ -14,7 +14,7 @@
 	<div class="jumbotron">
 		<h1>Gestion des documents</h1>
 		<p>Voici une vue d'ensemble des documents mis en ligne pour les cours.</p>
-		<p>Vous pouvez activer ou désactiver un document. Un document non validé n'est visible que pas les {{ ucfirst(App\Level::find(3)->name).'s' }} ou plus.</p>
+		<p>Vous pouvez activer ou désactiver un document. Un document non validé n'est visible que par les {{ ucfirst(App\Level::find(3)->name).'s' }} ou plus.</p>
 		<p>Vous pouvez également supprimer un document. Attention, cette action est définitive.</p>
 		<p>Le bouton &laquo; Modifier &raquo; vous permettra de mofifier le titre du document ainsi que sa description.</p>
 		<hr />

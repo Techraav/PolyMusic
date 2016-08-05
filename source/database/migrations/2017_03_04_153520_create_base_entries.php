@@ -77,10 +77,17 @@ class CreateBaseEntries extends Migration
             ]);
 
         Category::create(['name' => 'Aucune']);
+        Category::create(['name' => 'Autre']);
+        Category::create(['name' => 'Présentation']);
+        Category::create(['name' => 'Création de groupe']);
+        Category::create(['name' => 'Recherche de groupe']);
+        Category::create(['name' => 'Échange/Vente']);
 
 
         //Creation basic instruments :
-        $instruments = ['autre'];
+        $instruments = ['autre', 'guitare', 'piano', 'basse', 'chant', 'flûte', 
+        'violon', 'contrebasse', 'clarinette', 'saxophone', 'batterie', 'violoncelle', 
+        'guitare électrique', 'flûte traversière', 'trompette', 'cor', 'trombone', 'tuba'];
         $this->create_instrument($instruments);
     }
 

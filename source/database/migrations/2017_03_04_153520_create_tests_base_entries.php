@@ -93,19 +93,7 @@ class CreateTestsBaseEntries extends Migration
             'password'      => bcrypt('membercmt'),
             'level_id'         => 1,
             'slug'          => 'member-member-4'
-            ]);
-
-        Category::create(['name' => 'Autre']);
-        Category::create(['name' => 'Présentation']);
-        Category::create(['name' => 'Création de groupe']);
-        Category::create(['name' => 'Recherche de groupe']);
-        Category::create(['name' => 'Échange/Vente']);
-
-        //Creation basic instruments :
-        $instruments = ['guitare', 'piano', 'basse', 'chant', 'flûte', 
-        'violon', 'contrebasse', 'clarinette', 'saxophone', 'batterie', 'violoncelle', 
-        'guitare électrique', 'flûte traversière', 'trompette', 'cor', 'trombone', 'tuba'];
-        $this->create_instrument($instruments);    
+            ]);  
 
         // Create Article 'Cours de guitare'
         Article::create([

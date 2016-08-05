@@ -27,7 +27,7 @@
                         </div>
 
                         <div class="form-group" align="center">
-                            <div class="g-recaptcha" data-sitekey="{{ env('NOCAPTCHA_SITEKEY') }}"></div>
+                            <div class="g-recaptcha" data-sitekey="6LemUBsTAAAAAMytHw0RY9Y6VPtIUIG66yxUawyG"></div>
                         </div> 
 
                         <div class="row">
@@ -38,7 +38,7 @@
                                 <button href="{{ url('auth/register') }}" class="btn btn-default btn-block">Register</button>
                             </div>
                         </div>
-                        <a href="" class="btn btn-link pull-left ">Mot de passe oublié ?</a>
+                        <!-- <a href="" class="btn btn-link pull-left ">Mot de passe oublié ?</a> -->
                     </fieldset>
                 </form>
             </div>

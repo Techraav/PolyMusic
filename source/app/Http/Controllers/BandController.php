@@ -18,7 +18,7 @@ class BandController extends Controller {
 	public function index()
 	{
 		$bands = Band::validated()->orderBy('name')->with('members', 'events', 'manager', 'article')->paginate(10);
-		return view('admin.bands.index', compact('bands'));
+		return view('bands.index', compact('bands'));
 	}
 
 	/**
@@ -91,13 +91,13 @@ class BandController extends Controller {
 	{
 		$band = Band::where('slug', $slug)
 					->with(['members', 
-							'events', 
+							'events' => function($query){ $query->where('active', 1)->orderBy('date', 'asc')->limit(6); }, 
 							'manager', 
 							'article' => function($query){
 										 $query->with(['images' => function($query) {
 																	  $query->limit(5); 
 																	}
-										]) ;
+														]) ;
 										}
 								])
 					->first();

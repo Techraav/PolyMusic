@@ -185,11 +185,15 @@ class AnnouncementController extends Controller {
 
         $content = $request->content;
 
+        $validated = isset($request->validated) ? 1 : 0;
+
         $announcement = createWithSlug(Announcement::class, [
           'user_id'   => Auth::user()->id,
           'title'     => $request->title,
           'content'   => $content,
           'subject'   => $request->subject,
+          'validated' => $validated,
+          'category_id' => $request->category
           ]);
 
         Flash::success('Votre annonce a bien été créée');
@@ -249,7 +253,7 @@ class AnnouncementController extends Controller {
 
         $model->delete();
         Flash::success('L\'annonce a bien été supprimée.');
-        return Redirect::back();
+        return redirect('announcements/list');
     }
 
     // ____________________________________________________________________________________________________

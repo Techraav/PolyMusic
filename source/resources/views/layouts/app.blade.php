@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Team Musique | @section('title') Accueil @show </title>
 
-    <link href="{{ URL::asset('/css/bootstrap.min.css')  }}" rel="stylesheet">
+    <link href="{{ URL::asset('/css/bootstrap.css')  }}" rel="stylesheet">
     <link href="{{ URL::asset('js/file-input/css/fileinput.min.css') }}" media="all" rel="stylesheet" type="text/css" />
 
     <script src="{{ URL::asset('/js/jquery.js')  }}"></script>

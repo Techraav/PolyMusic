@@ -55,6 +55,10 @@
 		</table>
 	</div>
 
+	<div align="right">
+		{!! $courses->render() !!}
+	</div>
+
 	<div class="row">
 		<h2 align="center">Filtrer la recherche</h2>
 		<span align="center" class="help-block"><i>(Un seul à la fois)</i></span>
@@ -66,13 +70,13 @@
 			<label class="control-label">Filtrer par jour :</label>
 			<select class="form-control" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
 				<option disabled selected>Sélectionnez un jour...</option>
-				<option value="{{ url('courses/list/day/0') }}">Lundi</option>
-				<option value="{{ url('courses/list/day/1') }}">Mardi</option>
-				<option value="{{ url('courses/list/day/2') }}">Mercredi</option>
-				<option value="{{ url('courses/list/day/3') }}">Jeudi</option>
-				<option value="{{ url('courses/list/day/4') }}">Vendredi</option>
-				<option value="{{ url('courses/list/day/5') }}">Samedi</option>
-				<option value="{{ url('courses/list/day/6') }}">Dimanche</option>
+				<option value="{{ url('courses/list/day/1') }}">Lundi</option>
+				<option value="{{ url('courses/list/day/2') }}">Mardi</option>
+				<option value="{{ url('courses/list/day/3') }}">Mercredi</option>
+				<option value="{{ url('courses/list/day/4') }}">Jeudi</option>
+				<option value="{{ url('courses/list/day/5') }}">Vendredi</option>
+				<option value="{{ url('courses/list/day/6') }}">Samedi</option>
+				<option value="{{ url('courses/list/day/7') }}">Dimanche</option>
 			</select>
 		</div>
 		<div align="center" class="col-lg-4">
